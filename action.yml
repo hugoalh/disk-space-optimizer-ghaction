@@ -34,8 +34,8 @@ runs:
         [Boolean]$OsMac = $IsMacOS -or $Env:RUNNER_OS -ieq 'macOS'
         [Boolean]$OsWindows = $IsWindows -or $Env:RUNNER_OS -ieq 'Windows'
         [RegEx]$InputListDelimiter = Get-GitHubActionsInput -Name 'input_listdelimiter' -Mandatory -EmptyStringAsNull
-        [String]$RemoveSoftRaw = Get-GitHubActionsInput -Name 'remove_soft' -EmptyStringAsNull ?? ''
-        [String]$RemoveHardRaw = Get-GitHubActionsInput -Name 'remove_hard' -EmptyStringAsNull ?? ''
+        [String]$RemoveSoftRaw = (Get-GitHubActionsInput -Name 'remove_soft' -EmptyStringAsNull) ?? ''
+        [String]$RemoveHardRaw = (Get-GitHubActionsInput -Name 'remove_hard' -EmptyStringAsNull) ?? ''
         [AllowEmptyCollection()][RegEx[]]$RemoveSoft = (
           $RemoveSoftRaw -isplit $InputListDelimiter |
             Where-Object -FilterScript { $_.Length -gt 0 }
