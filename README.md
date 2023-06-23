@@ -25,6 +25,8 @@ This action is inspired from:
 - [ShubhamTatvamasi/free-disk-space-action](https://github.com/ShubhamTatvamasi/free-disk-space-action)
 - [ThewApp/free-actions](https://github.com/ThewApp/free-actions)
 
+### Item
+
 | **Name *(Case Insensitive)*** | **Description** | **Remove Method** | **OS** |
 |:-:|:--|:-:|:-:|
 | `AndroidLibrary` / `AndroidSdk` | Android SDK library. | Hard | Linux |
