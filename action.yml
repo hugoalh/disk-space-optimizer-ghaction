@@ -21,6 +21,10 @@ runs:
     - name: "Setup PowerShell Toolkit"
       uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.2.3"
     - name: "Main"
+      env:
+        INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
+        INPUT_REMOVE_SOFT: "${{inputs.remove_soft}}"
+        INPUT_REMOVE_HARD: "${{inputs.remove_hard}}"
       run: |
         #Requires -PSEdition Core -Version 7.2
         Import-Module -Name 'hugoalh.GitHubActionsToolkit' -Scope 'Local'
@@ -29,16 +33,17 @@ runs:
         [Boolean]$OsLinux = $IsLinux -or $Env:RUNNER_OS -ieq 'Linux'
         [Boolean]$OsMac = $IsMacOS -or $Env:RUNNER_OS -ieq 'macOS'
         [Boolean]$OsWindows = $IsWindows -or $Env:RUNNER_OS -ieq 'Windows'
-        [String]$InputListDelimiter = '${{inputs.input_listdelimiter}}'
-        If ($InputListDelimiter.Length -eq 0) {
-          Write-GitHubActionsFail -Message 'Input `input_listdelimiter` is not defined!'
-        }
-        [AllowEmptyCollection()][String[]]$RemoveSoft = @'
-        ${{inputs.remove_soft}}
-        '@ -isplit $InputListDelimiter ?? @()
-        [AllowEmptyCollection()][String[]]$RemoveHard = @'
-        ${{inputs.remove_hard}}
-        '@ -isplit $InputListDelimiter ?? @()
+        [RegEx]$InputListDelimiter = Get-GitHubActionsInput -Name 'input_listdelimiter' -Mandatory -EmptyStringAsNull
+        [String]$RemoveSoftRaw = Get-GitHubActionsInput -Name 'remove_soft' -EmptyStringAsNull ?? ''
+        [String]$RemoveHardRaw = Get-GitHubActionsInput -Name 'remove_hard' -EmptyStringAsNull ?? ''
+        [AllowEmptyCollection()][RegEx[]]$RemoveSoft = (
+          $RemoveSoftRaw -isplit $InputListDelimiter |
+            Where-Object -FilterScript { $_.Length -gt 0 }
+        ) ?? @()
+        [AllowEmptyCollection()][RegEx[]]$RemoveHard = (
+          $RemoveHardRaw -isplit $InputListDelimiter |
+            Where-Object -FilterScript { $_.Length -gt 0 }
+        ) ?? @()
         Function Show-DiskSpace {
           [CmdletBinding()]
           [OutputType([Void])]
@@ -72,9 +77,11 @@ runs:
         Show-DiskSpace
         $Script:ErrorActionPreference = 'Continue'
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'AzureCli' -Matcher $RemoveSoft)) {
+          Write-Host -Object 'Remove Azure CLI.'
           sudo apt-get --assume-yes remove azure-cli
         }
         If (Test-StringMatchRegEx -Item 'DockerImages' -Matcher $RemoveSoft) {
+          Write-Host -Object 'Remove Docker images.'
           If ($OsLinux) {
             sudo docker image prune --all --force
           }
@@ -83,36 +90,47 @@ runs:
           }
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'DotNet' -Matcher $RemoveSoft)) {
+          Write-Host -Object 'Remove .Net (softly).'
           sudo apt-get --assume-yes remove '^dotnet-.*'
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'Firefox' -Matcher $RemoveSoft)) {
+          Write-Host -Object 'Remove Mozilla Firefox browser.'
           sudo apt-get --assume-yes remove firefox
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'GoogleChrome' -Matcher $RemoveSoft)) {
+          Write-Host -Object 'Remove Google Chrome browser.'
           sudo apt-get --assume-yes remove google-chrome-stable
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'GoogleCloudSdk' -Matcher $RemoveSoft)) {
+          Write-Host -Object 'Remove Google Cloud SDK.'
           sudo apt-get --assume-yes remove google-cloud-sdk
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'Llvm' -Matcher $RemoveSoft)) {
+          Write-Host -Object 'Remove LLVM.'
           sudo apt-get --assume-yes remove '^llvm-.*'
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'Mono' -Matcher $RemoveSoft)) {
+          Write-Host -Object 'Remove Mono.'
           sudo apt-get --assume-yes remove mono-devel
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'MySql' -Matcher $RemoveSoft)) {
+          Write-Host -Object 'Remove MySQL.'
           sudo apt-get --assume-yes remove '^mysql-.*'
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'MongoDb' -Matcher $RemoveSoft)) {
+          Write-Host -Object 'Remove MongoDB.'
           sudo apt-get --assume-yes remove '^mongodb-.*'
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'OpenGlDri' -Matcher $RemoveSoft)) {
+          Write-Host -Object 'Remove OpenGL API DRI modules.'
           sudo apt-get --assume-yes remove libgl1-mesa-dri
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'Php' -Matcher $RemoveSoft)) {
+          Write-Host -Object 'Remove PHP.'
           sudo apt-get --assume-yes remove 'php.*'
         }
-        If ($OsLinux) {
+        If ($OsLinux -and (Test-StringMatchRegEx -Item 'AptCache' -Matcher $RemoveSoft)) {
+          Write-Host -Object 'Remove APT cache.'
           sudo apt-get --assume-yes autoremove
           sudo apt-get --assume-yes clean
         }
@@ -120,6 +138,7 @@ runs:
           (Test-StringMatchRegEx -Item 'AndroidLibrary' -Matcher $RemoveHard) -or
           (Test-StringMatchRegEx -Item 'AndroidSdk' -Matcher $RemoveHard)
         ) {
+          Write-Host -Object 'Remove Android SDK library.'
           If ($Null -ine $Env:ANDROID_SDK_ROOT) {
             Get-ChildItem -LiteralPath $Env:ANDROID_SDK_ROOT -Force -ErrorAction 'Continue' |
               Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
@@ -130,18 +149,24 @@ runs:
           }
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'DotNet' -Matcher $RemoveHard)) {
+          Write-Host -Object 'Remove .Net (hardly).'
           Get-ChildItem -LiteralPath '/usr/share/dotnet' -Force -ErrorAction 'Continue' |
             Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'HaskellGhc' -Matcher $RemoveHard)) {
-          Get-ChildItem -LiteralPath @('/opt/ghc', '/usr/local/.ghcup/ghc') -Force -ErrorAction 'Continue' |
+          Write-Host -Object 'Remove Haskell GHC.'
+          Get-ChildItem -LiteralPath '/opt/ghc' -Force -ErrorAction 'Continue' |
+            Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+          Get-ChildItem -LiteralPath '/usr/local/.ghcup/ghc' -Force -ErrorAction 'Continue' |
             Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'RunnerBoost' -Matcher $RemoveHard)) {
+          Write-Host -Object 'Remove runner boost.'
           Get-ChildItem -LiteralPath '/usr/local/share/boost' -Force -ErrorAction 'Continue' |
             Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
         }
         If (Test-StringMatchRegEx -Item 'RunnerToolsCache/CodeQl' -Matcher $RemoveHard) {
+          Write-Host -Object 'Remove runner tool cache (CodeQL).'
           If ($Null -ine $Env:AGENT_TOOLSDIRECTORY) {
             Get-ChildItem -LiteralPath (Join-Path -Path $Env:AGENT_TOOLSDIRECTORY -ChildPath 'CodeQL') -Force -ErrorAction 'Continue' |
               Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
@@ -152,6 +177,7 @@ runs:
           }
         }
         If (Test-StringMatchRegEx -Item 'RunnerToolsCache/Go' -Matcher $RemoveHard) {
+          Write-Host -Object 'Remove runner tool cache (Go Lang).'
           If ($Null -ine $Env:AGENT_TOOLSDIRECTORY) {
             Get-ChildItem -LiteralPath (Join-Path -Path $Env:AGENT_TOOLSDIRECTORY -ChildPath 'go') -Force -ErrorAction 'Continue' |
               Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
@@ -162,6 +188,7 @@ runs:
           }
         }
         If (Test-StringMatchRegEx -Item 'RunnerToolsCache/All' -Matcher $RemoveHard) {
+          Write-Host -Object 'Remove runner tool cache (All).'
           If ($Null -ine $Env:AGENT_TOOLSDIRECTORY) {
             Get-ChildItem -LiteralPath $Env:AGENT_TOOLSDIRECTORY -Force -ErrorAction 'Continue' |
               Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
@@ -172,6 +199,7 @@ runs:
           }
         }
         If (Test-StringMatchRegEx -Item 'Swift' -Matcher $RemoveHard) {
+          Write-Host -Object 'Remove Swift.'
           If ($Null -ine $Env:SWIFT_PATH) {
             Get-ChildItem -LiteralPath $Env:SWIFT_PATH -Force -ErrorAction 'Continue' |
               Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
@@ -182,6 +210,7 @@ runs:
           }
         }
         If ($OsLinux -and (Test-StringMatchRegEx -Item 'Swap' -Matcher $RemoveHard)) {
+          Write-Host -Object 'Remove Linux swap space.'
           sudo swapoff -a
           sudo rm -f /mnt/swapfile
         }

@@ -30,6 +30,7 @@ This action is inspired from:
 | **Name *(Case Insensitive)*** | **Description** | **Remove Method** | **OS** |
 |:-:|:--|:-:|:-:|
 | `AndroidLibrary` / `AndroidSdk` | Android SDK library. | Hard | Linux |
+| `AptCache` | APT cache. | Soft | Linux |
 | `AzureCli` | Azure CLI. | Soft | Linux |
 | `DockerImages` | Docker images, mostly pre-cached. | Soft | Linux, MacOS, Windows |
 | `DotNet` | .Net (Dot Net) SDK. | Soft, Hard | Linux |
