@@ -1,0 +1,18 @@
+name: "Announce New Release - Discord"
+on:
+  release:
+    types:
+      - "published"
+jobs:
+  main:
+    name: "Main"
+    uses: "hugoalh/hugoalh/.github/workflows/announce-new-release-discord.yml@main"
+    with:
+      name: "Disk Space Optimizer (GitHub Action)"
+      color: "#2088FF"
+      thumbnail: "https://i.imgur.com/6qM8z4w.png"
+      releases: |
+        **- GitHub (& Changelog):** ${{github.event.release.html_url}}
+        **- GitHub Marketplace:** https://github.com/marketplace/actions/disk-space-optimizer
+    secrets:
+      DISCORD_WEBHOOK: "${{secrets.DISCORD_HXHS_PROJECTNEWRELEASEANNOUNCER_WEBHOOK}}"

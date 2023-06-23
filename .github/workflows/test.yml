@@ -1,0 +1,23 @@
+name: "Test"
+on:
+  workflow_dispatch:
+    inputs:
+      remove_soft:
+        description: "{RegEx[]} Remove item softly."
+        required: false
+        default: |-
+          .+
+      remove_hard:
+        description: "{RegEx[]} Remove item hardly, can cause more issues than soft remove."
+        required: false
+        default: ""
+jobs:
+  main:
+    name: "main"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Optimize Disk Space"
+        uses: "hugoalh/disk-space-optimizer-ghaction@main"
+        with:
+          remove_soft: "${{inputs.remove_soft}}"
+          remove_hard: "${{inputs.remove_hard}}"
