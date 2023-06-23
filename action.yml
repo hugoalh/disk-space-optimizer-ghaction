@@ -29,11 +29,16 @@ runs:
         [Boolean]$OsLinux = $IsLinux -or $Env:RUNNER_OS -ieq 'Linux'
         [Boolean]$OsMac = $IsMacOS -or $Env:RUNNER_OS -ieq 'macOS'
         [Boolean]$OsWindows = $IsWindows -or $Env:RUNNER_OS -ieq 'Windows'
-        [RegEx]$InputListDelimiter = Get-GitHubActionsInput -Name 'input_listdelimiter' -Mandatory -EmptyStringAsNull
-        [String]$RemoveSoftRaw = Get-GitHubActionsInput -Name 'remove_soft' -EmptyStringAsNull ?? ''
-        [String]$RemoveHardRaw = Get-GitHubActionsInput -Name 'remove_hard' -EmptyStringAsNull ?? ''
-        [AllowEmptyCollection()][RegEx[]]$RemoveSoft = $RemoveSoftRaw -isplit $InputListDelimiter ?? @()
-        [AllowEmptyCollection()][RegEx[]]$RemoveHard = $RemoveHardRaw -isplit $InputListDelimiter ?? @()
+        [String]$InputListDelimiter = '${{inputs.input_listdelimiter}}'
+        If ($InputListDelimiter.Length -eq 0) {
+          Write-GitHubActionsFail -Message 'Input `input_listdelimiter` is not defined!'
+        }
+        [AllowEmptyCollection()][String[]]$RemoveSoft = @'
+        ${{inputs.remove_soft}}
+        '@ -isplit $InputListDelimiter ?? @()
+        [AllowEmptyCollection()][String[]]$RemoveHard = @'
+        ${{inputs.remove_hard}}
+        '@ -isplit $InputListDelimiter ?? @()
         Function Show-DiskSpace {
           [CmdletBinding()]
           [OutputType([Void])]
