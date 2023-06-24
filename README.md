@@ -25,31 +25,35 @@ This action is inspired from:
 - [ShubhamTatvamasi/free-disk-space-action](https://github.com/ShubhamTatvamasi/free-disk-space-action)
 - [ThewApp/free-actions](https://github.com/ThewApp/free-actions)
 
-### Item
+### Removable
 
-| **Name *(Case Insensitive)*** | **Description** | **Remove Method** | **OS** |
-|:-:|:--|:-:|:-:|
-| `AndroidLibrary` / `AndroidSdk` | Android SDK library. | Hard | Linux |
-| `AptCache` | APT cache. | Soft | Linux |
-| `AzureCli` | Azure CLI. | Soft | Linux |
-| `DockerImages` | Docker images, mostly pre-cached. | Soft | Linux, MacOS, Windows |
-| `DotNet` | .Net (Dot Net) SDK. | Soft, Hard | Linux |
-| `Firefox` | Mozilla Firefox browser. | Soft | Linux |
-| `GoogleChrome` | Google Chrome browser. | Soft | Linux |
-| `GoogleCloudSdk` | Google Cloud SDK. | Soft | Linux |
-| `HaskellGhc` | Haskell GHC. | Hard | Linux |
-| `Llvm` | LLVM. | Soft | Linux |
-| `Mono` | Mono. | Soft | Linux |
-| `MySql` | MySQL. | Soft | Linux |
-| `MongoDb` | MongoDB. | Soft | Linux |
-| `OpenGlDri` | Free implementation of the OpenGL API DRI modules. | Soft | Linux |
-| `Php` | PHP. | Soft | Linux |
-| `RunnerBoost` | GitHub Actions runner boost. | Hard | Linux |
-| `RunnerToolsCache/All` | GitHub Actions runner tool cache. | Hard | Linux |
-| `RunnerToolsCache/CodeQl` | GitHub Actions runner tool cache, CodeQL only. | Hard | Linux |
-| `RunnerToolsCache/Go` | GitHub Actions runner tool cache, Go Lang only. | Hard | Linux |
-| `Swap` | Linux swap space. | Hard | Linux |
-| `Swift` | Swift. | Hard | Linux, MacOS, Windows |
+#### General
+
+| **Name** | **Description** | **Linux** | **MacOS** | **Windows** |
+|:-:|:--|:-:|:-:|:-:|
+| `AlibabaCloudCli` | Alibaba Cloud CLI. | ✔ |  |  |
+| `Android` | Android utilities, include library and SDK. | ✔ | ✔ | ✔ |
+| `AptCache` | APT (Advanced Packaging Tools) cache. | ✔ |  |  |
+| `AzureCli` | Azure CLI. | ✔ |  |  |
+| `DotNet` | .Net SDK. | ✔ |  |  |
+| `Firefox` | Mozilla Firefox browser. | ✔ |  |  |
+| `GoogleChrome` | Google Chrome browser. | ✔ |  |  |
+| `GoogleCloudSdk` | Google Cloud SDK. | ✔ |  |  |
+| `HaskellGhc` | Haskell GHC. | ✔ |  |  |
+| `Homebrew` | Homebrew. | ✔ |  |  |
+| `Llvm` | LLVM. | ✔ |  |  |
+| `Mono` | Mono. | ✔ |  |  |
+| `MySql` | MySQL. | ✔ |  |  |
+| `MongoDb` | MongoDB. | ✔ |  |  |
+| `OpenGlDri` | Free implementation of the OpenGL API DRI modules. | ✔ |  |  |
+| `Perl` | Perl. | ✔ |  |  |
+| `Php` | PHP. | ✔ |  |  |
+| `RunnerBoost` | GitHub Actions runner boost. | ✔ |  |  |
+| `RunnerToolsCache/All` | GitHub Actions runner tool cache. | ✔ |  |  |
+| `RunnerToolsCache/CodeQl` | GitHub Actions runner tool cache, CodeQL only. | ✔ |  |  |
+| `RunnerToolsCache/Go` | GitHub Actions runner tool cache, Go Lang only. | ✔ |  |  |
+| `Swap` | Linux swap space. | ✔ |  |  |
+| `Swift` | Swift. | ✔ | ✔ | ✔ |
 
 ## 📚 Documentation
 
@@ -68,21 +72,21 @@ jobs:
 
 ### 📥 Input
 
-> **ℹ Notice:**
->
-> All of the inputs are optional; Use this action without any inputs will remove all of the soft items.
-
 #### `input_listdelimiter`
 
-`<RegEx = ",|;|\r?\n">` Delimiter when the input is type of list (i.e.: array), by regular expression.
+**\[Optional\]** `<RegEx = ",|;|\r?\n">` Delimiter when the input is type of list (i.e.: array), by regular expression.
 
-#### `remove_soft`
+#### `general`
 
-`<RegEx[]>` Remove item softly, less risk than hard remove.
+**\[Optional\]** `<RegEx[]>` Remove general item, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
-#### `remove_hard`
+#### `dockerimage`
 
-`<RegEx[]>` Remove item hardly, can cause more issues than soft remove.
+**\[Optional\]** `<RegEx[]>` Remove cached Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+
+#### `swap`
+
+**\[Optional\]** `<Boolean = False>` Remove Linux swap space.
 
 ### 📤 Output
 
@@ -93,11 +97,12 @@ jobs:
 ```yml
 jobs:
   job_id:
-    name: "Hello World"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: "hugoalh/disk-space-optimizer-ghaction@v1.0.0"
+      - name: "Optimize Disk Space"
+        uses: "hugoalh/disk-space-optimizer-ghaction@v0.1.0"
         with:
-          remove_soft: ".+"
-          remove_hard: ".+"
+          general: ".+"
+          dockerimage: ".+"
+          swap: "True"
 ```
