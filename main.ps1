@@ -130,7 +130,12 @@ If ($RemoveGeneral.Count -gt 0) {
 					If (Test-Path -Path $ItemPath) {
 						Get-ChildItem -Path $ItemPath -Force -ErrorAction 'Continue' |
 							ForEach-Object -Process {
-								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+								If ($OsLinux) {
+									sudo rm --force --recursive $_.FullName
+								}
+								Else {
+									Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+								}
 							}
 					}
 				}
