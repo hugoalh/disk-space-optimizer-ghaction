@@ -20,6 +20,5 @@ jobs:
           aptcache: "True"
           dockerimage_include: ".+"
           dockerimage_exclude: |-
-            ^alpine:
             ^debian:
           swap: "True"
