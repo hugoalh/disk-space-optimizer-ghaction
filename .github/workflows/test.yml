@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   main:
-    name: "main"
+    name: "Main"
     runs-on: "${{matrix.os}}"
     strategy:
       matrix:
