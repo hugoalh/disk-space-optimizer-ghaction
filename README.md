@@ -25,6 +25,11 @@ This action is inspired from:
 - [ShubhamTatvamasi/free-disk-space-action](https://github.com/ShubhamTatvamasi/free-disk-space-action)
 - [ThewApp/free-actions](https://github.com/ThewApp/free-actions)
 
+### 🌟 Feature
+
+- Always continue on error to not breaking any process
+- Support all of the platforms
+
 ### Types
 
 - Docker images
