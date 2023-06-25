@@ -6,13 +6,27 @@ Write-Host -Object 'Import inputs.'
 [Boolean]$OsMac = $Env:RUNNER_OS -ieq 'MacOS'
 [Boolean]$OsWindows = $Env:RUNNER_OS -ieq 'Windows'
 [RegEx]$InputListDelimiter = Get-GitHubActionsInput -Name 'input_listdelimiter' -Mandatory -EmptyStringAsNull
-[AllowEmptyCollection()][RegEx[]]$RemoveGeneral = (
-	((Get-GitHubActionsInput -Name 'general' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
+[AllowEmptyCollection()][RegEx[]]$RemoveGeneralInclude = (
+	@(
+		(((Get-GitHubActionsInput -Name 'general_include' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter),
+		(((Get-GitHubActionsInput -Name 'general' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter)
+	) |
+		Where-Object -FilterScript { $_.Length -gt 0 }
+) ?? @()
+[AllowEmptyCollection()][RegEx[]]$RemoveGeneralExclude = (
+	((Get-GitHubActionsInput -Name 'general_exclude' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
 ) ?? @()
 [Boolean]$RemoveAptCache = [Boolean]::Parse((Get-GitHubActionsInput -Name 'aptcache' -Mandatory -EmptyStringAsNull))
-[AllowEmptyCollection()][RegEx[]]$RemoveDockerImage = (
-	((Get-GitHubActionsInput -Name 'dockerimage' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
+[AllowEmptyCollection()][RegEx[]]$RemoveDockerImageInclude = (
+	@(
+		(((Get-GitHubActionsInput -Name 'dockerimage_include' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter),
+		(((Get-GitHubActionsInput -Name 'dockerimage' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter)
+	) |
+		Where-Object -FilterScript { $_.Length -gt 0 }
+) ?? @()
+[AllowEmptyCollection()][RegEx[]]$RemoveDockerImageExclude = (
+	((Get-GitHubActionsInput -Name 'dockerimage_exclude' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
 ) ?? @()
 [Boolean]$RemoveLinuxSwap = [Boolean]::Parse((Get-GitHubActionsInput -Name 'swap' -Mandatory -EmptyStringAsNull))
@@ -54,7 +68,7 @@ Try {
 }
 Catch {}
 If ($Null -ine $CommandDocker) {
-	If ($RemoveDockerImage.Count -gt 0) {
+	If ($RemoveDockerImageInclude.Count -gt 0) {
 		[PSCustomObject[]]$DockerImageList = (
 			docker image ls --all --format '{{json .}}' |
 				Join-String -Separator ',' -OutputPrefix '[' -OutputSuffix ']' |
@@ -62,7 +76,11 @@ If ($Null -ine $CommandDocker) {
 		) ?? @()
 		ForEach ($Item In (
 			$DockerImageList |
-				Where-Object -FilterScript { Test-StringMatchRegEx -Item "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" -Matcher $RemoveDockerImage }
+				Where-Object -FilterScript {
+					[String]$ItemName = "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')"
+					(Test-StringMatchRegEx -Item $ItemName -Matcher $RemoveDockerImageInclude) -and !(Test-StringMatchRegEx -Item $ItemName -Matcher $RemoveDockerImageExclude) |
+						Write-Output
+				}
 		)) {
 			[String]$ItemName = "$($Item.Repository)$(($Item.Tag.Length -gt 0) ? ":$($Item.Tag)" : '')"
 			Write-Host -Object "Remove Docker image ``$ItemName``."
@@ -73,10 +91,10 @@ If ($Null -ine $CommandDocker) {
 	docker image prune --force
 }
 <# Super List. #>
-If ($RemoveGeneral.Count -gt 0) {
+If ($RemoveGeneralInclude.Count -gt 0) {
 	ForEach ($Item In (
 		Import-Csv -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.tsv') -Delimiter "`t" -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
-			Where-Object -FilterScript { Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneral }
+			Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralInclude) -and !(Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralExclude) }
 	)) {
 		Write-Host -Object "Remove $($Item.Description)."
 		If ($OsLinux -and $Item.APT.Length -gt 0) {

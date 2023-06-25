@@ -16,7 +16,10 @@ jobs:
       - name: "Optimize Disk Space"
         uses: "hugoalh/disk-space-optimizer-ghaction@main"
         with:
-          general: ".+"
+          general_include: ".+"
           aptcache: "True"
-          dockerimage: ".+"
+          dockerimage_include: ".+"
+          dockerimage_exclude: |-
+            ^alpine:
+            ^debian:
           swap: "True"

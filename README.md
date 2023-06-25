@@ -67,25 +67,45 @@ jobs:
 
 **\[Optional\]** `<RegEx = ",|;|\r?\n">` Delimiter when the input is type of list (i.e.: array), by regular expression.
 
-#### `general`
+#### `general_include`
 
-**\[Optional\]** `<RegEx[]>` Remove general item, by regular expression and [super list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+**(>= v0.2.0) \[Optional\]** `<RegEx[]>` Remove general item, by regular expression and [super list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
-> **⚠ Important:** In v0.1.X, all of the items are selected.
+#### `general_exclude`
+
+**(>= v0.2.0) \[Optional\]** `<RegEx[]>` Exclude remove general item, by regular expression and [super list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
 #### `aptcache`
 
-**\[Optional\]** `<Boolean = False>` Remove Linux APT (Advanced Packaging Tools) cache.
+**\[Optional\]** `<Boolean = False>` Whether to remove Linux APT (Advanced Packaging Tools) cache.
 
-#### `dockerimage`
+#### `dockerimage_include`
 
-**\[Optional\]** `<RegEx[]>` Remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+**(>= v0.2.0) \[Optional\]** `<RegEx[]>` Remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
-> **⚠ Important:** In v0.1.X, all of the items are selected.
+#### `dockerimage_exclude`
+
+**(>= v0.2.0) \[Optional\]** `<RegEx[]>` Exclude remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
 #### `swap`
 
-**\[Optional\]** `<Boolean = False>` Remove Linux Swap Space.
+**\[Optional\]** `<Boolean = False>` Whether to remove Linux Swap Space.
+
+#### `general`
+
+> **👎 Deprecated:** This is officially deprecated, maybe throw warning in the latest version, and maybe remove in the future version.
+
+**(v0.1.X) \[Optional\]** `<RegEx[]>` Remove general item, by regular expression and [super list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+
+> **⚠ Important:** In v0.1.X, all of the items are selected.
+
+#### `dockerimage`
+
+> **👎 Deprecated:** This is officially deprecated, maybe throw warning in the latest version, and maybe remove in the future version.
+
+**(v0.1.X) \[Optional\]** `<RegEx[]>` Remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+
+> **⚠ Important:** In v0.1.X, all of the items are selected.
 
 ### 📤 Output
 
@@ -99,10 +119,11 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Optimize Disk Space"
-        uses: "hugoalh/disk-space-optimizer-ghaction@v0.1.0"
+        uses: "hugoalh/disk-space-optimizer-ghaction@v0.2.0"
         with:
-          general: ".+"
-          dockerimage: ".+"
+          general_include: ".+"
+          aptcache: "True"
+          dockerimage_include: ".+"
           swap: "True"
 ```
 
