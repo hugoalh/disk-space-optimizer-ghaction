@@ -55,7 +55,7 @@ Try {
 Catch {}
 If ($Null -ine $CommandDocker) {
 	If ($RemoveDockerImage.Count -gt 0) {
-		[String[]]$DockerImageListRaw = docker image ls --all --format=json
+		[String[]]$DockerImageListRaw = docker image ls --all --format '{{json .}}'
 		$DockerImageListRaw |
 			Write-GitHubActionsDebug
 		[PSCustomObject[]]$DockerImageList = (
