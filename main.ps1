@@ -10,6 +10,7 @@ Write-Host -Object 'Import inputs.'
 	((Get-GitHubActionsInput -Name 'general' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
 ) ?? @()
+[Boolean]$RemoveAptCache = [Boolean]::Parse((Get-GitHubActionsInput -Name 'aptcache' -Mandatory -EmptyStringAsNull))
 [AllowEmptyCollection()][RegEx[]]$RemoveDockerImage = (
 	((Get-GitHubActionsInput -Name 'dockerimage' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
@@ -47,83 +48,101 @@ Function Test-StringMatchRegEx {
 }
 [String]$DiskSpaceBefore = Get-DiskSpace
 $Script:ErrorActionPreference = 'Continue'
-<# APT. #>
-If ($OsLinux) {
-	ForEach ($_APT In (
-		Import-Csv -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'apt.tsv') -Delimiter "`t" -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
-			Where-Object -FilterScript { Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneral }
-	)) {
-		Write-Host -Object "Remove $($_APT.Description)."
-		ForEach ($Package In (
-			$_APT.Packages -isplit ';;' |
-				Where-Object -FilterScript { $_.Length -gt 0 }
+<# Docker Image. #>
+Try {
+	$CommandDocker = Get-Command -Name 'docker' -CommandType 'Application' -ErrorAction 'Stop'
+}
+Catch {}
+If ($Null -ine $CommandDocker) {
+	If ($RemoveDockerImage.Count -gt 0) {
+		[PSCustomObject[]]$DockerImageList = (
+			docker image ls --all --format json |
+				Join-String -Separator ',' -OutputPrefix '[' -OutputSuffix ']' |
+				ConvertFrom-Json -Depth 100
+		) ?? @()
+		ForEach ($Item In (
+			$DockerImageList |
+			Where-Object -FilterScript { Test-StringMatchRegEx -Item "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" -Matcher $RemoveDockerImage }
 		)) {
-			Invoke-Expression -Command "sudo apt-get --assume-yes remove '$($Package)'" |
+			[String]$ItemName = "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')"
+			Write-Host -Object "Remove Docker image ``$ItemName``."
+			docker image rm "$ItemName" |
 				Write-Host
 		}
 	}
-	If (Test-StringMatchRegEx -Item 'AptCache' -Matcher $RemoveGeneral) {
-		Write-Host -Object 'Remove APT cache.'
-		sudo apt-get --assume-yes autoremove |
-			Write-Host
-		sudo apt-get --assume-yes clean |
-			Write-Host
-	}
+	Write-Host -Object 'Prune Docker images.'
+	docker image prune |
+		Write-Host
 }
-<# Docker Image. #><# TODO #>
-<#
-If () {
-	Write-Host -Object 'Remove Docker images.'
-	If ($OsLinux) {
-		sudo docker image prune --all --force
-	}
-	Else {
-		docker image prune --all --force
-	}
-}
-#>
-<# Direct. #>
-ForEach ($_Dir In (
-	Import-Csv -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'direct.tsv') -Delimiter "`t" -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
-		Where-Object -FilterScript { Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneral }
-)) {
-	Write-Host -Object "Remove $($_Dir.Description)."
-	If ($_Dir.Envs.Length -gt 0) {
-		ForEach ($DirEnv In (
-			$_Dir.Envs -isplit ';;' |
-				Where-Object -FilterScript { $_.Length -gt 0 }
-		)) {
-			[String]$DirEnvValue = Get-Content -LiteralPath "Env:\$DirEnv" -ErrorAction 'SilentlyContinue'
-			If ($DirEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $DirEnvValue)) {
-				Get-ChildItem -LiteralPath $DirEnvValue -Force -ErrorAction 'Continue' |
-					ForEach-Object -Process {
-						Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
-					}
-			}
-		}
-	}
-	ForEach ($OsType In @(
-		@{ Is = $OsLinux; Name = 'Linux' },
-		@{ Is = $OsMac; Name = 'MacOS' },
-		@{ Is = $OsWindows; Name = 'Windows' }
+<# Super List. #>
+If ($RemoveGeneral.Count -gt 0) {
+	ForEach ($Item In (
+		Import-Csv -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.tsv') -Delimiter "`t" -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
+			Where-Object -FilterScript { Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneral }
 	)) {
-		If (!$OsType.Is) {
-			Continue
-		}
-		If ($_Dir.("Paths$($OsType.Name)").Length -gt 0) {
-			ForEach ($DirPath In (
-				$_Dir.("Paths$($OsType.Name)") -isplit ';;' |
+		Write-Host -Object "Remove $($Item.Description)."
+		If ($Item.APT.Length -gt 0) {
+			ForEach ($APT In (
+				$Item.APT -isplit ';;' |
 					Where-Object -FilterScript { $_.Length -gt 0 }
 			)) {
-				If (Test-Path -LiteralPath $DirPath) {
-					Get-ChildItem -LiteralPath $DirPath -Force -ErrorAction 'Continue' |
+				Invoke-Expression -Command "sudo apt-get --assume-yes remove '$APT'" |
+					Write-Host
+			}
+		}
+		If ($Item.NPM.Length -gt 0) {
+			ForEach ($NPM In (
+				$Item.NPM -isplit ';;' |
+					Where-Object -FilterScript { $_.Length -gt 0 }
+			)) {
+				Invoke-Expression -Command "npm --global uninstall '$NPM'" |
+					Write-Host
+			}
+		}
+		If ($Item.Env.Length -gt 0) {
+			ForEach ($ItemEnv In (
+				$Item.Env -isplit ';;' |
+					Where-Object -FilterScript { $_.Length -gt 0 }
+			)) {
+				[String]$ItemEnvValue = Get-Content -LiteralPath "Env:\$ItemEnv" -ErrorAction 'SilentlyContinue'
+				If ($ItemEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $ItemEnvValue)) {
+					Get-ChildItem -LiteralPath $ItemEnvValue -Force -ErrorAction 'Continue' |
 						ForEach-Object -Process {
 							Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 						}
 				}
 			}
 		}
+		ForEach ($OsType In @(
+			@{ Is = $OsLinux; Name = 'Linux' },
+			@{ Is = $OsMac; Name = 'MacOS' },
+			@{ Is = $OsWindows; Name = 'Windows' }
+		)) {
+			If (!$OsType.Is) {
+				Continue
+			}
+			If ($Item.("Path$($OsType.Name)").Length -gt 0) {
+				ForEach ($ItemPath In (
+					$Item.("Path$($OsType.Name)") -isplit ';;' |
+						Where-Object -FilterScript { $_.Length -gt 0 }
+				)) {
+					If (Test-Path -Path $ItemPath) {
+						Get-ChildItem -Path $ItemPath -Force -ErrorAction 'Continue' |
+							ForEach-Object -Process {
+								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+							}
+					}
+				}
+			}
+		}
 	}
+}
+If ($RemoveAptCache) {
+	Write-Host -Object 'Remove APT cache.'
+	sudo apt-get --assume-yes autoremove |
+		Write-Host
+	sudo apt-get --assume-yes clean |
+		Write-Host
 }
 If ($OsLinux -and $RemoveLinuxSwap) {
 	Write-Host -Object 'Remove Linux swap space.'

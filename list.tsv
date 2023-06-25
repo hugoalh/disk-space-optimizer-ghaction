@@ -1,0 +1,42 @@
+Name	Description	APT	NPM	Env	PathLinux	PathMacOS	PathWindows
+AliYun	AliYun (Alibaba Cloud) CLI				/usr/local/bin/aliyun		C:\aliyun-cli
+AndroidSDK	Android SDK			ANDROID_ROOT;;ANDROID_HOME	/usr/local/lib/android		C:\Program Files (x86)\Android;;C:\Android
+AWS	AWS (Amazon Web Service) CLI				/usr/local/aws-cli		
+AzureCLI	Azure CLI	azure-cli					
+Bazel	Bazel				/usr/local/bin/bazel		
+Bazelisk	Bazelisk (a user-friendly launcher for Bazel)		@bazel/bazelisk				
+Bicep	Bicep				/usr/local/bin/bicep		
+Chromium	Chromium			CHROMIUM_DIR	/usr/local/share/chromium		
+Clang	Clang	^clang-.*;;^lldb-.*;;^lld-.*;;^clang-format-.*;;^clang-tidy-.*					
+DotNet	.Net	^dotnet-.*			/usr/share/dotnet		
+Firefox	Mozilla Firefox browser	firefox					
+GeckoWebDriver	Gecko Web Driver			GECKOWEBDRIVER	/usr/local/share/gecko_driver		
+GoogleChrome	Google Chrome browser	google-chrome-stable		CHROME_BIN	/usr/bin/google-chrome		
+GoogleChromeWebDriver	Google Chrome Web Driver			CHROMEWEBDRIVER;;CHROMEDRIVER_DIR	/usr/local/share/chrome_driver		
+GoogleCloudSDK	Google Cloud SDK	google-cloud-sdk					
+HaskellGHC	Haskell GHC				/opt/ghc;;/usr/local/.ghcup/ghc		
+Heroku	Heroku				/usr/local/lib/heroku	/usr/local/lib/heroku	
+Homebrew	Homebrew				/home/linuxbrew		
+Java/8	Java 8			JAVA_HOME_8_X64			
+Java/11	Java 11			JAVA_HOME_11_X64			
+Java/17	Java 17			JAVA_HOME_17_X64			
+Julia	Julia				/usr/local/julia*;;/usr/bin/julia		
+Kotlin	Kotlin				/usr/share/kotlinc		
+LLVM	LLVM	^llvm-.*					
+MicrosoftEdgeWebDriver	Microsoft Edge Web Driver			EDGEWEBDRIVER	/usr/local/share/edge_driver		
+Miniconda	Mini Conda			CONDA	/usr/share/miniconda;;/usr/bin/conda		
+MongoDB	MongoDB	^mongodb-.*					
+Mono	Mono	mono-complete;;mono-devel					
+MSSQL	MS SQL	mssql-tools;;unixodbc-dev					
+MySQL	MySQL	^mysql-.*;;libmysqlclient-dev					
+OpenGLDRI	OpenGL API DRI modules	libgl1-mesa-dri					
+PHP	PHP	^php.*;;snmp					
+PostgreSQL	PostgreSQL	^postgresql-.*;;libpq-dev					
+Ruby	Ruby	ruby-full					
+RunnerBoost	GitHub Actions Runner boost				/usr/local/share/boost		
+RunnerTool/All	GitHub Actions Runner Tool - All			AGENT_TOOLSDIRECTORY	/opt/hostedtoolcache		
+RunnerTool/CodeQL	GitHub Actions Runner Tool - CodeQL				/opt/hostedtoolcache/CodeQL		
+RunnerTool/GoLang	GitHub Actions Runner Tool - GoLang				/opt/hostedtoolcache/go		
+Selenium	Selenium			SELENIUM_JAR_PATH	/usr/share/java/selenium-server.jar		
+Swift	Swift			SWIFT_PATH	/usr/share/swift;;/usr/local/bin/swift;;/usr/local/bin/swiftc		
+VCPkg	VCPkg			VCPKG_INSTALLATION_ROOT	/usr/local/share/vcpkg;;/root/.vcpkg		

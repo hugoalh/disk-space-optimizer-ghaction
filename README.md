@@ -25,35 +25,21 @@ This action is inspired from:
 - [ShubhamTatvamasi/free-disk-space-action](https://github.com/ShubhamTatvamasi/free-disk-space-action)
 - [ThewApp/free-actions](https://github.com/ThewApp/free-actions)
 
-### Removable
+### Types
 
-#### General
-
-| **Name** | **Description** | **Linux** | **MacOS** | **Windows** |
-|:-:|:--|:-:|:-:|:-:|
-| `AlibabaCloudCli` | Alibaba Cloud CLI. | ✔ |  |  |
-| `Android` | Android utilities, include library and SDK. | ✔ | ✔ | ✔ |
-| `AptCache` | APT (Advanced Packaging Tools) cache. | ✔ |  |  |
-| `AzureCli` | Azure CLI. | ✔ |  |  |
-| `DotNet` | .Net SDK. | ✔ |  |  |
-| `Firefox` | Mozilla Firefox browser. | ✔ |  |  |
-| `GoogleChrome` | Google Chrome browser. | ✔ |  |  |
-| `GoogleCloudSdk` | Google Cloud SDK. | ✔ |  |  |
-| `HaskellGhc` | Haskell GHC. | ✔ |  |  |
-| `Homebrew` | Homebrew. | ✔ |  |  |
-| `Llvm` | LLVM. | ✔ |  |  |
-| `Mono` | Mono. | ✔ |  |  |
-| `MySql` | MySQL. | ✔ |  |  |
-| `MongoDb` | MongoDB. | ✔ |  |  |
-| `OpenGlDri` | Free implementation of the OpenGL API DRI modules. | ✔ |  |  |
-| `Perl` | Perl. | ✔ |  |  |
-| `Php` | PHP. | ✔ |  |  |
-| `RunnerBoost` | GitHub Actions runner boost. | ✔ |  |  |
-| `RunnerToolsCache/All` | GitHub Actions runner tool cache. | ✔ |  |  |
-| `RunnerToolsCache/CodeQl` | GitHub Actions runner tool cache, CodeQL only. | ✔ |  |  |
-| `RunnerToolsCache/Go` | GitHub Actions runner tool cache, Go Lang only. | ✔ |  |  |
-| `Swap` | Linux swap space. | ✔ |  |  |
-| `Swift` | Swift. | ✔ | ✔ | ✔ |
+- Docker images
+- Linux Swap Space
+- [Super List][list]
+  - Directly bundled programs
+  - Linux APT (Advanced Packaging Tools) packages
+  - NPM (NodeJS Package Manager) packages
+  > - **Name:** Name, use in input [`general`](#general)
+  > - **APT":** Linux APT (Advanced Packaging Tools) package, multiples are separated by `;;`
+  > - **NPM":** NPM (NodeJS Package Manager) package, multiples are separated by `;;`
+  > - **Env:** Environment variable, multiples are separated by `;;`
+  > - **PathLinux:** Path for Linux, multiples are separated by `;;`
+  > - **PathMacOS:** Path for MacOS, multiples are separated by `;;`
+  > - **PathWindows:** Path for Windows, multiples are separated by `;;`
 
 ## 📚 Documentation
 
@@ -78,15 +64,19 @@ jobs:
 
 #### `general`
 
-**\[Optional\]** `<RegEx[]>` Remove general item, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+**\[Optional\]** `<RegEx[]>` Remove general item, by regular expression and [super list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+
+#### `aptcache`
+
+**\[Optional\]** `<Boolean = False>` Remove Linux APT (Advanced Packaging Tools) cache.
 
 #### `dockerimage`
 
-**\[Optional\]** `<RegEx[]>` Remove cached Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+**\[Optional\]** `<RegEx[]>` Remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
 #### `swap`
 
-**\[Optional\]** `<Boolean = False>` Remove Linux swap space.
+**\[Optional\]** `<Boolean = False>` Remove Linux Swap Space.
 
 ### 📤 Output
 
@@ -106,3 +96,5 @@ jobs:
           dockerimage: ".+"
           swap: "True"
 ```
+
+[list]: ./list.tsv

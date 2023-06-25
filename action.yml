@@ -10,12 +10,16 @@ inputs:
     description: "{RegEx[]} Remove general item."
     required: false
     default: ".+"
+  aptcache:
+    description: "{Boolean} Remove Linux APT (Advanced Packaging Tools) cache."
+    required: false
+    default: "False"
   dockerimage:
     description: "{RegEx[]} Remove Docker image."
     required: false
     default: ".+"
   swap:
-    description: "{Boolean} Remove Linux swap space."
+    description: "{Boolean} Remove Linux Swap Space."
     required: false
     default: "False"
 runs:
@@ -27,6 +31,7 @@ runs:
       env:
         INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
         INPUT_GENERAL: "${{inputs.general}}"
+        INPUT_APTCACHE: "${{inputs.aptcache}}"
         INPUT_DOCKERIMAGE: "${{inputs.dockerimage}}"
         INPUT_SWAP: "${{inputs.swap}}"
       run: |
