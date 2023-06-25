@@ -95,7 +95,7 @@ jobs:
 
 > **👎 Deprecated:** This is officially deprecated, maybe throw warning in the latest version, and maybe remove in the future version.
 
-**(v0.1.X) \[Optional\]** `<RegEx[]>` Remove general item, by regular expression and [super list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+**(v0.1.X) \[Optional\]** `<RegEx[] = ".+">` Remove general item, by regular expression and [super list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
 > **⚠ Important:** In v0.1.X, all of the items are selected.
 
@@ -103,7 +103,7 @@ jobs:
 
 > **👎 Deprecated:** This is officially deprecated, maybe throw warning in the latest version, and maybe remove in the future version.
 
-**(v0.1.X) \[Optional\]** `<RegEx[]>` Remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+**(v0.1.X) \[Optional\]** `<RegEx[] = ".+">` Remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
 > **⚠ Important:** In v0.1.X, all of the items are selected.
 
