@@ -6,25 +6,25 @@ Write-Host -Object 'Import inputs.'
 [Boolean]$OsMac = $Env:RUNNER_OS -ieq 'MacOS'
 [Boolean]$OsWindows = $Env:RUNNER_OS -ieq 'Windows'
 [RegEx]$InputListDelimiter = Get-GitHubActionsInput -Name 'input_listdelimiter' -Mandatory -EmptyStringAsNull
-[AllowEmptyCollection()][RegEx[]]$RemoveGeneralInclude = (
-	@(
-		(((Get-GitHubActionsInput -Name 'general_include' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter),
-		(((Get-GitHubActionsInput -Name 'general' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter)
-	) |
+[AllowEmptyCollection()][RegEx[]]$RemoveGeneralInclude = ((
+	((Get-GitHubActionsInput -Name 'general_include' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
-) ?? @()
+) + (
+	((Get-GitHubActionsInput -Name 'general' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
+		Where-Object -FilterScript { $_.Length -gt 0 }
+)) ?? @()
 [AllowEmptyCollection()][RegEx[]]$RemoveGeneralExclude = (
 	((Get-GitHubActionsInput -Name 'general_exclude' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
 ) ?? @()
 [Boolean]$RemoveAptCache = [Boolean]::Parse((Get-GitHubActionsInput -Name 'aptcache' -Mandatory -EmptyStringAsNull))
-[AllowEmptyCollection()][RegEx[]]$RemoveDockerImageInclude = (
-	@(
-		(((Get-GitHubActionsInput -Name 'dockerimage_include' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter),
-		(((Get-GitHubActionsInput -Name 'dockerimage' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter)
-	) |
+[AllowEmptyCollection()][RegEx[]]$RemoveDockerImageInclude = ((
+	((Get-GitHubActionsInput -Name 'dockerimage_include' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
-) ?? @()
+) + (
+	((Get-GitHubActionsInput -Name 'dockerimage' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
+		Where-Object -FilterScript { $_.Length -gt 0 }
+)) ?? @()
 [AllowEmptyCollection()][RegEx[]]$RemoveDockerImageExclude = (
 	((Get-GitHubActionsInput -Name 'dockerimage_exclude' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
