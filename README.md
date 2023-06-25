@@ -35,16 +35,16 @@ This action is inspired from:
 - Docker images
 - Linux Swap Space
 - [Super List][list]
-  - Directly bundled programs
-  - Linux APT (Advanced Packaging Tools) packages
-  - NPM (NodeJS Package Manager) packages
   > - **Name:** Name, use in input [`general`](#general)
-  > - **APT":** Linux APT (Advanced Packaging Tools) package, multiples are separated by `;;`
-  > - **NPM":** NPM (NodeJS Package Manager) package, multiples are separated by `;;`
+  > - **APT:** Linux APT (Advanced Packaging Tools) package, multiples are separated by `;;`
+  > - **NPM:** NPM (NodeJS Package Manager) package, multiples are separated by `;;`
   > - **Env:** Environment variable, multiples are separated by `;;`
   > - **PathLinux:** Path for Linux, multiples are separated by `;;`
   > - **PathMacOS:** Path for MacOS, multiples are separated by `;;`
   > - **PathWindows:** Path for Windows, multiples are separated by `;;`
+  - Directly bundled programs
+  - Linux APT (Advanced Packaging Tools) packages
+  - NPM (NodeJS Package Manager) packages
 
 ## 📚 Documentation
 
