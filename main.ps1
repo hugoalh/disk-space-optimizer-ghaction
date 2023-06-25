@@ -56,23 +56,21 @@ Catch {}
 If ($Null -ine $CommandDocker) {
 	If ($RemoveDockerImage.Count -gt 0) {
 		[PSCustomObject[]]$DockerImageList = (
-			docker image ls --all --format json |
+			docker image ls --all --format=json |
 				Join-String -Separator ',' -OutputPrefix '[' -OutputSuffix ']' |
 				ConvertFrom-Json -Depth 100
 		) ?? @()
 		ForEach ($Item In (
 			$DockerImageList |
-			Where-Object -FilterScript { Test-StringMatchRegEx -Item "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" -Matcher $RemoveDockerImage }
+				Where-Object -FilterScript { Test-StringMatchRegEx -Item "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" -Matcher $RemoveDockerImage }
 		)) {
 			[String]$ItemName = "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')"
 			Write-Host -Object "Remove Docker image ``$ItemName``."
-			docker image rm "$ItemName" |
-				Write-Host
+			docker image rm "$ItemName"
 		}
 	}
 	Write-Host -Object 'Prune Docker images.'
-	docker image prune |
-		Write-Host
+	docker image prune --force
 }
 <# Super List. #>
 If ($RemoveGeneral.Count -gt 0) {
@@ -86,8 +84,7 @@ If ($RemoveGeneral.Count -gt 0) {
 				$Item.APT -isplit ';;' |
 					Where-Object -FilterScript { $_.Length -gt 0 }
 			)) {
-				Invoke-Expression -Command "sudo apt-get --assume-yes remove '$APT'" |
-					Write-Host
+				Invoke-Expression -Command "sudo apt-get --assume-yes remove '$APT'"
 			}
 		}
 		If ($Item.NPM.Length -gt 0) {
@@ -95,8 +92,7 @@ If ($RemoveGeneral.Count -gt 0) {
 				$Item.NPM -isplit ';;' |
 					Where-Object -FilterScript { $_.Length -gt 0 }
 			)) {
-				Invoke-Expression -Command "npm --global uninstall '$NPM'" |
-					Write-Host
+				Invoke-Expression -Command "sudo npm --global uninstall '$NPM'"
 			}
 		}
 		If ($Item.Env.Length -gt 0) {
@@ -108,7 +104,12 @@ If ($RemoveGeneral.Count -gt 0) {
 				If ($ItemEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $ItemEnvValue)) {
 					Get-ChildItem -LiteralPath $ItemEnvValue -Force -ErrorAction 'Continue' |
 						ForEach-Object -Process {
-							Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+							If ($OsLinux) {
+								sudo rm --force --recursive $_.FullName
+							}
+							Else {
+								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+							}
 						}
 				}
 			}
@@ -137,12 +138,10 @@ If ($RemoveGeneral.Count -gt 0) {
 		}
 	}
 }
-If ($RemoveAptCache) {
+If ($OsLinux -and $RemoveAptCache) {
 	Write-Host -Object 'Remove APT cache.'
-	sudo apt-get --assume-yes autoremove |
-		Write-Host
-	sudo apt-get --assume-yes clean |
-		Write-Host
+	sudo apt-get --assume-yes autoremove
+	sudo apt-get --assume-yes clean
 }
 If ($OsLinux -and $RemoveLinuxSwap) {
 	Write-Host -Object 'Remove Linux swap space.'
