@@ -15,18 +15,19 @@ Write-Host -Object 'Import inputs.'
 		Where-Object -FilterScript { $_.Length -gt 0 }
 ) ?? @()
 [Boolean]$RemoveLinuxSwap = [Boolean]::Parse((Get-GitHubActionsInput -Name 'swap' -Mandatory -EmptyStringAsNull))
-Function Show-DiskSpace {
+Function Get-DiskSpace {
 	[CmdletBinding()]
-	[OutputType([Void])]
+	[OutputType([String])]
 	Param ()
 	If ($OsLinux -or $OsMac) {
 		df -h |
-			Write-Host
+			Join-String -Separator "`n" |
+			Write-Output
 	}
 	ElseIf ($OsWindows) {
 		Get-Volume |
 			Out-String -Width 120 |
-			Write-Host
+			Write-Output
 	}
 }
 Function Test-StringMatchRegEx {
@@ -44,8 +45,7 @@ Function Test-StringMatchRegEx {
 	}
 	Write-Output -InputObject $False
 }
-Write-Host -Object 'Before: '
-Show-DiskSpace
+[String]$DiskSpaceBefore = Get-DiskSpace
 $Script:ErrorActionPreference = 'Continue'
 <# APT. #>
 If ($OsLinux) {
@@ -54,12 +54,20 @@ If ($OsLinux) {
 			Where-Object -FilterScript { Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneral }
 	)) {
 		Write-Host -Object "Remove $($_APT.Description)."
-		Invoke-Expression -Command "sudo apt-get --assume-yes remove '$($_APT.Package)'"
+		ForEach ($Package In (
+			$_APT.Packages -isplit ';;' |
+				Where-Object -FilterScript { $_.Length -gt 0 }
+		)) {
+			Invoke-Expression -Command "sudo apt-get --assume-yes remove '$($Package)'" |
+				Write-Host
+		}
 	}
 	If (Test-StringMatchRegEx -Item 'AptCache' -Matcher $RemoveGeneral) {
 		Write-Host -Object 'Remove APT cache.'
-		sudo apt-get --assume-yes autoremove
-		sudo apt-get --assume-yes clean
+		sudo apt-get --assume-yes autoremove |
+			Write-Host
+		sudo apt-get --assume-yes clean |
+			Write-Host
 	}
 }
 <# Docker Image. #><# TODO #>
@@ -80,32 +88,41 @@ ForEach ($_Dir In (
 		Where-Object -FilterScript { Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneral }
 )) {
 	Write-Host -Object "Remove $($_Dir.Description)."
-	If ($Null -ine $_Dir.Env) {
-		[String]$DirEnv = Get-Content -LiteralPath "Env:\$($_Dir.Env)" -ErrorAction 'SilentlyContinue'
-		If ($Null -ine $DirEnv -and (Test-Path -LiteralPath $DirEnv)) {
-			Get-ChildItem -LiteralPath $DirEnv -Force -ErrorAction 'Continue' |
-				ForEach-Object -Process {
-					Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
-				}
+	If ($_Dir.Envs.Length -gt 0) {
+		ForEach ($DirEnv In (
+			$_Dir.Envs -isplit ';;' |
+				Where-Object -FilterScript { $_.Length -gt 0 }
+		)) {
+			[String]$DirEnvValue = Get-Content -LiteralPath "Env:\$DirEnv" -ErrorAction 'SilentlyContinue'
+			If ($DirEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $DirEnvValue)) {
+				Get-ChildItem -LiteralPath $DirEnvValue -Force -ErrorAction 'Continue' |
+					ForEach-Object -Process {
+						Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+					}
+			}
 		}
 	}
-	If ($OsLinux -and $Null -ine $_Dir.PathLinux -and (Test-Path -LiteralPath $_Dir.PathLinux)) {
-		Get-ChildItem -LiteralPath $_Dir.PathLinux -Force -ErrorAction 'Continue' |
-			ForEach-Object -Process {
-				Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+	ForEach ($OsType In @(
+		@{ Is = $OsLinux; Name = 'Linux' },
+		@{ Is = $OsMac; Name = 'MacOS' },
+		@{ Is = $OsWindows; Name = 'Windows' }
+	)) {
+		If (!$OsType.Is) {
+			Continue
+		}
+		If ($_Dir.("Paths$($OsType.Name)").Length -gt 0) {
+			ForEach ($DirPath In (
+				$_Dir.("Paths$($OsType.Name)") -isplit ';;' |
+					Where-Object -FilterScript { $_.Length -gt 0 }
+			)) {
+				If (Test-Path -LiteralPath $DirPath) {
+					Get-ChildItem -LiteralPath $DirPath -Force -ErrorAction 'Continue' |
+						ForEach-Object -Process {
+							Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+						}
+				}
 			}
-	}
-	If ($OsMac -and $Null -ine $_Dir.PathMacOS -and (Test-Path -LiteralPath $_Dir.PathMacOS)) {
-		Get-ChildItem -LiteralPath $_Dir.PathMacOS -Force -ErrorAction 'Continue' |
-			ForEach-Object -Process {
-				Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
-			}
-	}
-	If ($OsWindows -and $Null -ine $_Dir.PathWindows -and (Test-Path -LiteralPath $_Dir.PathWindows)) {
-		Get-ChildItem -LiteralPath $_Dir.PathWindows -Force -ErrorAction 'Continue' |
-			ForEach-Object -Process {
-				Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
-			}
+		}
 	}
 }
 If ($OsLinux -and $RemoveLinuxSwap) {
@@ -114,6 +131,12 @@ If ($OsLinux -and $RemoveLinuxSwap) {
 	sudo rm -f /mnt/swapfile
 }
 $Script:ErrorActionPreference = 'Stop'
-Write-Host -Object 'After: '
-Show-DiskSpace
+[String]$DiskSpaceAfter = Get-DiskSpace
+Write-Host -Object @"
+===== BEFORE =====
+$DiskSpaceBefore
+
+===== AFTER =====
+$DiskSpaceAfter
+"@
 $LASTEXITCODE = 0

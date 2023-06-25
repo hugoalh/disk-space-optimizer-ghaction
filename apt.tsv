@@ -1,4 +1,4 @@
-Name	Package	Description
+Name	Packages	Description
 AzureCLI	azure-cli	Azure CLI
 DotNet	^dotnet-.*	.Net
 Firefox	firefox	Mozilla Firefox browser

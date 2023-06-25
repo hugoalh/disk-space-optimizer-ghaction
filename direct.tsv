@@ -1,11 +1,8 @@
-Name	Env	PathLinux	PathMacOS	PathWindows	Description
+Name	Envs	PathsLinux	PathsMacOS	PathsWindows	Description
 AliYun		/usr/local/bin/aliyun		C:\aliyun-cli	Alibaba Cloud CLI
-AndroidSDK	ANDROID_ROOT	/usr/local/lib/android		C:\Program Files (x86)\Android	Android SDK (1)
-AndroidSDK	ANDROID_HOME				Android SDK (2)
-AndroidSDK				C:\Android	Android SDK (Windows Extra)
+AndroidSDK	ANDROID_ROOT;;ANDROID_HOME	/usr/local/lib/android		C:\Program Files (x86)\Android;;C:\Android	Android SDK
 DotNet		/usr/share/dotnet			.Net
-HaskellGHC		/opt/ghc			Haskell GHC (1)
-HaskellGHC		/usr/local/.ghcup/ghc			Haskell GHC (2)
+HaskellGHC		/opt/ghc;;/usr/local/.ghcup/ghc			Haskell GHC
 RunnerBoost		/usr/local/share/boost			GitHub Actions Runner boost
 RunnerTool/CodeQL		/opt/hostedtoolcache/CodeQL			GitHub Actions Runner Tool - CodeQL
 RunnerTool/GoLang		/opt/hostedtoolcache/go			GitHub Actions Runner Tool - GoLang
