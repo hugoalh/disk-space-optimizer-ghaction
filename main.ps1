@@ -83,12 +83,14 @@ If ($Null -ine $CommandDocker) {
 				}
 		)) {
 			[String]$ItemName = "$($Item.Repository)$(($Item.Tag.Length -gt 0) ? ":$($Item.Tag)" : '')"
-			Write-Host -Object "Remove Docker image ``$ItemName``."
+			Enter-GitHubActionsLogGroup -Title "Remove Docker image ``$ItemName``."
 			docker image rm "$ItemName"
+			Exit-GitHubActionsLogGroup
 		}
 	}
-	Write-Host -Object 'Prune Docker images.'
+	Enter-GitHubActionsLogGroup -Title 'Prune Docker images.'
 	docker image prune --force
+	Exit-GitHubActionsLogGroup
 }
 <# Super List. #>
 If ($RemoveGeneralInclude.Count -gt 0) {
@@ -96,7 +98,7 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 		Import-Csv -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.tsv') -Delimiter "`t" -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
 			Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralInclude) -and !(Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralExclude) }
 	)) {
-		Write-Host -Object "Remove $($Item.Description)."
+		Enter-GitHubActionsLogGroup -Title "Remove $($Item.Description)."
 		If ($OsLinux -and $Item.APT.Length -gt 0) {
 			ForEach ($APT In (
 				$Item.APT -isplit ';;' |
@@ -165,25 +167,28 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 				}
 			}
 		}
+		Exit-GitHubActionsLogGroup
 	}
 }
 If ($OsLinux -and $RemoveAptCache) {
-	Write-Host -Object 'Remove APT cache.'
+	Enter-GitHubActionsLogGroup -Title 'Remove APT cache.'
 	sudo apt-get --assume-yes autoremove
 	sudo apt-get --assume-yes clean
+	Exit-GitHubActionsLogGroup
 }
 If ($OsLinux -and $RemoveLinuxSwap) {
-	Write-Host -Object 'Remove Linux swap space.'
+	Enter-GitHubActionsLogGroup -Title 'Remove Linux swap space.'
 	sudo swapoff -a
 	sudo rm -f /mnt/swapfile
+	Exit-GitHubActionsLogGroup
 }
 $Script:ErrorActionPreference = 'Stop'
 [String]$DiskSpaceAfter = Get-DiskSpace
 Write-Host -Object @"
-===== BEFORE =====
+===== DISK SPACE BEFORE =====
 $DiskSpaceBefore
 
-===== AFTER =====
+===== DISK SPACE AFTER =====
 $DiskSpaceAfter
 "@
 $LASTEXITCODE = 0
