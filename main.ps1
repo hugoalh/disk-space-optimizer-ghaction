@@ -81,7 +81,7 @@ If ($RemoveGeneral.Count -gt 0) {
 			Where-Object -FilterScript { Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneral }
 	)) {
 		Write-Host -Object "Remove $($Item.Description)."
-		If ($Item.APT.Length -gt 0) {
+		If ($OsLinux -and $Item.APT.Length -gt 0) {
 			ForEach ($APT In (
 				$Item.APT -isplit ';;' |
 					Where-Object -FilterScript { $_.Length -gt 0 }
