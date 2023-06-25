@@ -127,8 +127,9 @@ If ($RemoveGeneral.Count -gt 0) {
 					$Item.("Path$($OsType.Name)") -isplit ';;' |
 						Where-Object -FilterScript { $_.Length -gt 0 }
 				)) {
-					If (Test-Path -Path $ItemPath) {
-						Get-ChildItem -Path $ItemPath -Force -ErrorAction 'Continue' |
+					[String]$ItemPathResolve = ($ItemPath -imatch '\$Env:') ? (Invoke-Expression -Command "`"$ItemPath`"") : $ItemPath
+					If (Test-Path -Path $ItemPathResolve) {
+						Get-ChildItem -Path $ItemPathResolve -Force -ErrorAction 'Continue' |
 							ForEach-Object -Process {
 								If ($OsLinux) {
 									sudo rm --force --recursive $_.FullName

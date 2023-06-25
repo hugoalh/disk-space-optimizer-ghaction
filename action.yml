@@ -9,7 +9,7 @@ inputs:
   general:
     description: "{RegEx[]} Remove general item."
     required: false
-    default: ".+"
+    default: ""
   aptcache:
     description: "{Boolean} Remove Linux APT (Advanced Packaging Tools) cache."
     required: false
@@ -17,7 +17,7 @@ inputs:
   dockerimage:
     description: "{RegEx[]} Remove Docker image."
     required: false
-    default: ".+"
+    default: ""
   swap:
     description: "{Boolean} Remove Linux Swap Space."
     required: false
