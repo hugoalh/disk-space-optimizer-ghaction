@@ -69,7 +69,7 @@ jobs:
 
 #### `general`
 
-**\[Optional\]** `<RegEx[]>` Remove general item, by regular expression and [super list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+**\[Optional\]** `<RegEx[]>` Remove general item, by regular expression and [super list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter). By default, all of the items are selected.
 
 #### `aptcache`
 
@@ -77,7 +77,7 @@ jobs:
 
 #### `dockerimage`
 
-**\[Optional\]** `<RegEx[]>` Remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+**\[Optional\]** `<RegEx[]>` Remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter). By default, all of the items are selected.
 
 #### `swap`
 

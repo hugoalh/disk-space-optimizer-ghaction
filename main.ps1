@@ -92,7 +92,7 @@ If ($RemoveGeneral.Count -gt 0) {
 				$Item.NPM -isplit ';;' |
 					Where-Object -FilterScript { $_.Length -gt 0 }
 			)) {
-				Invoke-Expression -Command "sudo npm --global uninstall '$NPM'"
+				Invoke-Expression -Command "npm --global uninstall '$NPM'"
 			}
 		}
 		If ($Item.Env.Length -gt 0) {
