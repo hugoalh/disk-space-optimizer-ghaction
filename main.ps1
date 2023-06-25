@@ -55,11 +55,8 @@ Try {
 Catch {}
 If ($Null -ine $CommandDocker) {
 	If ($RemoveDockerImage.Count -gt 0) {
-		[String[]]$DockerImageListRaw = docker image ls --all --format '{{json .}}'
-		$DockerImageListRaw |
-			Write-GitHubActionsDebug
 		[PSCustomObject[]]$DockerImageList = (
-			$DockerImageListRaw |
+			docker image ls --all --format '{{json .}}' |
 				Join-String -Separator ',' -OutputPrefix '[' -OutputSuffix ']' |
 				ConvertFrom-Json -Depth 100
 		) ?? @()
@@ -67,7 +64,7 @@ If ($Null -ine $CommandDocker) {
 			$DockerImageList |
 				Where-Object -FilterScript { Test-StringMatchRegEx -Item "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" -Matcher $RemoveDockerImage }
 		)) {
-			[String]$ItemName = "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')"
+			[String]$ItemName = "$($Item.Repository)$(($Item.Tag.Length -gt 0) ? ":$($Item.Tag)" : '')"
 			Write-Host -Object "Remove Docker image ``$ItemName``."
 			docker image rm "$ItemName"
 		}
