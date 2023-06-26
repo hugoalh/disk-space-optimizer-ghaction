@@ -73,21 +73,17 @@ Catch {}
 If ($Null -ine $CommandDocker) {
 	If ($RemoveDockerImageInclude.Count -gt 0) {
 		[PSCustomObject[]]$DockerImageList = (
-			docker image ls --all --format '{{json .}}' |
+			docker image ls --all --format '{{json .Repository .Tag}}' |
 				Join-String -Separator ',' -OutputPrefix '[' -OutputSuffix ']' |
 				ConvertFrom-Json -Depth 100
 		) ?? @()
 		ForEach ($Item In (
 			$DockerImageList |
-				Where-Object -FilterScript {
-					[String]$ItemName = "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')"
-					(Test-StringMatchRegEx -Item $ItemName -Matcher $RemoveDockerImageInclude) -and !(Test-StringMatchRegEx -Item $ItemName -Matcher $RemoveDockerImageExclude) |
-						Write-Output
-				}
+				ForEach-Object -Process { "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" } |
+				Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_ -Matcher $RemoveDockerImageInclude) -and !(Test-StringMatchRegEx -Item $_ -Matcher $RemoveDockerImageExclude) }
 		)) {
-			[String]$ItemName = "$($Item.Repository)$(($Item.Tag.Length -gt 0) ? ":$($Item.Tag)" : '')"
-			Enter-GitHubActionsLogGroup -Title "Remove Docker image ``$ItemName``."
-			docker image rm "$ItemName"
+			Enter-GitHubActionsLogGroup -Title "Remove Docker image ``$Item``."
+			docker image rm $Item
 			Exit-GitHubActionsLogGroup
 		}
 	}
