@@ -1,6 +1,6 @@
 #Requires -PSEdition Core -Version 7.2
-Get-Alias -Scope 'Local' |
-	Remove-Alias -Scope 'Local'
+Get-Alias -Scope 'Local' -ErrorAction 'SilentlyContinue' |
+	Remove-Alias -Scope 'Local' -Force -ErrorAction 'SilentlyContinue'
 Import-Module -Name 'hugoalh.GitHubActionsToolkit' -Scope 'Local'
 Test-GitHubActionsEnvironment -Mandatory
 Write-Host -Object 'Import inputs.'
@@ -73,7 +73,7 @@ Catch {}
 If ($Null -ine $CommandDocker) {
 	If ($RemoveDockerImageInclude.Count -gt 0) {
 		[PSCustomObject[]]$DockerImageList = (
-			docker image ls --all --format '{{json .Repository .Tag}}' |
+			docker image ls --all --format '{{json .}}' |
 				Join-String -Separator ',' -OutputPrefix '[' -OutputSuffix ']' |
 				ConvertFrom-Json -Depth 100
 		) ?? @()
