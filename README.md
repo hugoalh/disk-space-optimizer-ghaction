@@ -32,19 +32,12 @@ This action is inspired from:
 
 ### Types
 
+- [Directly bundled programs][list]
 - Docker images
+- Linux APT (Advanced Packaging Tools) caches
+- [Linux APT (Advanced Packaging Tools) packages][list]
 - Linux Swap Space
-- [Super List][list]
-  > - **Name:** Name, use in input [`general`](#general)
-  > - **APT:** Linux APT (Advanced Packaging Tools) package, multiples are separated by `;;`
-  > - **NPM:** NPM (NodeJS Package Manager) package, multiples are separated by `;;`
-  > - **Env:** Environment variable, multiples are separated by `;;`
-  > - **PathLinux:** Path for Linux, multiples are separated by `;;`
-  > - **PathMacOS:** Path for MacOS, multiples are separated by `;;`
-  > - **PathWindows:** Path for Windows, multiples are separated by `;;`
-  - Directly bundled programs
-  - Linux APT (Advanced Packaging Tools) packages
-  - NPM (NodeJS Package Manager) packages
+- [NPM (NodeJS Package Manager) packages][list]
 
 ## 📚 Documentation
 

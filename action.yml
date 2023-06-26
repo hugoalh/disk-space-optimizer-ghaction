@@ -45,7 +45,24 @@ runs:
   steps:
     - name: "Setup PowerShell Toolkit"
       uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.2.3"
-    - name: "Optimize Disk Space"
+    - name: "Optimize Disk Space (Linux)"
+      if: "${{runner.os == 'Linux'}}"
+      env:
+        INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
+        INPUT_GENERAL: "${{inputs.general}}"
+        INPUT_GENERAL_INCLUDE: "${{inputs.general_include}}"
+        INPUT_GENERAL_EXCLUDE: "${{inputs.general_exclude}}"
+        INPUT_APTCACHE: "${{inputs.aptcache}}"
+        INPUT_DOCKERIMAGE: "${{inputs.dockerimage}}"
+        INPUT_DOCKERIMAGE_INCLUDE: "${{inputs.dockerimage_include}}"
+        INPUT_DOCKERIMAGE_EXCLUDE: "${{inputs.dockerimage_exclude}}"
+        INPUT_SWAP: "${{inputs.swap}}"
+      run: |
+        sudo pwsh -NonInteractive (Join-Path -Path $Env:GITHUB_ACTION_PATH -ChildPath 'main.ps1')
+      shell: "pwsh"
+      continue-on-error: true
+    - name: "Optimize Disk Space (Non-Linux)"
+      if: "${{runner.os != 'Linux'}}"
       env:
         INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
         INPUT_GENERAL: "${{inputs.general}}"

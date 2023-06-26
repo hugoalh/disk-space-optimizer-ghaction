@@ -104,7 +104,10 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 				$Item.APT -isplit ';;' |
 					Where-Object -FilterScript { $_.Length -gt 0 }
 			)) {
+				<#
 				Invoke-Expression -Command "sudo apt-get --assume-yes remove '$APT'"
+				#>
+				Invoke-Expression -Command "apt-get --assume-yes remove '$APT'"
 			}
 		}
 		If ($Item.NPM.Length -gt 0) {
@@ -112,12 +115,15 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 				$Item.NPM -isplit ';;' |
 					Where-Object -FilterScript { $_.Length -gt 0 }
 			)) {
+				<#
 				If ($OsLinux) {
 					Invoke-Expression -Command "sudo npm --global uninstall '$NPM'"
 				}
 				Else {
 					Invoke-Expression -Command "npm --global uninstall '$NPM'"
 				}
+				#>
+				Invoke-Expression -Command "npm --global uninstall '$NPM'"
 			}
 		}
 		If ($Item.Env.Length -gt 0) {
@@ -129,12 +135,15 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 				If ($ItemEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $ItemEnvValue)) {
 					Get-ChildItem -LiteralPath $ItemEnvValue -Force -ErrorAction 'Continue' |
 						ForEach-Object -Process {
+							<#
 							If ($OsLinux) {
 								sudo rm --force --recursive $_.FullName
 							}
 							Else {
 								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 							}
+							#>
+							Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 						}
 				}
 			}
@@ -156,12 +165,15 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 					If (Test-Path -Path $ItemPathResolve) {
 						Get-ChildItem -Path $ItemPathResolve -Force -ErrorAction 'Continue' |
 							ForEach-Object -Process {
+								<#
 								If ($OsLinux) {
 									sudo rm --force --recursive $_.FullName
 								}
 								Else {
 									Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 								}
+								#>
+								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 							}
 					}
 				}
@@ -172,14 +184,22 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 }
 If ($OsLinux -and $RemoveAptCache) {
 	Enter-GitHubActionsLogGroup -Title 'Remove APT cache.'
+	<#
 	sudo apt-get --assume-yes autoremove
 	sudo apt-get --assume-yes clean
+	#>
+	apt-get --assume-yes autoremove
+	apt-get --assume-yes clean
 	Exit-GitHubActionsLogGroup
 }
 If ($OsLinux -and $RemoveLinuxSwap) {
 	Enter-GitHubActionsLogGroup -Title 'Remove Linux swap space.'
+	<#
 	sudo swapoff -a
 	sudo rm -f /mnt/swapfile
+	#>
+	swapoff -a
+	rm -f /mnt/swapfile
 	Exit-GitHubActionsLogGroup
 }
 $Script:ErrorActionPreference = 'Stop'
