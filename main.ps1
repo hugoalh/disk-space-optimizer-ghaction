@@ -1,10 +1,13 @@
 #Requires -PSEdition Core -Version 7.2
+Get-Alias -Scope 'Local' |
+	Remove-Alias -Scope 'Local'
 Import-Module -Name 'hugoalh.GitHubActionsToolkit' -Scope 'Local'
 Test-GitHubActionsEnvironment -Mandatory
 Write-Host -Object 'Import inputs.'
 [Boolean]$OsLinux = $Env:RUNNER_OS -ieq 'Linux'
 [Boolean]$OsMac = $Env:RUNNER_OS -ieq 'MacOS'
 [Boolean]$OsWindows = $Env:RUNNER_OS -ieq 'Windows'
+[String]$OsPathType = "Path$($Env:RUNNER_OS)"
 [RegEx]$InputListDelimiter = Get-GitHubActionsInput -Name 'input_listdelimiter' -Mandatory -EmptyStringAsNull
 [AllowEmptyCollection()][RegEx[]]$RemoveGeneralInclude = ((
 	((Get-GitHubActionsInput -Name 'general_include' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
@@ -96,6 +99,12 @@ If ($Null -ine $CommandDocker) {
 If ($RemoveGeneralInclude.Count -gt 0) {
 	ForEach ($Item In (
 		Import-Csv -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.tsv') -Delimiter "`t" -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
+			Where-Object -FilterScript {
+				($OsLinux -and $_.APT.Length -gt 0) -or
+				$_.NPM.Length -gt 0 -or
+				$_.Env.Length -gt 0 -or
+				$_.($OsPathType).Length -gt 0
+			} |
 			Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralInclude) -and !(Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralExclude) }
 	)) {
 		Enter-GitHubActionsLogGroup -Title "Remove $($Item.Description)."
@@ -139,31 +148,22 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 				}
 			}
 		}
-		ForEach ($OsType In @(
-			@{ Is = $OsLinux; Name = 'Linux' },
-			@{ Is = $OsMac; Name = 'MacOS' },
-			@{ Is = $OsWindows; Name = 'Windows' }
-		)) {
-			If (!$OsType.Is) {
-				Continue
-			}
-			If ($Item.("Path$($OsType.Name)").Length -gt 0) {
-				ForEach ($ItemPath In (
-					$Item.("Path$($OsType.Name)") -isplit ';;' |
-						Where-Object -FilterScript { $_.Length -gt 0 }
-				)) {
-					[String]$ItemPathResolve = ($ItemPath -imatch '\$Env:') ? (Invoke-Expression -Command "`"$ItemPath`"") : $ItemPath
-					If (Test-Path -Path $ItemPathResolve) {
-						Get-ChildItem -Path $ItemPathResolve -Force -ErrorAction 'Continue' |
-							ForEach-Object -Process {
-								If ($OsLinux) {
-									sudo rm --force --recursive $_.FullName
-								}
-								Else {
-									Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
-								}
+		If ($Item.($OsPathType).Length -gt 0) {
+			ForEach ($ItemPath In (
+				$Item.($OsPathType) -isplit ';;' |
+					Where-Object -FilterScript { $_.Length -gt 0 }
+			)) {
+				[String]$ItemPathResolve = ($ItemPath -imatch '\$Env:') ? (Invoke-Expression -Command "`"$ItemPath`"") : $ItemPath
+				If (Test-Path -Path $ItemPathResolve) {
+					Get-ChildItem -Path $ItemPathResolve -Force -ErrorAction 'Continue' |
+						ForEach-Object -Process {
+							If ($OsLinux) {
+								sudo rm --force --recursive $_.FullName
 							}
-					}
+							Else {
+								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+							}
+						}
 				}
 			}
 		}
