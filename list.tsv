@@ -1,6 +1,6 @@
 Name	InVersion	Description	APT	NPM	Env	PathLinux	PathMacOS	PathWindows
 AliYun	>= v0.1.0	AliYun (Alibaba Cloud) CLI				/usr/local/bin/aliyun		C:\aliyun-cli
-AndroidSDK	>= v0.1.0	Android SDK			ANDROID_ROOT;;ANDROID_HOME	/usr/local/lib/android	/Users/runner/Library/Android	C:\Program Files (x86)\Android;;C:\Android
+AndroidNDK	N/A	Android NDK			ANDROID_ROOT;;ANDROID_HOME	/usr/local/lib/android	/Users/runner/Library/Android	C:\Program Files (x86)\Android;;C:\Android
 Ant	>= v0.2.0	Ant				/usr/share/ant		
 Apache	>= v0.2.0	Apache	apache2					
 AWS	>= v0.1.0	AWS (Amazon Web Service) CLI				/usr/local/aws-cli		
