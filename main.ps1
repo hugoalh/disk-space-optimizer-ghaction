@@ -33,6 +33,8 @@ Write-Host -Object 'Import inputs.'
 	((Get-GitHubActionsInput -Name 'dockerimage_exclude' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
 ) ?? @()
+[Boolean]$RemoveHomebrewCache = [Boolean]::Parse((Get-GitHubActionsInput -Name 'homebrewcache' -Mandatory -EmptyStringAsNull))
+[Boolean]$RemoveNpmCache = [Boolean]::Parse((Get-GitHubActionsInput -Name 'npmcache' -Mandatory -EmptyStringAsNull))
 [Boolean]$RemoveLinuxSwap = [Boolean]::Parse((Get-GitHubActionsInput -Name 'swap' -Mandatory -EmptyStringAsNull))
 Function Get-DiskSpace {
 	[CmdletBinding()]
@@ -67,11 +69,7 @@ Function Test-StringMatchRegEx {
 [String]$DiskSpaceBefore = Get-DiskSpace
 $Script:ErrorActionPreference = 'Continue'
 <# Docker Image. #>
-Try {
-	$CommandDocker = Get-Command -Name 'docker' -CommandType 'Application' -ErrorAction 'Stop'
-}
-Catch {}
-If ($Null -ine $CommandDocker) {
+If ($OsLinux -or $OsWindows) {
 	If ($RemoveDockerImageInclude.Count -gt 0) {
 		[PSCustomObject[]]$DockerImageList = (
 			docker image ls --all --format '{{json .}}' |
@@ -188,6 +186,16 @@ If ($OsLinux -and $RemoveAptCache) {
 	apt-get --assume-yes autoremove |
 		Write-GitHubActionsDebug
 	apt-get --assume-yes clean |
+		Write-GitHubActionsDebug
+}
+If ($OsMac -and $RemoveHomebrewCache) {
+	Write-Host -Object 'Remove Homebrew cache.'
+	brew autoremove |
+		Write-GitHubActionsDebug
+}
+If ($RemoveNpmCache) {
+	Write-Host -Object 'Remove NPM cache.'
+	npm cache clean |
 		Write-GitHubActionsDebug
 }
 If ($OsLinux -and $RemoveLinuxSwap) {

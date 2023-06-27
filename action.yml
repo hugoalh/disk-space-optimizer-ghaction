@@ -26,6 +26,14 @@ inputs:
     description: "{RegEx[]} Exclude remove Docker image."
     required: false
     default: ""
+  homebrewcache:
+    description: "{Boolean} Whether to remove Homebrew cache."
+    required: false
+    default: "False"
+  npmcache:
+    description: "{Boolean} Whether to remove NPM (NodeJS Package Manager) cache."
+    required: false
+    default: "False"
   swap:
     description: "{Boolean} Whether to remove Linux Swap Space."
     required: false
@@ -56,6 +64,8 @@ runs:
         INPUT_DOCKERIMAGE: "${{inputs.dockerimage}}"
         INPUT_DOCKERIMAGE_INCLUDE: "${{inputs.dockerimage_include}}"
         INPUT_DOCKERIMAGE_EXCLUDE: "${{inputs.dockerimage_exclude}}"
+        INPUT_HOMEBREWCACHE: "${{inputs.homebrewcache}}"
+        INPUT_NPMCACHE: "${{inputs.npmcache}}"
         INPUT_SWAP: "${{inputs.swap}}"
       run: |
         sudo --non-interactive --preserve-env pwsh -NonInteractive "$GITHUB_ACTION_PATH/main.ps1"
@@ -72,6 +82,8 @@ runs:
         INPUT_DOCKERIMAGE: "${{inputs.dockerimage}}"
         INPUT_DOCKERIMAGE_INCLUDE: "${{inputs.dockerimage_include}}"
         INPUT_DOCKERIMAGE_EXCLUDE: "${{inputs.dockerimage_exclude}}"
+        INPUT_HOMEBREWCACHE: "${{inputs.homebrewcache}}"
+        INPUT_NPMCACHE: "${{inputs.npmcache}}"
         INPUT_SWAP: "${{inputs.swap}}"
       run: |
         pwsh -NonInteractive (Join-Path -Path $Env:GITHUB_ACTION_PATH -ChildPath 'main.ps1')

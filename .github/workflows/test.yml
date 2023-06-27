@@ -21,4 +21,11 @@ jobs:
           dockerimage_include: ".+"
           dockerimage_exclude: |-
             ^debian:
+          homebrewcache: "True"
+          npmcache: "True"
           swap: "True"
+      - name: "Get Software List"
+        run: |
+          Get-Command -CommandType Application |
+            Format-List -Property '*'
+        shell: "pwsh"

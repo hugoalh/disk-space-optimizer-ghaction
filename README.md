@@ -32,12 +32,17 @@ This action is inspired from:
 
 ### Types
 
+- APT (Advanced Packaging Tools) caches
+- [APT (Advanced Packaging Tools) packages][list]
+- **(>= v0.3.0)** [Chocolatey packages][list]
 - [Directly bundled programs][list]
 - Docker images
-- Linux APT (Advanced Packaging Tools) caches
-- [Linux APT (Advanced Packaging Tools) packages][list]
+- **(>= v0.3.0)** Homebrew caches
+- **(>= v0.3.0)** [Homebrew packages][list]
 - Linux Swap Space
-- [NPM (NodeJS Package Manager) packages][list]
+- **(>= v0.3.0)** NPM (NodeJS Package Manager) cache
+- **(>= v0.3.0)** [NPM (NodeJS Package Manager) packages][list]
+- **(>= v0.3.0)** [Pipx packages][list]
 
 ## 📚 Documentation
 
@@ -70,7 +75,7 @@ jobs:
 
 #### `aptcache`
 
-**\[Optional\]** `<Boolean = False>` Whether to remove Linux APT (Advanced Packaging Tools) cache.
+**\[Optional\]** `<Boolean = False>` Whether to remove APT (Advanced Packaging Tools) cache.
 
 #### `dockerimage_include`
 
@@ -79,6 +84,14 @@ jobs:
 #### `dockerimage_exclude`
 
 **(>= v0.2.0) \[Optional\]** `<RegEx[]>` Exclude remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+
+#### `homebrewcache`
+
+**(>= v0.3.0) \[Optional\]** `<Boolean = False>` Whether to remove Homebrew cache.
+
+#### `npmcache`
+
+**(>= v0.3.0) \[Optional\]** `<Boolean = False>` Whether to remove NPM (NodeJS Package Manager) cache.
 
 #### `swap`
 
@@ -112,11 +125,13 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Optimize Disk Space"
-        uses: "hugoalh/disk-space-optimizer-ghaction@v0.2.0"
+        uses: "hugoalh/disk-space-optimizer-ghaction@v0.3.0"
         with:
           general_include: ".+"
           aptcache: "True"
           dockerimage_include: ".+"
+          homebrewcache: "True"
+          npmcache: "True"
           swap: "True"
 ```
 
