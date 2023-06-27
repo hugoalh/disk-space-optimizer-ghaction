@@ -1,4 +1,5 @@
 #Requires -PSEdition Core -Version 7.2
+$Script:ErrorActionPreference = 'Stop'
 Get-Alias -Scope 'Local' -ErrorAction 'SilentlyContinue' |
 	Remove-Alias -Scope 'Local' -Force -ErrorAction 'SilentlyContinue'
 Import-Module -Name 'hugoalh.GitHubActionsToolkit' -Scope 'Local'
@@ -37,14 +38,14 @@ Function Get-DiskSpace {
 	[CmdletBinding()]
 	[OutputType([String])]
 	Param ()
-	If ($OsLinux -or $OsMac) {
-		df -h |
-			Join-String -Separator "`n" |
-			Write-Output
-	}
-	ElseIf ($OsWindows) {
+	If ($OsWindows) {
 		Get-Volume |
 			Out-String -Width 120 |
+			Write-Output
+	}
+	Else {
+		df -h |
+			Join-String -Separator "`n" |
 			Write-Output
 	}
 }
@@ -77,13 +78,13 @@ If ($Null -ine $CommandDocker) {
 				Join-String -Separator ',' -OutputPrefix '[' -OutputSuffix ']' |
 				ConvertFrom-Json -Depth 100
 		) ?? @()
-		ForEach ($Item In (
+		ForEach ($_DI In (
 			$DockerImageList |
 				ForEach-Object -Process { "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" } |
 				Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_ -Matcher $RemoveDockerImageInclude) -and !(Test-StringMatchRegEx -Item $_ -Matcher $RemoveDockerImageExclude) }
 		)) {
-			Enter-GitHubActionsLogGroup -Title "Remove Docker image ``$Item``."
-			docker image rm $Item
+			Enter-GitHubActionsLogGroup -Title "Remove Docker image ``$_DI``."
+			docker image rm $_DI
 			Exit-GitHubActionsLogGroup
 		}
 	}
@@ -109,7 +110,10 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 				$Item.APT -isplit ';;' |
 					Where-Object -FilterScript { $_.Length -gt 0 }
 			)) {
+				<#
 				Invoke-Expression -Command "sudo apt-get --assume-yes remove '$APT'"
+				#>
+				apt-get --assume-yes remove $APT
 			}
 		}
 		If ($Item.NPM.Length -gt 0) {
@@ -117,12 +121,15 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 				$Item.NPM -isplit ';;' |
 					Where-Object -FilterScript { $_.Length -gt 0 }
 			)) {
+				<#
 				If ($OsLinux) {
 					Invoke-Expression -Command "sudo npm --global uninstall '$NPM'"
 				}
 				Else {
 					Invoke-Expression -Command "npm --global uninstall '$NPM'"
 				}
+				#>
+				npm --global uninstall $NPM
 			}
 		}
 		If ($Item.Env.Length -gt 0) {
@@ -134,12 +141,15 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 				If ($ItemEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $ItemEnvValue)) {
 					Get-ChildItem -LiteralPath $ItemEnvValue -Force -ErrorAction 'Continue' |
 						ForEach-Object -Process {
+							<#
 							If ($OsLinux) {
 								sudo rm --force --recursive $_.FullName
 							}
 							Else {
 								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 							}
+							#>
+							Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 						}
 				}
 			}
@@ -153,12 +163,15 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 				If (Test-Path -Path $ItemPathResolve) {
 					Get-ChildItem -Path $ItemPathResolve -Force -ErrorAction 'Continue' |
 						ForEach-Object -Process {
+							<#
 							If ($OsLinux) {
 								sudo rm --force --recursive $_.FullName
 							}
 							Else {
 								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 							}
+							#>
+							Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 						}
 				}
 			}
@@ -168,14 +181,22 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 }
 If ($OsLinux -and $RemoveAptCache) {
 	Enter-GitHubActionsLogGroup -Title 'Remove APT cache.'
+	<#
 	sudo apt-get --assume-yes autoremove
 	sudo apt-get --assume-yes clean
+	#>
+	apt-get --assume-yes autoremove
+	apt-get --assume-yes clean
 	Exit-GitHubActionsLogGroup
 }
 If ($OsLinux -and $RemoveLinuxSwap) {
 	Enter-GitHubActionsLogGroup -Title 'Remove Linux swap space.'
+	<#
 	sudo swapoff -a
 	sudo rm -f /mnt/swapfile
+	#>
+	swapoff -a
+	Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 	Exit-GitHubActionsLogGroup
 }
 $Script:ErrorActionPreference = 'Stop'
