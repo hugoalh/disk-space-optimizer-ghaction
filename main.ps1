@@ -83,14 +83,14 @@ If ($Null -ine $CommandDocker) {
 				ForEach-Object -Process { "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" } |
 				Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_ -Matcher $RemoveDockerImageInclude) -and !(Test-StringMatchRegEx -Item $_ -Matcher $RemoveDockerImageExclude) }
 		)) {
-			Enter-GitHubActionsLogGroup -Title "Remove Docker image ``$_DI``."
-			docker image rm $_DI
-			Exit-GitHubActionsLogGroup
+			Write-Host -Object "Remove Docker image ``$_DI``."
+			docker image rm $_DI |
+				Write-GitHubActionsDebug
 		}
 	}
-	Enter-GitHubActionsLogGroup -Title 'Prune Docker images.'
-	docker image prune --force
-	Exit-GitHubActionsLogGroup
+	Write-Host -Object 'Prune Docker images.'
+	docker image prune --force |
+		Write-GitHubActionsDebug
 }
 <# Super List. #>
 If ($RemoveGeneralInclude.Count -gt 0) {
@@ -98,22 +98,41 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 		Import-Csv -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.tsv') -Delimiter "`t" -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
 			Where-Object -FilterScript {
 				($OsLinux -and $_.APT.Length -gt 0) -or
+				($OsWindows -and $_.Chocolatey.Length -gt 0) -or
+				($OsMac -and $_.Homebrew.Length -gt 0) -or
 				$_.NPM.Length -gt 0 -or
+				(($OsLinux -or $OsMac) -and $_.Pipx.Length -gt 0) -or
 				$_.Env.Length -gt 0 -or
 				$_.($OsPathType).Length -gt 0
 			} |
 			Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralInclude) -and !(Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralExclude) }
 	)) {
-		Enter-GitHubActionsLogGroup -Title "Remove $($Item.Description)."
+		Write-Host -Object "Remove $($Item.Description)."
 		If ($OsLinux -and $Item.APT.Length -gt 0) {
 			ForEach ($APT In (
 				$Item.APT -isplit ';;' |
 					Where-Object -FilterScript { $_.Length -gt 0 }
 			)) {
-				<#
-				Invoke-Expression -Command "sudo apt-get --assume-yes remove '$APT'"
-				#>
-				apt-get --assume-yes remove $APT
+				apt-get --assume-yes remove $APT |
+					Write-GitHubActionsDebug
+			}
+		}
+		If ($OsWindows -and $Item.Chocolatey.Length -gt 0) {
+			ForEach ($Chocolatey In (
+				$Item.Chocolatey -isplit ';;' |
+					Where-Object -FilterScript { $_.Length -gt 0 }
+			)) {
+				choco uninstall $Chocolatey --ignore-detected-reboot --yes |
+					Write-GitHubActionsDebug
+			}
+		}
+		If ($OsMac -and $Item.Homebrew.Length -gt 0) {
+			ForEach ($Homebrew In (
+				$Item.Homebrew -isplit ';;' |
+					Where-Object -FilterScript { $_.Length -gt 0 }
+			)) {
+				brew uninstall $Homebrew |
+					Write-GitHubActionsDebug
 			}
 		}
 		If ($Item.NPM.Length -gt 0) {
@@ -121,15 +140,17 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 				$Item.NPM -isplit ';;' |
 					Where-Object -FilterScript { $_.Length -gt 0 }
 			)) {
-				<#
-				If ($OsLinux) {
-					Invoke-Expression -Command "sudo npm --global uninstall '$NPM'"
-				}
-				Else {
-					Invoke-Expression -Command "npm --global uninstall '$NPM'"
-				}
-				#>
-				npm --global uninstall $NPM
+				npm --global uninstall $NPM |
+					Write-GitHubActionsDebug
+			}
+		}
+		If (($OsLinux -or $OsMac) -and $Item.Pipx.Length -gt 0) {
+			ForEach ($Pipx In (
+				$Item.Pipx -isplit ';;' |
+					Where-Object -FilterScript { $_.Length -gt 0 }
+			)) {
+				pipx uninstall $Pipx |
+					Write-GitHubActionsDebug
 			}
 		}
 		If ($Item.Env.Length -gt 0) {
@@ -141,14 +162,6 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 				If ($ItemEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $ItemEnvValue)) {
 					Get-ChildItem -LiteralPath $ItemEnvValue -Force -ErrorAction 'Continue' |
 						ForEach-Object -Process {
-							<#
-							If ($OsLinux) {
-								sudo rm --force --recursive $_.FullName
-							}
-							Else {
-								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
-							}
-							#>
 							Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 						}
 				}
@@ -163,41 +176,25 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 				If (Test-Path -Path $ItemPathResolve) {
 					Get-ChildItem -Path $ItemPathResolve -Force -ErrorAction 'Continue' |
 						ForEach-Object -Process {
-							<#
-							If ($OsLinux) {
-								sudo rm --force --recursive $_.FullName
-							}
-							Else {
-								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
-							}
-							#>
 							Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 						}
 				}
 			}
 		}
-		Exit-GitHubActionsLogGroup
 	}
 }
 If ($OsLinux -and $RemoveAptCache) {
-	Enter-GitHubActionsLogGroup -Title 'Remove APT cache.'
-	<#
-	sudo apt-get --assume-yes autoremove
-	sudo apt-get --assume-yes clean
-	#>
-	apt-get --assume-yes autoremove
-	apt-get --assume-yes clean
-	Exit-GitHubActionsLogGroup
+	Write-Host -Object 'Remove APT cache.'
+	apt-get --assume-yes autoremove |
+		Write-GitHubActionsDebug
+	apt-get --assume-yes clean |
+		Write-GitHubActionsDebug
 }
 If ($OsLinux -and $RemoveLinuxSwap) {
-	Enter-GitHubActionsLogGroup -Title 'Remove Linux swap space.'
-	<#
-	sudo swapoff -a
-	sudo rm -f /mnt/swapfile
-	#>
-	swapoff -a
+	Write-Host -Object 'Remove Linux swap space.'
+	swapoff -a |
+		Write-GitHubActionsDebug
 	Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
-	Exit-GitHubActionsLogGroup
 }
 $Script:ErrorActionPreference = 'Stop'
 [String]$DiskSpaceAfter = Get-DiskSpace
