@@ -27,5 +27,7 @@ jobs:
       - name: "Get Software List"
         run: |
           Get-Command -CommandType Application |
-            Format-List -Property '*'
+            Format-Table -Property @('Name', 'Path') -AutoSize -Wrap |
+            Out-String -Width 120 |
+            Write-Host
         shell: "pwsh"
