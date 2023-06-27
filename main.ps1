@@ -195,7 +195,7 @@ If ($OsMac -and $RemoveHomebrewCache) {
 }
 If ($RemoveNpmCache) {
 	Write-Host -Object 'Remove NPM cache.'
-	npm cache clean |
+	npm cache clean --force |
 		Write-GitHubActionsDebug
 }
 If ($OsLinux -and $RemoveLinuxSwap) {
