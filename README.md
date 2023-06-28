@@ -41,7 +41,7 @@ This action is inspired from:
 - **(>= v0.3.0)** [Homebrew packages][list]
 - Linux Swap Space
 - **(>= v0.3.0)** NPM (NodeJS Package Manager) cache
-- **(>= v0.3.0)** [NPM (NodeJS Package Manager) packages][list]
+- **(>= v0.2.0)** [NPM (NodeJS Package Manager) packages][list]
 - **(>= v0.3.0)** [Pipx packages][list]
 
 ## 📚 Documentation
