@@ -391,6 +391,7 @@ $Null = Get-Job -Name "$SessionID-*" -ErrorAction 'SilentlyContinue' |
 	Wait-Job
 If ($OperationAsync) {
 	Get-Job -Name "$SessionID-*" |
+		Format-Table -AutoSize -Wrap |
 		Out-String -Width 120 |
 		Write-Host
 }
