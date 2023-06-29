@@ -5,10 +5,6 @@ Get-Alias -Scope 'Local' -ErrorAction 'SilentlyContinue' |
 Import-Module -Name 'hugoalh.GitHubActionsToolkit' -Scope 'Local'
 Test-GitHubActionsEnvironment -Mandatory
 Write-Host -Object 'Initialize.'
-[String]$JobIdPrefix = (
-	New-Guid |
-		Select-Object -ExpandProperty 'Guid'
-).ToUpper() -ireplace '-', ''
 [Boolean]$OsLinux = $Env:RUNNER_OS -ieq 'Linux'
 [Boolean]$OsMac = $Env:RUNNER_OS -ieq 'MacOS'
 [Boolean]$OsWindows = $Env:RUNNER_OS -ieq 'Windows'
@@ -37,6 +33,23 @@ Try {
 	$ProgramPipx = Get-Command -Name 'pipx' -CommandType 'Application' -ErrorAction 'Stop'
 }
 Catch {}
+[String]$JobIdPrefix = (
+	New-Guid |
+		Select-Object -ExpandProperty 'Guid'
+).ToUpper() -ireplace '-', ''
+[PSCustomObject]@{
+	Runner_OS = $Env:RUNNER_OS
+	Runner_Session = $JobIdPrefix
+	ProgramAPT = $Null -ine $ProgramAPT
+	ProgramChocolatey = $Null -ine $ProgramChocolatey
+	ProgramDocker = $Null -ine $ProgramDocker
+	ProgramHomebrew = $Null -ine $ProgramHomebrew
+	ProgramNPM = $Null -ine $ProgramNPM
+	ProgramPipx = $Null -ine $ProgramPipx
+} |
+	Format-List |
+	Out-String -Width 120 |
+	Write-GitHubActionsDebug
 Write-Host -Object 'Import inputs.'
 [RegEx]$InputListDelimiter = Get-GitHubActionsInput -Name 'input_listdelimiter' -Mandatory -EmptyStringAsNull
 [Boolean]$OperationAsync = [Boolean]::Parse((Get-GitHubActionsInput -Name 'operate_async' -Mandatory -EmptyStringAsNull))
