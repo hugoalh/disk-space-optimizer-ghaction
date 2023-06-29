@@ -104,6 +104,7 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 				$_.($OsPathType).Length -gt 0
 			} |
 			Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralInclude) -and !(Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralExclude) } |
+			Sort-Object -Property 'Name' |
 			Sort-Object -Property 'Priority' -Descending
 	)) {
 		Write-Host -Object "Remove $($Item.Description)."
