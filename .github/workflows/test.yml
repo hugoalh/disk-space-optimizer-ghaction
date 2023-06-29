@@ -1,6 +1,15 @@
 name: "Test"
 on:
   workflow_dispatch:
+    inputs:
+      op_async:
+        type: "choice"
+        description: "{Boolean} Whether to operate in async."
+        required: false
+        default: "False"
+        options:
+          - "False"
+          - "True"
 jobs:
   main:
     name: "Main"
@@ -16,6 +25,7 @@ jobs:
       - name: "Optimize Disk Space"
         uses: "hugoalh/disk-space-optimizer-ghaction@main"
         with:
+          op_async: "${{inputs.op_async}}"
           general_include: ".+"
           aptcache: "True"
           dockerimage_include: ".+"

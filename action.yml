@@ -6,6 +6,10 @@ inputs:
     description: "{RegEx} Delimiter when the input is type of list."
     required: false
     default: ",|;|\\r?\\n"
+  op_async:
+    description: "{Boolean} Whether to operate in async."
+    required: false
+    default: "False"
   general_include:
     description: "{RegEx[]} Remove general item."
     required: false
@@ -60,6 +64,7 @@ runs:
       if: "${{runner.os != 'Windows'}}"
       env:
         INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
+        INPUT_OP_ASYNC: "${{inputs.op_async}}"
         INPUT_GENERAL: "${{inputs.general}}"
         INPUT_GENERAL_INCLUDE: "${{inputs.general_include}}"
         INPUT_GENERAL_EXCLUDE: "${{inputs.general_exclude}}"
@@ -78,6 +83,7 @@ runs:
       if: "${{runner.os == 'Windows'}}"
       env:
         INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
+        INPUT_OP_ASYNC: "${{inputs.op_async}}"
         INPUT_GENERAL: "${{inputs.general}}"
         INPUT_GENERAL_INCLUDE: "${{inputs.general_include}}"
         INPUT_GENERAL_EXCLUDE: "${{inputs.general_exclude}}"

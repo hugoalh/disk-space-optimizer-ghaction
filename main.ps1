@@ -5,6 +5,8 @@ Get-Alias -Scope 'Local' -ErrorAction 'SilentlyContinue' |
 Import-Module -Name 'hugoalh.GitHubActionsToolkit' -Scope 'Local'
 Test-GitHubActionsEnvironment -Mandatory
 Write-Host -Object 'Import inputs.'
+[String]$SessionID = New-Guid |
+	Select-Object -ExpandProperty 'Guid'
 [Boolean]$OsLinux = $Env:RUNNER_OS -ieq 'Linux'
 [Boolean]$OsMac = $Env:RUNNER_OS -ieq 'MacOS'
 [Boolean]$OsWindows = $Env:RUNNER_OS -ieq 'Windows'
@@ -36,6 +38,7 @@ Write-Host -Object 'Import inputs.'
 [Boolean]$RemoveHomebrewCache = [Boolean]::Parse((Get-GitHubActionsInput -Name 'homebrewcache' -Mandatory -EmptyStringAsNull))
 [Boolean]$RemoveNpmCache = [Boolean]::Parse((Get-GitHubActionsInput -Name 'npmcache' -Mandatory -EmptyStringAsNull))
 [Boolean]$RemoveLinuxSwap = [Boolean]::Parse((Get-GitHubActionsInput -Name 'swap' -Mandatory -EmptyStringAsNull))
+[Boolean]$OperationAsync = [Boolean]::Parse((Get-GitHubActionsInput -Name 'op_async' -EmptyStringAsNull))
 Function Get-DiskSpace {
 	[CmdletBinding()]
 	[OutputType([String])]
@@ -70,25 +73,51 @@ Function Test-StringMatchRegEx {
 $Script:ErrorActionPreference = 'Continue'
 <# Docker Image. #>
 If ($OsLinux -or $OsWindows) {
-	If ($RemoveDockerImageInclude.Count -gt 0) {
-		[PSCustomObject[]]$DockerImageList = (
-			docker image ls --all --format '{{json .}}' |
-				Join-String -Separator ',' -OutputPrefix '[' -OutputSuffix ']' |
-				ConvertFrom-Json -Depth 100
-		) ?? @()
-		ForEach ($_DI In (
-			$DockerImageList |
-				ForEach-Object -Process { "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" } |
-				Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_ -Matcher $RemoveDockerImageInclude) -and !(Test-StringMatchRegEx -Item $_ -Matcher $RemoveDockerImageExclude) }
-		)) {
-			Write-Host -Object "Remove Docker image ``$_DI``."
-			docker image rm $_DI |
+	If ($OperationAsync) {
+		Write-Host -Object 'Prune/Remove Docker images.'
+		Start-Job -Name "$SessionID-Docker" -ScriptBlock {
+			If ($Using:RemoveDockerImageInclude.Count -gt 0) {
+				[PSCustomObject[]]$DockerImageList = (
+					docker image ls --all --format '{{json .}}' |
+						Join-String -Separator ',' -OutputPrefix '[' -OutputSuffix ']' |
+						ConvertFrom-Json -Depth 100
+				) ?? @()
+				ForEach ($_DI In (
+					$DockerImageList |
+						ForEach-Object -Process { "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" } |
+						Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_ -Matcher $Using:RemoveDockerImageInclude) -and !(Test-StringMatchRegEx -Item $_ -Matcher $Using:RemoveDockerImageExclude) }
+				)) {
+					Write-Host -Object "Remove Docker image ``$_DI``."
+					docker image rm $_DI |
+						Write-GitHubActionsDebug
+				}
+			}
+			Write-Host -Object 'Prune Docker images.'
+			docker image prune --force |
 				Write-GitHubActionsDebug
 		}
 	}
-	Write-Host -Object 'Prune Docker images.'
-	docker image prune --force |
-		Write-GitHubActionsDebug
+	Else {
+		If ($RemoveDockerImageInclude.Count -gt 0) {
+			[PSCustomObject[]]$DockerImageList = (
+				docker image ls --all --format '{{json .}}' |
+					Join-String -Separator ',' -OutputPrefix '[' -OutputSuffix ']' |
+					ConvertFrom-Json -Depth 100
+			) ?? @()
+			ForEach ($_DI In (
+				$DockerImageList |
+					ForEach-Object -Process { "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" } |
+					Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_ -Matcher $RemoveDockerImageInclude) -and !(Test-StringMatchRegEx -Item $_ -Matcher $RemoveDockerImageExclude) }
+			)) {
+				Write-Host -Object "Remove Docker image ``$_DI``."
+				docker image rm $_DI |
+					Write-GitHubActionsDebug
+			}
+		}
+		Write-Host -Object 'Prune Docker images.'
+		docker image prune --force |
+			Write-GitHubActionsDebug
+	}
 }
 <# Super List. #>
 If ($RemoveGeneralInclude.Count -gt 0) {
@@ -109,102 +138,261 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 	)) {
 		Write-Host -Object "Remove $($Item.Description)."
 		If ($OsLinux -and $Item.APT.Length -gt 0) {
-			ForEach ($APT In (
-				$Item.APT -isplit ';;' |
-					Where-Object -FilterScript { $_.Length -gt 0 }
-			)) {
-				apt-get --assume-yes remove $APT |
-					Write-GitHubActionsDebug
+			If ($OperationAsync) {
+				$Null = Get-Job -Name "$SessionID-APT-*" -ErrorAction 'SilentlyContinue' |
+					Wait-Job
+				Start-Job -Name "$SessionID-APT-$($Item.Name)" -ScriptBlock {
+					ForEach ($APT In (
+						$Using:Item.APT -isplit ';;' |
+							Where-Object -FilterScript { $_.Length -gt 0 }
+					)) {
+						apt-get --assume-yes remove $APT |
+							Write-GitHubActionsDebug
+					}
+				}
+			}
+			Else {
+				ForEach ($APT In (
+					$Item.APT -isplit ';;' |
+						Where-Object -FilterScript { $_.Length -gt 0 }
+				)) {
+					apt-get --assume-yes remove $APT |
+						Write-GitHubActionsDebug
+				}
 			}
 		}
 		If ($OsWindows -and $Item.Chocolatey.Length -gt 0) {
-			ForEach ($Chocolatey In (
-				$Item.Chocolatey -isplit ';;' |
-					Where-Object -FilterScript { $_.Length -gt 0 }
-			)) {
-				choco uninstall $Chocolatey --ignore-detected-reboot --yes |
-					Write-GitHubActionsDebug
+			If ($OperationAsync) {
+				$Null = Get-Job -Name "$SessionID-Chocolatey-*" -ErrorAction 'SilentlyContinue' |
+					Wait-Job
+				Start-Job -Name "$SessionID-Chocolatey-$($Item.Name)" -ScriptBlock {
+					ForEach ($Chocolatey In (
+						$Using:Item.Chocolatey -isplit ';;' |
+							Where-Object -FilterScript { $_.Length -gt 0 }
+					)) {
+						choco uninstall $Chocolatey --ignore-detected-reboot --yes |
+							Write-GitHubActionsDebug
+					}
+				}
+			}
+			Else {
+				ForEach ($Chocolatey In (
+					$Item.Chocolatey -isplit ';;' |
+						Where-Object -FilterScript { $_.Length -gt 0 }
+				)) {
+					choco uninstall $Chocolatey --ignore-detected-reboot --yes |
+						Write-GitHubActionsDebug
+				}
 			}
 		}
 		If ($OsMac -and $Item.Homebrew.Length -gt 0) {
-			ForEach ($Homebrew In (
-				$Item.Homebrew -isplit ';;' |
-					Where-Object -FilterScript { $_.Length -gt 0 }
-			)) {
-				brew uninstall $Homebrew |
-					Write-GitHubActionsDebug
+			If ($OperationAsync) {
+				$Null = Get-Job -Name "$SessionID-Homebrew-*" -ErrorAction 'SilentlyContinue' |
+					Wait-Job
+				Start-Job -Name "$SessionID-Homebrew-$($Item.Name)" -ScriptBlock {
+					ForEach ($Homebrew In (
+						$Using:Item.Homebrew -isplit ';;' |
+							Where-Object -FilterScript { $_.Length -gt 0 }
+					)) {
+						brew uninstall $Homebrew |
+							Write-GitHubActionsDebug
+					}
+				}
+			}
+			Else {
+				ForEach ($Homebrew In (
+					$Item.Homebrew -isplit ';;' |
+						Where-Object -FilterScript { $_.Length -gt 0 }
+				)) {
+					brew uninstall $Homebrew |
+						Write-GitHubActionsDebug
+				}
 			}
 		}
 		If ($Item.NPM.Length -gt 0) {
-			ForEach ($NPM In (
-				$Item.NPM -isplit ';;' |
-					Where-Object -FilterScript { $_.Length -gt 0 }
-			)) {
-				npm --global uninstall $NPM |
-					Write-GitHubActionsDebug
+			If ($OperationAsync) {
+				$Null = Get-Job -Name "$SessionID-NPM-*" -ErrorAction 'SilentlyContinue' |
+					Wait-Job
+				Start-Job -Name "$SessionID-NPM-$($Item.Name)" -ScriptBlock {
+					ForEach ($NPM In (
+						$Using:Item.NPM -isplit ';;' |
+							Where-Object -FilterScript { $_.Length -gt 0 }
+					)) {
+						npm --global uninstall $NPM |
+							Write-GitHubActionsDebug
+					}
+				}
+			}
+			Else {
+				ForEach ($NPM In (
+					$Item.NPM -isplit ';;' |
+						Where-Object -FilterScript { $_.Length -gt 0 }
+				)) {
+					npm --global uninstall $NPM |
+						Write-GitHubActionsDebug
+				}
 			}
 		}
 		If (($OsLinux -or $OsMac) -and $Item.Pipx.Length -gt 0) {
-			ForEach ($Pipx In (
-				$Item.Pipx -isplit ';;' |
-					Where-Object -FilterScript { $_.Length -gt 0 }
-			)) {
-				pipx uninstall $Pipx |
-					Write-GitHubActionsDebug
+			If ($OperationAsync) {
+				$Null = Get-Job -Name "$SessionID-Pipx-*" -ErrorAction 'SilentlyContinue' |
+					Wait-Job
+				Start-Job -Name "$SessionID-Pipx-$($Item.Name)" -ScriptBlock {
+					ForEach ($Pipx In (
+						$Using:Item.Pipx -isplit ';;' |
+							Where-Object -FilterScript { $_.Length -gt 0 }
+					)) {
+						pipx uninstall $Pipx |
+							Write-GitHubActionsDebug
+					}
+				}
+			}
+			Else {
+				ForEach ($Pipx In (
+					$Item.Pipx -isplit ';;' |
+						Where-Object -FilterScript { $_.Length -gt 0 }
+				)) {
+					pipx uninstall $Pipx |
+						Write-GitHubActionsDebug
+				}
 			}
 		}
 		If ($Item.Env.Length -gt 0) {
-			ForEach ($ItemEnv In (
-				$Item.Env -isplit ';;' |
-					Where-Object -FilterScript { $_.Length -gt 0 }
-			)) {
-				[String]$ItemEnvValue = Get-Content -LiteralPath "Env:\$ItemEnv" -ErrorAction 'SilentlyContinue'
-				If ($ItemEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $ItemEnvValue)) {
-					Get-ChildItem -LiteralPath $ItemEnvValue -Force -ErrorAction 'Continue' |
-						ForEach-Object -Process {
-							Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+			If ($OperationAsync) {
+				Start-Job -Name "$SessionID-Env-$($Item.Name)" -ScriptBlock {
+					ForEach ($ItemEnv In (
+						$Using:Item.Env -isplit ';;' |
+							Where-Object -FilterScript { $_.Length -gt 0 }
+					)) {
+						[String]$ItemEnvValue = Get-Content -LiteralPath "Env:\$ItemEnv" -ErrorAction 'SilentlyContinue'
+						If ($ItemEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $ItemEnvValue)) {
+							Get-ChildItem -LiteralPath $ItemEnvValue -Force -ErrorAction 'Continue' |
+								ForEach-Object -Process {
+									Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+								}
 						}
+					}
+				}
+			}
+			Else {
+				ForEach ($ItemEnv In (
+					$Item.Env -isplit ';;' |
+						Where-Object -FilterScript { $_.Length -gt 0 }
+				)) {
+					[String]$ItemEnvValue = Get-Content -LiteralPath "Env:\$ItemEnv" -ErrorAction 'SilentlyContinue'
+					If ($ItemEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $ItemEnvValue)) {
+						Get-ChildItem -LiteralPath $ItemEnvValue -Force -ErrorAction 'Continue' |
+							ForEach-Object -Process {
+								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+							}
+					}
 				}
 			}
 		}
 		If ($Item.($OsPathType).Length -gt 0) {
-			ForEach ($ItemPath In (
-				$Item.($OsPathType) -isplit ';;' |
-					Where-Object -FilterScript { $_.Length -gt 0 }
-			)) {
-				[String]$ItemPathResolve = ($ItemPath -imatch '\$Env:') ? (Invoke-Expression -Command "`"$ItemPath`"") : $ItemPath
-				If (Test-Path -Path $ItemPathResolve) {
-					Get-ChildItem -Path $ItemPathResolve -Force -ErrorAction 'Continue' |
-						ForEach-Object -Process {
-							Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+			If ($OperationAsync) {
+				$Null = Get-Job -Name "$SessionID-Env-$($Item.Name)" -ErrorAction 'SilentlyContinue' |
+					Wait-Job
+				Start-Job -Name "$SessionID-Path-$($Item.Name)" -ScriptBlock {
+					ForEach ($ItemPath In (
+						($Using:Item).($Using:OsPathType) -isplit ';;' |
+							Where-Object -FilterScript { $_.Length -gt 0 }
+					)) {
+						[String]$ItemPathResolve = ($ItemPath -imatch '\$Env:') ? (Invoke-Expression -Command "`"$ItemPath`"") : $ItemPath
+						If (Test-Path -Path $ItemPathResolve) {
+							Get-ChildItem -Path $ItemPathResolve -Force -ErrorAction 'Continue' |
+								ForEach-Object -Process {
+									Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+								}
 						}
+					}
+				}
+			}
+			Else {
+				ForEach ($ItemPath In (
+					$Item.($OsPathType) -isplit ';;' |
+						Where-Object -FilterScript { $_.Length -gt 0 }
+				)) {
+					[String]$ItemPathResolve = ($ItemPath -imatch '\$Env:') ? (Invoke-Expression -Command "`"$ItemPath`"") : $ItemPath
+					If (Test-Path -Path $ItemPathResolve) {
+						Get-ChildItem -Path $ItemPathResolve -Force -ErrorAction 'Continue' |
+							ForEach-Object -Process {
+								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+							}
+					}
 				}
 			}
 		}
 	}
 }
+$Null = Get-Job -Name "$SessionID-*" -ErrorAction 'SilentlyContinue' |
+	Wait-Job
 If ($OsLinux -and $RemoveAptCache) {
 	Write-Host -Object 'Remove APT cache.'
-	apt-get --assume-yes autoremove |
-		Write-GitHubActionsDebug
-	apt-get --assume-yes clean |
-		Write-GitHubActionsDebug
+	If ($OperationAsync) {
+		Start-Job -Name "$SessionID-APTCache" -ScriptBlock {
+			apt-get --assume-yes autoremove |
+				Write-GitHubActionsDebug
+			apt-get --assume-yes clean |
+				Write-GitHubActionsDebug
+		}
+	}
+	Else {
+		apt-get --assume-yes autoremove |
+			Write-GitHubActionsDebug
+		apt-get --assume-yes clean |
+			Write-GitHubActionsDebug
+	}
 }
 If ($OsMac -and $RemoveHomebrewCache) {
 	Write-Host -Object 'Remove Homebrew cache.'
-	brew autoremove |
-		Write-GitHubActionsDebug
+	If ($OperationAsync) {
+		Start-Job -Name "$SessionID-HomebrewCache" -ScriptBlock {
+			brew autoremove |
+				Write-GitHubActionsDebug
+		}
+	}
+	Else {
+		brew autoremove |
+			Write-GitHubActionsDebug
+	}
 }
 If ($RemoveNpmCache) {
 	Write-Host -Object 'Remove NPM cache.'
-	npm cache clean --force |
-		Write-GitHubActionsDebug
+	If ($OperationAsync) {
+		Start-Job -Name "$SessionID-NPMCache" -ScriptBlock {
+			npm cache clean --force |
+				Write-GitHubActionsDebug
+		}
+	}
+	Else {
+		npm cache clean --force |
+			Write-GitHubActionsDebug
+	}
 }
+$Null = Get-Job -Name "$SessionID-*" -ErrorAction 'SilentlyContinue' |
+	Wait-Job
 If ($OsLinux -and $RemoveLinuxSwap) {
 	Write-Host -Object 'Remove Linux swap space.'
-	swapoff -a |
-		Write-GitHubActionsDebug
-	Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+	If ($OperationAsync) {
+		Start-Job -Name "$SessionID-Swap" -ScriptBlock {
+			swapoff -a |
+				Write-GitHubActionsDebug
+			Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+		}
+	}
+	Else {
+		swapoff -a |
+			Write-GitHubActionsDebug
+		Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+	}
+}
+$Null = Get-Job -Name "$SessionID-*" -ErrorAction 'SilentlyContinue' |
+	Wait-Job
+If ($OperationAsync) {
+	Get-Job -Name "$SessionID-*" |
+		Out-String -Width 120 |
+		Write-Host
 }
 $Script:ErrorActionPreference = 'Stop'
 [String]$DiskSpaceAfter = Get-DiskSpace
