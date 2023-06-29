@@ -75,7 +75,7 @@ $Script:ErrorActionPreference = 'Continue'
 If ($OsLinux -or $OsWindows) {
 	If ($OperationAsync) {
 		Write-Host -Object 'Prune/Remove Docker images.'
-		Start-Job -Name "$SessionID-Docker" -ScriptBlock {
+		$Null = Start-Job -Name "$SessionID-Docker" -ScriptBlock {
 			If ($Using:RemoveDockerImageInclude.Count -gt 0) {
 				[PSCustomObject[]]$DockerImageList = (
 					docker image ls --all --format '{{json .}}' |
@@ -141,7 +141,7 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 			If ($OperationAsync) {
 				$Null = Get-Job -Name "$SessionID-APT-*" -ErrorAction 'SilentlyContinue' |
 					Wait-Job
-				Start-Job -Name "$SessionID-APT-$($Item.Name)" -ScriptBlock {
+				$Null = Start-Job -Name "$SessionID-APT-$($Item.Name)" -ScriptBlock {
 					ForEach ($APT In (
 						$Using:Item.APT -isplit ';;' |
 							Where-Object -FilterScript { $_.Length -gt 0 }
@@ -165,7 +165,7 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 			If ($OperationAsync) {
 				$Null = Get-Job -Name "$SessionID-Chocolatey-*" -ErrorAction 'SilentlyContinue' |
 					Wait-Job
-				Start-Job -Name "$SessionID-Chocolatey-$($Item.Name)" -ScriptBlock {
+				$Null = Start-Job -Name "$SessionID-Chocolatey-$($Item.Name)" -ScriptBlock {
 					ForEach ($Chocolatey In (
 						$Using:Item.Chocolatey -isplit ';;' |
 							Where-Object -FilterScript { $_.Length -gt 0 }
@@ -189,7 +189,7 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 			If ($OperationAsync) {
 				$Null = Get-Job -Name "$SessionID-Homebrew-*" -ErrorAction 'SilentlyContinue' |
 					Wait-Job
-				Start-Job -Name "$SessionID-Homebrew-$($Item.Name)" -ScriptBlock {
+				$Null = Start-Job -Name "$SessionID-Homebrew-$($Item.Name)" -ScriptBlock {
 					ForEach ($Homebrew In (
 						$Using:Item.Homebrew -isplit ';;' |
 							Where-Object -FilterScript { $_.Length -gt 0 }
@@ -213,7 +213,7 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 			If ($OperationAsync) {
 				$Null = Get-Job -Name "$SessionID-NPM-*" -ErrorAction 'SilentlyContinue' |
 					Wait-Job
-				Start-Job -Name "$SessionID-NPM-$($Item.Name)" -ScriptBlock {
+				$Null = Start-Job -Name "$SessionID-NPM-$($Item.Name)" -ScriptBlock {
 					ForEach ($NPM In (
 						$Using:Item.NPM -isplit ';;' |
 							Where-Object -FilterScript { $_.Length -gt 0 }
@@ -237,7 +237,7 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 			If ($OperationAsync) {
 				$Null = Get-Job -Name "$SessionID-Pipx-*" -ErrorAction 'SilentlyContinue' |
 					Wait-Job
-				Start-Job -Name "$SessionID-Pipx-$($Item.Name)" -ScriptBlock {
+				$Null = Start-Job -Name "$SessionID-Pipx-$($Item.Name)" -ScriptBlock {
 					ForEach ($Pipx In (
 						$Using:Item.Pipx -isplit ';;' |
 							Where-Object -FilterScript { $_.Length -gt 0 }
@@ -259,7 +259,7 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 		}
 		If ($Item.Env.Length -gt 0) {
 			If ($OperationAsync) {
-				Start-Job -Name "$SessionID-Env-$($Item.Name)" -ScriptBlock {
+				$Null = Start-Job -Name "$SessionID-Env-$($Item.Name)" -ScriptBlock {
 					ForEach ($ItemEnv In (
 						$Using:Item.Env -isplit ';;' |
 							Where-Object -FilterScript { $_.Length -gt 0 }
@@ -293,7 +293,7 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 			If ($OperationAsync) {
 				$Null = Get-Job -Name "$SessionID-Env-$($Item.Name)" -ErrorAction 'SilentlyContinue' |
 					Wait-Job
-				Start-Job -Name "$SessionID-Path-$($Item.Name)" -ScriptBlock {
+				$Null = Start-Job -Name "$SessionID-Path-$($Item.Name)" -ScriptBlock {
 					ForEach ($ItemPath In (
 						($Using:Item).($Using:OsPathType) -isplit ';;' |
 							Where-Object -FilterScript { $_.Length -gt 0 }
@@ -330,7 +330,7 @@ $Null = Get-Job -Name "$SessionID-*" -ErrorAction 'SilentlyContinue' |
 If ($OsLinux -and $RemoveAptCache) {
 	Write-Host -Object 'Remove APT cache.'
 	If ($OperationAsync) {
-		Start-Job -Name "$SessionID-APTCache" -ScriptBlock {
+		$Null = Start-Job -Name "$SessionID-APTCache" -ScriptBlock {
 			apt-get --assume-yes autoremove |
 				Write-GitHubActionsDebug
 			apt-get --assume-yes clean |
@@ -347,7 +347,7 @@ If ($OsLinux -and $RemoveAptCache) {
 If ($OsMac -and $RemoveHomebrewCache) {
 	Write-Host -Object 'Remove Homebrew cache.'
 	If ($OperationAsync) {
-		Start-Job -Name "$SessionID-HomebrewCache" -ScriptBlock {
+		$Null = Start-Job -Name "$SessionID-HomebrewCache" -ScriptBlock {
 			brew autoremove |
 				Write-GitHubActionsDebug
 		}
@@ -360,7 +360,7 @@ If ($OsMac -and $RemoveHomebrewCache) {
 If ($RemoveNpmCache) {
 	Write-Host -Object 'Remove NPM cache.'
 	If ($OperationAsync) {
-		Start-Job -Name "$SessionID-NPMCache" -ScriptBlock {
+		$Null = Start-Job -Name "$SessionID-NPMCache" -ScriptBlock {
 			npm cache clean --force |
 				Write-GitHubActionsDebug
 		}
@@ -375,7 +375,7 @@ $Null = Get-Job -Name "$SessionID-*" -ErrorAction 'SilentlyContinue' |
 If ($OsLinux -and $RemoveLinuxSwap) {
 	Write-Host -Object 'Remove Linux swap space.'
 	If ($OperationAsync) {
-		Start-Job -Name "$SessionID-Swap" -ScriptBlock {
+		$Null = Start-Job -Name "$SessionID-Swap" -ScriptBlock {
 			swapoff -a |
 				Write-GitHubActionsDebug
 			Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
