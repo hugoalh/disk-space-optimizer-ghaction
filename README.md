@@ -69,7 +69,7 @@ jobs:
 
 **(>= v0.4.0) \[Optional\]** `<Boolean = False>` Whether to operate in asynchronously.
 
-> **ℹ Notice:** Although this feature can reduce the operation time majorly on Linux and Windows runner by \~40%, this maybe cause unexpected issues and remain some elements.
+> **ℹ Notice:** Although this feature can reduce the operation time majorly on Linux runner by \~33% and Windows runner by \~25%, this maybe cause unexpected issues and remain some elements.
 
 #### `general_include`
 

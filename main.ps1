@@ -402,12 +402,12 @@ If ($Null -ine $ProgramNPM -and $RemoveNpmCache) {
 	Write-Host -Object 'Remove NPM cache.'
 	If ($OperationAsync) {
 		$Null = Start-Job -Name "$JobIdPrefix/NPMCache" -ScriptBlock {
-			npm cache clean --force |
+			npm cache clean --force 2>&1 |
 				Write-GitHubActionsDebug
 		}
 	}
 	Else {
-		npm cache clean --force |
+		npm cache clean --force 2>&1 |
 			Write-GitHubActionsDebug
 	}
 }
