@@ -65,6 +65,12 @@ jobs:
 
 **\[Optional\]** `<RegEx = ",|;|\r?\n">` Delimiter when the input is type of list (i.e.: array), by regular expression.
 
+#### `operate_async`
+
+**(>= v0.4.0) \[Optional\]** `<Boolean = False>` Whether to operate in asynchronously.
+
+> **ℹ Notice:** Although this feature can reduce the operation time majorly on Linux and Windows runner by \~40%, this maybe cause unexpected issues and remain some elements.
+
 #### `general_include`
 
 **(>= v0.2.0) \[Optional\]** `<RegEx[]>` Remove general item, by regular expression and [super list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).

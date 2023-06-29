@@ -1,21 +1,15 @@
 name: "Test"
 on:
   workflow_dispatch:
-    inputs:
-      operate_async:
-        type: "choice"
-        description: "{Boolean} Whether to operate in asynchronously."
-        required: false
-        default: "False"
-        options:
-          - "False"
-          - "True"
 jobs:
   main:
     name: "Main"
     runs-on: "${{matrix.os}}"
     strategy:
       matrix:
+        operate_async:
+          - "False"
+          - "True"
         os:
           - "macos-latest"
           - "ubuntu-latest"
@@ -25,12 +19,10 @@ jobs:
       - name: "Optimize Disk Space"
         uses: "hugoalh/disk-space-optimizer-ghaction@main"
         with:
-          operate_async: "${{inputs.operate_async}}"
+          operate_async: "${{matrix.operate_async}}"
           general_include: ".+"
           aptcache: "True"
           dockerimage_include: ".+"
-          dockerimage_exclude: |-
-            ^debian:
           homebrewcache: "True"
           npmcache: "True"
           swap: "True"

@@ -40,12 +40,12 @@ Catch {}
 [PSCustomObject]@{
 	Runner_OS = $Env:RUNNER_OS
 	Runner_Session = $JobIdPrefix
-	ProgramAPT = $Null -ine $ProgramAPT
-	ProgramChocolatey = $Null -ine $ProgramChocolatey
-	ProgramDocker = $Null -ine $ProgramDocker
-	ProgramHomebrew = $Null -ine $ProgramHomebrew
-	ProgramNPM = $Null -ine $ProgramNPM
-	ProgramPipx = $Null -ine $ProgramPipx
+	Program_APT = $Null -ine $ProgramAPT
+	Program_Chocolatey = $Null -ine $ProgramChocolatey
+	Program_Docker = $Null -ine $ProgramDocker
+	Program_Homebrew = $Null -ine $ProgramHomebrew
+	Program_NPM = $Null -ine $ProgramNPM
+	Program_Pipx = $Null -ine $ProgramPipx
 } |
 	Format-List |
 	Out-String -Width 120 |
@@ -301,6 +301,8 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 			$Item.Env.Length -gt 0 -or
 			$Item.($OsPathType).Length -gt 0
 		)) {
+			$Null = Get-Job -Name "$JobIdPrefix/*/$($Item.Name)" -ErrorAction 'SilentlyContinue' |
+				Wait-Job
 			$Null = Start-Job -Name "$JobIdPrefix/FS/$($Item.Name)" -ScriptBlock {
 				If (($Using:Item).Env.Length -gt 0) {
 					ForEach ($ItemEnv In (
