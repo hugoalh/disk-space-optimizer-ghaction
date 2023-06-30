@@ -26,6 +26,13 @@ jobs:
           homebrewcache: "True"
           npmcache: "True"
           swap: "True"
+      - name: "Get PowerShell Command Alias"
+        run: |
+          Get-Alias |
+            Format-Table -AutoSize -Wrap |
+            Out-String -Width 120 |
+            Write-Host
+        shell: "pwsh"
       - name: "Get Software List"
         run: |
           Get-Command -CommandType Application |
