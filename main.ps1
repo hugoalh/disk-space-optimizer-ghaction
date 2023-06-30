@@ -162,153 +162,121 @@ If ($Null -ine $ProgramDocker) {
 <# Super List. #>
 If ($RemoveGeneralInclude.Count -gt 0) {
 	ForEach ($Item In (
-		Import-Csv -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.tsv') -Delimiter "`t" -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
+		Get-Content -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.json') -Raw -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
+			ConvertFrom-Json -Depth 100 |
 			Where-Object -FilterScript {
-				($Null -ine $ProgramAPT -and $_.APT.Length -gt 0) -or
-				($Null -ine $ProgramChocolatey -and $_.Chocolatey.Length -gt 0) -or
-				($Null -ine $ProgramHomebrew -and $_.Homebrew.Length -gt 0) -or
-				($Null -ine $ProgramNPM -and $_.NPM.Length -gt 0) -or
-				($Null -ine $ProgramPipx -and $_.Pipx.Length -gt 0) -or
-				$_.Env.Length -gt 0 -or
-				$_.($OsPathType).Length -gt 0
+				($Null -ine $ProgramAPT -and $_.APT.Count -gt 0) -or
+				($Null -ine $ProgramChocolatey -and $_.Chocolatey.Count -gt 0) -or
+				($Null -ine $ProgramHomebrew -and $_.Homebrew.Count -gt 0) -or
+				($Null -ine $ProgramNPM -and $_.NPM.Count -gt 0) -or
+				($Null -ine $ProgramPipx -and $_.Pipx.Count -gt 0) -or
+				$_.Env.Count -gt 0 -or
+				$_.($OsPathType).Count -gt 0
 			} |
 			Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralInclude) -and !(Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralExclude) } |
 			Sort-Object -Property 'Name' |
 			Sort-Object -Property 'Priority' -Descending
 	)) {
 		Write-Host -Object "Remove $($Item.Description)."
-		If ($Null -ine $ProgramAPT -and $Item.APT.Length -gt 0) {
+		If ($Null -ine $ProgramAPT -and $Item.APT.Count -gt 0) {
 			If ($OperationAsync) {
 				$Null = Get-Job -Name "$JobIdPrefix/APT/*" -ErrorAction 'SilentlyContinue' |
 					Wait-Job
 				$Null = Start-Job -Name "$JobIdPrefix/APT/$($Item.Name)" -ScriptBlock {
-					ForEach ($APT In (
-						($Using:Item).APT -isplit ';;' |
-							Where-Object -FilterScript { $_.Length -gt 0 }
-					)) {
+					ForEach ($APT In ($Using:Item).APT) {
 						apt-get --assume-yes remove $APT |
 							Write-GitHubActionsDebug
 					}
 				}
 			}
 			Else {
-				ForEach ($APT In (
-					$Item.APT -isplit ';;' |
-						Where-Object -FilterScript { $_.Length -gt 0 }
-				)) {
+				ForEach ($APT In $Item.APT) {
 					apt-get --assume-yes remove $APT |
 						Write-GitHubActionsDebug
 				}
 			}
 		}
-		If ($Null -ine $ProgramChocolatey -and $Item.Chocolatey.Length -gt 0) {
+		If ($Null -ine $ProgramChocolatey -and $Item.Chocolatey.Count -gt 0) {
 			If ($OperationAsync) {
 				$Null = Get-Job -Name "$JobIdPrefix/Chocolatey/*" -ErrorAction 'SilentlyContinue' |
 					Wait-Job
 				$Null = Start-Job -Name "$JobIdPrefix/Chocolatey/$($Item.Name)" -ScriptBlock {
-					ForEach ($Chocolatey In (
-						($Using:Item).Chocolatey -isplit ';;' |
-							Where-Object -FilterScript { $_.Length -gt 0 }
-					)) {
+					ForEach ($Chocolatey In ($Using:Item).Chocolatey) {
 						choco uninstall $Chocolatey --ignore-detected-reboot --yes |
 							Write-GitHubActionsDebug
 					}
 				}
 			}
 			Else {
-				ForEach ($Chocolatey In (
-					$Item.Chocolatey -isplit ';;' |
-						Where-Object -FilterScript { $_.Length -gt 0 }
-				)) {
+				ForEach ($Chocolatey In $Item.Chocolatey) {
 					choco uninstall $Chocolatey --ignore-detected-reboot --yes |
 						Write-GitHubActionsDebug
 				}
 			}
 		}
-		If ($Null -ine $ProgramHomebrew -and $Item.Homebrew.Length -gt 0) {
+		If ($Null -ine $ProgramHomebrew -and $Item.Homebrew.Count -gt 0) {
 			If ($OperationAsync) {
 				$Null = Get-Job -Name "$JobIdPrefix/Homebrew/*" -ErrorAction 'SilentlyContinue' |
 					Wait-Job
 				$Null = Start-Job -Name "$JobIdPrefix/Homebrew/$($Item.Name)" -ScriptBlock {
-					ForEach ($Homebrew In (
-						($Using:Item).Homebrew -isplit ';;' |
-							Where-Object -FilterScript { $_.Length -gt 0 }
-					)) {
+					ForEach ($Homebrew In ($Using:Item).Homebrew) {
 						brew uninstall $Homebrew |
 							Write-GitHubActionsDebug
 					}
 				}
 			}
 			Else {
-				ForEach ($Homebrew In (
-					$Item.Homebrew -isplit ';;' |
-						Where-Object -FilterScript { $_.Length -gt 0 }
-				)) {
+				ForEach ($Homebrew In $Item.Homebrew) {
 					brew uninstall $Homebrew |
 						Write-GitHubActionsDebug
 				}
 			}
 		}
-		If ($Null -ine $ProgramNPM -and $Item.NPM.Length -gt 0) {
+		If ($Null -ine $ProgramNPM -and $Item.NPM.Count -gt 0) {
 			If ($OperationAsync) {
 				$Null = Get-Job -Name "$JobIdPrefix/NPM/*" -ErrorAction 'SilentlyContinue' |
 					Wait-Job
 				$Null = Start-Job -Name "$JobIdPrefix/NPM/$($Item.Name)" -ScriptBlock {
-					ForEach ($NPM In (
-						($Using:Item).NPM -isplit ';;' |
-							Where-Object -FilterScript { $_.Length -gt 0 }
-					)) {
+					ForEach ($NPM In ($Using:Item).NPM) {
 						npm --global uninstall $NPM |
 							Write-GitHubActionsDebug
 					}
 				}
 			}
 			Else {
-				ForEach ($NPM In (
-					$Item.NPM -isplit ';;' |
-						Where-Object -FilterScript { $_.Length -gt 0 }
-				)) {
+				ForEach ($NPM In $Item.NPM) {
 					npm --global uninstall $NPM |
 						Write-GitHubActionsDebug
 				}
 			}
 		}
-		If ($Null -ine $ProgramPipx -and $Item.Pipx.Length -gt 0) {
+		If ($Null -ine $ProgramPipx -and $Item.Pipx.Count -gt 0) {
 			If ($OperationAsync) {
 				$Null = Get-Job -Name "$JobIdPrefix/Pipx/*" -ErrorAction 'SilentlyContinue' |
 					Wait-Job
 				$Null = Start-Job -Name "$JobIdPrefix/Pipx/$($Item.Name)" -ScriptBlock {
-					ForEach ($Pipx In (
-						($Using:Item).Pipx -isplit ';;' |
-							Where-Object -FilterScript { $_.Length -gt 0 }
-					)) {
+					ForEach ($Pipx In ($Using:Item).Pipx) {
 						pipx uninstall $Pipx |
 							Write-GitHubActionsDebug
 					}
 				}
 			}
 			Else {
-				ForEach ($Pipx In (
-					$Item.Pipx -isplit ';;' |
-						Where-Object -FilterScript { $_.Length -gt 0 }
-				)) {
+				ForEach ($Pipx In $Item.Pipx) {
 					pipx uninstall $Pipx |
 						Write-GitHubActionsDebug
 				}
 			}
 		}
 		If ($OperationAsync -and (
-			$Item.Env.Length -gt 0 -or
-			$Item.($OsPathType).Length -gt 0
+			$Item.Env.Count -gt 0 -or
+			$Item.($OsPathType).Count -gt 0
 		)) {
 			$Null = Get-Job -Name "$JobIdPrefix/*/$($Item.Name)" -ErrorAction 'SilentlyContinue' |
 				Wait-Job
 			$Null = Start-Job -Name "$JobIdPrefix/FS/$($Item.Name)" -ScriptBlock {
-				If (($Using:Item).Env.Length -gt 0) {
-					ForEach ($ItemEnv In (
-						($Using:Item).Env -isplit ';;' |
-							Where-Object -FilterScript { $_.Length -gt 0 }
-					)) {
+				If (($Using:Item).Env.Count -gt 0) {
+					ForEach ($ItemEnv In ($Using:Item).Env) {
 						[String]$ItemEnvValue = Get-Content -LiteralPath "Env:\$ItemEnv" -ErrorAction 'SilentlyContinue'
 						If ($ItemEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $ItemEnvValue)) {
 							Get-ChildItem -LiteralPath $ItemEnvValue -Force -ErrorAction 'Continue' |
@@ -318,11 +286,8 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 						}
 					}
 				}
-				If (($Using:Item).($Using:OsPathType).Length -gt 0) {
-					ForEach ($ItemPath In (
-						($Using:Item).($Using:OsPathType) -isplit ';;' |
-							Where-Object -FilterScript { $_.Length -gt 0 }
-					)) {
+				If (($Using:Item).($Using:OsPathType).Count -gt 0) {
+					ForEach ($ItemPath In ($Using:Item).($Using:OsPathType)) {
 						[String]$ItemPathResolve = ($ItemPath -imatch '\$Env:') ? (Invoke-Expression -Command "`"$ItemPath`"") : $ItemPath
 						If (Test-Path -Path $ItemPathResolve) {
 							Get-ChildItem -Path $ItemPathResolve -Force -ErrorAction 'Continue' |
@@ -335,11 +300,8 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 			}
 		}
 		Else {
-			If ($Item.Env.Length -gt 0) {
-				ForEach ($ItemEnv In (
-					$Item.Env -isplit ';;' |
-						Where-Object -FilterScript { $_.Length -gt 0 }
-				)) {
+			If ($Item.Env.Count -gt 0) {
+				ForEach ($ItemEnv In $Item.Env) {
 					[String]$ItemEnvValue = Get-Content -LiteralPath "Env:\$ItemEnv" -ErrorAction 'SilentlyContinue'
 					If ($ItemEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $ItemEnvValue)) {
 						Get-ChildItem -LiteralPath $ItemEnvValue -Force -ErrorAction 'Continue' |
@@ -349,11 +311,8 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 					}
 				}
 			}
-			If ($Item.($OsPathType).Length -gt 0) {
-				ForEach ($ItemPath In (
-					$Item.($OsPathType) -isplit ';;' |
-						Where-Object -FilterScript { $_.Length -gt 0 }
-				)) {
+			If ($Item.($OsPathType).Count -gt 0) {
+				ForEach ($ItemPath In $Item.($OsPathType)) {
 					[String]$ItemPathResolve = ($ItemPath -imatch '\$Env:') ? (Invoke-Expression -Command "`"$ItemPath`"") : $ItemPath
 					If (Test-Path -Path $ItemPathResolve) {
 						Get-ChildItem -Path $ItemPathResolve -Force -ErrorAction 'Continue' |
