@@ -164,6 +164,7 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 	ForEach ($Item In (
 		Get-Content -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.json') -Raw -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
 			ConvertFrom-Json -Depth 100 |
+			Select-Object -ExpandProperty 'content' |
 			Where-Object -FilterScript {
 				($Null -ine $ProgramAPT -and $_.APT.Count -gt 0) -or
 				($Null -ine $ProgramChocolatey -and $_.Chocolatey.Count -gt 0) -or
