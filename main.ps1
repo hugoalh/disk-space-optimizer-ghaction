@@ -419,7 +419,7 @@ If ($OperationAsync) {
 		Get-Job -Name "$JobIdPrefix/*" |
 			ForEach-Object -Process {
 				Enter-GitHubActionsLogGroup -Title $_.Name
-				Receive-Job -Wait -AutoRemoveJob
+				Receive-Job -Name $_.Name -Wait -AutoRemoveJob
 				Exit-GitHubActionsLogGroup
 			}
 	}

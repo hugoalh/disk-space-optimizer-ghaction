@@ -1,19 +1,19 @@
 Name	Description	Priority	APT	Chocolatey	Homebrew	NPM	Pipx	Env	PathLinux	PathMacOS	PathWindows
-AliYun	AliYun (Alibaba Cloud) CLI	9							/usr/local/bin/aliyun		C:\aliyun-cli
+AliYun	AliYun (Alibaba Cloud) CLI	9			aliyun-cli				/usr/local/bin/aliyun		C:\aliyun-cli
 AndroidNDK	Android NDK	3						ANDROID_ROOT;;ANDROID_NDK_ROOT;;ANDROID_SDK_ROOT;;ANDROID_HOME	/usr/local/lib/android	/Users/runner/Library/Android	C:\Program Files (x86)\Android;;C:\Android
 Ansible	Ansible	1					ansible-core				
 Ant	Ant	1							/usr/share/ant		
 Apache	Apache	1	apache2								C:\tools\Apache*
 AWS	AWS (Amazon Web Service) CLI	1							/usr/local/aws-cli		
-AzCopy	AzCopy	1							/usr/local/bin/azcopy		
-AzureCLI	Azure CLI	1	azure-cli					AZURE_EXTENSION_DIR	/opt/az/azcliextensions		
+AzCopy	AzCopy	1		azcopy10					/usr/local/bin/azcopy		
+AzureCLI	Azure CLI	1	azure-cli		azure-cli			AZURE_EXTENSION_DIR	/opt/az/azcliextensions		
 Bazel	Bazel	1							/usr/local/bin/bazel		
 Bazelisk	Bazelisk	2				@bazel/bazelisk					
 Bicep	Bicep	1							/usr/local/bin/bicep		
 Chromium	Chromium	1						CHROMIUM_DIR	/usr/local/share/chromium		
 Clang	Clang	2	^clang-.*;;^lldb-.*;;^lld-.*;;^clang-format-.*;;^clang-tidy-.*								
 CodeQL	CodeQL	1							$Env:AGENT_TOOLSDIRECTORY/CodeQL;;/opt/hostedtoolcache/CodeQL	$Env:AGENT_TOOLSDIRECTORY/CodeQL	$Env:AGENT_TOOLSDIRECTORY\CodeQL
-DotNet	.Net	2	^dotnet-.*						/usr/share/dotnet		
+DotNet	.Net	2	^dotnet-.*						/usr/share/dotnet	/usr/local/bin/dotnet;;$Env:HOME/.dotnet	
 Erlang	Erlang	1	esl-erlang						/usr/local/bin/rebar3		
 Firefox	Mozilla Firefox Browser	1	firefox								
 G++	GNU C++ compiler	2	^g\+\+.*								
@@ -25,8 +25,8 @@ GoogleChrome	Google Chrome Browser	1	google-chrome-stable					CHROME_BIN	/usr/bi
 GoogleChromeWebDriver	Google Chrome Web Driver	1						CHROMEWEBDRIVER;;CHROMEDRIVER_DIR	/usr/local/share/chrome_driver	/usr/local/Caskroom/chromedriver	C:\SeleniumWebDrivers\ChromeDriver
 GoogleCloudSDK	Google Cloud SDK	1	google-cloud-sdk								
 Gradle	Gradle	1							/usr/share/gradle-*		
-Grunt	Grunt	1				grunt					
-Gulp	Gulp	1				gulp					
+Grunt	Grunt	1				grunt;;grunt-cli					
+Gulp	Gulp	1				gulp;;gulp-cli					
 HaskellGHC	Haskell GHC	1							/opt/ghc;;/usr/local/.ghcup/ghc		
 Heroku	Heroku	1							/usr/local/lib/heroku	/usr/local/lib/heroku	
 HHVM	HHVM	1	hhvm								
@@ -37,7 +37,7 @@ Java/13	Java 13	2						JAVA_HOME_13_X64	/usr/lib/jvm/*-13.*-*-*	$Env:AGENT_TOOLS
 Java/17	Java 17	2						JAVA_HOME_17_X64	/usr/lib/jvm/*-17.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\17.*
 Java/8	Java 8	2						JAVA_HOME_8_X64	/usr/lib/jvm/*-8.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\8.*
 Java/All	Java (All)	1						JAVA_HOME	/usr/lib/jvm	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk
-Julia	Julia	1							/usr/local/julia*;;/usr/bin/julia		
+Julia	Julia	1		julia					/usr/local/julia*;;/usr/bin/julia		
 Kotlin	Kotlin	1							/usr/share/kotlinc		
 Lerna	Lerna	1				lerna					
 LLVM	LLVM	2	^llvm-.*		llvm						
@@ -65,7 +65,7 @@ Selenium	Selenium	1						SELENIUM_JAR_PATH	/usr/share/java/selenium-server.jar		
 Sphinx	Sphinx	1	sphinxsearch								
 SQLPackage	SQL Package	1							/usr/local/sqlpackage		
 Stack	Stack	1							$Env:AGENT_TOOLSDIRECTORY/stack;;/opt/hostedtoolcache/stack	$Env:AGENT_TOOLSDIRECTORY/stack	$Env:AGENT_TOOLSDIRECTORY\stack
-Swift	Swift	1						SWIFT_PATH	/usr/share/swift;;/usr/local/bin/swift;;/usr/local/bin/swiftc		
+Swift	Swift	1			swiftformat			SWIFT_PATH	/usr/share/swift;;/usr/local/bin/swift;;/usr/local/bin/swiftc		
 VCPkg	VCPkg	0						VCPKG_INSTALLATION_ROOT	/usr/local/share/vcpkg;;/root/.vcpkg	/usr/local/share/vcpkg	C:\vcpkg
 Vercel	Vercel	1				vercel					
 VisualStudio/2019	Visual Studio 2019	2								/Applications/Visual Studio 2019*	C:\Program Files\Microsoft Visual Studio\2019

@@ -7,7 +7,9 @@
 			"Priority": 9,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"aliyun-cli"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -116,7 +118,9 @@
 			"Description": "AzCopy",
 			"Priority": 1,
 			"APT": [ ],
-			"Chocolatey": [ ],
+			"Chocolatey": [
+				"azcopy10"
+			],
 			"Homebrew": [ ],
 			"NPM": [ ],
 			"Pipx": [ ],
@@ -135,7 +139,9 @@
 				"azure-cli"
 			],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"azure-cli"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [
@@ -269,7 +275,10 @@
 			"PathLinux": [
 				"/usr/share/dotnet"
 			],
-			"PathMacOS": [ ],
+			"PathMacOS": [
+				"/usr/local/bin/dotnet",
+				"$Env:HOME/.dotnet"
+			],
 			"PathWindows": [ ]
 		},
 		{
@@ -482,7 +491,8 @@
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
 			"NPM": [
-				"grunt"
+				"grunt",
+				"grunt-cli"
 			],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -498,7 +508,8 @@
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
 			"NPM": [
-				"gulp"
+				"gulp",
+				"gulp-cli"
 			],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -708,7 +719,9 @@
 			"Description": "Julia",
 			"Priority": 1,
 			"APT": [ ],
-			"Chocolatey": [ ],
+			"Chocolatey": [
+				"julia"
+			],
 			"Homebrew": [ ],
 			"NPM": [ ],
 			"Pipx": [ ],
@@ -1207,7 +1220,9 @@
 			"Priority": 1,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"swiftformat"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [
