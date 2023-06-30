@@ -273,7 +273,10 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 			$Item.Env.Count -gt 0 -or
 			$Item.($OsPathType).Count -gt 0
 		)) {
-			$Null = Get-Job -Name "$JobIdPrefix/*/$($Item.Name)" -ErrorAction 'SilentlyContinue' |
+			$Null = Get-Job -Name @(
+				"$JobIdPrefix/*/$($Item.Name)",
+				"$JobIdPrefix/FS/$($Item.Name -ireplace '/All$', '*')"
+			) -ErrorAction 'SilentlyContinue' |
 				Wait-Job
 			$Null = Start-Job -Name "$JobIdPrefix/FS/$($Item.Name)" -ScriptBlock {
 				If (($Using:Item).Env.Count -gt 0) {
@@ -330,6 +333,7 @@ $Null = Get-Job -Name "$JobIdPrefix/*" -ErrorAction 'SilentlyContinue' |
 	Wait-Job
 If ($Null -ine $ProgramAPT -and $RemoveAptCache) {
 	Write-Host -Object 'Remove APT cache.'
+	<#
 	If ($OperationAsync) {
 		$Null = Start-Job -Name "$JobIdPrefix/APTCache" -ScriptBlock {
 			apt-get --assume-yes autoremove |
@@ -344,9 +348,15 @@ If ($Null -ine $ProgramAPT -and $RemoveAptCache) {
 		apt-get --assume-yes clean |
 			Write-GitHubActionsDebug
 	}
+	#>
+	apt-get --assume-yes autoremove |
+		Write-GitHubActionsDebug
+	apt-get --assume-yes clean |
+		Write-GitHubActionsDebug
 }
 If ($Null -ine $ProgramHomebrew -and $RemoveHomebrewCache) {
 	Write-Host -Object 'Remove Homebrew cache.'
+	<#
 	If ($OperationAsync) {
 		$Null = Start-Job -Name "$JobIdPrefix/HomebrewCache" -ScriptBlock {
 			brew autoremove |
@@ -357,9 +367,13 @@ If ($Null -ine $ProgramHomebrew -and $RemoveHomebrewCache) {
 		brew autoremove |
 			Write-GitHubActionsDebug
 	}
+	#>
+	brew autoremove |
+		Write-GitHubActionsDebug
 }
 If ($Null -ine $ProgramNPM -and $RemoveNpmCache) {
 	Write-Host -Object 'Remove NPM cache.'
+	<#
 	If ($OperationAsync) {
 		$Null = Start-Job -Name "$JobIdPrefix/NPMCache" -ScriptBlock {
 			npm cache clean --force 2>&1 |
@@ -370,9 +384,14 @@ If ($Null -ine $ProgramNPM -and $RemoveNpmCache) {
 		npm cache clean --force 2>&1 |
 			Write-GitHubActionsDebug
 	}
+	#>
+	npm cache clean --force 2>&1 |
+		Write-GitHubActionsDebug
 }
+<#
 $Null = Get-Job -Name "$JobIdPrefix/*" -ErrorAction 'SilentlyContinue' |
 	Wait-Job
+#>
 If ($OsLinux -and $RemoveLinuxSwap) {
 	Write-Host -Object 'Remove Linux swap space.'
 	swapoff -a |
