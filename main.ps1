@@ -156,10 +156,12 @@ If ($DockerProgram -and $RemoveDockerImageInclude.Count -gt 0 -and $OperationAsy
 }
 [String[]]$FileEnvRemoveQueueResolve = $FileEnvRemoveQueue |
 	ForEach-Object -Process { Get-Content -LiteralPath "Env:\$_" -ErrorAction 'SilentlyContinue' } |
-	Where-Object -FilterScript { $_.Length -gt 0 }
+	Where-Object -FilterScript { $_.Length -gt 0 } |
+	Select-Object -Unique
 [String[]]$FilePathRemoveQueueResolve = $FilePathRemoveQueue |
 	ForEach-Object -Process { ($_ -imatch '\$Env:') ? (Invoke-Expression -Command "`"$_`"") : $_ } |
-	Where-Object -FilterScript { $_.Length -gt 0 }
+	Where-Object -FilterScript { $_.Length -gt 0 } |
+	Select-Object -Unique
 If ($RemoveQueueName.Count -gt 0) {
 	Write-Host -Object "Remove item [$($RemoveQueueName.Count)]: $(
 		$RemoveQueueName |
@@ -342,21 +344,15 @@ If ($OperationAsync) {
 			}
 	}
 }
-If ($FileEnvRemoveQueueResolve.Count -gt 0) {
-	Write-Host -Object 'Remove file (Env).'
-	ForEach ($ItemEnv In $FileEnvRemoveQueueResolve) {
-		If (Test-Path -LiteralPath $ItemEnv) {
-			Get-ChildItem -LiteralPath $ItemEnv -Force -ErrorAction 'Continue' |
-				Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue' -Verbose:(Get-GitHubActionsDebugStatus)
-		}
-	}
-}
-If ($FilePathRemoveQueueResolve.Count -gt 0) {
-	Write-Host -Object 'Remove file (Path).'
-	ForEach ($ItemPath In $FilePathRemoveQueueResolve) {
-		If (Test-Path -LiteralPath $ItemPath) {
-			Get-ChildItem -LiteralPath $ItemPath -Force -ErrorAction 'Continue' |
-				Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue' -Verbose:(Get-GitHubActionsDebugStatus)
+If (($FileEnvRemoveQueueResolve.Count + $FilePathRemoveQueueResolve.Count) -gt 0) {
+	Write-Host -Object 'Remove file.'
+	ForEach ($File In (
+		$FileEnvRemoveQueueResolve + $FilePathRemoveQueueResolve |
+			Select-Object -Unique
+	)) {
+		If (Test-Path -LiteralPath $File) {
+			Get-ChildItem -LiteralPath $File -Force -ErrorAction 'Continue' |
+				Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 		}
 	}
 }
@@ -364,7 +360,7 @@ If ($OsLinux -and $RemoveLinuxSwap) {
 	Write-Host -Object 'Remove Linux swap space.'
 	swapoff -a *>&1 |
 		Write-GitHubActionsDebug
-	Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue' -Verbose:(Get-GitHubActionsDebugStatus)
+	Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 }
 $Script:ErrorActionPreference = 'Stop'
 [String]$DiskSpaceAfter = Get-DiskSpace
