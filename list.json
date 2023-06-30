@@ -1,0 +1,1153 @@
+{
+	"$schema": "./list.schema.json",
+	"content": [
+		{
+			"Name": "AliYun",
+			"Description": "AliYun (Alibaba Cloud) CLI",
+			"Priority": 9,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [
+				"/usr/local/bin/aliyun"
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [
+				"C:\\aliyun-cli"
+			]
+		},
+		{
+			"Name": "AndroidNDK",
+			"Description": "Android NDK",
+			"Priority": 3,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [
+				"ANDROID_ROOT",
+				"ANDROID_NDK_ROOT",
+				"ANDROID_SDK_ROOT",
+				"ANDROID_HOME"
+			],
+			"PathLinux": [
+				"/usr/local/lib/android"
+			],
+			"PathMacOS": [
+				"/Users/runner/Library/Android"
+			],
+			"PathWindows": [
+				"C:\\Program Files (x86)\\Android",
+				"C:\\Android"
+			]
+		},
+		{
+			"Name": "Ansible",
+			"Description": "Ansible",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [
+				"ansible-core"
+			],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Ant",
+			"Description": "Ant",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [
+				"/usr/share/ant"
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Apache",
+			"Description": "Apache",
+			"Priority": 1,
+			"APT": [
+				"apache2"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [
+				"C:\\tools\\Apache*"
+			]
+		},
+		{
+			"Name": "AWS",
+			"Description": "AWS (Amazon Web Service) CLI",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [
+				"/usr/local/aws-cli"
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "AzCopy",
+			"Description": "AzCopy",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [
+				"/usr/local/bin/azcopy"
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "AzureCLI",
+			"Description": "Azure CLI",
+			"Priority": 1,
+			"APT": [
+				"azure-cli"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [
+				"AZURE_EXTENSION_DIR"
+			],
+			"PathLinux": [
+				"/opt/az/azcliextensions"
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Bazel",
+			"Description": "Bazel",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [
+				"/usr/local/bin/bazel"
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Bazelisk",
+			"Description": "Bazelisk",
+			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [
+				"@bazel/bazelisk"
+			],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Bicep",
+			"Description": "Bicep",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [
+				"/usr/local/bin/bicep"
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Chromium",
+			"Description": "Chromium",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [
+				"CHROMIUM_DIR"
+			],
+			"PathLinux": [
+				"/usr/local/share/chromium"
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Clang",
+			"Description": "Clang",
+			"Priority": 2,
+			"APT": [
+				"^clang-.*",
+				"^lldb-.*",
+				"^lld-.*",
+				"^clang-format-.*",
+				"^clang-tidy-.*"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "CodeQL",
+			"Description": "CodeQL",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [
+				"$Env:AGENT_TOOLSDIRECTORY/CodeQL",
+				"/opt/hostedtoolcache/CodeQL"
+			],
+			"PathMacOS": [
+				"$Env:AGENT_TOOLSDIRECTORY/CodeQL"
+			],
+			"PathWindows": [
+				"$Env:AGENT_TOOLSDIRECTORY\\CodeQL"
+			]
+		},
+		{
+			"Name": "DotNet",
+			"Description": ".Net",
+			"Priority": 2,
+			"APT": [
+				"^dotnet-.*"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [
+				"/usr/share/dotnet"
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Erlang",
+			"Description": "Erlang",
+			"Priority": 1,
+			"APT": [
+				"esl-erlang"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [
+				"/usr/local/bin/rebar3"
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Firefox",
+			"Description": "Mozilla Firefox Browser",
+			"Priority": 1,
+			"APT": [
+				"firefox"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "G++",
+			"Description": "GNU C++ compiler",
+			"Priority": 2,
+			"APT": [
+				"^g\\+\\+.*"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "GCC",
+			"Description": "GNU C compiler",
+			"Priority": 2,
+			"APT": [
+				"^gcc.*"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [
+				"gcc"
+			],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "GeckoWebDriver",
+			"Description": "Gecko Web Driver",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [
+				"GECKOWEBDRIVER"
+			],
+			"PathLinux": [
+				"/usr/local/share/gecko_driver"
+			],
+			"PathMacOS": [
+				"/usr/local/opt/geckodriver"
+			],
+			"PathWindows": [
+				"C:\\SeleniumWebDrivers\\GeckoDriver"
+			]
+		},
+		{
+			"Name": "GFortran",
+			"Description": "GNU Fortran",
+			"Priority": 2,
+			"APT": [
+				"^gfortran.*"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Go",
+			"Description": "Go",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [
+				"$Env:AGENT_TOOLSDIRECTORY/go",
+				"/opt/hostedtoolcache/go"
+			],
+			"PathMacOS": [
+				"$Env:AGENT_TOOLSDIRECTORY/go"
+			],
+			"PathWindows": [
+				"$Env:AGENT_TOOLSDIRECTORY\\go"
+			]
+		},
+		{
+			"Name": "GoogleChrome",
+			"Description": "Google Chrome Browser",
+			"Priority": 1,
+			"APT": [
+				"google-chrome-stable"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [
+				"CHROME_BIN"
+			],
+			"PathLinux": [
+				"/usr/bin/google-chrome"
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "GoogleChromeWebDriver",
+			"Description": "Google Chrome Web Driver",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [
+				"CHROMEWEBDRIVER",
+				"CHROMEDRIVER_DIR"
+			],
+			"PathLinux": [
+				"/usr/local/share/chrome_driver"
+			],
+			"PathMacOS": [
+				"/usr/local/Caskroom/chromedriver"
+			],
+			"PathWindows": [
+				"C:\\SeleniumWebDrivers\\ChromeDriver"
+			]
+		},
+		{
+			"Name": "GoogleCloudSDK",
+			"Description": "Google Cloud SDK",
+			"Priority": 1,
+			"APT": [
+				"google-cloud-sdk"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Gradle",
+			"Description": "Gradle",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [
+				"/usr/share/gradle-*"
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Grunt",
+			"Description": "Grunt",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [
+				"grunt"
+			],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Gulp",
+			"Description": "Gulp",
+			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [
+				"gulp"
+			],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "HaskellGHC",
+			"Description": "Haskell GHC",
+			"Priority": 1,
+			"PathLinux": [
+				"/opt/ghc",
+				"/usr/local/.ghcup/ghc"
+			]
+		},
+		{
+			"Name": "Heroku",
+			"Description": "Heroku",
+			"Priority": 1,
+			"PathLinux": [
+				"/usr/local/lib/heroku"
+			],
+			"PathMacOS": [
+				"/usr/local/lib/heroku"
+			]
+		},
+		{
+			"Name": "HHVM",
+			"Description": "HHVM",
+			"Priority": 1,
+			"APT": [
+				"hhvm"
+			]
+		},
+		{
+			"Name": "Homebrew",
+			"Description": "Homebrew",
+			"Priority": 0,
+			"PathLinux": [
+				"/home/linuxbrew"
+			]
+		},
+		{
+			"Name": "HTTPD",
+			"Description": "HTTPD",
+			"Priority": 1,
+			"Chocolatey": [
+				"apache-httpd"
+			],
+			"Homebrew": [
+				"httpd"
+			],
+			"PathMacOS": [
+				"/usr/local/etc/httpd"
+			]
+		},
+		{
+			"Name": "Java/8",
+			"Description": "Java 8",
+			"Priority": 2,
+			"Env": [
+				"JAVA_HOME_8_X64"
+			],
+			"PathLinux": [
+				"/usr/lib/jvm/*-8.*-*-*"
+			],
+			"PathMacOS": [
+				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*"
+			],
+			"PathWindows": [
+				"$Env:AGENT_TOOLSDIRECTORY\\Java_*_jdk\\8.*"
+			]
+		},
+		{
+			"Name": "Java/11",
+			"Description": "Java 11",
+			"Priority": 2,
+			"Env": [
+				"JAVA_HOME_11_X64"
+			],
+			"PathLinux": [
+				"/usr/lib/jvm/*-11.*-*-*"
+			],
+			"PathMacOS": [
+				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/11.*"
+			],
+			"PathWindows": [
+				"$Env:AGENT_TOOLSDIRECTORY\\Java_*_jdk\\11.*"
+			]
+		},
+		{
+			"Name": "Java/13",
+			"Description": "Java 13",
+			"Priority": 2,
+			"Env": [
+				"JAVA_HOME_13_X64"
+			],
+			"PathLinux": [
+				"/usr/lib/jvm/*-13.*-*-*"
+			],
+			"PathMacOS": [
+				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*"
+			],
+			"PathWindows": [
+				"$Env:AGENT_TOOLSDIRECTORY\\Java_*_jdk\\13.*"
+			]
+		},
+		{
+			"Name": "Java/17",
+			"Description": "Java 17",
+			"Priority": 2,
+			"Env": [
+				"JAVA_HOME_17_X64"
+			],
+			"PathLinux": [
+				"/usr/lib/jvm/*-17.*-*-*"
+			],
+			"PathMacOS": [
+				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*"
+			],
+			"PathWindows": [
+				"$Env:AGENT_TOOLSDIRECTORY\\Java_*_jdk\\17.*"
+			]
+		},
+		{
+			"Name": "Java/All",
+			"Description": "Java (All)",
+			"Priority": 1,
+			"Env": [
+				"JAVA_HOME"
+			],
+			"PathLinux": [
+				"/usr/lib/jvm"
+			],
+			"PathMacOS": [
+				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk"
+			],
+			"PathWindows": [
+				"$Env:AGENT_TOOLSDIRECTORY\\Java_*_jdk"
+			]
+		},
+		{
+			"Name": "Julia",
+			"Description": "Julia",
+			"Priority": 1,
+			"PathLinux": [
+				"/usr/local/julia*",
+				"/usr/bin/julia"
+			]
+		},
+		{
+			"Name": "Kotlin",
+			"Description": "Kotlin",
+			"Priority": 1,
+			"PathLinux": [
+				"/usr/share/kotlinc"
+			]
+		},
+		{
+			"Name": "Lerna",
+			"Description": "Lerna",
+			"Priority": 1,
+			"NPM": [
+				"lerna"
+			]
+		},
+		{
+			"Name": "LLVM",
+			"Description": "LLVM",
+			"Priority": 2,
+			"APT": [
+				"^llvm-.*"
+			],
+			"Homebrew": [
+				"llvm"
+			]
+		},
+		{
+			"Name": "Maven",
+			"Description": "Maven",
+			"Priority": 1,
+			"PathLinux": [
+				"/usr/share/apache-maven-*"
+			]
+		},
+		{
+			"Name": "MicrosoftEdgeWebDriver",
+			"Description": "Microsoft Edge Web Driver",
+			"Priority": 1,
+			"APT": [
+				"microsoft-edge-stable"
+			],
+			"Env": [
+				"EDGEWEBDRIVER"
+			],
+			"PathLinux": [
+				"/usr/local/share/edge_driver"
+			],
+			"PathMacOS": [
+				"/usr/local/share/edge_driver"
+			],
+			"PathWindows": [
+				"C:\\SeleniumWebDrivers\\EdgeDriver"
+			]
+		},
+		{
+			"Name": "Miniconda",
+			"Description": "Mini Conda",
+			"Priority": 1,
+			"Env": [
+				"CONDA"
+			],
+			"PathLinux": [
+				"/usr/share/miniconda",
+				"/usr/bin/conda"
+			],
+			"PathMacOS": [
+				"/usr/local/miniconda"
+			],
+			"PathWindows": [
+				"C:\\Miniconda"
+			]
+		},
+		{
+			"Name": "MongoDB",
+			"Description": "MongoDB",
+			"Priority": 2,
+			"APT": [
+				"^mongodb-.*"
+			]
+		},
+		{
+			"Name": "Mono",
+			"Description": "Mono",
+			"Priority": 1,
+			"APT": [
+				"mono-complete",
+				"mono-devel"
+			]
+		},
+		{
+			"Name": "MSSQL",
+			"Description": "MS SQL",
+			"Priority": 1,
+			"APT": [
+				"mssql-tools",
+				"unixodbc-dev"
+			],
+			"PathLinux": [
+				"/opt/mssql-tools"
+			]
+		},
+		{
+			"Name": "MSYS2",
+			"Description": "MSYS2 Pacman",
+			"Priority": 1,
+			"PathWindows": [
+				"C:\\msys64"
+			]
+		},
+		{
+			"Name": "MySQL",
+			"Description": "MySQL",
+			"Priority": 2,
+			"APT": [
+				"^mysql-.*",
+				"libmysqlclient-dev"
+			]
+		},
+		{
+			"Name": "Netlify",
+			"Description": "Netlify",
+			"Priority": 1,
+			"NPM": [
+				"netlify"
+			]
+		},
+		{
+			"Name": "Newman",
+			"Description": "Newman",
+			"Priority": 1,
+			"NPM": [
+				"newman"
+			]
+		},
+		{
+			"Name": "Nginx",
+			"Description": "Nginx",
+			"Priority": 1,
+			"APT": [
+				"nginx"
+			],
+			"PathMacOS": [
+				"/usr/local/etc/nginx"
+			],
+			"PathWindows": [
+				"C:\\tools\\nginx*"
+			]
+		},
+		{
+			"Name": "OpenGLDRI",
+			"Description": "OpenGL API DRI Modules",
+			"Priority": 1,
+			"APT": [
+				"libgl1-mesa-dri"
+			]
+		},
+		{
+			"Name": "Parcel",
+			"Description": "Parcel",
+			"Priority": 1,
+			"NPM": [
+				"parcel"
+			]
+		},
+		{
+			"Name": "PhantomJS",
+			"Description": "Phantom JS",
+			"Priority": 1,
+			"APT": [
+				"phantomjs"
+			]
+		},
+		{
+			"Name": "PHP",
+			"Description": "PHP",
+			"Priority": 2,
+			"APT": [
+				"^php.*",
+				"snmp"
+			]
+		},
+		{
+			"Name": "Pipx",
+			"Description": "Pipx",
+			"Priority": 0,
+			"Env": [
+				"PIPX_BIN_DIR",
+				"PIPX_HOME"
+			],
+			"PathMacOS": [
+				"/opt/pipx_bin"
+			],
+			"PathWindows": [
+				"C:\\Program Files (x86)\\pipx",
+				"C:\\Program Files (x86)\\pipx_bin"
+			]
+		},
+		{
+			"Name": "PostgreSQL",
+			"Description": "PostgreSQL",
+			"Priority": 2,
+			"APT": [
+				"^postgresql-.*",
+				"libpq-dev"
+			],
+			"Env": [
+				"PGBIN",
+				"PGDATA",
+				"PGROOT"
+			],
+			"PathWindows": [
+				"C:\\Program Files\\PostgreSQL"
+			]
+		},
+		{
+			"Name": "R",
+			"Description": "R",
+			"Priority": 1,
+			"APT": [
+				"r-base"
+			]
+		},
+		{
+			"Name": "Ruby",
+			"Description": "Ruby",
+			"Priority": 1,
+			"APT": [
+				"ruby-full"
+			]
+		},
+		{
+			"Name": "RunnerBoost",
+			"Description": "GitHub Actions Runner boost",
+			"Priority": 0,
+			"PathLinux": [
+				"/usr/local/share/boost"
+			]
+		},
+		{
+			"Name": "Selenium",
+			"Description": "Selenium",
+			"Priority": 1,
+			"Env": [
+				"SELENIUM_JAR_PATH"
+			],
+			"PathLinux": [
+				"/usr/share/java/selenium-server.jar"
+			],
+			"PathWindows": [
+				"C:\\selenium\\selenium-server.jar"
+			]
+		},
+		{
+			"Name": "Sphinx",
+			"Description": "Sphinx",
+			"Priority": 1,
+			"APT": [
+				"sphinxsearch"
+			]
+		},
+		{
+			"Name": "SQLPackage",
+			"Description": "SQL Package",
+			"Priority": 1,
+			"PathLinux": [
+				"/usr/local/sqlpackage"
+			]
+		},
+		{
+			"Name": "Stack",
+			"Description": "Stack",
+			"Priority": 1,
+			"PathLinux": [
+				"$Env:AGENT_TOOLSDIRECTORY/stack",
+				"/opt/hostedtoolcache/stack"
+			],
+			"PathMacOS": [
+				"$Env:AGENT_TOOLSDIRECTORY/stack"
+			],
+			"PathWindows": [
+				"$Env:AGENT_TOOLSDIRECTORY\\stack"
+			]
+		},
+		{
+			"Name": "Swift",
+			"Description": "Swift",
+			"Priority": 1,
+			"Env": [
+				"SWIFT_PATH"
+			],
+			"PathLinux": [
+				"/usr/share/swift",
+				"/usr/local/bin/swift",
+				"/usr/local/bin/swiftc"
+			]
+		},
+		{
+			"Name": "VCPkg",
+			"Description": "VCPkg",
+			"Priority": 0,
+			"Env": [
+				"VCPKG_INSTALLATION_ROOT"
+			],
+			"PathLinux": [
+				"/usr/local/share/vcpkg",
+				"/root/.vcpkg"
+			],
+			"PathMacOS": [
+				"/usr/local/share/vcpkg"
+			],
+			"PathWindows": [
+				"C:\\vcpkg"
+			]
+		},
+		{
+			"Name": "Vercel",
+			"Description": "Vercel",
+			"Priority": 1,
+			"NPM": [
+				"vercel"
+			]
+		},
+		{
+			"Name": "VisualStudio/2019",
+			"Description": "Visual Studio 2019",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Visual Studio 2019*"
+			],
+			"PathWindows": [
+				"C:\\Program Files\\Microsoft Visual Studio\\2019"
+			]
+		},
+		{
+			"Name": "VisualStudio/2022",
+			"Description": "Visual Studio 2022",
+			"Priority": 2,
+			"PathWindows": [
+				"C:\\Program Files\\Microsoft Visual Studio\\2022"
+			]
+		},
+		{
+			"Name": "VisualStudio/All",
+			"Description": "Visual Studio",
+			"Priority": 1,
+			"PathMacOS": [
+				"/Applications/Visual Studio*"
+			],
+			"PathWindows": [
+				"C:\\Program Files\\Microsoft Visual Studio",
+				"C:\\ProgramData\\Microsoft\\VisualStudio"
+			]
+		},
+		{
+			"Name": "Webpack",
+			"Description": "Webpack",
+			"Priority": 1,
+			"NPM": [
+				"webpack-cli",
+				"webpack"
+			]
+		},
+		{
+			"Name": "Xcode/11.7",
+			"Description": "Xcode 11.7",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_11.7.app"
+			]
+		},
+		{
+			"Name": "Xcode/12.4",
+			"Description": "Xcode 12.4",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_12.4.app"
+			]
+		},
+		{
+			"Name": "Xcode/12.5.1",
+			"Description": "Xcode 12.5.1",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_12.5.1.app"
+			]
+		},
+		{
+			"Name": "Xcode/13.0",
+			"Description": "Xcode 13.0",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_13.0.app"
+			]
+		},
+		{
+			"Name": "Xcode/13.1",
+			"Description": "Xcode 13.1",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_13.1.app"
+			]
+		},
+		{
+			"Name": "Xcode/13.2.1",
+			"Description": "Xcode 13.2.1",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_13.2.1.app"
+			]
+		},
+		{
+			"Name": "Xcode/13.3.1",
+			"Description": "Xcode 13.3.1",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_13.3.1.app"
+			]
+		},
+		{
+			"Name": "Xcode/13.4.1",
+			"Description": "Xcode 13.4.1",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_13.4.1.app"
+			]
+		},
+		{
+			"Name": "Xcode/14.0.1",
+			"Description": "Xcode 14.0.1",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_14.0.1.app"
+			]
+		},
+		{
+			"Name": "Xcode/14.1",
+			"Description": "Xcode 14.1",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_14.1.app"
+			]
+		},
+		{
+			"Name": "Xcode/14.2",
+			"Description": "Xcode 14.2",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_14.2.app"
+			]
+		},
+		{
+			"Name": "Xcode/14.3",
+			"Description": "Xcode 14.3",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_14.3.app"
+			]
+		},
+		{
+			"Name": "Xcode/14.3.1",
+			"Description": "Xcode 14.3.1",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_14.3.1.app"
+			]
+		},
+		{
+			"Name": "Xcode/15.0",
+			"Description": "Xcode 15.0",
+			"Priority": 2,
+			"PathMacOS": [
+				"/Applications/Xcode_15.0.app"
+			]
+		},
+		{
+			"Name": "Xcode/All",
+			"Description": "Xcode (All)",
+			"Priority": 1,
+			"PathMacOS": [
+				"/Applications/Xcode*"
+			]
+		},
+		{
+			"Name": "YAMLLint",
+			"Description": "YAML Lint",
+			"Priority": 1,
+			"Pipx": [
+				"yamllint"
+			]
+		},
+		{
+			"Name": "Yarn",
+			"Description": "Yarn",
+			"Priority": 0,
+			"NPM": [
+				"yarn"
+			]
+		}
+	]
+}

@@ -1,0 +1,100 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"type": "object",
+	"properties": {
+		"$schema": {
+			"type": "string"
+		},
+		"content": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"Name": {
+						"type": "string"
+					},
+					"Description": {
+						"type": "string"
+					},
+					"Priority": {
+						"type": "number",
+						"maximum": 99,
+						"minimum": 0
+					},
+					"APT": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"Chocolatey": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"Homebrew": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"NPM": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"Pipx": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"Env": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"PathLinux": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"PathMacOS": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"PathWindows": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				},
+				"required": [
+					"Name",
+					"Description",
+					"Priority",
+					"APT",
+					"Chocolatey",
+					"Homebrew",
+					"NPM",
+					"Pipx",
+					"Env",
+					"PathLinux",
+					"PathMacOS",
+					"PathWindows"
+				]
+			}
+		}
+	},
+	"required": [
+		"$schema",
+		"content"
+	]
+}
