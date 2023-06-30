@@ -284,9 +284,12 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 						[String]$ItemEnvValue = Get-Content -LiteralPath "Env:\$ItemEnv" -ErrorAction 'SilentlyContinue'
 						If ($ItemEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $ItemEnvValue)) {
 							Get-ChildItem -LiteralPath $ItemEnvValue -Force -ErrorAction 'Continue' |
+								Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+								<#
 								ForEach-Object -Process {
 									Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 								}
+								#>
 						}
 					}
 				}
@@ -295,9 +298,12 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 						[String]$ItemPathResolve = ($ItemPath -imatch '\$Env:') ? (Invoke-Expression -Command "`"$ItemPath`"") : $ItemPath
 						If (Test-Path -Path $ItemPathResolve) {
 							Get-ChildItem -Path $ItemPathResolve -Force -ErrorAction 'Continue' |
+								Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+								<#
 								ForEach-Object -Process {
 									Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 								}
+								#>
 						}
 					}
 				}
@@ -309,9 +315,12 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 					[String]$ItemEnvValue = Get-Content -LiteralPath "Env:\$ItemEnv" -ErrorAction 'SilentlyContinue'
 					If ($ItemEnvValue.Length -gt 0 -and (Test-Path -LiteralPath $ItemEnvValue)) {
 						Get-ChildItem -LiteralPath $ItemEnvValue -Force -ErrorAction 'Continue' |
+							Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+							<#
 							ForEach-Object -Process {
 								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 							}
+							#>
 					}
 				}
 			}
@@ -320,9 +329,12 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 					[String]$ItemPathResolve = ($ItemPath -imatch '\$Env:') ? (Invoke-Expression -Command "`"$ItemPath`"") : $ItemPath
 					If (Test-Path -Path $ItemPathResolve) {
 						Get-ChildItem -Path $ItemPathResolve -Force -ErrorAction 'Continue' |
+							Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+							<#
 							ForEach-Object -Process {
 								Remove-Item -LiteralPath $_.FullName -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 							}
+							#>
 					}
 				}
 			}
@@ -403,6 +415,14 @@ If ($OperationAsync) {
 		Format-Table -Property @('Name', 'State') -AutoSize -Wrap |
 		Out-String -Width 120 |
 		Write-GitHubActionsDebug
+	If (Get-GitHubActionsDebugStatus) {
+		Get-Job -Name "$JobIdPrefix/*" |
+			ForEach-Object -Process {
+				Enter-GitHubActionsLogGroup -Title $_.Name
+				Receive-Job -Wait -AutoRemoveJob
+				Exit-GitHubActionsLogGroup
+			}
+	}
 }
 $Script:ErrorActionPreference = 'Stop'
 [String]$DiskSpaceAfter = Get-DiskSpace
