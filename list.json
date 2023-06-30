@@ -510,21 +510,36 @@
 			"Name": "HaskellGHC",
 			"Description": "Haskell GHC",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
 			"PathLinux": [
 				"/opt/ghc",
 				"/usr/local/.ghcup/ghc"
-			]
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Heroku",
 			"Description": "Heroku",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
 			"PathLinux": [
 				"/usr/local/lib/heroku"
 			],
 			"PathMacOS": [
 				"/usr/local/lib/heroku"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "HHVM",
@@ -532,34 +547,61 @@
 			"Priority": 1,
 			"APT": [
 				"hhvm"
-			]
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Homebrew",
 			"Description": "Homebrew",
 			"Priority": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
 			"PathLinux": [
 				"/home/linuxbrew"
-			]
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "HTTPD",
 			"Description": "HTTPD",
 			"Priority": 1,
+			"APT": [ ],
 			"Chocolatey": [
 				"apache-httpd"
 			],
 			"Homebrew": [
 				"httpd"
 			],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/usr/local/etc/httpd"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Java/8",
 			"Description": "Java 8",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
 			"Env": [
 				"JAVA_HOME_8_X64"
 			],
@@ -577,6 +619,11 @@
 			"Name": "Java/11",
 			"Description": "Java 11",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
 			"Env": [
 				"JAVA_HOME_11_X64"
 			],
@@ -594,6 +641,11 @@
 			"Name": "Java/13",
 			"Description": "Java 13",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
 			"Env": [
 				"JAVA_HOME_13_X64"
 			],
@@ -611,6 +663,11 @@
 			"Name": "Java/17",
 			"Description": "Java 17",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
 			"Env": [
 				"JAVA_HOME_17_X64"
 			],
@@ -628,6 +685,11 @@
 			"Name": "Java/All",
 			"Description": "Java (All)",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
 			"Env": [
 				"JAVA_HOME"
 			],
@@ -645,26 +707,50 @@
 			"Name": "Julia",
 			"Description": "Julia",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
 			"PathLinux": [
 				"/usr/local/julia*",
 				"/usr/bin/julia"
-			]
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Kotlin",
 			"Description": "Kotlin",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
 			"PathLinux": [
 				"/usr/share/kotlinc"
-			]
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Lerna",
 			"Description": "Lerna",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
 			"NPM": [
 				"lerna"
-			]
+			],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "LLVM",
@@ -673,17 +759,32 @@
 			"APT": [
 				"^llvm-.*"
 			],
+			"Chocolatey": [ ],
 			"Homebrew": [
 				"llvm"
-			]
+			],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Maven",
 			"Description": "Maven",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
 			"PathLinux": [
 				"/usr/share/apache-maven-*"
-			]
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "MicrosoftEdgeWebDriver",
@@ -692,6 +793,10 @@
 			"APT": [
 				"microsoft-edge-stable"
 			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
 			"Env": [
 				"EDGEWEBDRIVER"
 			],
@@ -709,6 +814,11 @@
 			"Name": "Miniconda",
 			"Description": "Mini Conda",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
 			"Env": [
 				"CONDA"
 			],
@@ -729,7 +839,15 @@
 			"Priority": 2,
 			"APT": [
 				"^mongodb-.*"
-			]
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Mono",
@@ -738,7 +856,15 @@
 			"APT": [
 				"mono-complete",
 				"mono-devel"
-			]
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "MSSQL",
@@ -748,14 +874,29 @@
 				"mssql-tools",
 				"unixodbc-dev"
 			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
 			"PathLinux": [
 				"/opt/mssql-tools"
-			]
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "MSYS2",
 			"Description": "MSYS2 Pacman",
-			"Priority": 1,
+			"Priority": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
 			"PathWindows": [
 				"C:\\msys64"
 			]
@@ -767,23 +908,47 @@
 			"APT": [
 				"^mysql-.*",
 				"libmysqlclient-dev"
-			]
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Netlify",
 			"Description": "Netlify",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
 			"NPM": [
 				"netlify"
-			]
+			],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Newman",
 			"Description": "Newman",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
 			"NPM": [
 				"newman"
-			]
+			],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Nginx",
@@ -792,6 +957,12 @@
 			"APT": [
 				"nginx"
 			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/usr/local/etc/nginx"
 			],
@@ -805,15 +976,31 @@
 			"Priority": 1,
 			"APT": [
 				"libgl1-mesa-dri"
-			]
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Parcel",
 			"Description": "Parcel",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
 			"NPM": [
 				"parcel"
-			]
+			],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "PhantomJS",
@@ -821,7 +1008,15 @@
 			"Priority": 1,
 			"APT": [
 				"phantomjs"
-			]
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "PHP",
@@ -830,16 +1025,30 @@
 			"APT": [
 				"^php.*",
 				"snmp"
-			]
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Pipx",
 			"Description": "Pipx",
 			"Priority": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
 			"Env": [
 				"PIPX_BIN_DIR",
 				"PIPX_HOME"
 			],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/opt/pipx_bin"
 			],
@@ -856,11 +1065,17 @@
 				"^postgresql-.*",
 				"libpq-dev"
 			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
 			"Env": [
 				"PGBIN",
 				"PGDATA",
 				"PGROOT"
 			],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
 			"PathWindows": [
 				"C:\\Program Files\\PostgreSQL"
 			]
@@ -871,7 +1086,15 @@
 			"Priority": 1,
 			"APT": [
 				"r-base"
-			]
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Ruby",
@@ -879,26 +1102,48 @@
 			"Priority": 1,
 			"APT": [
 				"ruby-full"
-			]
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "RunnerBoost",
 			"Description": "GitHub Actions Runner boost",
 			"Priority": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
 			"PathLinux": [
 				"/usr/local/share/boost"
-			]
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Selenium",
 			"Description": "Selenium",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
 			"Env": [
 				"SELENIUM_JAR_PATH"
 			],
 			"PathLinux": [
 				"/usr/share/java/selenium-server.jar"
 			],
+			"PathMacOS": [ ],
 			"PathWindows": [
 				"C:\\selenium\\selenium-server.jar"
 			]
@@ -909,20 +1154,42 @@
 			"Priority": 1,
 			"APT": [
 				"sphinxsearch"
-			]
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "SQLPackage",
 			"Description": "SQL Package",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
 			"PathLinux": [
 				"/usr/local/sqlpackage"
-			]
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Stack",
 			"Description": "Stack",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
 			"PathLinux": [
 				"$Env:AGENT_TOOLSDIRECTORY/stack",
 				"/opt/hostedtoolcache/stack"
@@ -938,6 +1205,11 @@
 			"Name": "Swift",
 			"Description": "Swift",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
 			"Env": [
 				"SWIFT_PATH"
 			],
@@ -945,12 +1217,19 @@
 				"/usr/share/swift",
 				"/usr/local/bin/swift",
 				"/usr/local/bin/swiftc"
-			]
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "VCPkg",
 			"Description": "VCPkg",
 			"Priority": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
 			"Env": [
 				"VCPKG_INSTALLATION_ROOT"
 			],
@@ -969,14 +1248,29 @@
 			"Name": "Vercel",
 			"Description": "Vercel",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
 			"NPM": [
 				"vercel"
-			]
+			],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "VisualStudio/2019",
 			"Description": "Visual Studio 2019",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Visual Studio 2019*"
 			],
@@ -988,6 +1282,14 @@
 			"Name": "VisualStudio/2022",
 			"Description": "Visual Studio 2022",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
 			"PathWindows": [
 				"C:\\Program Files\\Microsoft Visual Studio\\2022"
 			]
@@ -996,6 +1298,13 @@
 			"Name": "VisualStudio/All",
 			"Description": "Visual Studio",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Visual Studio*"
 			],
@@ -1008,146 +1317,290 @@
 			"Name": "Webpack",
 			"Description": "Webpack",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
 			"NPM": [
 				"webpack-cli",
 				"webpack"
-			]
+			],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/11.7",
 			"Description": "Xcode 11.7",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_11.7.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/12.4",
 			"Description": "Xcode 12.4",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_12.4.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/12.5.1",
 			"Description": "Xcode 12.5.1",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_12.5.1.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/13.0",
 			"Description": "Xcode 13.0",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_13.0.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/13.1",
 			"Description": "Xcode 13.1",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_13.1.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/13.2.1",
 			"Description": "Xcode 13.2.1",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_13.2.1.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/13.3.1",
 			"Description": "Xcode 13.3.1",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_13.3.1.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/13.4.1",
 			"Description": "Xcode 13.4.1",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_13.4.1.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/14.0.1",
 			"Description": "Xcode 14.0.1",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_14.0.1.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/14.1",
 			"Description": "Xcode 14.1",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_14.1.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/14.2",
 			"Description": "Xcode 14.2",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_14.2.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/14.3",
 			"Description": "Xcode 14.3",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_14.3.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/14.3.1",
 			"Description": "Xcode 14.3.1",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_14.3.1.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/15.0",
 			"Description": "Xcode 15.0",
 			"Priority": 2,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode_15.0.app"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Xcode/All",
 			"Description": "Xcode (All)",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
 			"PathMacOS": [
 				"/Applications/Xcode*"
-			]
+			],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "YAMLLint",
 			"Description": "YAML Lint",
 			"Priority": 1,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
 			"Pipx": [
 				"yamllint"
-			]
+			],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		},
 		{
 			"Name": "Yarn",
 			"Description": "Yarn",
 			"Priority": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
 			"NPM": [
 				"yarn"
-			]
+			],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
 		}
 	]
 }

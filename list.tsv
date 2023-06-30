@@ -47,7 +47,7 @@ Miniconda	Mini Conda	1						CONDA	/usr/share/miniconda;;/usr/bin/conda	/usr/loca
 MongoDB	MongoDB	2	^mongodb-.*								
 Mono	Mono	1	mono-complete;;mono-devel								
 MSSQL	MS SQL	1	mssql-tools;;unixodbc-dev						/opt/mssql-tools		
-MSYS2	MSYS2 Pacman	1									C:\msys64
+MSYS2	MSYS2 Pacman	0									C:\msys64
 MySQL	MySQL	2	^mysql-.*;;libmysqlclient-dev								
 Netlify	Netlify	1				netlify					
 Newman	Newman	1				newman					
