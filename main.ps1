@@ -402,7 +402,7 @@ If ($OperationAsync) {
 	Get-Job -Name "$JobIdPrefix/*" |
 		Format-Table -Property @('Name', 'State') -AutoSize -Wrap |
 		Out-String -Width 120 |
-		Write-Host
+		Write-GitHubActionsDebug
 }
 $Script:ErrorActionPreference = 'Stop'
 [String]$DiskSpaceAfter = Get-DiskSpace
