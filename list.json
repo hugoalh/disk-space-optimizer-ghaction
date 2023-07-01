@@ -4,7 +4,7 @@
 		{
 			"Name": "AliYun",
 			"Description": "AliYun (Alibaba Cloud) CLI",
-			"Priority": 9,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -24,7 +24,7 @@
 		{
 			"Name": "AndroidNDK",
 			"Description": "Android NDK",
-			"Priority": 3,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -50,7 +50,7 @@
 		{
 			"Name": "Ansible",
 			"Description": "Ansible",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -66,7 +66,7 @@
 		{
 			"Name": "Ant",
 			"Description": "Ant",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -82,7 +82,7 @@
 		{
 			"Name": "Apache",
 			"Description": "Apache",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"apache2"
 			],
@@ -100,7 +100,7 @@
 		{
 			"Name": "AWS",
 			"Description": "AWS (Amazon Web Service) CLI",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -116,7 +116,7 @@
 		{
 			"Name": "AzCopy",
 			"Description": "AzCopy",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [
 				"azcopy10"
@@ -134,7 +134,9 @@
 		{
 			"Name": "AzureCLI",
 			"Description": "Azure CLI",
-			"Priority": 1,
+			"Postpone": [
+				"AzCopy"
+			],
 			"APT": [
 				"azure-cli"
 			],
@@ -156,7 +158,9 @@
 		{
 			"Name": "Bazel",
 			"Description": "Bazel",
-			"Priority": 1,
+			"Postpone": [
+				"Bazelisk"
+			],
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -172,7 +176,7 @@
 		{
 			"Name": "Bazelisk",
 			"Description": "Bazelisk",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -188,7 +192,7 @@
 		{
 			"Name": "Bicep",
 			"Description": "Bicep",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -204,7 +208,7 @@
 		{
 			"Name": "Chromium",
 			"Description": "Chromium",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -222,7 +226,7 @@
 		{
 			"Name": "Clang",
 			"Description": "Clang",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [
 				"^clang-.*",
 				"^lldb-.*",
@@ -242,7 +246,7 @@
 		{
 			"Name": "CodeQL",
 			"Description": "CodeQL",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -263,7 +267,7 @@
 		{
 			"Name": "DotNet",
 			"Description": ".Net",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [
 				"^dotnet-.*"
 			],
@@ -284,7 +288,7 @@
 		{
 			"Name": "Erlang",
 			"Description": "Erlang",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"esl-erlang"
 			],
@@ -302,7 +306,7 @@
 		{
 			"Name": "Firefox",
 			"Description": "Mozilla Firefox Browser",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"firefox"
 			],
@@ -318,7 +322,7 @@
 		{
 			"Name": "G++",
 			"Description": "GNU C++ compiler",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [
 				"^g\\+\\+.*"
 			],
@@ -334,7 +338,7 @@
 		{
 			"Name": "GCC",
 			"Description": "GNU C compiler",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [
 				"^gcc.*"
 			],
@@ -352,7 +356,7 @@
 		{
 			"Name": "GeckoWebDriver",
 			"Description": "Gecko Web Driver",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -374,7 +378,7 @@
 		{
 			"Name": "GFortran",
 			"Description": "GNU Fortran",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [
 				"^gfortran.*"
 			],
@@ -390,7 +394,7 @@
 		{
 			"Name": "Go",
 			"Description": "Go",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -411,7 +415,7 @@
 		{
 			"Name": "GoogleChrome",
 			"Description": "Google Chrome Browser",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"google-chrome-stable"
 			],
@@ -431,7 +435,7 @@
 		{
 			"Name": "GoogleChromeWebDriver",
 			"Description": "Google Chrome Web Driver",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -454,7 +458,7 @@
 		{
 			"Name": "GoogleCloudSDK",
 			"Description": "Google Cloud SDK",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"google-cloud-sdk"
 			],
@@ -470,7 +474,7 @@
 		{
 			"Name": "Gradle",
 			"Description": "Gradle",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -486,7 +490,7 @@
 		{
 			"Name": "Grunt",
 			"Description": "Grunt",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -503,7 +507,7 @@
 		{
 			"Name": "Gulp",
 			"Description": "Gulp",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -520,7 +524,7 @@
 		{
 			"Name": "HaskellGHC",
 			"Description": "Haskell GHC",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -537,7 +541,7 @@
 		{
 			"Name": "Heroku",
 			"Description": "Heroku",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -555,7 +559,7 @@
 		{
 			"Name": "HHVM",
 			"Description": "HHVM",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"hhvm"
 			],
@@ -569,25 +573,9 @@
 			"PathWindows": [ ]
 		},
 		{
-			"Name": "Homebrew",
-			"Description": "Homebrew",
-			"Priority": 0,
-			"APT": [ ],
-			"Chocolatey": [ ],
-			"Homebrew": [ ],
-			"NPM": [ ],
-			"Pipx": [ ],
-			"Env": [ ],
-			"PathLinux": [
-				"/home/linuxbrew"
-			],
-			"PathMacOS": [ ],
-			"PathWindows": [ ]
-		},
-		{
 			"Name": "HTTPD",
 			"Description": "HTTPD",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [
 				"apache-httpd"
@@ -607,7 +595,7 @@
 		{
 			"Name": "Java/8",
 			"Description": "Java 8",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -629,7 +617,7 @@
 		{
 			"Name": "Java/11",
 			"Description": "Java 11",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -651,7 +639,7 @@
 		{
 			"Name": "Java/13",
 			"Description": "Java 13",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -673,7 +661,7 @@
 		{
 			"Name": "Java/17",
 			"Description": "Java 17",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -695,7 +683,9 @@
 		{
 			"Name": "Java/All",
 			"Description": "Java (All)",
-			"Priority": 1,
+			"Postpone": [
+				"Java/*"
+			],
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -717,7 +707,7 @@
 		{
 			"Name": "Julia",
 			"Description": "Julia",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [
 				"julia"
@@ -736,7 +726,7 @@
 		{
 			"Name": "Kotlin",
 			"Description": "Kotlin",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -752,7 +742,7 @@
 		{
 			"Name": "Lerna",
 			"Description": "Lerna",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -768,7 +758,7 @@
 		{
 			"Name": "LLVM",
 			"Description": "LLVM",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [
 				"^llvm-.*"
 			],
@@ -786,7 +776,7 @@
 		{
 			"Name": "Maven",
 			"Description": "Maven",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -802,7 +792,7 @@
 		{
 			"Name": "MicrosoftEdgeWebDriver",
 			"Description": "Microsoft Edge Web Driver",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"microsoft-edge-stable"
 			],
@@ -826,7 +816,7 @@
 		{
 			"Name": "Miniconda",
 			"Description": "Mini Conda",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -849,7 +839,7 @@
 		{
 			"Name": "MongoDB",
 			"Description": "MongoDB",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [
 				"^mongodb-.*"
 			],
@@ -865,7 +855,7 @@
 		{
 			"Name": "Mono",
 			"Description": "Mono",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"mono-complete",
 				"mono-devel"
@@ -882,7 +872,7 @@
 		{
 			"Name": "MSSQL",
 			"Description": "MS SQL",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"mssql-tools",
 				"unixodbc-dev"
@@ -901,7 +891,7 @@
 		{
 			"Name": "MSYS2",
 			"Description": "MSYS2 Pacman",
-			"Priority": 0,
+			"Postpone": true,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -917,7 +907,7 @@
 		{
 			"Name": "MySQL",
 			"Description": "MySQL",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [
 				"^mysql-.*",
 				"libmysqlclient-dev"
@@ -934,7 +924,7 @@
 		{
 			"Name": "Netlify",
 			"Description": "Netlify",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -950,7 +940,7 @@
 		{
 			"Name": "Newman",
 			"Description": "Newman",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -966,7 +956,7 @@
 		{
 			"Name": "Nginx",
 			"Description": "Nginx",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"nginx"
 			],
@@ -986,7 +976,7 @@
 		{
 			"Name": "OpenGLDRI",
 			"Description": "OpenGL API DRI Modules",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"libgl1-mesa-dri"
 			],
@@ -1002,7 +992,7 @@
 		{
 			"Name": "Parcel",
 			"Description": "Parcel",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1018,7 +1008,7 @@
 		{
 			"Name": "PhantomJS",
 			"Description": "Phantom JS",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"phantomjs"
 			],
@@ -1034,7 +1024,7 @@
 		{
 			"Name": "PHP",
 			"Description": "PHP",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [
 				"^php.*",
 				"snmp"
@@ -1051,7 +1041,7 @@
 		{
 			"Name": "Pipx",
 			"Description": "Pipx",
-			"Priority": 0,
+			"Postpone": true,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1073,7 +1063,7 @@
 		{
 			"Name": "PostgreSQL",
 			"Description": "PostgreSQL",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [
 				"^postgresql-.*",
 				"libpq-dev"
@@ -1096,7 +1086,7 @@
 		{
 			"Name": "R",
 			"Description": "R",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"r-base"
 			],
@@ -1112,7 +1102,7 @@
 		{
 			"Name": "Ruby",
 			"Description": "Ruby",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"ruby-full"
 			],
@@ -1128,7 +1118,7 @@
 		{
 			"Name": "RunnerBoost",
 			"Description": "GitHub Actions Runner boost",
-			"Priority": 0,
+			"Postpone": true,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1144,7 +1134,7 @@
 		{
 			"Name": "Selenium",
 			"Description": "Selenium",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1164,7 +1154,7 @@
 		{
 			"Name": "Sphinx",
 			"Description": "Sphinx",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [
 				"sphinxsearch"
 			],
@@ -1180,7 +1170,7 @@
 		{
 			"Name": "SQLPackage",
 			"Description": "SQL Package",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1196,7 +1186,7 @@
 		{
 			"Name": "Stack",
 			"Description": "Stack",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1217,7 +1207,7 @@
 		{
 			"Name": "Swift",
 			"Description": "Swift",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -1239,7 +1229,7 @@
 		{
 			"Name": "VCPkg",
 			"Description": "VCPkg",
-			"Priority": 0,
+			"Postpone": true,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1262,7 +1252,7 @@
 		{
 			"Name": "Vercel",
 			"Description": "Vercel",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1278,7 +1268,7 @@
 		{
 			"Name": "VisualStudio/2019",
 			"Description": "Visual Studio 2019",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1296,7 +1286,7 @@
 		{
 			"Name": "VisualStudio/2022",
 			"Description": "Visual Studio 2022",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1312,7 +1302,9 @@
 		{
 			"Name": "VisualStudio/All",
 			"Description": "Visual Studio",
-			"Priority": 1,
+			"Postpone": [
+				"VisualStudio/*"
+			],
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1331,7 +1323,7 @@
 		{
 			"Name": "Webpack",
 			"Description": "Webpack",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1348,7 +1340,7 @@
 		{
 			"Name": "Xcode/11.7",
 			"Description": "Xcode 11.7",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1364,7 +1356,7 @@
 		{
 			"Name": "Xcode/12.4",
 			"Description": "Xcode 12.4",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1380,7 +1372,7 @@
 		{
 			"Name": "Xcode/12.5.1",
 			"Description": "Xcode 12.5.1",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1396,7 +1388,7 @@
 		{
 			"Name": "Xcode/13.0",
 			"Description": "Xcode 13.0",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1412,7 +1404,7 @@
 		{
 			"Name": "Xcode/13.1",
 			"Description": "Xcode 13.1",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1428,7 +1420,7 @@
 		{
 			"Name": "Xcode/13.2.1",
 			"Description": "Xcode 13.2.1",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1444,7 +1436,7 @@
 		{
 			"Name": "Xcode/13.3.1",
 			"Description": "Xcode 13.3.1",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1460,7 +1452,7 @@
 		{
 			"Name": "Xcode/13.4.1",
 			"Description": "Xcode 13.4.1",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1476,7 +1468,7 @@
 		{
 			"Name": "Xcode/14.0.1",
 			"Description": "Xcode 14.0.1",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1492,7 +1484,7 @@
 		{
 			"Name": "Xcode/14.1",
 			"Description": "Xcode 14.1",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1508,7 +1500,7 @@
 		{
 			"Name": "Xcode/14.2",
 			"Description": "Xcode 14.2",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1524,7 +1516,7 @@
 		{
 			"Name": "Xcode/14.3",
 			"Description": "Xcode 14.3",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1540,7 +1532,7 @@
 		{
 			"Name": "Xcode/14.3.1",
 			"Description": "Xcode 14.3.1",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1556,7 +1548,7 @@
 		{
 			"Name": "Xcode/15.0",
 			"Description": "Xcode 15.0",
-			"Priority": 2,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1572,7 +1564,9 @@
 		{
 			"Name": "Xcode/All",
 			"Description": "Xcode (All)",
-			"Priority": 1,
+			"Postpone": [
+				"Xcode/*"
+			],
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1588,7 +1582,7 @@
 		{
 			"Name": "YAMLLint",
 			"Description": "YAML Lint",
-			"Priority": 1,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1604,7 +1598,7 @@
 		{
 			"Name": "Yarn",
 			"Description": "Yarn",
-			"Priority": 0,
+			"Postpone": false,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],

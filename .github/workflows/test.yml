@@ -21,22 +21,23 @@ jobs:
         with:
           operate_async: "${{matrix.operate_async}}"
           general_include: ".+"
-          aptcache: "True"
           dockerimage_include: ".+"
-          homebrewcache: "True"
-          npmcache: "True"
+          cache_apt: "True"
+          cache_docker: "True"
+          cache_homebrew: "True"
+          cache_npm: "True"
           swap: "True"
-      - name: "Get PowerShell Command Alias"
-        run: |
-          Get-Alias |
-            Format-Table -AutoSize -Wrap |
-            Out-String -Width 120 |
-            Write-Host
-        shell: "pwsh"
-      - name: "Get Software List"
-        run: |
-          Get-Command -CommandType Application |
-            Format-Table -Property @('Name', 'Path') -AutoSize -Wrap |
-            Out-String -Width 120 |
-            Write-Host
-        shell: "pwsh"
+      # - name: "Get PowerShell Command Alias"
+      #   run: |
+      #     Get-Alias |
+      #       Format-Table -AutoSize -Wrap |
+      #       Out-String -Width 120 |
+      #       Write-Host
+      #   shell: "pwsh"
+      # - name: "Get Software List"
+      #   run: |
+      #     Get-Command -CommandType Application |
+      #       Format-Table -Property @('Name', 'Path') -AutoSize -Wrap |
+      #       Out-String -Width 120 |
+      #       Write-Host
+      #   shell: "pwsh"

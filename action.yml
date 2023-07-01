@@ -18,10 +18,6 @@ inputs:
     description: "{RegEx[]} Exclude remove general item."
     required: false
     default: ""
-  aptcache:
-    description: "{Boolean} Whether to remove Linux APT (Advanced Packaging Tools) cache."
-    required: false
-    default: "False"
   dockerimage_include:
     description: "{RegEx[]} Remove Docker image."
     required: false
@@ -30,28 +26,26 @@ inputs:
     description: "{RegEx[]} Exclude remove Docker image."
     required: false
     default: ""
-  homebrewcache:
+  cache_apt:
+    description: "{Boolean} Whether to remove APT cache."
+    required: false
+    default: "False"
+  cache_docker:
+    description: "{Boolean} Whether to remove Docker cache."
+    required: false
+    default: "False"
+  cache_homebrew:
     description: "{Boolean} Whether to remove Homebrew cache."
     required: false
     default: "False"
-  npmcache:
-    description: "{Boolean} Whether to remove NPM (NodeJS Package Manager) cache."
+  cache_npm:
+    description: "{Boolean} Whether to remove NPM cache."
     required: false
     default: "False"
   swap:
     description: "{Boolean} Whether to remove Linux Swap Space."
     required: false
     default: "False"
-  general:
-    description: "{RegEx[]} Remove general item."
-    required: false
-    default: ""
-    deprecationMessage: "Use `general_include`!"
-  dockerimage:
-    description: "{RegEx[]} Remove Docker image."
-    required: false
-    default: ""
-    deprecationMessage: "Use `dockerimage_include`!"
 runs:
   using: "composite"
   steps:
@@ -63,17 +57,16 @@ runs:
     - name: "Optimize Disk Space (Non-Windows)"
       if: "${{runner.os != 'Windows'}}"
       env:
+        INPUT_CACHE_APT: "${{inputs.cache_apt}}"
+        INPUT_CACHE_DOCKER: "${{inputs.cache_docker}}"
+        INPUT_CACHE_HOMEBREW: "${{inputs.cache_homebrew}}"
+        INPUT_CACHE_NPM: "${{inputs.cache_npm}}"
+        INPUT_DOCKERIMAGE_EXCLUDE: "${{inputs.dockerimage_exclude}}"
+        INPUT_DOCKERIMAGE_INCLUDE: "${{inputs.dockerimage_include}}"
+        INPUT_GENERAL_EXCLUDE: "${{inputs.general_exclude}}"
+        INPUT_GENERAL_INCLUDE: "${{inputs.general_include}}"
         INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
         INPUT_OPERATE_ASYNC: "${{inputs.operate_async}}"
-        INPUT_GENERAL: "${{inputs.general}}"
-        INPUT_GENERAL_INCLUDE: "${{inputs.general_include}}"
-        INPUT_GENERAL_EXCLUDE: "${{inputs.general_exclude}}"
-        INPUT_APTCACHE: "${{inputs.aptcache}}"
-        INPUT_DOCKERIMAGE: "${{inputs.dockerimage}}"
-        INPUT_DOCKERIMAGE_INCLUDE: "${{inputs.dockerimage_include}}"
-        INPUT_DOCKERIMAGE_EXCLUDE: "${{inputs.dockerimage_exclude}}"
-        INPUT_HOMEBREWCACHE: "${{inputs.homebrewcache}}"
-        INPUT_NPMCACHE: "${{inputs.npmcache}}"
         INPUT_SWAP: "${{inputs.swap}}"
       run: |
         sudo --non-interactive --preserve-env pwsh -NonInteractive "$GITHUB_ACTION_PATH/main.ps1"
@@ -82,17 +75,16 @@ runs:
     - name: "Optimize Disk Space (Windows)"
       if: "${{runner.os == 'Windows'}}"
       env:
+        INPUT_CACHE_APT: "${{inputs.cache_apt}}"
+        INPUT_CACHE_DOCKER: "${{inputs.cache_docker}}"
+        INPUT_CACHE_HOMEBREW: "${{inputs.cache_homebrew}}"
+        INPUT_CACHE_NPM: "${{inputs.cache_npm}}"
+        INPUT_DOCKERIMAGE_EXCLUDE: "${{inputs.dockerimage_exclude}}"
+        INPUT_DOCKERIMAGE_INCLUDE: "${{inputs.dockerimage_include}}"
+        INPUT_GENERAL_EXCLUDE: "${{inputs.general_exclude}}"
+        INPUT_GENERAL_INCLUDE: "${{inputs.general_include}}"
         INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
         INPUT_OPERATE_ASYNC: "${{inputs.operate_async}}"
-        INPUT_GENERAL: "${{inputs.general}}"
-        INPUT_GENERAL_INCLUDE: "${{inputs.general_include}}"
-        INPUT_GENERAL_EXCLUDE: "${{inputs.general_exclude}}"
-        INPUT_APTCACHE: "${{inputs.aptcache}}"
-        INPUT_DOCKERIMAGE: "${{inputs.dockerimage}}"
-        INPUT_DOCKERIMAGE_INCLUDE: "${{inputs.dockerimage_include}}"
-        INPUT_DOCKERIMAGE_EXCLUDE: "${{inputs.dockerimage_exclude}}"
-        INPUT_HOMEBREWCACHE: "${{inputs.homebrewcache}}"
-        INPUT_NPMCACHE: "${{inputs.npmcache}}"
         INPUT_SWAP: "${{inputs.swap}}"
       run: |
         pwsh -NonInteractive (Join-Path -Path $Env:GITHUB_ACTION_PATH -ChildPath 'main.ps1')

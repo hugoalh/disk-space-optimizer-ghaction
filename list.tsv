@@ -1,91 +1,90 @@
-Name	Description	Priority	APT	Chocolatey	Homebrew	NPM	Pipx	Env	PathLinux	PathMacOS	PathWindows
-AliYun	AliYun (Alibaba Cloud) CLI	9			aliyun-cli				/usr/local/bin/aliyun		C:\aliyun-cli
-AndroidNDK	Android NDK	3						ANDROID_ROOT;;ANDROID_NDK_ROOT;;ANDROID_SDK_ROOT;;ANDROID_HOME	/usr/local/lib/android	/Users/runner/Library/Android	C:\Program Files (x86)\Android;;C:\Android
-Ansible	Ansible	1					ansible-core				
-Ant	Ant	1							/usr/share/ant		
-Apache	Apache	1	apache2								C:\tools\Apache*
-AWS	AWS (Amazon Web Service) CLI	1							/usr/local/aws-cli		
-AzCopy	AzCopy	1		azcopy10					/usr/local/bin/azcopy		
-AzureCLI	Azure CLI	1	azure-cli		azure-cli			AZURE_EXTENSION_DIR	/opt/az/azcliextensions		
-Bazel	Bazel	1							/usr/local/bin/bazel		
-Bazelisk	Bazelisk	2				@bazel/bazelisk					
-Bicep	Bicep	1							/usr/local/bin/bicep		
-Chromium	Chromium	1						CHROMIUM_DIR	/usr/local/share/chromium		
-Clang	Clang	2	^clang-.*;;^lldb-.*;;^lld-.*;;^clang-format-.*;;^clang-tidy-.*								
-CodeQL	CodeQL	1							$Env:AGENT_TOOLSDIRECTORY/CodeQL;;/opt/hostedtoolcache/CodeQL	$Env:AGENT_TOOLSDIRECTORY/CodeQL	$Env:AGENT_TOOLSDIRECTORY\CodeQL
-DotNet	.Net	2	^dotnet-.*						/usr/share/dotnet	/usr/local/bin/dotnet;;$Env:HOME/.dotnet	
-Erlang	Erlang	1	esl-erlang						/usr/local/bin/rebar3		
-Firefox	Mozilla Firefox Browser	1	firefox								
-G++	GNU C++ compiler	2	^g\+\+.*								
-GCC	GNU C compiler	2	^gcc.*		gcc						
-GeckoWebDriver	Gecko Web Driver	1						GECKOWEBDRIVER	/usr/local/share/gecko_driver	/usr/local/opt/geckodriver	C:\SeleniumWebDrivers\GeckoDriver
-GFortran	GNU Fortran	2	^gfortran.*								
-Go	Go	1							$Env:AGENT_TOOLSDIRECTORY/go;;/opt/hostedtoolcache/go	$Env:AGENT_TOOLSDIRECTORY/go	$Env:AGENT_TOOLSDIRECTORY\go
-GoogleChrome	Google Chrome Browser	1	google-chrome-stable					CHROME_BIN	/usr/bin/google-chrome		
-GoogleChromeWebDriver	Google Chrome Web Driver	1						CHROMEWEBDRIVER;;CHROMEDRIVER_DIR	/usr/local/share/chrome_driver	/usr/local/Caskroom/chromedriver	C:\SeleniumWebDrivers\ChromeDriver
-GoogleCloudSDK	Google Cloud SDK	1	google-cloud-sdk								
-Gradle	Gradle	1							/usr/share/gradle-*		
-Grunt	Grunt	1				grunt;;grunt-cli					
-Gulp	Gulp	1				gulp;;gulp-cli					
-HaskellGHC	Haskell GHC	1							/opt/ghc;;/usr/local/.ghcup/ghc		
-Heroku	Heroku	1							/usr/local/lib/heroku	/usr/local/lib/heroku	
-HHVM	HHVM	1	hhvm								
-Homebrew	Homebrew	0							/home/linuxbrew		
-HTTPD	HTTPD	1		apache-httpd	httpd					/usr/local/etc/httpd	
-Java/11	Java 11	2						JAVA_HOME_11_X64	/usr/lib/jvm/*-11.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/11.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\11.*
-Java/13	Java 13	2						JAVA_HOME_13_X64	/usr/lib/jvm/*-13.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\13.*
-Java/17	Java 17	2						JAVA_HOME_17_X64	/usr/lib/jvm/*-17.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\17.*
-Java/8	Java 8	2						JAVA_HOME_8_X64	/usr/lib/jvm/*-8.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\8.*
-Java/All	Java (All)	1						JAVA_HOME	/usr/lib/jvm	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk
-Julia	Julia	1		julia					/usr/local/julia*;;/usr/bin/julia		
-Kotlin	Kotlin	1							/usr/share/kotlinc		
-Lerna	Lerna	1				lerna					
-LLVM	LLVM	2	^llvm-.*		llvm						
-Maven	Maven	1							/usr/share/apache-maven-*		
-MicrosoftEdgeWebDriver	Microsoft Edge Web Driver	1	microsoft-edge-stable					EDGEWEBDRIVER	/usr/local/share/edge_driver	/usr/local/share/edge_driver	C:\SeleniumWebDrivers\EdgeDriver
-Miniconda	Mini Conda	1						CONDA	/usr/share/miniconda;;/usr/bin/conda	/usr/local/miniconda	C:\Miniconda
-MongoDB	MongoDB	2	^mongodb-.*								
-Mono	Mono	1	mono-complete;;mono-devel								
-MSSQL	MS SQL	1	mssql-tools;;unixodbc-dev						/opt/mssql-tools		
-MSYS2	MSYS2 Pacman	0									C:\msys64
-MySQL	MySQL	2	^mysql-.*;;libmysqlclient-dev								
-Netlify	Netlify	1				netlify					
-Newman	Newman	1				newman					
-Nginx	Nginx	1	nginx							/usr/local/etc/nginx	C:\tools\nginx*
-OpenGLDRI	OpenGL API DRI Modules	1	libgl1-mesa-dri								
-Parcel	Parcel	1				parcel					
-PhantomJS	Phantom JS	1	phantomjs								
-PHP	PHP	2	^php.*;;snmp								
-Pipx	Pipx	0						PIPX_BIN_DIR;;PIPX_HOME		/opt/pipx_bin	C:\Program Files (x86)\pipx;;C:\Program Files (x86)\pipx_bin
-PostgreSQL	PostgreSQL	2	^postgresql-.*;;libpq-dev					PGBIN;;PGDATA;;PGROOT			C:\Program Files\PostgreSQL
-R	R	1	r-base								
-Ruby	Ruby	1	ruby-full								
-RunnerBoost	GitHub Actions Runner boost	0							/usr/local/share/boost		
-Selenium	Selenium	1						SELENIUM_JAR_PATH	/usr/share/java/selenium-server.jar		C:\selenium\selenium-server.jar
-Sphinx	Sphinx	1	sphinxsearch								
-SQLPackage	SQL Package	1							/usr/local/sqlpackage		
-Stack	Stack	1							$Env:AGENT_TOOLSDIRECTORY/stack;;/opt/hostedtoolcache/stack	$Env:AGENT_TOOLSDIRECTORY/stack	$Env:AGENT_TOOLSDIRECTORY\stack
-Swift	Swift	1			swiftformat			SWIFT_PATH	/usr/share/swift;;/usr/local/bin/swift;;/usr/local/bin/swiftc		
-VCPkg	VCPkg	0						VCPKG_INSTALLATION_ROOT	/usr/local/share/vcpkg;;/root/.vcpkg	/usr/local/share/vcpkg	C:\vcpkg
-Vercel	Vercel	1				vercel					
-VisualStudio/2019	Visual Studio 2019	2								/Applications/Visual Studio 2019*	C:\Program Files\Microsoft Visual Studio\2019
-VisualStudio/2022	Visual Studio 2022	2									C:\Program Files\Microsoft Visual Studio\2022
-VisualStudio/All	Visual Studio	1								/Applications/Visual Studio*	C:\Program Files\Microsoft Visual Studio;;C:\ProgramData\Microsoft\VisualStudio
-Webpack	Webpack	1				webpack-cli;;webpack					
-Xcode/11.7	Xcode 11.7	2								/Applications/Xcode_11.7.app	
-Xcode/12.4	Xcode 12.4	2								/Applications/Xcode_12.4.app	
-Xcode/12.5.1	Xcode 12.5.1	2								/Applications/Xcode_12.5.1.app	
-Xcode/13.0	Xcode 13.0	2								/Applications/Xcode_13.0.app	
-Xcode/13.1	Xcode 13.1	2								/Applications/Xcode_13.1.app	
-Xcode/13.2.1	Xcode 13.2.1	2								/Applications/Xcode_13.2.1.app	
-Xcode/13.3.1	Xcode 13.3.1	2								/Applications/Xcode_13.3.1.app	
-Xcode/13.4.1	Xcode 13.4.1	2								/Applications/Xcode_13.4.1.app	
-Xcode/14.0.1	Xcode 14.0.1	2								/Applications/Xcode_14.0.1.app	
-Xcode/14.1	Xcode 14.1	2								/Applications/Xcode_14.1.app	
-Xcode/14.2	Xcode 14.2	2								/Applications/Xcode_14.2.app	
-Xcode/14.3	Xcode 14.3	2								/Applications/Xcode_14.3.app	
-Xcode/14.3.1	Xcode 14.3.1	2								/Applications/Xcode_14.3.1.app	
-Xcode/15.0	Xcode 15.0	2								/Applications/Xcode_15.0.app	
-Xcode/All	Xcode (All)	1								/Applications/Xcode*	
-YAMLLint	YAML Lint	1					yamllint				
-Yarn	Yarn	0				yarn					
+Name	Description	Postpone	APT	Chocolatey	Homebrew	NPM	Pipx	Env	PathLinux	PathMacOS	PathWindows
+AliYun	AliYun (Alibaba Cloud) CLI	False			aliyun-cli				/usr/local/bin/aliyun		C:\aliyun-cli
+AndroidNDK	Android NDK	False						ANDROID_ROOT;;ANDROID_NDK_ROOT;;ANDROID_SDK_ROOT;;ANDROID_HOME	/usr/local/lib/android	/Users/runner/Library/Android	C:\Program Files (x86)\Android;;C:\Android
+Ansible	Ansible	False					ansible-core				
+Ant	Ant	False							/usr/share/ant		
+Apache	Apache	False	apache2								C:\tools\Apache*
+AWS	AWS (Amazon Web Service) CLI	False							/usr/local/aws-cli		
+AzCopy	AzCopy	False		azcopy10					/usr/local/bin/azcopy		
+AzureCLI	Azure CLI	AzCopy	azure-cli		azure-cli			AZURE_EXTENSION_DIR	/opt/az/azcliextensions		
+Bazel	Bazel	Bazelisk							/usr/local/bin/bazel		
+Bazelisk	Bazelisk	False				@bazel/bazelisk					
+Bicep	Bicep	False							/usr/local/bin/bicep		
+Chromium	Chromium	False						CHROMIUM_DIR	/usr/local/share/chromium		
+Clang	Clang	False	^clang-.*;;^lldb-.*;;^lld-.*;;^clang-format-.*;;^clang-tidy-.*								
+CodeQL	CodeQL	False							$Env:AGENT_TOOLSDIRECTORY/CodeQL;;/opt/hostedtoolcache/CodeQL	$Env:AGENT_TOOLSDIRECTORY/CodeQL	$Env:AGENT_TOOLSDIRECTORY\CodeQL
+DotNet	.Net	False	^dotnet-.*						/usr/share/dotnet	/usr/local/bin/dotnet;;$Env:HOME/.dotnet	
+Erlang	Erlang	False	esl-erlang						/usr/local/bin/rebar3		
+Firefox	Mozilla Firefox Browser	False	firefox								
+G++	GNU C++ compiler	False	^g\+\+.*								
+GCC	GNU C compiler	False	^gcc.*		gcc						
+GeckoWebDriver	Gecko Web Driver	False						GECKOWEBDRIVER	/usr/local/share/gecko_driver	/usr/local/opt/geckodriver	C:\SeleniumWebDrivers\GeckoDriver
+GFortran	GNU Fortran	False	^gfortran.*								
+Go	Go	False							$Env:AGENT_TOOLSDIRECTORY/go;;/opt/hostedtoolcache/go	$Env:AGENT_TOOLSDIRECTORY/go	$Env:AGENT_TOOLSDIRECTORY\go
+GoogleChrome	Google Chrome Browser	False	google-chrome-stable					CHROME_BIN	/usr/bin/google-chrome		
+GoogleChromeWebDriver	Google Chrome Web Driver	False						CHROMEWEBDRIVER;;CHROMEDRIVER_DIR	/usr/local/share/chrome_driver	/usr/local/Caskroom/chromedriver	C:\SeleniumWebDrivers\ChromeDriver
+GoogleCloudSDK	Google Cloud SDK	False	google-cloud-sdk								
+Gradle	Gradle	False							/usr/share/gradle-*		
+Grunt	Grunt	False				grunt;;grunt-cli					
+Gulp	Gulp	False				gulp;;gulp-cli					
+HaskellGHC	Haskell GHC	False							/opt/ghc;;/usr/local/.ghcup/ghc		
+Heroku	Heroku	False							/usr/local/lib/heroku	/usr/local/lib/heroku	
+HHVM	HHVM	False	hhvm								
+HTTPD	HTTPD	False		apache-httpd	httpd					/usr/local/etc/httpd	
+Java/11	Java 11	False						JAVA_HOME_11_X64	/usr/lib/jvm/*-11.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/11.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\11.*
+Java/13	Java 13	False						JAVA_HOME_13_X64	/usr/lib/jvm/*-13.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\13.*
+Java/17	Java 17	False						JAVA_HOME_17_X64	/usr/lib/jvm/*-17.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\17.*
+Java/8	Java 8	False						JAVA_HOME_8_X64	/usr/lib/jvm/*-8.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\8.*
+Java/All	Java (All)	Java/*						JAVA_HOME	/usr/lib/jvm	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk
+Julia	Julia	False		julia					/usr/local/julia*;;/usr/bin/julia		
+Kotlin	Kotlin	False							/usr/share/kotlinc		
+Lerna	Lerna	False				lerna					
+LLVM	LLVM	False	^llvm-.*		llvm						
+Maven	Maven	False							/usr/share/apache-maven-*		
+MicrosoftEdgeWebDriver	Microsoft Edge Web Driver	False	microsoft-edge-stable					EDGEWEBDRIVER	/usr/local/share/edge_driver	/usr/local/share/edge_driver	C:\SeleniumWebDrivers\EdgeDriver
+Miniconda	Mini Conda	False						CONDA	/usr/share/miniconda;;/usr/bin/conda	/usr/local/miniconda	C:\Miniconda
+MongoDB	MongoDB	False	^mongodb-.*								
+Mono	Mono	False	mono-complete;;mono-devel								
+MSSQL	MS SQL	False	mssql-tools;;unixodbc-dev						/opt/mssql-tools		
+MSYS2	MSYS2 Pacman	True									C:\msys64
+MySQL	MySQL	False	^mysql-.*;;libmysqlclient-dev								
+Netlify	Netlify	False				netlify					
+Newman	Newman	False				newman					
+Nginx	Nginx	False	nginx							/usr/local/etc/nginx	C:\tools\nginx*
+OpenGLDRI	OpenGL API DRI Modules	False	libgl1-mesa-dri								
+Parcel	Parcel	False				parcel					
+PhantomJS	Phantom JS	False	phantomjs								
+PHP	PHP	False	^php.*;;snmp								
+Pipx	Pipx	True						PIPX_BIN_DIR;;PIPX_HOME		/opt/pipx_bin	C:\Program Files (x86)\pipx;;C:\Program Files (x86)\pipx_bin
+PostgreSQL	PostgreSQL	False	^postgresql-.*;;libpq-dev					PGBIN;;PGDATA;;PGROOT			C:\Program Files\PostgreSQL
+R	R	False	r-base								
+Ruby	Ruby	False	ruby-full								
+RunnerBoost	GitHub Actions Runner boost	True							/usr/local/share/boost		
+Selenium	Selenium	False						SELENIUM_JAR_PATH	/usr/share/java/selenium-server.jar		C:\selenium\selenium-server.jar
+Sphinx	Sphinx	False	sphinxsearch								
+SQLPackage	SQL Package	False							/usr/local/sqlpackage		
+Stack	Stack	False							$Env:AGENT_TOOLSDIRECTORY/stack;;/opt/hostedtoolcache/stack	$Env:AGENT_TOOLSDIRECTORY/stack	$Env:AGENT_TOOLSDIRECTORY\stack
+Swift	Swift	False			swiftformat			SWIFT_PATH	/usr/share/swift;;/usr/local/bin/swift;;/usr/local/bin/swiftc		
+VCPkg	VCPkg	True						VCPKG_INSTALLATION_ROOT	/usr/local/share/vcpkg;;/root/.vcpkg	/usr/local/share/vcpkg	C:\vcpkg
+Vercel	Vercel	False				vercel					
+VisualStudio/2019	Visual Studio 2019	False								/Applications/Visual Studio 2019*	C:\Program Files\Microsoft Visual Studio\2019
+VisualStudio/2022	Visual Studio 2022	False									C:\Program Files\Microsoft Visual Studio\2022
+VisualStudio/All	Visual Studio	VisualStudio/*								/Applications/Visual Studio*	C:\Program Files\Microsoft Visual Studio;;C:\ProgramData\Microsoft\VisualStudio
+Webpack	Webpack	False				webpack-cli;;webpack					
+Xcode/11.7	Xcode 11.7	False								/Applications/Xcode_11.7.app	
+Xcode/12.4	Xcode 12.4	False								/Applications/Xcode_12.4.app	
+Xcode/12.5.1	Xcode 12.5.1	False								/Applications/Xcode_12.5.1.app	
+Xcode/13.0	Xcode 13.0	False								/Applications/Xcode_13.0.app	
+Xcode/13.1	Xcode 13.1	False								/Applications/Xcode_13.1.app	
+Xcode/13.2.1	Xcode 13.2.1	False								/Applications/Xcode_13.2.1.app	
+Xcode/13.3.1	Xcode 13.3.1	False								/Applications/Xcode_13.3.1.app	
+Xcode/13.4.1	Xcode 13.4.1	False								/Applications/Xcode_13.4.1.app	
+Xcode/14.0.1	Xcode 14.0.1	False								/Applications/Xcode_14.0.1.app	
+Xcode/14.1	Xcode 14.1	False								/Applications/Xcode_14.1.app	
+Xcode/14.2	Xcode 14.2	False								/Applications/Xcode_14.2.app	
+Xcode/14.3	Xcode 14.3	False								/Applications/Xcode_14.3.app	
+Xcode/14.3.1	Xcode 14.3.1	False								/Applications/Xcode_14.3.1.app	
+Xcode/15.0	Xcode 15.0	False								/Applications/Xcode_15.0.app	
+Xcode/All	Xcode (All)	Xcode/*								/Applications/Xcode*	
+YAMLLint	YAML Lint	False					yamllint				
+Yarn	Yarn	False				yarn					

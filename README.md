@@ -34,17 +34,19 @@ This action is inspired from:
 
 - APT (Advanced Packaging Tools) caches
 - [APT (Advanced Packaging Tools) packages][list]
-- **(>= v0.3.0)** [Chocolatey packages][list]
+- [Chocolatey packages][list]
 - [Directly bundled programs][list]
 - Docker images
-- **(>= v0.3.0)** Homebrew caches
-- **(>= v0.3.0)** [Homebrew packages][list]
+- Homebrew caches
+- [Homebrew packages][list]
 - Linux Swap Space
-- **(>= v0.3.0)** NPM (NodeJS Package Manager) cache
-- **(>= v0.2.0)** [NPM (NodeJS Package Manager) packages][list]
-- **(>= v0.3.0)** [Pipx packages][list]
+- NPM (NodeJS Package Manager) cache
+- [NPM (NodeJS Package Manager) packages][list]
+- [Pipx packages][list]
 
 ## 📚 Documentation
+
+> **⚠ Important:** This documentation is v0.4.0 based; To view other version's documentation, please visit the [versions list](https://github.com/hugoalh/disk-space-optimizer-ghaction/tags) and select the correct version.
 
 ### Getting Started
 
@@ -67,57 +69,45 @@ jobs:
 
 #### `operate_async`
 
-**(>= v0.4.0) \[Optional\]** `<Boolean = False>` Whether to operate in asynchronously.
+> **🧪 Experimental:** This is in testing, maybe available in the latest version and/or future version.
 
-> **ℹ Notice:** Although this feature can reduce the operation time majorly on Linux runner by \~33% and Windows runner by \~25%, this maybe cause unexpected issues and remain some elements.
+**\[Optional\]** `<Boolean = False>` Whether to operate in asynchronously.
 
 #### `general_include`
 
-**(>= v0.2.0) \[Optional\]** `<RegEx[]>` Remove general item, by regular expression and [super list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+**\[Optional\]** `<RegEx[]>` Remove general item, by regular expression and [general list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
 #### `general_exclude`
 
-**(>= v0.2.0) \[Optional\]** `<RegEx[]>` Exclude remove general item, by regular expression and [super list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
-
-#### `aptcache`
-
-**\[Optional\]** `<Boolean = False>` Whether to remove APT (Advanced Packaging Tools) cache.
+**\[Optional\]** `<RegEx[]>` Exclude remove general item, by regular expression and [general list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
 #### `dockerimage_include`
 
-**(>= v0.2.0) \[Optional\]** `<RegEx[]>` Remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+**\[Optional\]** `<RegEx[]>` Remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
 #### `dockerimage_exclude`
 
-**(>= v0.2.0) \[Optional\]** `<RegEx[]>` Exclude remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+**\[Optional\]** `<RegEx[]>` Exclude remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
-#### `homebrewcache`
+#### `cache_apt`
 
-**(>= v0.3.0) \[Optional\]** `<Boolean = False>` Whether to remove Homebrew cache.
+**\[Optional\]** `<Boolean = False>` Whether to remove APT (Advanced Packaging Tools) cache.
 
-#### `npmcache`
+#### `cache_docker`
 
-**(>= v0.3.0) \[Optional\]** `<Boolean = False>` Whether to remove NPM (NodeJS Package Manager) cache.
+**\[Optional\]** `<Boolean = False>` Whether to remove Docker cache.
+
+#### `cache_homebrew`
+
+**\[Optional\]** `<Boolean = False>` Whether to remove Homebrew cache.
+
+#### `cache_npm`
+
+**\[Optional\]** `<Boolean = False>` Whether to remove NPM (NodeJS Package Manager) cache.
 
 #### `swap`
 
 **\[Optional\]** `<Boolean = False>` Whether to remove Linux Swap Space.
-
-#### `general`
-
-> **👎 Deprecated:** This is officially deprecated, maybe throw warning in the latest version, and maybe remove in the future version.
-
-**(v0.1.X) \[Optional\]** `<RegEx[] = ".+">` Remove general item, by regular expression and [super list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
-
-> **⚠ Important:** In v0.1.X, all of the items are selected.
-
-#### `dockerimage`
-
-> **👎 Deprecated:** This is officially deprecated, maybe throw warning in the latest version, and maybe remove in the future version.
-
-**(v0.1.X) \[Optional\]** `<RegEx[] = ".+">` Remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
-
-> **⚠ Important:** In v0.1.X, all of the items are selected.
 
 ### 📤 Output
 
@@ -131,13 +121,14 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Optimize Disk Space"
-        uses: "hugoalh/disk-space-optimizer-ghaction@v0.3.0"
+        uses: "hugoalh/disk-space-optimizer-ghaction@v0.4.0"
         with:
           general_include: ".+"
-          aptcache: "True"
           dockerimage_include: ".+"
-          homebrewcache: "True"
-          npmcache: "True"
+          cache_apt: "True"
+          cache_docker: "True"
+          cache_homebrew: "True"
+          cache_npm: "True"
           swap: "True"
 ```
 
