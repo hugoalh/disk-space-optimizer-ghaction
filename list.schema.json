@@ -19,19 +19,8 @@
 						"minLength": 1
 					},
 					"Postpone": {
-						"oneOf": [
-							{
-								"type": "boolean"
-							},
-							{
-								"type": "array",
-								"items": {
-									"type": "string",
-									"minLength": 1
-								},
-								"minItems": 1
-							}
-						]
+						"type": "integer",
+						"minimum": 0
 					},
 					"APT": {
 						"type": "array",

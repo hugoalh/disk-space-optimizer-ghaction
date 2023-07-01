@@ -170,72 +170,198 @@ If ($DockerProgram) {
 		}
 	}
 }
-Function Invoke-OptimizeOperation {
+Function Invoke-GeneralOptimizeOperation {
 	[CmdletBinding()]
 	[OutputType([Void])]
 	Param (
-		[Parameter(Mandatory = $True, Position = 0)][PSCustomObject[]]$Queue
+		[Parameter(Mandatory = $True, Position = 0)][PSCustomObject[]]$Queue,
+		[Parameter(Mandatory = $True, Position = 1)][UInt64]$Index
 	)
-	ForEach ($Item In $Queue) {
-		Write-Host -Object "Remove $($Item.Name)."
-		If ($APTProgram) {
-			ForEach ($APT In $Item.APT) {
-				apt-get --assume-yes remove $APT *>&1 |
-					Write-GitHubActionsDebug
+	If ($OperationAsync) {
+		[String[]]$QueueAPT = $Queue |
+			ForEach-Object -Process {
+				$_.APT |
+					Write-Output
+			}
+		[String[]]$QueueChocolatey = $Queue |
+			ForEach-Object -Process {
+				$_.Chocolatey |
+					Write-Output
+			}
+		[String[]]$QueueHomebrew = $Queue |
+			ForEach-Object -Process {
+				$_.Homebrew |
+					Write-Output
+			}
+		[String[]]$QueueNPM = $Queue |
+			ForEach-Object -Process {
+				$_.NPM |
+					Write-Output
+			}
+		[String[]]$QueuePipx = $Queue |
+			ForEach-Object -Process {
+				$_.Pipx |
+					Write-Output
+			}
+		[PSCustomObject[]]$QueueFSPlain = $Queue |
+			Where-Object -FilterScript {
+				$_.APT.Count -eq 0 -and $_.Chocolatey.Count -eq 0 -and $_.Homebrew.Count -eq 0 -and $_.NPM.Count -eq 0 -and $_.Pipx.Count -eq 0 -and (
+					$_.Env.Count -gt 0 -or
+					$_.($OsPathType).Count -gt 0
+				)
+			}
+		[PSCustomObject[]]$QueueFSRest = $Queue |
+			Where-Object -FilterScript {
+				($_.APT.Count -gt 0 -or $_.Chocolatey.Count -gt 0 -or $_.Homebrew.Count -gt 0 -or $_.NPM.Count -gt 0 -or $_.Pipx.Count -gt 0) -and (
+					$_.Env.Count -gt 0 -or
+					$_.($OsPathType).Count -gt 0
+				)
+			}
+		If ($APTProgram -and $QueueAPT.Count -gt 0) {
+			Write-Host -Object "[ASYNC] Remove APT package with postpone #$Index."
+			$Null = Start-Job -Name "$JobIdPrefix/$Index/PM/APT" -ScriptBlock {
+				ForEach ($APT In $Using:QueueAPT) {
+					apt-get --assume-yes remove $APT *>&1
+				}
 			}
 		}
-		If ($ChocolateyProgram) {
-			ForEach ($Chocolatey In $Item.Chocolatey) {
-				choco uninstall $Chocolatey --ignore-detected-reboot --yes *>&1 |
-					Write-GitHubActionsDebug
+		If ($ChocolateyProgram -and $QueueChocolatey.Count -gt 0) {
+			Write-Host -Object "[ASYNC] Remove Chocolatey package with postpone #$Index."
+			$Null = Start-Job -Name "$JobIdPrefix/$Index/PM/Chocolatey" -ScriptBlock {
+				ForEach ($Chocolatey In $Using:QueueChocolatey) {
+					choco uninstall $Chocolatey --ignore-detected-reboot --yes *>&1
+				}
 			}
 		}
-		If ($HomebrewProgram) {
-			ForEach ($Homebrew In $Item.Homebrew) {
-				brew uninstall $Homebrew *>&1 |
-					Write-GitHubActionsDebug
+		If ($HomebrewProgram -and $QueueHomebrew.Count -gt 0) {
+			Write-Host -Object "[ASYNC] Remove Homebrew package with postpone #$Index."
+			$Null = Start-Job -Name "$JobIdPrefix/$Index/PM/Homebrew" -ScriptBlock {
+				ForEach ($Homebrew In $Using:QueueHomebrew) {
+					brew uninstall $Homebrew *>&1
+				}
 			}
 		}
-		If ($NPMProgram) {
-			ForEach ($NPM In $Item.NPM) {
-				npm --global uninstall $NPM *>&1 |
-					Write-GitHubActionsDebug
+		If ($NPMProgram -and $QueueNPM.Count -gt 0) {
+			Write-Host -Object "[ASYNC] Remove NPM package with postpone #$Index."
+			$Null = Start-Job -Name "$JobIdPrefix/$Index/PM/NPM" -ScriptBlock {
+				ForEach ($NPM In $Using:QueueNPM) {
+					npm --global uninstall $NPM *>&1
+				}
 			}
 		}
-		If ($PipxProgram) {
-			ForEach ($Pipx In $Item.Pipx) {
-				pipx uninstall $Pipx *>&1 |
-					Write-GitHubActionsDebug
+		If ($PipxProgram -and $QueuePipx.Count -gt 0) {
+			Write-Host -Object "[ASYNC] Remove Pipx package with postpone #$Index."
+			$Null = Start-Job -Name "$JobIdPrefix/$Index/PM/Pipx" -ScriptBlock {
+				ForEach ($Pipx In $Using:QueuePipx) {
+					pipx uninstall $Pipx *>&1
+				}
 			}
 		}
-		ForEach ($EnvName In $Item.Env) {
-			[String]$EnvValue = Get-Content -LiteralPath "Env:\$EnvName" -ErrorAction 'SilentlyContinue'
-			If ($EnvValue.Length -gt 0 -and (Test-Path -LiteralPath $EnvValue)) {
-				Get-ChildItem -LiteralPath $EnvValue -Force -ErrorAction 'Continue' |
-					Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+		If ($QueueFSPlain.Count -gt 0) {
+			ForEach ($FSPlain In $QueueFSPlain) {
+				Write-Host -Object "[ASYNC] Remove $($FSPlain.Description) file with postpone #$Index."
+				$Null = Start-Job -Name "$JobIdPrefix/$Index/FSPlain/$($FSPlain.Name)" -ScriptBlock {
+					ForEach ($EnvName In ($Using:FSPlain).Env) {
+						[String]$EnvValue = Get-Content -LiteralPath "Env:\$EnvName" -ErrorAction 'SilentlyContinue'
+						If ($EnvValue.Length -gt 0 -and (Test-Path -LiteralPath $EnvValue)) {
+							Get-ChildItem -LiteralPath $EnvValue -Force -ErrorAction 'Continue' |
+								Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+						}
+					}
+					ForEach ($Path In ($Using:FSPlain).($Using:OsPathType)) {
+						[String]$PathResolve = ($Path -imatch '\$Env:') ? (Invoke-Expression -Command "`"$Path`"") : $Path
+						If ($PathResolve.Length -gt 0 -and (Test-Path -LiteralPath $PathResolve)) {
+							Get-ChildItem -LiteralPath $PathResolve -Force -ErrorAction 'Continue' |
+								Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+						}
+					}
+				}
 			}
 		}
-		ForEach ($Path In $Item.($OsPathType)) {
-			[String]$PathResolve = ($Path -imatch '\$Env:') ? (Invoke-Expression -Command "`"$Path`"") : $Path
-			If ($PathResolve.Length -gt 0 -and (Test-Path -LiteralPath $PathResolve)) {
-				Get-ChildItem -LiteralPath $PathResolve -Force -ErrorAction 'Continue' |
-					Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+		If ($QueueFSRest.Count -gt 0) {
+			$Null = Wait-Job -Name "$JobIdPrefix/$Index/PM/*" -ErrorAction 'SilentlyContinue'
+			ForEach ($FSRest In $QueueFSRest) {
+				Write-Host -Object "[ASYNC] Remove $($FSRest.Description) file with postpone #$Index."
+				$Null = Start-Job -Name "$JobIdPrefix/$Index/FSRest/$($FSRest.Name)" -ScriptBlock {
+					ForEach ($EnvName In ($Using:FSRest).Env) {
+						[String]$EnvValue = Get-Content -LiteralPath "Env:\$EnvName" -ErrorAction 'SilentlyContinue'
+						If ($EnvValue.Length -gt 0 -and (Test-Path -LiteralPath $EnvValue)) {
+							Get-ChildItem -LiteralPath $EnvValue -Force -ErrorAction 'Continue' |
+								Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+						}
+					}
+					ForEach ($Path In ($Using:FSRest).($Using:OsPathType)) {
+						[String]$PathResolve = ($Path -imatch '\$Env:') ? (Invoke-Expression -Command "`"$Path`"") : $Path
+						If ($PathResolve.Length -gt 0 -and (Test-Path -LiteralPath $PathResolve)) {
+							Get-ChildItem -LiteralPath $PathResolve -Force -ErrorAction 'Continue' |
+								Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+						}
+					}
+				}
+			}
+		}
+		$Null = Wait-Job -Name "$JobIdPrefix/$Index/*" -ErrorAction 'SilentlyContinue'
+	}
+	Else {
+		ForEach ($Item In $Queue) {
+			Write-Host -Object "Remove $($Item.Description)."
+			If ($APTProgram) {
+				ForEach ($APT In $Item.APT) {
+					apt-get --assume-yes remove $APT *>&1 |
+						Write-GitHubActionsDebug
+				}
+			}
+			If ($ChocolateyProgram) {
+				ForEach ($Chocolatey In $Item.Chocolatey) {
+					choco uninstall $Chocolatey --ignore-detected-reboot --yes *>&1 |
+						Write-GitHubActionsDebug
+				}
+			}
+			If ($HomebrewProgram) {
+				ForEach ($Homebrew In $Item.Homebrew) {
+					brew uninstall $Homebrew *>&1 |
+						Write-GitHubActionsDebug
+				}
+			}
+			If ($NPMProgram) {
+				ForEach ($NPM In $Item.NPM) {
+					npm --global uninstall $NPM *>&1 |
+						Write-GitHubActionsDebug
+				}
+			}
+			If ($PipxProgram) {
+				ForEach ($Pipx In $Item.Pipx) {
+					pipx uninstall $Pipx *>&1 |
+						Write-GitHubActionsDebug
+				}
+			}
+			ForEach ($EnvName In $Item.Env) {
+				[String]$EnvValue = Get-Content -LiteralPath "Env:\$EnvName" -ErrorAction 'SilentlyContinue'
+				If ($EnvValue.Length -gt 0 -and (Test-Path -LiteralPath $EnvValue)) {
+					Get-ChildItem -LiteralPath $EnvValue -Force -ErrorAction 'Continue' |
+						Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+				}
+			}
+			ForEach ($Path In $Item.($OsPathType)) {
+				[String]$PathResolve = ($Path -imatch '\$Env:') ? (Invoke-Expression -Command "`"$Path`"") : $Path
+				If ($PathResolve.Length -gt 0 -and (Test-Path -LiteralPath $PathResolve)) {
+					Get-ChildItem -LiteralPath $PathResolve -Force -ErrorAction 'Continue' |
+						Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+				}
 			}
 		}
 	}
 }
-Invoke-OptimizeOperation -Queue (
+For ([UInt64]$Index = 0; $Index -lt (
 	$GeneralRemoveQueue |
-		Where-Object -FilterScript { $_.Postpone -ieq $False }
-)
-Invoke-OptimizeOperation -Queue (
-	$GeneralRemoveQueue |
-		Where-Object -FilterScript { $_.Postpone -ine $False -and $_.Postpone -ine $True }
-)
-Invoke-OptimizeOperation -Queue (
-	$GeneralRemoveQueue |
-		Where-Object -FilterScript { $_.Postpone -ieq $True }
-)
+		Measure-Object -Property 'Postpone' -Maximum |
+		Select-Object -ExpandProperty 'Maximum'
+); $Index += 1) {
+	Invoke-GeneralOptimizeOperation -Queue (
+		$GeneralRemoveQueue |
+			Where-Object -FilterScript { $_.Postpone -eq $Index }
+	) -Index $Index
+}
 If ($APTProgram -and $RemoveAptCache) {
 	Write-Host -Object 'Remove APT cache.'
 	apt-get --assume-yes autoremove *>&1 |
@@ -252,6 +378,17 @@ If ($NPMProgram -and $RemoveNpmCache) {
 	Write-Host -Object 'Remove NPM cache.'
 	npm cache clean --force *>&1 |
 		Write-GitHubActionsDebug
+}
+If ($OperationAsync) {
+	$Null = Wait-Job -Name "$JobIdPrefix/*" -ErrorAction 'SilentlyContinue'
+	If (Get-GitHubActionsDebugStatus) {
+		Get-Job -Name "$JobIdPrefix/*" |
+			ForEach-Object -Process {
+				Enter-GitHubActionsLogGroup -Title "$($_.Name) ($($_.State))"
+				Receive-Job -Name $_.Name -Wait -AutoRemoveJob
+				Exit-GitHubActionsLogGroup
+			}
+	}
 }
 If ($OsLinux -and $RemoveLinuxSwap) {
 	Write-Host -Object 'Remove Linux swap space.'
