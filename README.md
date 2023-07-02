@@ -71,7 +71,7 @@ jobs:
 
 > **🧪 Experimental:** This is in testing, maybe available in the latest version and/or future version.
 
-**\[Optional\]** `<Boolean = False>` Whether to operate in asynchronously.
+**\[Optional\]** `<Boolean = False>` Whether to operate in asynchronously to reduce the operation duration.
 
 #### `general_include`
 

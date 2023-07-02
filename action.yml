@@ -7,7 +7,7 @@ inputs:
     required: false
     default: ",|;|\\r?\\n"
   operate_async:
-    description: "{Boolean} Whether to operate in asynchronously."
+    description: "{Boolean} Whether to operate in asynchronously to reduce the operation duration."
     required: false
     default: "False"
   general_include:
