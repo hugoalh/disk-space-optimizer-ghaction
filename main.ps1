@@ -352,11 +352,11 @@ Function Invoke-GeneralOptimizeOperation {
 		}
 	}
 }
-For ([UInt64]$Index = 0; $Index -lt (
+ForEach ($Index In (
 	$GeneralRemoveQueue |
-		Measure-Object -Property 'Postpone' -Maximum |
-		Select-Object -ExpandProperty 'Maximum'
-); $Index += 1) {
+		Select-Object -ExpandProperty 'Postpone' |
+		Sort-Object -Unique
+)) {
 	Invoke-GeneralOptimizeOperation -Queue (
 		$GeneralRemoveQueue |
 			Where-Object -FilterScript { $_.Postpone -eq $Index }
