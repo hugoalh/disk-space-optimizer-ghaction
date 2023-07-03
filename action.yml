@@ -52,7 +52,7 @@ runs:
     - name: "Setup PowerShell Toolkit"
       uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.3.0"
       with:
-        toolkit_version: "1.6.0-beta1"
+        toolkit_version: "1.6.0-beta2"
         toolkit_allowprerelease: "True"
     - name: "Optimize Disk Space (Non-Windows)"
       if: "${{runner.os != 'Windows'}}"
