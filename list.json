@@ -1078,6 +1078,22 @@
 			]
 		},
 		{
+			"Name": "Pulumi",
+			"Description": "Pulumi",
+			"Postpone": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [
+				"/usr/local/bin/pulumi*"
+			],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
 			"Name": "R",
 			"Description": "R",
 			"Postpone": 0,

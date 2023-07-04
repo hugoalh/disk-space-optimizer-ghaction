@@ -57,6 +57,7 @@ PhantomJS	Phantom JS	0	phantomjs
 PHP	PHP	0	^php.*;;snmp								
 Pipx	Pipx	9						PIPX_BIN_DIR;;PIPX_HOME		/opt/pipx_bin	C:\Program Files (x86)\pipx;;C:\Program Files (x86)\pipx_bin
 PostgreSQL	PostgreSQL	0	^postgresql-.*;;libpq-dev					PGBIN;;PGDATA;;PGROOT			C:\Program Files\PostgreSQL
+Pulumi	Pulumi	0							/usr/local/bin/pulumi*		
 R	R	0	r-base								
 Ruby	Ruby	0	ruby-full								
 RunnerBoost	GitHub Actions Runner boost	9							/usr/local/share/boost		
