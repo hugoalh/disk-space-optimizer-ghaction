@@ -2,16 +2,16 @@ Name	Description	Postpone	APT	Chocolatey	Homebrew	NPM	Pipx	Env	PathLinux	PathMac
 AliYun	AliYun (Alibaba Cloud) CLI	0			aliyun-cli				/usr/local/bin/aliyun		C:\aliyun-cli
 AndroidNDK	Android NDK	0						ANDROID_ROOT, ANDROID_NDK_ROOT, ANDROID_SDK_ROOT, ANDROID_HOME	/usr/local/lib/android	/Users/runner/Library/Android	C:\Program Files (x86)\Android, C:\Android
 Ansible	Ansible	0					ansible-core				
-Ant	Ant	0							/usr/share/ant		
-Apache	Apache	0	apache2								C:\tools\Apache*
+ApacheAnt	Apache Ant	0	ant, ant-optional	ant				ANT_HOME	/usr/share/ant		
+ApacheHTTPD	Apache HTTPD	0	apache2, ^apache2-.*	apache-httpd	httpd					/usr/local/etc/httpd	C:\tools\Apache*
 AWS	AWS (Amazon Web Service) CLI	0			aws-sam-cli, session-manager-plugin				/usr/local/aws-cli		
 AzCopy	AzCopy	0		azcopy10	azcopy				/usr/local/bin/azcopy	/usr/local/bin/azcopy	
-AzureCLI	Azure CLI	1	azure-cli		azure-cli			AZURE_EXTENSION_DIR	/opt/az/azcliextensions		
+Azure	Azure CLI	1	azure-cli		azure-cli			AZURE_EXTENSION_DIR	/opt/az/azcliextensions		
 Bazel	Bazel	1							/usr/local/bin/bazel		
-Bazelisk	Bazelisk	0				@bazel/bazelisk					
-Bicep	Bicep CLI	0			bicep				/usr/local/bin/bicep		
-Chromium	Chromium	0						CHROMIUM_DIR	/usr/local/share/chromium		
-Clang	Clang	0	^clang-.*, ^lldb-.*, ^lld-.*, ^clang-format-.*, ^clang-tidy-.*								
+Bazelisk	Bazelisk	0			bazelisk	@bazel/bazelisk					
+Bicep	Azure Bicep CLI	0			bicep				/usr/local/bin/bicep		
+Chromium	Chromium	0						CHROMIUM_DIR	/usr/bin/chromium, /usr/bin/chromium-browser, /usr/local/share/chromium		
+Clang	Clang	0	^clang-.*, ^clang-format-.*, ^clang-tidy-.*, ^lld-.*, ^lldb-.*								
 CodeQL	CodeQL	0							$Env:AGENT_TOOLSDIRECTORY/CodeQL, /opt/hostedtoolcache/CodeQL	$Env:AGENT_TOOLSDIRECTORY/CodeQL	$Env:AGENT_TOOLSDIRECTORY\CodeQL
 DotNet	.Net	0	^dotnet-.*						/usr/share/dotnet	/usr/local/bin/dotnet, $Env:HOME/.dotnet	
 Erlang	Erlang	0	esl-erlang						/usr/local/bin/rebar3		
@@ -22,15 +22,14 @@ GeckoWebDriver	Gecko Web Driver	0			geckodriver			GECKOWEBDRIVER	/usr/local/shar
 GFortran	GNU Fortran	0	^gfortran.*								
 Go	Go	0			go				$Env:AGENT_TOOLSDIRECTORY/go, /opt/hostedtoolcache/go	$Env:AGENT_TOOLSDIRECTORY/go	$Env:AGENT_TOOLSDIRECTORY\go
 GoogleChrome	Google Chrome Browser	0	google-chrome-stable					CHROME_BIN	/usr/bin/google-chrome		
-GoogleChromeWebDriver	Google Chrome Web Driver	0			chromedriver			CHROMEWEBDRIVER, CHROMEDRIVER_DIR	/usr/local/share/chrome_driver	/usr/local/Caskroom/chromedriver	C:\SeleniumWebDrivers\ChromeDriver
+GoogleChromeWebDriver	Google Chrome Web Driver	0			chromedriver			CHROMEWEBDRIVER, CHROMEDRIVER_DIR	/usr/bin/chromedriver, /usr/local/share/chrome_driver	/usr/local/Caskroom/chromedriver	C:\SeleniumWebDrivers\ChromeDriver
 GoogleCloudSDK	Google Cloud SDK	0	google-cloud-sdk								
-Gradle	Gradle	0							/usr/share/gradle-*		
+Gradle	Gradle	0							/usr/bin/gradle, /usr/share/gradle-*		
 Grunt	Grunt	0				grunt, grunt-cli					
 Gulp	Gulp	0				gulp, gulp-cli					
 HaskellGHC	Haskell GHC	0							/opt/ghc, /usr/local/.ghcup/ghc		
-Heroku	Heroku	0							/usr/local/lib/heroku	/usr/local/lib/heroku	
-HHVM	HHVM	0	hhvm								
-HTTPD	HTTPD	0		apache-httpd	httpd					/usr/local/etc/httpd	
+Heroku	Heroku CLI	0							/usr/local/lib/heroku	/usr/local/lib/heroku	
+HHVM	HipHop Virtual Machine	0	hhvm								
 Java/11	Java 11	0						JAVA_HOME_11_X64	/usr/lib/jvm/*-11.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/11.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\11.*
 Java/13	Java 13	0						JAVA_HOME_13_X64	/usr/lib/jvm/*-13.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\13.*
 Java/17	Java 17	0						JAVA_HOME_17_X64	/usr/lib/jvm/*-17.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\17.*
@@ -40,13 +39,15 @@ Julia	Julia	0		julia					/usr/local/julia*, /usr/bin/julia
 Kotlin	Kotlin	0							/usr/share/kotlinc		
 Leiningen	Leiningen	0						LEIN_HOME	/usr/local/bin/lein		
 Lerna	Lerna	0				lerna					
-LLVM	LLVM	0	^llvm-.*		llvm						
-Maven	Maven	0							/usr/share/apache-maven-*		
-MicrosoftEdgeWebDriver	Microsoft Edge Web Driver	0	microsoft-edge-stable		microsoft-edge			EDGEWEBDRIVER	/usr/local/share/edge_driver	/usr/local/bin/msedgedriver, /usr/local/share/edge_driver	C:\SeleniumWebDrivers\EdgeDriver
+LLVM	LLVM	0	^llvm-.*	llvm	llvm						
+Maven	Maven	0							/usr/bin/mvn, /usr/share/apache-maven-*		
+MicrosoftEdge	Microsoft Edge	0	microsoft-edge-stable		microsoft-edge					/Applications/Microsoft Edge.app	
+MicrosoftEdgeWebDriver	Microsoft Edge Web Driver	0						EDGEWEBDRIVER	/usr/bin/edgedriver, /usr/local/share/edge_driver	/usr/local/bin/msedgedriver, /usr/local/share/edge_driver	C:\SeleniumWebDrivers\EdgeDriver
+MicrosoftInternetExplorerWebDriver	Microsoft Internet Explorer Web Driver	0						IEWEBDRIVER			C:\SeleniumWebDrivers\IEDriver
 Miniconda	Mini Conda	0						CONDA	/usr/share/miniconda, /usr/bin/conda	/usr/local/miniconda, /usr/local/bin/conda, $Env:HOME/.conda	C:\Miniconda
 MongoDB	MongoDB	0	^mongodb-.*								
 Mono	Mono	0	mono-complete, mono-devel								
-MSSQL	MS SQL	0	mssql-tools, unixodbc-dev						/opt/mssql-tools		
+MSSQL	MS SQL	0	mssql-tools, unixodbc-dev						/opt/mssql-tools		$Env:PROGRAMFILES\Microsoft SQL Server\
 MSYS2	MSYS2 Pacman	9									C:\msys64
 MySQL	MySQL	0	^mysql-.*, libmysqlclient-dev								
 Netlify	Netlify	0				netlify					
@@ -63,10 +64,9 @@ PostgreSQL	PostgreSQL	0	^postgresql-.*, libpq-dev					PGBIN, PGDATA, PGROOT			C:
 Pulumi	Pulumi	0							/usr/local/bin/pulumi*		
 R	R	0	r-base								
 Ruby	Ruby	0	ruby-full								
-RunnerBoost	GitHub Actions Runner boost	9							/usr/local/share/boost		
 Selenium	Selenium	0						SELENIUM_JAR_PATH	/usr/share/java/selenium-server.jar		C:\selenium\selenium-server.jar
 Sphinx	Sphinx	0	sphinxsearch								
-SQLPackage	SQL Package	0							/usr/local/sqlpackage		
+SQLPackage	SQL Package	0							/usr/local/bin/sqlpackage, /usr/local/sqlpackage		
 Stack	Stack	0							$Env:AGENT_TOOLSDIRECTORY/stack, /opt/hostedtoolcache/stack	$Env:AGENT_TOOLSDIRECTORY/stack	$Env:AGENT_TOOLSDIRECTORY\stack
 Swift	Swift	0			swiftformat			SWIFT_PATH	/usr/local/bin/swift*, /usr/local/bin/swiftc, /usr/share/swift*		
 Terraform	Terraform	0							/usr/local/bin/terraform		
@@ -90,6 +90,13 @@ Xcode/14.2	Xcode 14.2	0								/Applications/Xcode_14.2.app
 Xcode/14.3	Xcode 14.3	0								/Applications/Xcode_14.3.app	
 Xcode/14.3.1	Xcode 14.3.1	0								/Applications/Xcode_14.3.1.app	
 Xcode/15.0	Xcode 15.0	0								/Applications/Xcode_15.0.app	
+Xcode/8	Xcode 8	0								/Applications/Xcode_8.app, /Applications/Xcode8.app	
+Xcode/8.1	Xcode 8.1	0								/Applications/Xcode_8.1.app, /Applications/Xcode81.app	
+Xcode/9	Xcode 9	0								/Applications/Xcode_9.app, /Applications/Xcode9.app	
+Xcode/9.1	Xcode 9.1	0								/Applications/Xcode_9.1.app, /Applications/Xcode91.app	
+Xcode/9.2	Xcode 9.2	0								/Applications/Xcode_9.2.app, /Applications/Xcode92.app	
+Xcode/9.3	Xcode 9.3	0								/Applications/Xcode_9.3_beta.app, /Applications/Xcode_9.3.app, /Applications/Xcode93.app	
+Xcode/9.4	Xcode 9.4	0								/Applications/Xcode_9.4_beta_2.app, /Applications/Xcode_9.4_beta.app, /Applications/Xcode_9.4-beta.app, /Applications/Xcode_9.4.app	
 Xcode/All	Xcode (All)	1								/Applications/Xcode*	
 YAMLLint	YAML Lint	0					yamllint				
 Yarn	Yarn	0				yarn					

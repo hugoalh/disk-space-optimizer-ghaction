@@ -64,15 +64,22 @@
 			"PathWindows": [ ]
 		},
 		{
-			"Name": "Ant",
-			"Description": "Ant",
+			"Name": "ApacheAnt",
+			"Description": "Apache Ant",
 			"Postpone": 0,
-			"APT": [ ],
-			"Chocolatey": [ ],
+			"APT": [
+				"ant",
+				"ant-optional"
+			],
+			"Chocolatey": [
+				"ant"
+			],
 			"Homebrew": [ ],
 			"NPM": [ ],
 			"Pipx": [ ],
-			"Env": [ ],
+			"Env": [
+				"ANT_HOME"
+			],
 			"PathLinux": [
 				"/usr/share/ant"
 			],
@@ -80,19 +87,26 @@
 			"PathWindows": [ ]
 		},
 		{
-			"Name": "Apache",
-			"Description": "Apache",
+			"Name": "ApacheHTTPD",
+			"Description": "Apache HTTPD",
 			"Postpone": 0,
 			"APT": [
-				"apache2"
+				"apache2",
+				"^apache2-.*"
 			],
-			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Chocolatey": [
+				"apache-httpd"
+			],
+			"Homebrew": [
+				"httpd"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
 			"PathLinux": [ ],
-			"PathMacOS": [ ],
+			"PathMacOS": [
+				"/usr/local/etc/httpd"
+			],
 			"PathWindows": [
 				"C:\\tools\\Apache*"
 			]
@@ -139,7 +153,7 @@
 			"PathWindows": [ ]
 		},
 		{
-			"Name": "AzureCLI",
+			"Name": "Azure",
 			"Description": "Azure CLI",
 			"Postpone": 1,
 			"APT": [
@@ -182,7 +196,9 @@
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"bazelisk"
+			],
 			"NPM": [
 				"@bazel/bazelisk"
 			],
@@ -194,7 +210,7 @@
 		},
 		{
 			"Name": "Bicep",
-			"Description": "Bicep CLI",
+			"Description": "Azure Bicep CLI",
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
@@ -223,6 +239,8 @@
 				"CHROMIUM_DIR"
 			],
 			"PathLinux": [
+				"/usr/bin/chromium",
+				"/usr/bin/chromium-browser",
 				"/usr/local/share/chromium"
 			],
 			"PathMacOS": [ ],
@@ -234,10 +252,10 @@
 			"Postpone": 0,
 			"APT": [
 				"^clang-.*",
-				"^lldb-.*",
-				"^lld-.*",
 				"^clang-format-.*",
-				"^clang-tidy-.*"
+				"^clang-tidy-.*",
+				"^lld-.*",
+				"^lldb-.*"
 			],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -459,6 +477,7 @@
 				"CHROMEDRIVER_DIR"
 			],
 			"PathLinux": [
+				"/usr/bin/chromedriver",
 				"/usr/local/share/chrome_driver"
 			],
 			"PathMacOS": [
@@ -495,6 +514,7 @@
 			"Pipx": [ ],
 			"Env": [ ],
 			"PathLinux": [
+				"/usr/bin/gradle",
 				"/usr/share/gradle-*"
 			],
 			"PathMacOS": [ ],
@@ -553,7 +573,7 @@
 		},
 		{
 			"Name": "Heroku",
-			"Description": "Heroku",
+			"Description": "Heroku CLI",
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
@@ -571,7 +591,7 @@
 		},
 		{
 			"Name": "HHVM",
-			"Description": "HHVM",
+			"Description": "HipHop Virtual Machine",
 			"Postpone": 0,
 			"APT": [
 				"hhvm"
@@ -583,26 +603,6 @@
 			"Env": [ ],
 			"PathLinux": [ ],
 			"PathMacOS": [ ],
-			"PathWindows": [ ]
-		},
-		{
-			"Name": "HTTPD",
-			"Description": "HTTPD",
-			"Postpone": 0,
-			"APT": [ ],
-			"Chocolatey": [
-				"apache-httpd"
-			],
-			"Homebrew": [
-				"httpd"
-			],
-			"NPM": [ ],
-			"Pipx": [ ],
-			"Env": [ ],
-			"PathLinux": [ ],
-			"PathMacOS": [
-				"/usr/local/etc/httpd"
-			],
 			"PathWindows": [ ]
 		},
 		{
@@ -791,7 +791,9 @@
 			"APT": [
 				"^llvm-.*"
 			],
-			"Chocolatey": [ ],
+			"Chocolatey": [
+				"llvm"
+			],
 			"Homebrew": [
 				"llvm"
 			],
@@ -813,14 +815,15 @@
 			"Pipx": [ ],
 			"Env": [ ],
 			"PathLinux": [
+				"/usr/bin/mvn",
 				"/usr/share/apache-maven-*"
 			],
 			"PathMacOS": [ ],
 			"PathWindows": [ ]
 		},
 		{
-			"Name": "MicrosoftEdgeWebDriver",
-			"Description": "Microsoft Edge Web Driver",
+			"Name": "MicrosoftEdge",
+			"Description": "Microsoft Edge",
 			"Postpone": 0,
 			"APT": [
 				"microsoft-edge-stable"
@@ -831,10 +834,27 @@
 			],
 			"NPM": [ ],
 			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [
+				"/Applications/Microsoft Edge.app"
+			],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "MicrosoftEdgeWebDriver",
+			"Description": "Microsoft Edge Web Driver",
+			"Postpone": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
 			"Env": [
 				"EDGEWEBDRIVER"
 			],
 			"PathLinux": [
+				"/usr/bin/edgedriver",
 				"/usr/local/share/edge_driver"
 			],
 			"PathMacOS": [
@@ -843,6 +863,24 @@
 			],
 			"PathWindows": [
 				"C:\\SeleniumWebDrivers\\EdgeDriver"
+			]
+		},
+		{
+			"Name": "MicrosoftInternetExplorerWebDriver",
+			"Description": "Microsoft Internet Explorer Web Driver",
+			"Postpone": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [
+				"IEWEBDRIVER"
+			],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [
+				"C:\\SeleniumWebDrivers\\IEDriver"
 			]
 		},
 		{
@@ -920,7 +958,9 @@
 				"/opt/mssql-tools"
 			],
 			"PathMacOS": [ ],
-			"PathWindows": [ ]
+			"PathWindows": [
+				"$Env:PROGRAMFILES\\Microsoft SQL Server\\"
+			]
 		},
 		{
 			"Name": "MSYS2",
@@ -1205,22 +1245,6 @@
 			"PathWindows": [ ]
 		},
 		{
-			"Name": "RunnerBoost",
-			"Description": "GitHub Actions Runner boost",
-			"Postpone": 9,
-			"APT": [ ],
-			"Chocolatey": [ ],
-			"Homebrew": [ ],
-			"NPM": [ ],
-			"Pipx": [ ],
-			"Env": [ ],
-			"PathLinux": [
-				"/usr/local/share/boost"
-			],
-			"PathMacOS": [ ],
-			"PathWindows": [ ]
-		},
-		{
 			"Name": "Selenium",
 			"Description": "Selenium",
 			"Postpone": 0,
@@ -1267,6 +1291,7 @@
 			"Pipx": [ ],
 			"Env": [ ],
 			"PathLinux": [
+				"/usr/local/bin/sqlpackage",
 				"/usr/local/sqlpackage"
 			],
 			"PathMacOS": [ ],
@@ -1439,6 +1464,128 @@
 			"Env": [ ],
 			"PathLinux": [ ],
 			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Xcode/8",
+			"Description": "Xcode 8",
+			"Postpone": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [
+				"/Applications/Xcode_8.app",
+				"/Applications/Xcode8.app"
+			],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Xcode/8.1",
+			"Description": "Xcode 8.1",
+			"Postpone": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [
+				"/Applications/Xcode_8.1.app",
+				"/Applications/Xcode81.app"
+			],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Xcode/9",
+			"Description": "Xcode 9",
+			"Postpone": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [
+				"/Applications/Xcode_9.app",
+				"/Applications/Xcode9.app"
+			],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Xcode/9.1",
+			"Description": "Xcode 9.1",
+			"Postpone": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [
+				"/Applications/Xcode_9.1.app",
+				"/Applications/Xcode91.app"
+			],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Xcode/9.2",
+			"Description": "Xcode 9.2",
+			"Postpone": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [
+				"/Applications/Xcode_9.2.app",
+				"/Applications/Xcode92.app"
+			],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Xcode/9.3",
+			"Description": "Xcode 9.3",
+			"Postpone": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [
+				"/Applications/Xcode_9.3_beta.app",
+				"/Applications/Xcode_9.3.app",
+				"/Applications/Xcode93.app"
+			],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Xcode/9.4",
+			"Description": "Xcode 9.4",
+			"Postpone": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [
+				"/Applications/Xcode_9.4_beta_2.app",
+				"/Applications/Xcode_9.4_beta.app",
+				"/Applications/Xcode_9.4-beta.app",
+				"/Applications/Xcode_9.4.app"
+			],
 			"PathWindows": [ ]
 		},
 		{
