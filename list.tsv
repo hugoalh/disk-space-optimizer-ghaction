@@ -1,33 +1,33 @@
 Name	Description	Postpone	APT	Chocolatey	Homebrew	NPM	Pipx	Env	PathLinux	PathMacOS	PathWindows
 AliYun	AliYun (Alibaba Cloud) CLI	0			aliyun-cli				/usr/local/bin/aliyun		C:\aliyun-cli
-AndroidNDK	Android NDK	0						ANDROID_ROOT;;ANDROID_NDK_ROOT;;ANDROID_SDK_ROOT;;ANDROID_HOME	/usr/local/lib/android	/Users/runner/Library/Android	C:\Program Files (x86)\Android;;C:\Android
+AndroidNDK	Android NDK	0						ANDROID_ROOT, ANDROID_NDK_ROOT, ANDROID_SDK_ROOT, ANDROID_HOME	/usr/local/lib/android	/Users/runner/Library/Android	C:\Program Files (x86)\Android, C:\Android
 Ansible	Ansible	0					ansible-core				
 Ant	Ant	0							/usr/share/ant		
 Apache	Apache	0	apache2								C:\tools\Apache*
-AWS	AWS (Amazon Web Service) CLI	0			aws-sam-cli;;session-manager-plugin				/usr/local/aws-cli		
+AWS	AWS (Amazon Web Service) CLI	0			aws-sam-cli, session-manager-plugin				/usr/local/aws-cli		
 AzCopy	AzCopy	0		azcopy10	azcopy				/usr/local/bin/azcopy	/usr/local/bin/azcopy	
 AzureCLI	Azure CLI	1	azure-cli		azure-cli			AZURE_EXTENSION_DIR	/opt/az/azcliextensions		
 Bazel	Bazel	1							/usr/local/bin/bazel		
 Bazelisk	Bazelisk	0				@bazel/bazelisk					
 Bicep	Bicep CLI	0			bicep				/usr/local/bin/bicep		
 Chromium	Chromium	0						CHROMIUM_DIR	/usr/local/share/chromium		
-Clang	Clang	0	^clang-.*;;^lldb-.*;;^lld-.*;;^clang-format-.*;;^clang-tidy-.*								
-CodeQL	CodeQL	0							$Env:AGENT_TOOLSDIRECTORY/CodeQL;;/opt/hostedtoolcache/CodeQL	$Env:AGENT_TOOLSDIRECTORY/CodeQL	$Env:AGENT_TOOLSDIRECTORY\CodeQL
-DotNet	.Net	0	^dotnet-.*						/usr/share/dotnet	/usr/local/bin/dotnet;;$Env:HOME/.dotnet	
+Clang	Clang	0	^clang-.*, ^lldb-.*, ^lld-.*, ^clang-format-.*, ^clang-tidy-.*								
+CodeQL	CodeQL	0							$Env:AGENT_TOOLSDIRECTORY/CodeQL, /opt/hostedtoolcache/CodeQL	$Env:AGENT_TOOLSDIRECTORY/CodeQL	$Env:AGENT_TOOLSDIRECTORY\CodeQL
+DotNet	.Net	0	^dotnet-.*						/usr/share/dotnet	/usr/local/bin/dotnet, $Env:HOME/.dotnet	
 Erlang	Erlang	0	esl-erlang						/usr/local/bin/rebar3		
 Firefox	Mozilla Firefox Browser	0	firefox		firefox						
 G++	GNU C++ compiler	0	^g\+\+.*								
 GCC	GNU C compiler	0	^gcc.*		gcc						
 GeckoWebDriver	Gecko Web Driver	0			geckodriver			GECKOWEBDRIVER	/usr/local/share/gecko_driver	/usr/local/opt/geckodriver	C:\SeleniumWebDrivers\GeckoDriver
 GFortran	GNU Fortran	0	^gfortran.*								
-Go	Go	0			go				$Env:AGENT_TOOLSDIRECTORY/go;;/opt/hostedtoolcache/go	$Env:AGENT_TOOLSDIRECTORY/go	$Env:AGENT_TOOLSDIRECTORY\go
+Go	Go	0			go				$Env:AGENT_TOOLSDIRECTORY/go, /opt/hostedtoolcache/go	$Env:AGENT_TOOLSDIRECTORY/go	$Env:AGENT_TOOLSDIRECTORY\go
 GoogleChrome	Google Chrome Browser	0	google-chrome-stable					CHROME_BIN	/usr/bin/google-chrome		
-GoogleChromeWebDriver	Google Chrome Web Driver	0			chromedriver			CHROMEWEBDRIVER;;CHROMEDRIVER_DIR	/usr/local/share/chrome_driver	/usr/local/Caskroom/chromedriver	C:\SeleniumWebDrivers\ChromeDriver
+GoogleChromeWebDriver	Google Chrome Web Driver	0			chromedriver			CHROMEWEBDRIVER, CHROMEDRIVER_DIR	/usr/local/share/chrome_driver	/usr/local/Caskroom/chromedriver	C:\SeleniumWebDrivers\ChromeDriver
 GoogleCloudSDK	Google Cloud SDK	0	google-cloud-sdk								
 Gradle	Gradle	0							/usr/share/gradle-*		
-Grunt	Grunt	0				grunt;;grunt-cli					
-Gulp	Gulp	0				gulp;;gulp-cli					
-HaskellGHC	Haskell GHC	0							/opt/ghc;;/usr/local/.ghcup/ghc		
+Grunt	Grunt	0				grunt, grunt-cli					
+Gulp	Gulp	0				gulp, gulp-cli					
+HaskellGHC	Haskell GHC	0							/opt/ghc, /usr/local/.ghcup/ghc		
 Heroku	Heroku	0							/usr/local/lib/heroku	/usr/local/lib/heroku	
 HHVM	HHVM	0	hhvm								
 HTTPD	HTTPD	0		apache-httpd	httpd					/usr/local/etc/httpd	
@@ -36,19 +36,19 @@ Java/13	Java 13	0						JAVA_HOME_13_X64	/usr/lib/jvm/*-13.*-*-*	$Env:AGENT_TOOLS
 Java/17	Java 17	0						JAVA_HOME_17_X64	/usr/lib/jvm/*-17.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\17.*
 Java/8	Java 8	0						JAVA_HOME_8_X64	/usr/lib/jvm/*-8.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\8.*
 Java/All	Java (All)	1						JAVA_HOME	/usr/lib/jvm	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk
-Julia	Julia	0		julia					/usr/local/julia*;;/usr/bin/julia		
+Julia	Julia	0		julia					/usr/local/julia*, /usr/bin/julia		
 Kotlin	Kotlin	0							/usr/share/kotlinc		
 Leiningen	Leiningen	0						LEIN_HOME	/usr/local/bin/lein		
 Lerna	Lerna	0				lerna					
 LLVM	LLVM	0	^llvm-.*		llvm						
 Maven	Maven	0							/usr/share/apache-maven-*		
-MicrosoftEdgeWebDriver	Microsoft Edge Web Driver	0	microsoft-edge-stable		microsoft-edge			EDGEWEBDRIVER	/usr/local/share/edge_driver	/usr/local/bin/msedgedriver;;/usr/local/share/edge_driver	C:\SeleniumWebDrivers\EdgeDriver
-Miniconda	Mini Conda	0						CONDA	/usr/share/miniconda;;/usr/bin/conda	/usr/local/miniconda;;/usr/local/bin/conda;;$Env:HOME/.conda	C:\Miniconda
+MicrosoftEdgeWebDriver	Microsoft Edge Web Driver	0	microsoft-edge-stable		microsoft-edge			EDGEWEBDRIVER	/usr/local/share/edge_driver	/usr/local/bin/msedgedriver, /usr/local/share/edge_driver	C:\SeleniumWebDrivers\EdgeDriver
+Miniconda	Mini Conda	0						CONDA	/usr/share/miniconda, /usr/bin/conda	/usr/local/miniconda, /usr/local/bin/conda, $Env:HOME/.conda	C:\Miniconda
 MongoDB	MongoDB	0	^mongodb-.*								
-Mono	Mono	0	mono-complete;;mono-devel								
-MSSQL	MS SQL	0	mssql-tools;;unixodbc-dev						/opt/mssql-tools		
+Mono	Mono	0	mono-complete, mono-devel								
+MSSQL	MS SQL	0	mssql-tools, unixodbc-dev						/opt/mssql-tools		
 MSYS2	MSYS2 Pacman	9									C:\msys64
-MySQL	MySQL	0	^mysql-.*;;libmysqlclient-dev								
+MySQL	MySQL	0	^mysql-.*, libmysqlclient-dev								
 Netlify	Netlify	0				netlify					
 Newman	Newman	0				newman					
 Nginx	Nginx	0	nginx		nginx					/usr/local/etc/nginx	C:\tools\nginx*
@@ -56,10 +56,10 @@ OpenGLDRI	OpenGL API DRI Modules	0	libgl1-mesa-dri
 OpenShiftClient	OpenShift Client CLI	0							/usr/local/bin/oc		
 Packer	Packer	0							/usr/local/bin/packer		
 Parcel	Parcel	0				parcel					
-PhantomJS	Phantom JS	0	phantomjs						/usr/local/share/phantomjs*;;/usr/local/bin/phantomjs		
-PHP	PHP	0	^php.*;;snmp						/usr/local/bin/phpunit		
-Pipx	Pipx	9						PIPX_BIN_DIR;;PIPX_HOME		/opt/pipx_bin	C:\Program Files (x86)\pipx;;C:\Program Files (x86)\pipx_bin
-PostgreSQL	PostgreSQL	0	^postgresql-.*;;libpq-dev					PGBIN;;PGDATA;;PGROOT			C:\Program Files\PostgreSQL
+PhantomJS	Phantom JS	0	phantomjs						/usr/local/share/phantomjs*, /usr/local/bin/phantomjs		
+PHP	PHP	0	^php.*, snmp						/usr/local/bin/phpunit		
+Pipx	Pipx	9						PIPX_BIN_DIR, PIPX_HOME		/opt/pipx_bin	C:\Program Files (x86)\pipx, C:\Program Files (x86)\pipx_bin
+PostgreSQL	PostgreSQL	0	^postgresql-.*, libpq-dev					PGBIN, PGDATA, PGROOT			C:\Program Files\PostgreSQL
 Pulumi	Pulumi	0							/usr/local/bin/pulumi*		
 R	R	0	r-base								
 Ruby	Ruby	0	ruby-full								
@@ -67,15 +67,15 @@ RunnerBoost	GitHub Actions Runner boost	9							/usr/local/share/boost
 Selenium	Selenium	0						SELENIUM_JAR_PATH	/usr/share/java/selenium-server.jar		C:\selenium\selenium-server.jar
 Sphinx	Sphinx	0	sphinxsearch								
 SQLPackage	SQL Package	0							/usr/local/sqlpackage		
-Stack	Stack	0							$Env:AGENT_TOOLSDIRECTORY/stack;;/opt/hostedtoolcache/stack	$Env:AGENT_TOOLSDIRECTORY/stack	$Env:AGENT_TOOLSDIRECTORY\stack
-Swift	Swift	0			swiftformat			SWIFT_PATH	/usr/local/bin/swift*;;/usr/local/bin/swiftc;;/usr/share/swift*		
+Stack	Stack	0							$Env:AGENT_TOOLSDIRECTORY/stack, /opt/hostedtoolcache/stack	$Env:AGENT_TOOLSDIRECTORY/stack	$Env:AGENT_TOOLSDIRECTORY\stack
+Swift	Swift	0			swiftformat			SWIFT_PATH	/usr/local/bin/swift*, /usr/local/bin/swiftc, /usr/share/swift*		
 Terraform	Terraform	0							/usr/local/bin/terraform		
-VCPkg	VCPkg	9						VCPKG_INSTALLATION_ROOT	/usr/local/share/vcpkg;;/root/.vcpkg	/usr/local/bin/vcpkg;;/usr/local/share/vcpkg	C:\vcpkg
+VCPkg	VCPkg	9						VCPKG_INSTALLATION_ROOT	/usr/local/share/vcpkg, /root/.vcpkg	/usr/local/bin/vcpkg, /usr/local/share/vcpkg	C:\vcpkg
 Vercel	Vercel	0				vercel					
 VisualStudio/2019	Visual Studio 2019	0								/Applications/Visual Studio 2019*	C:\Program Files\Microsoft Visual Studio\2019
 VisualStudio/2022	Visual Studio 2022	0									C:\Program Files\Microsoft Visual Studio\2022
-VisualStudio/All	Visual Studio	1								/Applications/Visual Studio*	C:\Program Files\Microsoft Visual Studio;;C:\ProgramData\Microsoft\VisualStudio
-Webpack	Webpack	0				webpack-cli;;webpack					
+VisualStudio/All	Visual Studio	1								/Applications/Visual Studio*	C:\Program Files\Microsoft Visual Studio, C:\ProgramData\Microsoft\VisualStudio
+Webpack	Webpack	0				webpack-cli, webpack					
 Xcode/11.7	Xcode 11.7	0								/Applications/Xcode_11.7.app	
 Xcode/12.4	Xcode 12.4	0								/Applications/Xcode_12.4.app	
 Xcode/12.5.1	Xcode 12.5.1	0								/Applications/Xcode_12.5.1.app	

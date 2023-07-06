@@ -6,7 +6,7 @@ Get-Content -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.json') 
 		ForEach ($Property In $_.PSObject.Properties) {
 			If ($Property.Value.GetType().BaseType.Name -ieq 'Array') {
 				$Result.($Property.Name) = $Property.Value |
-					Join-String -Separator ';;'
+					Join-String -Separator ', '
 			}
 		}
 		$Result |
