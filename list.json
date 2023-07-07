@@ -3,7 +3,7 @@
 	"content": [
 		{
 			"Name": "AliYun",
-			"Description": "AliYun (Alibaba Cloud) CLI",
+			"Description": "AliYun (Alibaba Cloud)",
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
@@ -72,8 +72,8 @@
 			"Description": "Apache Ant",
 			"Postpone": 0,
 			"APT": [
-				"ant",
-				"ant-optional"
+				"ant-optional",
+				"ant"
 			],
 			"Chocolatey": [
 				"ant"
@@ -118,8 +118,24 @@
 			]
 		},
 		{
+			"Name": "ASPDotNet",
+			"Description": "ASP .Net",
+			"Postpone": 0,
+			"APT": [
+				"^aspnetcore-.*"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
 			"Name": "AWS",
-			"Description": "AWS (Amazon Web Service) CLI",
+			"Description": "AWS (Amazon Web Service)",
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
@@ -160,7 +176,7 @@
 		},
 		{
 			"Name": "Azure",
-			"Description": "Azure CLI",
+			"Description": "Azure",
 			"Postpone": 1,
 			"APT": [
 				"azure-cli"
@@ -218,7 +234,7 @@
 		},
 		{
 			"Name": "Bicep",
-			"Description": "Azure Bicep CLI",
+			"Description": "Azure Bicep",
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
@@ -302,7 +318,7 @@
 		{
 			"Name": "DotNet",
 			"Description": ".Net",
-			"Postpone": 0,
+			"Postpone": 1,
 			"APT": [
 				"^dotnet-.*"
 			],
@@ -382,7 +398,8 @@
 			"Description": "GNU C compiler",
 			"Postpone": 0,
 			"APT": [
-				"^gcc.*"
+				"gcc",
+				"^gcc-.*"
 			],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -424,7 +441,8 @@
 			"Description": "GNU Fortran",
 			"Postpone": 0,
 			"APT": [
-				"^gfortran.*"
+				"gfortran",
+				"^gfortran-.*"
 			],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -600,7 +618,7 @@
 		},
 		{
 			"Name": "Heroku",
-			"Description": "Heroku CLI",
+			"Description": "Heroku",
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
@@ -633,10 +651,29 @@
 			"PathWindows": [ ]
 		},
 		{
+			"Name": "ImageMagick",
+			"Description": "ImageMagick",
+			"Postpone": 0,
+			"APT": [
+				"imagemagick",
+				"^imagemagick-.*"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
 			"Name": "Java/8",
 			"Description": "Java 8",
 			"Postpone": 0,
-			"APT": [ ],
+			"APT": [
+				"temurin-8-jdk"
+			],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
 			"NPM": [ ],
@@ -658,7 +695,9 @@
 			"Name": "Java/11",
 			"Description": "Java 11",
 			"Postpone": 0,
-			"APT": [ ],
+			"APT": [
+				"temurin-11-jdk"
+			],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
 			"NPM": [ ],
@@ -702,7 +741,9 @@
 			"Name": "Java/17",
 			"Description": "Java 17",
 			"Postpone": 0,
-			"APT": [ ],
+			"APT": [
+				"temurin-17-jdk"
+			],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
 			"NPM": [ ],
@@ -724,7 +765,10 @@
 			"Name": "Java/All",
 			"Description": "Java (All)",
 			"Postpone": 1,
-			"APT": [ ],
+			"APT": [
+				"^java-.*",
+				".*-jdk$"
+			],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
 			"NPM": [ ],
@@ -966,8 +1010,8 @@
 			"Description": "Mono",
 			"Postpone": 0,
 			"APT": [
-				"mono-complete",
-				"mono-devel"
+				"^mono-.*",
+				"^monodoc-.*"
 			],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -1111,7 +1155,7 @@
 		},
 		{
 			"Name": "OpenShiftClient",
-			"Description": "OpenShift Client CLI",
+			"Description": "OpenShift Client",
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
@@ -1151,6 +1195,22 @@
 			"NPM": [
 				"parcel"
 			],
+			"Pipx": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [ ]
+		},
+		{
+			"Name": "Perl",
+			"Description": "Perl",
+			"Postpone": 0,
+			"APT": [
+				"^perl.*"
+			],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
 			"PathLinux": [ ],
@@ -1261,7 +1321,8 @@
 			"Description": "R",
 			"Postpone": 0,
 			"APT": [
-				"r-base"
+				"r-base",
+				"^r-base-.*"
 			],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1277,7 +1338,10 @@
 			"Description": "Ruby",
 			"Postpone": 0,
 			"APT": [
-				"ruby-full"
+				"ruby",
+				"ruby3.0",
+				"^ruby-.*",
+				"^ruby3.0-.*"
 			],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
