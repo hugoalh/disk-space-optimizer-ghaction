@@ -27,7 +27,9 @@
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"android-ndk"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [
@@ -53,7 +55,9 @@
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"ansible"
+			],
 			"NPM": [ ],
 			"Pipx": [
 				"ansible-core"
@@ -74,7 +78,9 @@
 			"Chocolatey": [
 				"ant"
 			],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"ant"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [
@@ -180,7 +186,9 @@
 			"Postpone": 1,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"bazel"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -232,7 +240,9 @@
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"chromium"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [
@@ -272,7 +282,9 @@
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"codeql"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -295,7 +307,9 @@
 				"^dotnet-.*"
 			],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"dotnet"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -316,7 +330,10 @@
 				"esl-erlang"
 			],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"erlang",
+				"rebar3"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -449,7 +466,9 @@
 				"google-chrome-stable"
 			],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"google-chrome"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [
@@ -495,7 +514,9 @@
 				"google-cloud-sdk"
 			],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"google-cloud-sdk"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -509,7 +530,9 @@
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"gradle"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -526,7 +549,9 @@
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"grunt-cli"
+			],
 			"NPM": [
 				"grunt",
 				"grunt-cli"
@@ -543,7 +568,9 @@
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"gulp-cli"
+			],
 			"NPM": [
 				"gulp",
 				"gulp-cli"
@@ -723,7 +750,9 @@
 			"Chocolatey": [
 				"julia"
 			],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"julia"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -740,7 +769,9 @@
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"kotlin"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -774,7 +805,9 @@
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"lerna"
+			],
 			"NPM": [
 				"lerna"
 			],
@@ -810,7 +843,9 @@
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"maven"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -889,7 +924,9 @@
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"miniconda"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [
@@ -933,7 +970,9 @@
 				"mono-devel"
 			],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"mono"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -987,7 +1026,10 @@
 				"libmysqlclient-dev"
 			],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"mysql-client",
+				"mysql"
+			],
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [ ],
@@ -1001,7 +1043,9 @@
 			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
-			"Homebrew": [ ],
+			"Homebrew": [
+				"netlify-cli"
+			],
 			"NPM": [
 				"netlify"
 			],
