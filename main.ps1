@@ -52,7 +52,6 @@ Function Test-StringMatchRegEx {
 [String]$DiskSpaceBefore = Get-DiskSpace
 [PSCustomObject]@{
 	Runner_OS = $Env:RUNNER_OS
-	Runner_Session = $JobIdPrefix
 	Program_APT = $APTProgram
 	Program_Chocolatey = $ChocolateyProgram
 	Program_Docker = $DockerProgram
@@ -304,49 +303,56 @@ Function Invoke-GeneralOptimizeOperation {
 	}
 	Else {
 		ForEach ($Item In $Queue) {
-			Write-Host -Object "Remove $($Item.Description)."
-			If ($APTProgram) {
+			If ($APTProgram -and $Item.APT.Count -gt 0) {
+				Write-Host -Object "Remove $($Item.Description) via APT."
 				ForEach ($APT In $Item.APT) {
 					apt-get --assume-yes remove $APT *>&1 |
 						Write-GitHubActionsDebug
 				}
 			}
-			If ($ChocolateyProgram) {
+			If ($ChocolateyProgram -and $Item.Chocolatey.Count -gt 0) {
 				ForEach ($Chocolatey In $Item.Chocolatey) {
+					Write-Host -Object "Remove $($Item.Description) via Chocolatey."
 					choco uninstall $Chocolatey --ignore-detected-reboot --yes *>&1 |
 						Write-GitHubActionsDebug
 				}
 			}
-			If ($HomebrewProgram) {
+			If ($HomebrewProgram -and $Item.Homebrew.Count -gt 0) {
+				Write-Host -Object "Remove $($Item.Description) via Homebrew."
 				ForEach ($Homebrew In $Item.Homebrew) {
 					brew uninstall $Homebrew *>&1 |
 						Write-GitHubActionsDebug
 				}
 			}
-			If ($NPMProgram) {
+			If ($NPMProgram -and $Item.NPM.Count -gt 0) {
+				Write-Host -Object "Remove $($Item.Description) via NPM."
 				ForEach ($NPM In $Item.NPM) {
 					npm --global uninstall $NPM *>&1 |
 						Write-GitHubActionsDebug
 				}
 			}
-			If ($PipxProgram) {
+			If ($PipxProgram -and $Item.Pipx.Count -gt 0) {
+				Write-Host -Object "Remove $($Item.Description) via Pipx."
 				ForEach ($Pipx In $Item.Pipx) {
 					pipx uninstall $Pipx *>&1 |
 						Write-GitHubActionsDebug
 				}
 			}
-			ForEach ($EnvName In $Item.Env) {
-				[String]$EnvValue = Get-Content -LiteralPath "Env:\$EnvName" -ErrorAction 'SilentlyContinue'
-				If ($EnvValue.Length -gt 0 -and (Test-Path -LiteralPath $EnvValue)) {
-					Get-ChildItem -LiteralPath $EnvValue -Force -ErrorAction 'Continue' |
-						Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+			If ($Item.Env.Count -gt 0 -or $Item.($OsPathType).Count -gt 0) {
+				Write-Host -Object "Remove $($Item.Description) files."
+				ForEach ($EnvName In $Item.Env) {
+					[String]$EnvValue = Get-Content -LiteralPath "Env:\$EnvName" -ErrorAction 'SilentlyContinue'
+					If ($EnvValue.Length -gt 0 -and (Test-Path -LiteralPath $EnvValue)) {
+						Get-ChildItem -LiteralPath $EnvValue -Force -ErrorAction 'Continue' |
+							Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+					}
 				}
-			}
-			ForEach ($Path In $Item.($OsPathType)) {
-				[String]$PathResolve = ($Path -imatch '\$Env:') ? (Invoke-Expression -Command "`"$Path`"") : $Path
-				If ($PathResolve.Length -gt 0 -and (Test-Path -LiteralPath $PathResolve)) {
-					Get-ChildItem -LiteralPath $PathResolve -Force -ErrorAction 'Continue' |
-						Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+				ForEach ($Path In $Item.($OsPathType)) {
+					[String]$PathResolve = ($Path -imatch '\$Env:') ? (Invoke-Expression -Command "`"$Path`"") : $Path
+					If ($PathResolve.Length -gt 0 -and (Test-Path -LiteralPath $PathResolve)) {
+						Get-ChildItem -LiteralPath $PathResolve -Force -ErrorAction 'Continue' |
+							Remove-Item -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+					}
 				}
 			}
 		}
@@ -384,7 +390,7 @@ If ($OperationAsync) {
 	If (Get-GitHubActionsDebugStatus) {
 		Get-Job -Name "$JobIdPrefix/*" |
 			ForEach-Object -Process {
-				Enter-GitHubActionsLogGroup -Title "$($_.Name) ($($_.State))"
+				Enter-GitHubActionsLogGroup -Title "$($_.Name -ireplace "^$($JobIdPrefix)\/", '') ($($_.State))"
 				Receive-Job -Name $_.Name -Wait -AutoRemoveJob
 				Exit-GitHubActionsLogGroup
 			}
