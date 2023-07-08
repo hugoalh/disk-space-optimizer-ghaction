@@ -8,6 +8,10 @@ Write-Host -Object 'Initialize.'
 [Boolean]$OsLinux = $Env:RUNNER_OS -ieq 'Linux'
 [Boolean]$OsMac = $Env:RUNNER_OS -ieq 'MacOS'
 [Boolean]$OsWindows = $Env:RUNNER_OS -ieq 'Windows'
+If ($True -inotin @($OsLinux, $OsMac, $OsWindows)) {
+	Write-GitHubActionsError -Message "``$Env:RUNNER_OS`` is not an supported runner OS!"
+	Exit 0
+}
 [String]$OsPathType = "Path$($Env:RUNNER_OS)"
 [Boolean]$APTProgram = $Null -ine (Get-Command -Name 'apt-get' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
 [Boolean]$ChocolateyProgram = $Null -ine (Get-Command -Name 'choco' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
