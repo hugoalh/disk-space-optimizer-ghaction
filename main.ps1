@@ -14,11 +14,68 @@ If ($True -inotin @($OsLinux, $OsMac, $OsWindows)) {
 }
 [String]$OsPathType = "Path$($Env:RUNNER_OS)"
 [Boolean]$APTProgram = $Null -ine (Get-Command -Name 'apt-get' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
+[ScriptBlock]$APTListPackage = {
+	apt list --installed *>&1
+}
+[ScriptBlock]$APTUninstallPackage = {
+	Param ([String[]]$InputObject = @())
+	ForEach ($_ In $InputObject) {
+		apt-get --assume-yes remove $_ *>&1
+	}
+}
 [Boolean]$ChocolateyProgram = $Null -ine (Get-Command -Name 'choco' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
+[ScriptBlock]$ChocolateyListPackage = {
+	choco list --include-programs --no-progress --prerelease *>&1
+}
+[ScriptBlock]$ChocolateyUninstallPackage = {
+	Param ([String[]]$InputObject = @())
+	ForEach ($_ In $InputObject) {
+		choco uninstall $_ --ignore-detected-reboot --yes *>&1
+	}
+}
 [Boolean]$DockerProgram = $Null -ine (Get-Command -Name 'docker' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
+[ScriptBlock]$DockerListImage = {
+	docker image ls --all --format '{{json .}}' *>&1
+}
+[ScriptBlock]$DockerPruneImage = {
+	docker image prune --force *>&1
+}
+[ScriptBlock]$DockerRemoveImage = {
+	Param ([String[]]$InputObject = @())
+	ForEach ($_ In $InputObject) {
+		docker image rm $_ *>&1
+	}
+}
 [Boolean]$HomebrewProgram = $Null -ine (Get-Command -Name 'brew' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
+[ScriptBlock]$HomebrewListPackage = {
+	brew list -1 --versions *>&1
+}
+[ScriptBlock]$HomebrewUninstallPackage = {
+	Param ([String[]]$InputObject = @())
+	ForEach ($_ In $InputObject) {
+		brew uninstall $_ *>&1
+	}
+}
 [Boolean]$NPMProgram = $Null -ine (Get-Command -Name 'npm' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
+[ScriptBlock]$NPMListPackage = {
+	npm --global list *>&1
+}
+[ScriptBlock]$NPMUninstallPackage = {
+	Param ([String[]]$InputObject = @())
+	ForEach ($_ In $InputObject) {
+		npm --global uninstall $_ *>&1
+	}
+}
 [Boolean]$PipxProgram = $Null -ine (Get-Command -Name 'pipx' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
+[ScriptBlock]$PipxListPackage = {
+	pipx list --json *>&1
+}
+[ScriptBlock]$PipxUninstallPackage = {
+	Param ([String[]]$InputObject = @())
+	ForEach ($_ In $InputObject) {
+		pipx uninstall $_ *>&1
+	}
+}
 [String]$JobIdPrefix = (
 	New-Guid |
 		Select-Object -ExpandProperty 'Guid'
@@ -315,8 +372,8 @@ Function Invoke-GeneralOptimizeOperation {
 				}
 			}
 			If ($ChocolateyProgram -and $Item.Chocolatey.Count -gt 0) {
+				Write-Host -Object "Remove $($Item.Description) via Chocolatey."
 				ForEach ($Chocolatey In $Item.Chocolatey) {
-					Write-Host -Object "Remove $($Item.Description) via Chocolatey."
 					choco uninstall $Chocolatey --ignore-detected-reboot --yes *>&1 |
 						Write-GitHubActionsDebug
 				}
