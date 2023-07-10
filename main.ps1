@@ -84,9 +84,10 @@ Function Get-ProgramTree {
 	[CmdletBinding()]
 	[OutputType([Void])]
 	Param ()
-	[String[]]$ProgramTreePath = @($Env:AGENT_TOOLSDIRECTORY)
+	[String[]]$ProgramTreePath = @()
 	If ($OsIsLinux) {
 		$ProgramTreePath += @(
+			$Env:AGENT_TOOLSDIRECTORY,
 			$Env:HOME,
 			'/opt',
 			'/usr/bin',
@@ -98,6 +99,7 @@ Function Get-ProgramTree {
 	}
 	If ($OsIsMac) {
 		$ProgramTreePath += @(
+			$Env:AGENT_TOOLSDIRECTORY,
 			$Env:HOME,
 			'/Applications',
 			'/opt',
@@ -111,7 +113,8 @@ Function Get-ProgramTree {
 	}
 	If ($OsIsWindows) {
 		$ProgramTreePath += @(
-			'C:\'
+			'C:\',
+			'D:\'
 		)
 	}
 	$ProgramTreePath |
