@@ -50,10 +50,8 @@ runs:
   using: "composite"
   steps:
     - name: "Setup PowerShell Toolkit"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.3.0"
-      with:
-        toolkit_version: "1.6.0"
-    - name: "Optimize Disk Space (Non-Windows)"
+      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1"
+    - name: "Main (Non-Windows)"
       if: "${{runner.os != 'Windows'}}"
       env:
         INPUT_CACHE_APT: "${{inputs.cache_apt}}"
@@ -71,7 +69,7 @@ runs:
         sudo --non-interactive --preserve-env pwsh -NonInteractive "$GITHUB_ACTION_PATH/main.ps1"
       shell: "sh"
       continue-on-error: true
-    - name: "Optimize Disk Space (Windows)"
+    - name: "Main (Windows)"
       if: "${{runner.os == 'Windows'}}"
       env:
         INPUT_CACHE_APT: "${{inputs.cache_apt}}"
