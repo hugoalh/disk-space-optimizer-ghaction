@@ -50,7 +50,7 @@ runs:
   using: "composite"
   steps:
     - name: "Setup PowerShell Toolkit"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1"
+      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.3.1"
     - name: "Main (Non-Windows)"
       if: "${{runner.os != 'Windows'}}"
       env:
