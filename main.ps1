@@ -119,7 +119,7 @@ Function Get-ProgramTree {
 	}
 	$ProgramTreePath |
 		ForEach-Object -Process {
-			Get-ChildItem -LiteralPath $_ -Recurse -Depth 3 -Force -ErrorAction 'Continue'
+			Get-ChildItem -LiteralPath $_ -Recurse -Depth 2 -Force -ErrorAction 'Continue'
 		} |
 		Select-Object -ExpandProperty 'FullName' |
 		Sort-Object -Unique |

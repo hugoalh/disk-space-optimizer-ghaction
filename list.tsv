@@ -1,84 +1,86 @@
 Name	Description	Postpone	APT	Chocolatey	Homebrew	NPM	Pipx	Env	PathLinux	PathMacOS	PathWindows
 AliYun	AliYun (Alibaba Cloud)	0			aliyun-cli				/usr/local/bin/aliyun		C:\aliyun-cli
 AndroidNDK	Android NDK	0			android-ndk			ANDROID_ROOT, ANDROID_NDK_ROOT, ANDROID_SDK_ROOT, ANDROID_HOME	/usr/local/lib/android	/Users/runner/Library/Android	C:\Program Files (x86)\Android, C:\Android
-Ansible	Ansible	0			ansible		ansible-core				
+Ansible	Ansible	0			ansible		ansible-core		/opt/pipx_bin/ansible*		
 ApacheAnt	Apache Ant	0	ant-optional, ant	ant	ant			ANT_HOME	/usr/share/ant		
-ApacheHTTPD	Apache HTTPD	0	apache2, ^apache2-.*	apache-httpd	httpd					/usr/local/etc/httpd	C:\tools\Apache*
+ApacheHTTPD	Apache HTTPD	0	apache2, ^apache2-.*	apache-httpd	httpd				/usr/lib/apache2, /usr/share/apache2	/usr/local/etc/httpd	C:\tools\Apache*
 ASPDotNet	ASP .Net	0	^aspnetcore-.*								
-AWS	AWS (Amazon Web Service)	0			aws-sam-cli, session-manager-plugin				/usr/local/aws-cli		
-AzCopy	AzCopy	0		azcopy10	azcopy				/usr/local/bin/azcopy	/usr/local/bin/azcopy	
-Azure	Azure	1	azure-cli		azure-cli			AZURE_EXTENSION_DIR	/opt/az/azcliextensions		
+AWS	AWS (Amazon Web Service)	0			aws-sam-cli, session-manager-plugin				/usr/local/aws-cli, /usr/local/aws-sam-cli, /usr/local/bin/aws		
+AzCopy	AzCopy	0		azcopy10	azcopy				/usr/local/bin/azcopy, /usr/local/bin/azcopy10	/usr/local/bin/azcopy	
+Azure	Azure	1	azure-cli		azure-cli			AZURE_EXTENSION_DIR	/opt/az, /usr/lib/linux-azure-tools-*, /usr/lib/modules/*-azure, /usr/share/az_*		
 Bazel	Bazel	1			bazel				/usr/local/bin/bazel		
-Bazelisk	Bazelisk	0			bazelisk	@bazel/bazelisk					
+Bazelisk	Bazelisk	0			bazelisk	@bazel/bazelisk			/usr/local/lib/node_modules/@bazel/bazelisk		
 Bicep	Azure Bicep	0			bicep				/usr/local/bin/bicep		
 Chromium	Chromium	0			chromium			CHROMIUM_DIR	/usr/bin/chromium, /usr/bin/chromium-browser, /usr/local/share/chromium		
-Clang	Clang	0	^clang-.*, ^clang-format-.*, ^clang-tidy-.*, ^lld-.*, ^lldb-.*								
+Clang	Clang	0	^clang-.*, ^clang-format-.*, ^clang-tidy-.*, ^lld-.*, ^lldb-.*						/usr/bin/clang*, /usr/bin/lld-*, /usr/bin/lldb-*, /usr/lib/clang, /usr/share/clang		
 CodeQL	CodeQL	0			codeql				$Env:AGENT_TOOLSDIRECTORY/CodeQL, /opt/hostedtoolcache/CodeQL	$Env:AGENT_TOOLSDIRECTORY/CodeQL	$Env:AGENT_TOOLSDIRECTORY\CodeQL
-DotNet	.Net	1	^dotnet-.*		dotnet				/usr/share/dotnet	/usr/local/bin/dotnet, $Env:HOME/.dotnet	
+DotNet	.Net	1	^dotnet-.*		dotnet				/usr/bin/dotnet, /usr/share/dotnet	/usr/local/bin/dotnet, $Env:HOME/.dotnet	
 Erlang	Erlang	0	esl-erlang		erlang, rebar3				/usr/local/bin/rebar3		
-Firefox	Mozilla Firefox Browser	0	firefox		firefox						
-G++	GNU C++ compiler	0	^g\+\+.*								
-GCC	GNU C compiler	0	gcc, ^gcc-.*		gcc						
+Firefox	Mozilla Firefox Browser	0	firefox		firefox				/usr/lib/firefox, /usr/lib/firefox-addons		
+G++	GNU C++ compiler	0	^g\+\+.*						/usr/bin/g++*, /usr/bin/x86_64-linux-gnu-g++*		
+GCC	GNU C compiler	0	gcc, ^gcc-.*		gcc				/usr/bin/gcc*, /usr/bin/x86_64-linux-gnu-gcc*, /usr/lib/gcc, /usr/share/gcc		
 GeckoWebDriver	Gecko Web Driver	0			geckodriver			GECKOWEBDRIVER	/usr/local/share/gecko_driver	/usr/local/opt/geckodriver	C:\SeleniumWebDrivers\GeckoDriver
-GFortran	GNU Fortran	0	gfortran, ^gfortran-.*								
+GFortran	GNU Fortran	0	gfortran, ^gfortran-.*						/usr/bin/gfortran*, /usr/bin/x86_64-linux-gnu-gfortran*		
 Go	Go	0			go				$Env:AGENT_TOOLSDIRECTORY/go, /opt/hostedtoolcache/go	$Env:AGENT_TOOLSDIRECTORY/go	$Env:AGENT_TOOLSDIRECTORY\go
-GoogleChrome	Google Chrome Browser	0	google-chrome-stable		google-chrome			CHROME_BIN	/usr/bin/google-chrome		
+GoogleChrome	Google Chrome Browser	0	google-chrome-stable		google-chrome			CHROME_BIN	/opt/google/chrome, /usr/bin/google-chrome, /usr/bin/google-chrome-stable		
 GoogleChromeWebDriver	Google Chrome Web Driver	0			chromedriver			CHROMEWEBDRIVER, CHROMEDRIVER_DIR	/usr/bin/chromedriver, /usr/local/share/chrome_driver	/usr/local/Caskroom/chromedriver	C:\SeleniumWebDrivers\ChromeDriver
-GoogleCloudSDK	Google Cloud SDK	0	google-cloud-sdk		google-cloud-sdk						
+GoogleCloudSDK	Google Cloud SDK	0	google-cloud-sdk		google-cloud-sdk				/usr/bin/gcloud*, /usr/lib/google-cloud-sdk, /usr/share/google-cloud-sdk		
 Gradle	Gradle	0			gradle				/usr/bin/gradle, /usr/share/gradle-*		
-Grunt	Grunt	0			grunt-cli	grunt, grunt-cli					
-Gulp	Gulp	0			gulp-cli	gulp, gulp-cli					
+Grunt	Grunt	0			grunt-cli	grunt, grunt-cli			/usr/local/lib/node_modules/grunt		
+Gulp	Gulp	0			gulp-cli	gulp, gulp-cli			/usr/local/lib/node_modules/gulp		
 HaskellGHC	Haskell GHC	0							/opt/ghc, /usr/local/.ghcup/ghc		
 Heroku	Heroku	0							/usr/local/lib/heroku	/usr/local/lib/heroku	
 HHVM	HipHop Virtual Machine	0	hhvm								
 ImageMagick	ImageMagick	0	imagemagick, ^imagemagick-.*								
-Java/11	Java 11	0	temurin-11-jdk					JAVA_HOME_11_X64	/usr/lib/jvm/*-11.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/11.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\11.*
-Java/13	Java 13	0						JAVA_HOME_13_X64	/usr/lib/jvm/*-13.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\13.*
-Java/17	Java 17	0	temurin-17-jdk					JAVA_HOME_17_X64	/usr/lib/jvm/*-17.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\17.*
-Java/8	Java 8	0	temurin-8-jdk					JAVA_HOME_8_X64	/usr/lib/jvm/*-8.*-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\8.*
-Java/All	Java (All)	1	^java-.*, .*-jdk$					JAVA_HOME	/usr/lib/jvm	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk
+Java/11	Java 11	0	temurin-11-jdk					JAVA_HOME_11_X64	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/11.*, /opt/hostedtoolcache/Java_*_jdk/11.*, /usr/lib/jvm/*-11-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/11.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\11.*
+Java/13	Java 13	0						JAVA_HOME_13_X64	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*, /opt/hostedtoolcache/Java_*_jdk/13.*, /usr/lib/jvm/*-13-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\13.*
+Java/17	Java 17	0	temurin-17-jdk					JAVA_HOME_17_X64	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*, /opt/hostedtoolcache/Java_*_jdk/17.*, /usr/lib/jvm/*-17-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\17.*
+Java/8	Java 8	0	temurin-8-jdk					JAVA_HOME_8_X64	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*, /opt/hostedtoolcache/Java_*_jdk/8.*, /usr/lib/jvm/*-8-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\8.*
+Java/All	Java (All)	1	^java-.*, .*-jdk$					JAVA_HOME	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk, /opt/hostedtoolcache/Java_*_jdk, /usr/lib/jvm	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk
 Julia	Julia	0		julia	julia				/usr/local/julia*, /usr/bin/julia		
 Kotlin	Kotlin	0			kotlin				/usr/share/kotlinc		
 Leiningen	Leiningen	0						LEIN_HOME	/usr/local/bin/lein		
-Lerna	Lerna	0			lerna	lerna					
-LLVM	LLVM	0	^llvm-.*	llvm	llvm						
+Lerna	Lerna	0			lerna	lerna			/usr/local/lib/node_modules/lerna		
+LLVM	LLVM	0	^llvm-.*	llvm	llvm				/usr/bin/llvm-*, /usr/lib/llvm-*		
 Maven	Maven	0			maven				/usr/bin/mvn, /usr/share/apache-maven-*		
-MicrosoftEdge	Microsoft Edge	0	microsoft-edge-stable		microsoft-edge					/Applications/Microsoft Edge.app	
-MicrosoftEdgeWebDriver	Microsoft Edge Web Driver	0						EDGEWEBDRIVER	/usr/bin/edgedriver, /usr/local/share/edge_driver	/usr/local/bin/msedgedriver, /usr/local/share/edge_driver	C:\SeleniumWebDrivers\EdgeDriver
+MicrosoftEdge	Microsoft Edge	0	microsoft-edge-stable		microsoft-edge				/opt/microsoft/msedge, /usr/bin/microsoft-edge, /usr/bin/microsoft-edge-stable	/Applications/Microsoft Edge.app	
+MicrosoftEdgeWebDriver	Microsoft Edge Web Driver	0						EDGEWEBDRIVER	/usr/bin/edgedriver, /usr/bin/msedgedriver, /usr/local/share/edge_driver	/usr/local/bin/msedgedriver, /usr/local/share/edge_driver	C:\SeleniumWebDrivers\EdgeDriver
 MicrosoftInternetExplorerWebDriver	Microsoft Internet Explorer Web Driver	0						IEWEBDRIVER			C:\SeleniumWebDrivers\IEDriver
-Miniconda	Mini Conda	0			miniconda			CONDA	/usr/share/miniconda, /usr/bin/conda	/usr/local/miniconda, /usr/local/bin/conda, $Env:HOME/.conda	C:\Miniconda
+Miniconda	Mini Conda	0			miniconda			CONDA	/usr/bin/conda, /usr/share/miniconda	/usr/local/bin/conda, /usr/local/miniconda, $Env:HOME/.conda	C:\Miniconda
 MongoDB	MongoDB	0	^mongodb-.*								
-Mono	Mono	0	^mono-.*, ^monodoc-.*		mono						
+Mono	Mono	0	^mono-.*, ^monodoc-.*		mono				/usr/bin/mono-*, /usr/bin/mono, /usr/lib/mono-source-libs, /usr/lib/mono, /usr/lib/monodoc, /usr/share/mono-*, /usr/share/mono, /usr/share/monodoc		
 MSSQL	MS SQL	0	mssql-tools, unixodbc-dev						/opt/mssql-tools		$Env:PROGRAMFILES\Microsoft SQL Server\
 MSYS2	MSYS2 Pacman	9									C:\msys64
-MySQL	MySQL	0	^mysql-.*, libmysqlclient-dev		mysql-client, mysql						
-Netlify	Netlify	0			netlify-cli	netlify					
-Newman	Newman	0				newman					
+MySQL	MySQL	0	^mysql-.*, libmysqlclient-dev		mysql-client, mysql				/usr/bin/mysql*, /usr/lib/mysql, /usr/share/mysql-*, /usr/share/mysql		
+Netlify	Netlify	0			netlify-cli	netlify-cli, netlify			/usr/local/lib/node_modules/netlify-cli		
+Newman	Newman	0				newman			/usr/local/lib/node_modules/newman		
 Nginx	Nginx	0	nginx		nginx					/usr/local/etc/nginx	C:\tools\nginx*
+NVMBuild	NVM (NodeJS Version Manager) Build	0							/home/runner/.nvm/.dockerignore, /home/runner/.nvm/.editorconfig, /home/runner/.nvm/.git, /home/runner/.nvm/.github, /home/runner/.nvm/.gitignore, /home/runner/.nvm/.mailmap, /home/runner/.nvm/.npmrc, /home/runner/.nvm/.travis.yml, /home/runner/.nvm/CODE_OF_CONDUCT.md, /home/runner/.nvm/CONTRIBUTING.md, /home/runner/.nvm/Dockerfile, /home/runner/.nvm/GOVERNANCE.md, /home/runner/.nvm/ROADMAP.md, /home/runner/.nvm/test		
 OpenGLDRI	OpenGL API DRI Modules	0	libgl1-mesa-dri								
 OpenShiftClient	OpenShift Client	0							/usr/local/bin/oc		
 Packer	Packer	0							/usr/local/bin/packer		
-Parcel	Parcel	0				parcel					
-Perl	Perl	0	^perl.*								
+Parcel	Parcel	0				parcel			/usr/local/lib/node_modules/parcel		
+Perl	Perl	0	^perl.*						/usr/bin/perl*, /usr/share/perl*		
 PhantomJS	Phantom JS	0	phantomjs						/usr/local/share/phantomjs*, /usr/local/bin/phantomjs		
-PHP	PHP	0	^php.*, snmp						/usr/local/bin/phpunit		
-Pipx	Pipx	9						PIPX_BIN_DIR, PIPX_HOME		/opt/pipx_bin	C:\Program Files (x86)\pipx, C:\Program Files (x86)\pipx_bin
-PostgreSQL	PostgreSQL	0	^postgresql-.*, libpq-dev					PGBIN, PGDATA, PGROOT			C:\Program Files\PostgreSQL
+PHP	PHP	0	^php.*, snmp						/usr/bin/php*, /usr/local/bin/phpunit, /usr/lib/php, /usr/share/php*		
+Pipx	Pipx	9						PIPX_BIN_DIR, PIPX_HOME	/opt/pipx, /opt/pipx_bin, /usr/local/bin/pipx	/opt/pipx_bin	C:\Program Files (x86)\pipx, C:\Program Files (x86)\pipx_bin
+PostgreSQL	PostgreSQL	0	^postgresql-.*, libpq-dev					PGBIN, PGDATA, PGROOT	/usr/lib/postgresql, /usr/share/postgresql-*, /usr/share/postgresql		C:\Program Files\PostgreSQL
 Pulumi	Pulumi	0							/usr/local/bin/pulumi*		
-R	R	0	r-base, ^r-base-.*								
-Ruby	Ruby	0	ruby, ruby3.0, ^ruby-.*, ^ruby3.0-.*								
+R	R	0	r-base, ^r-base-.*						/usr/bin/R, /usr/lib/R, /usr/local/lib/R, /usr/share/R		
+Ruby	Ruby	0	ruby, ruby3.0, ^ruby-.*, ^ruby3.0-.*						$Env:AGENT_TOOLSDIRECTORY/Ruby, /opt/hostedtoolcache/Ruby, /usr/bin/ruby*, /usr/lib/ruby		
 Selenium	Selenium	0						SELENIUM_JAR_PATH	/usr/share/java/selenium-server.jar		C:\selenium\selenium-server.jar
 Sphinx	Sphinx	0	sphinxsearch								
 SQLPackage	SQL Package	0							/usr/local/bin/sqlpackage, /usr/local/sqlpackage		
 Stack	Stack	0							$Env:AGENT_TOOLSDIRECTORY/stack, /opt/hostedtoolcache/stack	$Env:AGENT_TOOLSDIRECTORY/stack	$Env:AGENT_TOOLSDIRECTORY\stack
 Swift	Swift	0			swiftformat			SWIFT_PATH	/usr/local/bin/swift*, /usr/local/bin/swiftc, /usr/share/swift*		
 Terraform	Terraform	0							/usr/local/bin/terraform		
+TypeScript	TypeScript	0				typescript			/usr/local/lib/node_modules/typescript		
 VCPkg	VCPkg	9						VCPKG_INSTALLATION_ROOT	/usr/local/share/vcpkg, /root/.vcpkg	/usr/local/bin/vcpkg, /usr/local/share/vcpkg	C:\vcpkg
-Vercel	Vercel	0				vercel					
+Vercel	Vercel	0				vercel			/usr/local/lib/node_modules/vercel		
 VisualStudio/2019	Visual Studio 2019	0								/Applications/Visual Studio 2019*	C:\Program Files\Microsoft Visual Studio\2019
 VisualStudio/2022	Visual Studio 2022	0									C:\Program Files\Microsoft Visual Studio\2022
 VisualStudio/All	Visual Studio	1								/Applications/Visual Studio*	C:\Program Files\Microsoft Visual Studio, C:\ProgramData\Microsoft\VisualStudio
-Webpack	Webpack	0				webpack-cli, webpack					
+Webpack	Webpack	0				webpack-cli, webpack			/usr/local/lib/node_modules/webpack-cli, /usr/local/lib/node_modules/webpack		
 Xcode/11.7	Xcode 11.7	0								/Applications/Xcode_11.7.app	
 Xcode/12.4	Xcode 12.4	0								/Applications/Xcode_12.4.app	
 Xcode/12.5.1	Xcode 12.5.1	0								/Applications/Xcode_12.5.1.app	
@@ -101,5 +103,5 @@ Xcode/9.2	Xcode 9.2	0								/Applications/Xcode_9.2.app, /Applications/Xcode92.
 Xcode/9.3	Xcode 9.3	0								/Applications/Xcode_9.3_beta.app, /Applications/Xcode_9.3.app, /Applications/Xcode93.app	
 Xcode/9.4	Xcode 9.4	0								/Applications/Xcode_9.4_beta_2.app, /Applications/Xcode_9.4_beta.app, /Applications/Xcode_9.4-beta.app, /Applications/Xcode_9.4.app	
 Xcode/All	Xcode (All)	1								/Applications/Xcode*	
-YAMLLint	YAML Lint	0					yamllint				
-Yarn	Yarn	0				yarn					
+YAMLLint	YAML Lint	0					yamllint		/opt/pipx_bin/yamllint		
+Yarn	Yarn	0				yarn			/usr/local/lib/node_modules/yarn		
