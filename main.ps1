@@ -305,26 +305,48 @@ If ($DockerImageRemoveQueue.Count -gt 0) {
 			Join-String -Separator ', '
 	)"
 }
+[String[]]$OperationDispatch = @()
+[Hashtable[]]$OperationObject = @()
 $Script:ErrorActionPreference = 'Continue'
 If ($DockerProgramIsExist) {
 	If ($OperationAsync) {
+		$OperationObject += @{
+			Name = "$SessionId/Docker/Remove"
+			Description = '[ASYNC] Remove Docker image.'
+			Wait = @()
+			ScriptBlock = $DockerCommandRemoveImage
+			ArgumentList = @(, $DockerImageRemoveQueue)
+		}
+		If ($RemoveDockerCache) {
+			$OperationObject += @{
+				Name = "$SessionId/Docker/Prune"
+				Description = '[ASYNC] Prune Docker image.'
+				Wait = @(
+					"$SessionId/Docker/Remove"
+				)
+				ScriptBlock = $DockerCommandPruneImage
+				ArgumentList = @()
+			}
+		}
+		<#
 		Write-Host -Object '[ASYNC] Remove Docker image.'
 		$Null = Start-Job -Name "$SessionId/Docker/Remove" -ScriptBlock $DockerCommandRemoveImage -ArgumentList (, $DockerImageRemoveQueue) {
 			If ($Using:RemoveDockerCache) {
 				docker image prune --force *>&1
 			}
 		}
+		#>
 	}
 	Else {
 		If ($DockerImageRemoveQueue.Count -gt 0) {
 			ForEach ($_DI In $DockerImageRemoveQueue) {
 				Write-Host -Object "Remove Docker image ``$_DI``."
-				Invoke-Command -ScriptBlock $DockerCommandRemoveImage -ArgumentList (, $_DI) |
+				Invoke-Command -ScriptBlock $DockerCommandRemoveImage -ArgumentList @(, $_DI) |
 					Write-GitHubActionsDebug
 			}
 		}
 		If ($RemoveDockerCache) {
-			Write-Host -Object 'Remove Docker cache.'
+			Write-Host -Object 'Prune Docker image.'
 			Invoke-Command -ScriptBlock $DockerCommandPruneImage |
 				Write-GitHubActionsDebug
 		}
@@ -519,6 +541,7 @@ Function Invoke-GeneralOptimizeOperation {
 		}
 	}
 }
+<#
 ForEach ($Index In (
 	$GeneralRemoveQueue |
 		Select-Object -ExpandProperty 'Postpone' |
@@ -529,15 +552,26 @@ ForEach ($Index In (
 			Where-Object -FilterScript { $_.Postpone -eq $Index }
 	) -Index $Index
 }
+#>
+If ($OperationAsync) {
+	While ($OperationDispatch.Count -lt $OperationObject.Count) {
+		ForEach ($Operation In $OperationObject) {
+			
+		}
+		Start-Sleep -Seconds 1
+	}
+	$Null = Wait-Job -Name "$SessionId/*" -ErrorAction 'SilentlyContinue'
+}
 If ($APTProgramIsExist -and $RemoveAptCache) {
-	Write-Host -Object 'Remove APT cache.'
+	Write-Host -Object 'Prune APT package.'
 	apt-get --assume-yes autoremove *>&1 |
 		Write-GitHubActionsDebug
+	Write-Host -Object 'Remove APT cache.'
 	apt-get --assume-yes clean *>&1 |
 		Write-GitHubActionsDebug
 }
 If ($HomebrewProgramIsExist -and $RemoveHomebrewCache) {
-	Write-Host -Object 'Remove Homebrew cache.'
+	Write-Host -Object 'Prune Homebrew package.'
 	brew autoremove *>&1 |
 		Write-GitHubActionsDebug
 }
@@ -564,45 +598,7 @@ If ($OsIsLinux -and $RemoveLinuxSwap) {
 	Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 }
 If (Get-GitHubActionsDebugStatus) {
-	Enter-GitHubActionsLogGroup -Title 'Program Tree (After): '
-	Get-ProgramTree
-	Exit-GitHubActionsLogGroup
-	If ($APTProgramIsExist) {
-		Enter-GitHubActionsLogGroup -Title 'APT (After): '
-		Invoke-Command -ScriptBlock $APTCommandListPackage |
-			Write-Host
-		Exit-GitHubActionsLogGroup
-	}
-	If ($ChocolateyProgramIsExist) {
-		Enter-GitHubActionsLogGroup -Title 'Chocolatey (After): '
-		Invoke-Command -ScriptBlock $ChocolateyCommandListPackage |
-			Write-Host
-		Exit-GitHubActionsLogGroup
-	}
-	If ($DockerProgramIsExist) {
-		Enter-GitHubActionsLogGroup -Title 'Docker (After): '
-		Invoke-Command -ScriptBlock $DockerCommandListImage |
-			Write-Host
-		Exit-GitHubActionsLogGroup
-	}
-	If ($HomebrewProgramIsExist) {
-		Enter-GitHubActionsLogGroup -Title 'Homebrew (After): '
-		Invoke-Command -ScriptBlock $HomebrewCommandListPackage |
-			Write-Host
-		Exit-GitHubActionsLogGroup
-	}
-	If ($NPMProgramIsExist) {
-		Enter-GitHubActionsLogGroup -Title 'NPM (After): '
-		Invoke-Command -ScriptBlock $NPMCommandListPackage |
-			Write-Host
-		Exit-GitHubActionsLogGroup
-	}
-	If ($PipxProgramIsExist) {
-		Enter-GitHubActionsLogGroup -Title 'Pipx (After): '
-		Invoke-Command -ScriptBlock $PipxCommandListPackage |
-			Write-Host
-		Exit-GitHubActionsLogGroup
-	}
+	Show-TreeDetail -Stage 'After'
 }
 $Script:ErrorActionPreference = 'Stop'
 [String]$DiskSpaceAfter = Get-DiskSpace
