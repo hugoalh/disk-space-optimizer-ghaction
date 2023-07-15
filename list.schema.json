@@ -12,83 +12,105 @@
 				"properties": {
 					"Name": {
 						"type": "string",
-						"minLength": 1
+						"minLength": 1,
+						"pattern": "^[\\dA-Za-z/+._-]+$"
 					},
 					"Description": {
 						"type": "string",
 						"minLength": 1
 					},
+					"IsManager": {
+						"type": "boolean"
+					},
 					"Postpone": {
-						"type": "integer",
-						"minimum": 0
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						},
+						"uniqueItems": true
 					},
 					"APT": {
 						"type": "array",
 						"items": {
 							"type": "string",
 							"minLength": 1
-						}
+						},
+						"uniqueItems": true
 					},
 					"Chocolatey": {
 						"type": "array",
 						"items": {
 							"type": "string",
 							"minLength": 1
-						}
+						},
+						"uniqueItems": true
 					},
 					"Homebrew": {
 						"type": "array",
 						"items": {
 							"type": "string",
 							"minLength": 1
-						}
+						},
+						"uniqueItems": true
 					},
 					"NPM": {
 						"type": "array",
 						"items": {
 							"type": "string",
 							"minLength": 1
-						}
+						},
+						"uniqueItems": true
 					},
 					"Pipx": {
 						"type": "array",
 						"items": {
 							"type": "string",
 							"minLength": 1
-						}
+						},
+						"uniqueItems": true
 					},
 					"Env": {
 						"type": "array",
 						"items": {
 							"type": "string",
-							"minLength": 1
-						}
+							"minLength": 1,
+							"pattern": "^[\\dA-Z](?:[\\dA-Z_]*[\\dA-Z])?$"
+						},
+						"uniqueItems": true
 					},
 					"PathLinux": {
 						"type": "array",
 						"items": {
 							"type": "string",
-							"minLength": 1
-						}
+							"minLength": 1,
+							"pattern": "^(?:\\/|\\$Env:)[^\\\\]+$"
+						},
+						"uniqueItems": true
 					},
 					"PathMacOS": {
 						"type": "array",
 						"items": {
 							"type": "string",
-							"minLength": 1
-						}
+							"minLength": 1,
+							"pattern": "^(?:\\/|\\$Env:)[^\\\\]+$"
+						},
+						"uniqueItems": true
 					},
 					"PathWindows": {
 						"type": "array",
 						"items": {
 							"type": "string",
-							"minLength": 1
-						}
+							"minLength": 1,
+							"pattern": "^(?:[A-Z]:\\\\|\\$Env:)[^\\/]+$"
+						},
+						"uniqueItems": true
 					}
 				},
 				"required": [
 					"Name",
 					"Description",
+					"IsManager",
 					"Postpone",
 					"APT",
 					"Chocolatey",
