@@ -46,6 +46,10 @@ If ($True -inotin @($OsIsLinux, $OsIsMac, $OsIsWindows)) {
 	docker image prune --force *>&1 |
 		Write-Output
 }
+[ScriptBlock]$DockerCommandRemoveCache = {
+	docker system prune --force *>&1 |
+		Write-Output
+}
 [ScriptBlock]$DockerCommandRemoveImage = {
 	Param ([String[]]$InputObject = @())
 	ForEach ($_ In $InputObject) {
@@ -228,38 +232,39 @@ Function Test-StringMatchRegEx {
 	Format-List |
 	Out-String -Width 120 |
 	Write-GitHubActionsDebug
-If (Get-GitHubActionsDebugStatus) {
-	Show-TreeDetail -Stage 'Before'
-}
 Write-Host -Object 'Import input.'
 [RegEx]$InputListDelimiter = Get-GitHubActionsInput -Name 'input_listdelimiter' -Mandatory -EmptyStringAsNull
 [Boolean]$OperationAsync = [Boolean]::Parse((Get-GitHubActionsInput -Name 'operate_async' -Mandatory -EmptyStringAsNull))
-[AllowEmptyCollection()][RegEx[]]$RemoveGeneralInclude = (
+[AllowEmptyCollection()][RegEx[]]$InputGeneralInclude = (
 	((Get-GitHubActionsInput -Name 'general_include' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
 ) ?? @()
-[AllowEmptyCollection()][RegEx[]]$RemoveGeneralExclude = (
+[AllowEmptyCollection()][RegEx[]]$InputGeneralExclude = (
 	((Get-GitHubActionsInput -Name 'general_exclude' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
 ) ?? @()
-[AllowEmptyCollection()][RegEx[]]$RemoveDockerImageInclude = (
-	((Get-GitHubActionsInput -Name 'dockerimage_include' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
+[AllowEmptyCollection()][RegEx[]]$InputDockerInclude = (
+	((Get-GitHubActionsInput -Name 'docker_include' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
 ) ?? @()
-[AllowEmptyCollection()][RegEx[]]$RemoveDockerImageExclude = (
-	((Get-GitHubActionsInput -Name 'dockerimage_exclude' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
+[AllowEmptyCollection()][RegEx[]]$InputDockerExclude = (
+	((Get-GitHubActionsInput -Name 'docker_exclude' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
 ) ?? @()
-[Boolean]$RemoveAptCache = [Boolean]::Parse((Get-GitHubActionsInput -Name 'cache_apt' -Mandatory -EmptyStringAsNull))
-[Boolean]$RemoveDockerCache = [Boolean]::Parse((Get-GitHubActionsInput -Name 'cache_docker' -Mandatory -EmptyStringAsNull))
-[Boolean]$RemoveHomebrewCache = [Boolean]::Parse((Get-GitHubActionsInput -Name 'cache_homebrew' -Mandatory -EmptyStringAsNull))
-[Boolean]$RemoveNpmCache = [Boolean]::Parse((Get-GitHubActionsInput -Name 'cache_npm' -Mandatory -EmptyStringAsNull))
-[Boolean]$RemoveLinuxSwap = [Boolean]::Parse((Get-GitHubActionsInput -Name 'swap' -Mandatory -EmptyStringAsNull))
+[Boolean]$InputDockerPrune = [Boolean]::Parse((Get-GitHubActionsInput -Name 'docker_prune' -Mandatory -EmptyStringAsNull))
+[Boolean]$InputDockerClean = [Boolean]::Parse((Get-GitHubActionsInput -Name 'docker_clean' -Mandatory -EmptyStringAsNull))
+[Boolean]$InputAptPrune = [Boolean]::Parse((Get-GitHubActionsInput -Name 'apt_prune' -Mandatory -EmptyStringAsNull))
+[Boolean]$InputAptClean = [Boolean]::Parse((Get-GitHubActionsInput -Name 'apt_clean' -Mandatory -EmptyStringAsNull))
+[Boolean]$InputHomebrewPrune = [Boolean]::Parse((Get-GitHubActionsInput -Name 'homebrew_prune' -Mandatory -EmptyStringAsNull))
+[Boolean]$InputHomebrewClean = [Boolean]::Parse((Get-GitHubActionsInput -Name 'homebrew_clean' -Mandatory -EmptyStringAsNull))
+[Boolean]$InputNpmPrune = [Boolean]::Parse((Get-GitHubActionsInput -Name 'npm_prune' -Mandatory -EmptyStringAsNull))
+[Boolean]$InputNpmClean = [Boolean]::Parse((Get-GitHubActionsInput -Name 'npm_clean' -Mandatory -EmptyStringAsNull))
+[Boolean]$InputLinuxSwap = [Boolean]::Parse((Get-GitHubActionsInput -Name 'linux_swap' -Mandatory -EmptyStringAsNull))
 Write-Host -Object 'Resolve operation.'
 [String[]]$DockerImageListRaw = @()
-[String[]]$DockerImageRemoveQueue = @()
-[PSCustomObject[]]$GeneralRemoveQueue = @()
-If ($DockerProgramIsExist -and $RemoveDockerImageInclude.Count -gt 0) {
+[String[]]$DockerImageRemove = @()
+[PSCustomObject[]]$GeneralRemove = @()
+If ($DockerProgramIsExist -and $InputDockerInclude.Count -gt 0) {
 	If ($OperationAsync) {
 		$Null = Start-Job -Name "$SessionId/Docker/List" -ScriptBlock $DockerCommandListImage
 	}
@@ -267,8 +272,8 @@ If ($DockerProgramIsExist -and $RemoveDockerImageInclude.Count -gt 0) {
 		$DockerImageListRaw += Invoke-Command -ScriptBlock $DockerCommandListImage
 	}
 }
-If ($RemoveGeneralInclude.Count -gt 0) {
-	$GeneralRemoveQueue += Get-Content -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.json') -Raw -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
+If ($InputGeneralInclude.Count -gt 0) {
+	$GeneralRemove += Get-Content -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.json') -Raw -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
 		ConvertFrom-Json -Depth 100 |
 		Select-Object -ExpandProperty 'content' |
 		Where-Object -FilterScript {
@@ -280,34 +285,37 @@ If ($RemoveGeneralInclude.Count -gt 0) {
 			$_.Env.Count -gt 0 -or
 			$_.($OsPathPropertyName).Count -gt 0
 		} |
-		Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralInclude) -and !(Test-StringMatchRegEx -Item $_.Name -Matcher $RemoveGeneralExclude) } |
+		Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_.Name -Matcher $InputGeneralInclude) -and !(Test-StringMatchRegEx -Item $_.Name -Matcher $InputGeneralExclude) } |
 		Sort-Object -Property 'Name'
 }
-If ($DockerProgramIsExist -and $RemoveDockerImageInclude.Count -gt 0 -and $OperationAsync) {
+If ($DockerProgramIsExist -and $InputDockerInclude.Count -gt 0 -and $OperationAsync) {
 	$DockerImageListRaw += Receive-Job -Name "$SessionId/Docker/List" -Wait -AutoRemoveJob -ErrorAction 'Continue'
 }
-$DockerImageRemoveQueue += $DockerImageListRaw |
+$DockerImageRemove += $DockerImageListRaw |
 	Join-String -Separator ',' -OutputPrefix '[' -OutputSuffix ']' |
-	ConvertFrom-Json -Depth 100 |
+	ConvertFrom-Json -Depth 100 -ErrorAction 'Continue' |
 	ForEach-Object -Process { "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" } |
-	Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_ -Matcher $RemoveDockerImageInclude) -and !(Test-StringMatchRegEx -Item $_ -Matcher $RemoveDockerImageExclude) } |
+	Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_ -Matcher $InputDockerInclude) -and !(Test-StringMatchRegEx -Item $_ -Matcher $InputDockerExclude) } |
 	Sort-Object
-If ($GeneralRemoveQueue.Count -gt 0) {
-	Write-Host -Object "Removable item [$($GeneralRemoveQueue.Count)]: $(
-		$GeneralRemoveQueue |
+If ($GeneralRemove.Count -gt 0) {
+	Write-Host -Object "Removable item [$($GeneralRemove.Count)]: $(
+		$GeneralRemove |
 			Select-Object -ExpandProperty 'Name' |
 			Join-String -Separator ', '
 	)"
 }
-If ($DockerImageRemoveQueue.Count -gt 0) {
-	Write-Host -Object "Removable Docker image [$($DockerImageRemoveQueue.Count)]: $(
-		$DockerImageRemoveQueue |
+If ($DockerImageRemove.Count -gt 0) {
+	Write-Host -Object "Removable Docker image [$($DockerImageRemove.Count)]: $(
+		$DockerImageRemove |
 			Join-String -Separator ', '
 	)"
 }
+$Script:ErrorActionPreference = 'Continue'
+If (Get-GitHubActionsDebugStatus) {
+	Show-TreeDetail -Stage 'Before'
+}
 [String[]]$OperationDispatch = @()
 [Hashtable[]]$OperationObject = @()
-$Script:ErrorActionPreference = 'Continue'
 If ($DockerProgramIsExist) {
 	If ($OperationAsync) {
 		$OperationObject += @{
@@ -315,39 +323,46 @@ If ($DockerProgramIsExist) {
 			Description = '[ASYNC] Remove Docker image.'
 			Wait = @()
 			ScriptBlock = $DockerCommandRemoveImage
-			ArgumentList = @(, $DockerImageRemoveQueue)
+			ArgumentList = @(, $DockerImageRemove)
 		}
-		If ($RemoveDockerCache) {
+		If ($InputDockerPrune) {
 			$OperationObject += @{
 				Name = "$SessionId/Docker/Prune"
 				Description = '[ASYNC] Prune Docker image.'
 				Wait = @(
-					"$SessionId/Docker/Remove"
+					"^$SessionId/Docker/Remove$"
 				)
 				ScriptBlock = $DockerCommandPruneImage
 				ArgumentList = @()
 			}
 		}
-		<#
-		Write-Host -Object '[ASYNC] Remove Docker image.'
-		$Null = Start-Job -Name "$SessionId/Docker/Remove" -ScriptBlock $DockerCommandRemoveImage -ArgumentList (, $DockerImageRemoveQueue) {
-			If ($Using:RemoveDockerCache) {
-				docker image prune --force *>&1
+		If ($InputDockerClean) {
+			$OperationObject += @{
+				Name = "$SessionId/Docker/Clean"
+				Description = '[ASYNC] Clean Docker cache.'
+				Wait = @(
+					"^$SessionId/Docker/Remove$",
+					"^$SessionId/Docker/Prune$"
+				)
+				ScriptBlock = $DockerCommandRemoveCache
+				ArgumentList = @()
 			}
 		}
-		#>
 	}
 	Else {
-		If ($DockerImageRemoveQueue.Count -gt 0) {
-			ForEach ($_DI In $DockerImageRemoveQueue) {
-				Write-Host -Object "Remove Docker image ``$_DI``."
-				Invoke-Command -ScriptBlock $DockerCommandRemoveImage -ArgumentList @(, $_DI) |
-					Write-GitHubActionsDebug
-			}
+		ForEach ($_DI In $DockerImageRemove) {
+			Write-Host -Object "Remove Docker image ``$_DI``."
+			Invoke-Command -ScriptBlock $DockerCommandRemoveImage -ArgumentList @(, $_DI) |
+				Write-GitHubActionsDebug
 		}
-		If ($RemoveDockerCache) {
+		If ($InputDockerPrune) {
 			Write-Host -Object 'Prune Docker image.'
 			Invoke-Command -ScriptBlock $DockerCommandPruneImage |
+				Write-GitHubActionsDebug
+		}
+		If ($InputDockerClean) {
+			Write-Host -Object 'Clean Docker cache.'
+			Invoke-Command -ScriptBlock $DockerCommandRemoveCache |
 				Write-GitHubActionsDebug
 		}
 	}
@@ -541,57 +556,62 @@ Function Invoke-GeneralOptimizeOperation {
 		}
 	}
 }
-<#
-ForEach ($Index In (
-	$GeneralRemoveQueue |
-		Select-Object -ExpandProperty 'Postpone' |
-		Sort-Object -Unique
-)) {
-	Invoke-GeneralOptimizeOperation -Queue (
-		$GeneralRemoveQueue |
-			Where-Object -FilterScript { $_.Postpone -eq $Index }
-	) -Index $Index
-}
-#>
 If ($OperationAsync) {
 	While ($OperationDispatch.Count -lt $OperationObject.Count) {
 		ForEach ($Operation In $OperationObject) {
-			
+			If ($Operation.Name -iin $OperationDispatch) {
+				Continue
+			}
+			If ($Operation.Wait.Count -eq 0) {
+				Write-Host -Object $Operation.Description
+				$OperationDispatch += $Operation.Name
+				Start-Job -Name $Operation.Name -ScriptBlock $Operation.ScriptBlock -ArgumentList $Operation.ArgumentList
+				Continue
+			}
 		}
 		Start-Sleep -Seconds 1
 	}
 	$Null = Wait-Job -Name "$SessionId/*" -ErrorAction 'SilentlyContinue'
 }
-If ($APTProgramIsExist -and $RemoveAptCache) {
+If ($OperationAsync -and (Get-GitHubActionsDebugStatus)) {
+	Get-Job -Name "$SessionId/*" |
+		ForEach-Object -Process {
+			Enter-GitHubActionsLogGroup -Title "$($_.Name -ireplace "^$($SessionId)\/", '') ($($_.State))"
+			Receive-Job -Name $_.Name -Wait -AutoRemoveJob
+			Exit-GitHubActionsLogGroup
+		}
+}
+If ($APTProgramIsExist -and $InputAptPrune) {
 	Write-Host -Object 'Prune APT package.'
 	apt-get --assume-yes autoremove *>&1 |
 		Write-GitHubActionsDebug
+}
+If ($APTProgramIsExist -and $InputAptClean) {
 	Write-Host -Object 'Remove APT cache.'
 	apt-get --assume-yes clean *>&1 |
 		Write-GitHubActionsDebug
 }
-If ($HomebrewProgramIsExist -and $RemoveHomebrewCache) {
+If ($HomebrewProgramIsExist -and $InputHomebrewPrune) {
 	Write-Host -Object 'Prune Homebrew package.'
 	brew autoremove *>&1 |
 		Write-GitHubActionsDebug
 }
-If ($NPMProgramIsExist -and $RemoveNpmCache) {
+If ($HomebrewProgramIsExist -and $InputHomebrewClean) {
+	Write-Host -Object 'Remove Homebrew cache.'
+	brew cleanup --prune=all -s *>&1 |
+		Write-GitHubActionsDebug
+}
+If ($NPMProgramIsExist -and $InputNpmPrune) {
+	Write-Host -Object 'Prune NPM package.'
+	npm prune *>&1 |
+		Write-GitHubActionsDebug
+}
+If ($NPMProgramIsExist -and $InputNpmClean) {
 	Write-Host -Object 'Remove NPM cache.'
 	npm cache clean --force *>&1 |
 		Write-GitHubActionsDebug
 }
-If ($OperationAsync) {
-	$Null = Wait-Job -Name "$SessionId/*" -ErrorAction 'SilentlyContinue'
-	If (Get-GitHubActionsDebugStatus) {
-		Get-Job -Name "$SessionId/*" |
-			ForEach-Object -Process {
-				Enter-GitHubActionsLogGroup -Title "$($_.Name -ireplace "^$($SessionId)\/", '') ($($_.State))"
-				Receive-Job -Name $_.Name -Wait -AutoRemoveJob
-				Exit-GitHubActionsLogGroup
-			}
-	}
-}
-If ($OsIsLinux -and $RemoveLinuxSwap) {
+If ($OsIsLinux -and $InputLinuxSwap) {
 	Write-Host -Object 'Remove Linux swap space.'
 	swapoff -a *>&1 |
 		Write-GitHubActionsDebug

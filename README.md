@@ -36,17 +36,18 @@ This action is inspired from:
 - [APT (Advanced Packaging Tools) packages][list]
 - [Chocolatey packages][list]
 - [Directly bundled programs][list]
+- Docker caches
 - Docker images
 - Homebrew caches
 - [Homebrew packages][list]
 - Linux Swap Space
-- NPM (NodeJS Package Manager) cache
+- NPM (NodeJS Package Manager) caches
 - [NPM (NodeJS Package Manager) packages][list]
 - [Pipx packages][list]
 
 ## 📚 Documentation
 
-> **⚠ Important:** This documentation is v0.4.0 based; To view other version's documentation, please visit the [versions list](https://github.com/hugoalh/disk-space-optimizer-ghaction/tags) and select the correct version.
+> **⚠ Important:** This documentation is v0.5.0 based; To view other version's documentation, please visit the [versions list](https://github.com/hugoalh/disk-space-optimizer-ghaction/tags) and select the correct version.
 
 ### Getting Started
 
@@ -81,31 +82,56 @@ jobs:
 
 **\[Optional\]** `<RegEx[]>` Exclude remove general item, by regular expression and [general list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
-#### `dockerimage_include`
+#### `docker_include`
 
 **\[Optional\]** `<RegEx[]>` Remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
-#### `dockerimage_exclude`
+#### `docker_exclude`
 
 **\[Optional\]** `<RegEx[]>` Exclude remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
 
-#### `cache_apt`
+#### `docker_prune`
 
-**\[Optional\]** `<Boolean = False>` Whether to remove APT (Advanced Packaging Tools) cache.
+**\[Optional\]** `<Boolean = False>` Whether to prune Docker all of the dangling images.
 
-#### `cache_docker`
+#### `docker_clean`
 
-**\[Optional\]** `<Boolean = False>` Whether to remove Docker cache.
+**\[Optional\]** `<Boolean = False>` Whether to remove Docker cache, include all of the:
 
-#### `cache_homebrew`
+- build caches
+- stopped/unused containers
+- dangling and/or unreferenced images
+- unused networks
 
-**\[Optional\]** `<Boolean = False>` Whether to remove Homebrew cache.
+#### `apt_prune`
 
-#### `cache_npm`
+**\[Optional\]** `<Boolean = False>` Whether to prune APT (Advanced Packaging Tools) all of the packages that were automatically installed to satisfy dependencies for other packages and are now no longer needed.
+
+#### `apt_clean`
+
+**\[Optional\]** `<Boolean = False>` Whether to remove APT (Advanced Packaging Tools) cache, include the local repository of retrieved package files.
+
+#### `homebrew_prune`
+
+**\[Optional\]** `<Boolean = False>` Whether to prune Homebrew all of the packages that were only installed as a dependency of other packages and are now no longer needed.
+
+#### `homebrew_clean`
+
+**\[Optional\]** `<Boolean = False>` Whether to remove Homebrew cache, include all of the:
+
+- outdated downloads
+- old versions of installed formulae
+- stale lock files
+
+#### `npm_prune`
+
+**\[Optional\]** `<Boolean = False>` Whether to prune NPM (NodeJS Package Manager) all of the extraneous packages.
+
+#### `npm_clean`
 
 **\[Optional\]** `<Boolean = False>` Whether to remove NPM (NodeJS Package Manager) cache.
 
-#### `swap`
+#### `linux_swap`
 
 **\[Optional\]** `<Boolean = False>` Whether to remove Linux Swap Space.
 
@@ -121,15 +147,19 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Optimize Disk Space"
-        uses: "hugoalh/disk-space-optimizer-ghaction@v0.4.0"
+        uses: "hugoalh/disk-space-optimizer-ghaction@v0.5.0"
         with:
           general_include: ".+"
-          dockerimage_include: ".+"
-          cache_apt: "True"
-          cache_docker: "True"
-          cache_homebrew: "True"
-          cache_npm: "True"
-          swap: "True"
+          docker_include: ".+"
+          docker_prune: "True"
+          docker_clean: "True"
+          apt_prune: "True"
+          apt_clean: "True"
+          homebrew_prune: "True"
+          homebrew_clean: "True"
+          npm_prune: "True"
+          npm_clean: "True"
+          linux_swap: "True"
 ```
 
 [list]: ./list.tsv

@@ -7,7 +7,7 @@ inputs:
     required: false
     default: ",|;|\\r?\\n"
   operate_async:
-    description: "{Boolean} Whether to operate in asynchronously to reduce the operation duration."
+    description: "[EXPERIMENTAL] {Boolean} Whether to operate in asynchronously to reduce the operation duration."
     required: false
     default: "False"
   general_include:
@@ -18,34 +18,78 @@ inputs:
     description: "{RegEx[]} Exclude remove general item."
     required: false
     default: ""
-  dockerimage_include:
+  docker_include:
     description: "{RegEx[]} Remove Docker image."
     required: false
     default: ""
-  dockerimage_exclude:
+  docker_exclude:
     description: "{RegEx[]} Exclude remove Docker image."
     required: false
     default: ""
-  cache_apt:
-    description: "{Boolean} Whether to remove APT cache."
+  docker_prune:
+    description: "{Boolean} Whether to prune Docker all of the dangling images."
     required: false
     default: "False"
-  cache_docker:
+  docker_clean:
     description: "{Boolean} Whether to remove Docker cache."
     required: false
     default: "False"
-  cache_homebrew:
+  apt_prune:
+    description: "{Boolean} Whether to prune APT package."
+    required: false
+    default: "False"
+  apt_clean:
+    description: "{Boolean} Whether to remove APT cache."
+    required: false
+    default: "False"
+  homebrew_prune:
+    description: "{Boolean} Whether to prune Homebrew package."
+    required: false
+    default: "False"
+  homebrew_clean:
     description: "{Boolean} Whether to remove Homebrew cache."
     required: false
     default: "False"
-  cache_npm:
-    description: "{Boolean} Whether to remove NPM cache."
+  npm_prune:
+    description: "{Boolean} Whether to prune Homebrew package."
     required: false
     default: "False"
-  swap:
+  npm_clean:
+    description: "{Boolean} Whether to remove Homebrew cache."
+    required: false
+    default: "False"
+  linux_swap:
     description: "{Boolean} Whether to remove Linux Swap Space."
     required: false
     default: "False"
+  dockerimage_include:
+    description: "{RegEx[]} Remove Docker image."
+    required: false
+    deprecationMessage: "Replaced by input `docker_include`!"
+  dockerimage_exclude:
+    description: "{RegEx[]} Exclude remove Docker image."
+    required: false
+    deprecationMessage: "Replaced by input `docker_exclude`!"
+  cache_apt:
+    description: "{Boolean} Whether to remove APT cache."
+    required: false
+    deprecationMessage: "Replaced by inputs `apt_prune` and `apt_clean`!"
+  cache_docker:
+    description: "{Boolean} Whether to remove Docker cache."
+    required: false
+    deprecationMessage: "Replaced by inputs `docker_prune` and `docker_clean`!"
+  cache_homebrew:
+    description: "{Boolean} Whether to remove Homebrew cache."
+    required: false
+    deprecationMessage: "Replaced by inputs `homebrew_prune` and `homebrew_clean`!"
+  cache_npm:
+    description: "{Boolean} Whether to remove NPM cache."
+    required: false
+    deprecationMessage: "Replaced by inputs `npm_prune` and `npm_clean`!"
+  swap:
+    description: "{Boolean} Whether to remove Linux Swap Space."
+    required: false
+    deprecationMessage: "Replaced by input `linux_swap`!"
 runs:
   using: "composite"
   steps:
@@ -56,17 +100,21 @@ runs:
     - name: "Main (Non-Windows)"
       if: "${{runner.os != 'Windows'}}"
       env:
-        INPUT_CACHE_APT: "${{inputs.cache_apt}}"
-        INPUT_CACHE_DOCKER: "${{inputs.cache_docker}}"
-        INPUT_CACHE_HOMEBREW: "${{inputs.cache_homebrew}}"
-        INPUT_CACHE_NPM: "${{inputs.cache_npm}}"
-        INPUT_DOCKERIMAGE_EXCLUDE: "${{inputs.dockerimage_exclude}}"
-        INPUT_DOCKERIMAGE_INCLUDE: "${{inputs.dockerimage_include}}"
+        INPUT_APT_CLEAN: "${{inputs.cache_apt || inputs.apt_clean}}"
+        INPUT_APT_PRUNE: "${{inputs.cache_apt || inputs.apt_prune}}"
+        INPUT_DOCKER_CLEAN: "${{inputs.cache_docker || inputs.docker_clean}}"
+        INPUT_DOCKER_EXCLUDE: "${{inputs.dockerimage_exclude || inputs.docker_exclude}}"
+        INPUT_DOCKER_INCLUDE: "${{inputs.dockerimage_include || inputs.docker_include}}"
+        INPUT_DOCKER_PRUNE: "${{inputs.cache_docker || inputs.docker_prune}}"
         INPUT_GENERAL_EXCLUDE: "${{inputs.general_exclude}}"
         INPUT_GENERAL_INCLUDE: "${{inputs.general_include}}"
+        INPUT_HOMEBREW_CLEAN: "${{inputs.cache_homebrew || inputs.homebrew_clean}}"
+        INPUT_HOMEBREW_PRUNE: "${{inputs.cache_homebrew || inputs.homebrew_prune}}"
         INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
+        INPUT_LINUX_SWAP: "${{inputs.swap || inputs.linux_swap}}"
+        INPUT_NPM_CLEAN: "${{inputs.cache_npm || inputs.npm_clean}}"
+        INPUT_NPM_PRUNE: "${{inputs.cache_npm || inputs.npm_prune}}"
         INPUT_OPERATE_ASYNC: "${{inputs.operate_async}}"
-        INPUT_SWAP: "${{inputs.swap}}"
       run: |
         sudo --non-interactive --preserve-env pwsh -NonInteractive "$GITHUB_ACTION_PATH/main.ps1"
       shell: "sh"
@@ -74,17 +122,21 @@ runs:
     - name: "Main (Windows)"
       if: "${{runner.os == 'Windows'}}"
       env:
-        INPUT_CACHE_APT: "${{inputs.cache_apt}}"
-        INPUT_CACHE_DOCKER: "${{inputs.cache_docker}}"
-        INPUT_CACHE_HOMEBREW: "${{inputs.cache_homebrew}}"
-        INPUT_CACHE_NPM: "${{inputs.cache_npm}}"
-        INPUT_DOCKERIMAGE_EXCLUDE: "${{inputs.dockerimage_exclude}}"
-        INPUT_DOCKERIMAGE_INCLUDE: "${{inputs.dockerimage_include}}"
+        INPUT_APT_CLEAN: "${{inputs.cache_apt || inputs.apt_clean}}"
+        INPUT_APT_PRUNE: "${{inputs.cache_apt || inputs.apt_prune}}"
+        INPUT_DOCKER_CLEAN: "${{inputs.cache_docker || inputs.docker_clean}}"
+        INPUT_DOCKER_EXCLUDE: "${{inputs.dockerimage_exclude || inputs.docker_exclude}}"
+        INPUT_DOCKER_INCLUDE: "${{inputs.dockerimage_include || inputs.docker_include}}"
+        INPUT_DOCKER_PRUNE: "${{inputs.cache_docker || inputs.docker_prune}}"
         INPUT_GENERAL_EXCLUDE: "${{inputs.general_exclude}}"
         INPUT_GENERAL_INCLUDE: "${{inputs.general_include}}"
+        INPUT_HOMEBREW_CLEAN: "${{inputs.cache_homebrew || inputs.homebrew_clean}}"
+        INPUT_HOMEBREW_PRUNE: "${{inputs.cache_homebrew || inputs.homebrew_prune}}"
         INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
+        INPUT_LINUX_SWAP: "${{inputs.swap || inputs.linux_swap}}"
+        INPUT_NPM_CLEAN: "${{inputs.cache_npm || inputs.npm_clean}}"
+        INPUT_NPM_PRUNE: "${{inputs.cache_npm || inputs.npm_prune}}"
         INPUT_OPERATE_ASYNC: "${{inputs.operate_async}}"
-        INPUT_SWAP: "${{inputs.swap}}"
       run: |
         pwsh -NonInteractive (Join-Path -Path $Env:GITHUB_ACTION_PATH -ChildPath 'main.ps1')
       shell: "pwsh"
