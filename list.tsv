@@ -6,7 +6,7 @@ ApacheAnt	Apache Ant	False		ant-optional, ant	ant	ant			ANT_HOME	/usr/share/ant
 ApacheHTTPD	Apache HTTPD	False		apache2, ^apache2-.*	apache-httpd	httpd				/usr/lib/apache2, /usr/share/apache2	/usr/local/etc/httpd	C:\tools\Apache*
 AWS	AWS (Amazon Web Service)	False				aws-sam-cli, session-manager-plugin				/usr/local/aws-cli, /usr/local/aws-sam-cli, /usr/local/bin/aws		
 AzCopy	AzCopy	False			azcopy10	azcopy				/usr/local/bin/azcopy, /usr/local/bin/azcopy10	/usr/local/bin/azcopy	
-Azure	Azure	False	AzCopy	azure-cli		azure-cli			AZURE_EXTENSION_DIR	/opt/az, /usr/lib/linux-azure-tools-*, /usr/lib/modules/*-azure, /usr/share/az_*		
+Azure	Azure	False	^AzCopy$	azure-cli		azure-cli			AZURE_EXTENSION_DIR	/opt/az, /usr/lib/linux-azure-tools-*, /usr/lib/modules/*-azure, /usr/share/az_*		
 Bazel	Bazel	False				bazel, bazelisk	@bazel/bazelisk			/usr/local/bin/bazel, /usr/local/lib/node_modules/@bazel		
 Bicep	Azure Bicep	False				bicep				/usr/local/bin/bicep		
 Chromium	Chromium	False				chromium			CHROMIUM_DIR	/usr/bin/chromium, /usr/bin/chromium-browser, /usr/local/share/chromium		
@@ -48,7 +48,7 @@ Miniconda	Mini Conda	False				miniconda			CONDA	/usr/bin/conda, /usr/share/minic
 MongoDB	MongoDB	False		^mongodb-.*								
 Mono	Mono	False		^mono-.*, ^monodoc-.*		mono				/usr/bin/mono-*, /usr/bin/mono, /usr/lib/mono-source-libs, /usr/lib/mono, /usr/lib/monodoc, /usr/share/mono-*, /usr/share/mono, /usr/share/monodoc		
 MSSQL	MS SQL	False		mssql-tools, unixodbc-dev						/opt/mssql-tools		$Env:PROGRAMFILES\Microsoft SQL Server\
-MSYS2	MSYS2 Pacman	True										C:\msys64
+MSYS2	MSYS2 Pacman	False										C:\msys64
 MySQL	MySQL	False		^mysql-.*, libmysqlclient-dev		mysql-client, mysql				/usr/bin/mysql*, /usr/lib/mysql, /usr/share/mysql-*, /usr/share/mysql		
 Netlify	Netlify	False				netlify-cli	netlify-cli, netlify			/usr/local/lib/node_modules/netlify, /usr/local/lib/node_modules/netlify-cli		
 Newman	Newman	False					newman			/usr/local/lib/node_modules/newman		
@@ -73,7 +73,7 @@ Stack	Stack	False								$Env:AGENT_TOOLSDIRECTORY/stack, /opt/hostedtoolcache/s
 Swift	Swift	False				swiftformat			SWIFT_PATH	/usr/local/bin/swift*, /usr/local/bin/swiftc, /usr/share/swift*		
 Terraform	Terraform	False								/usr/local/bin/terraform		
 TypeScript	TypeScript	False					typescript			/usr/local/lib/node_modules/typescript		
-VCPkg	VCPkg	True							VCPKG_INSTALLATION_ROOT	/usr/local/share/vcpkg, /root/.vcpkg	/usr/local/bin/vcpkg, /usr/local/share/vcpkg	C:\vcpkg
+VCPkg	VCPkg	False							VCPKG_INSTALLATION_ROOT	/usr/local/share/vcpkg, /root/.vcpkg	/usr/local/bin/vcpkg, /usr/local/share/vcpkg	C:\vcpkg
 Vercel	Vercel	False					vercel			/usr/local/lib/node_modules/vercel		
 VisualStudio/2019	Visual Studio 2019	False									/Applications/Visual Studio 2019*	C:\Program Files\Microsoft Visual Studio\2019
 VisualStudio/2022	Visual Studio 2022	False										C:\Program Files\Microsoft Visual Studio\2022
@@ -102,4 +102,4 @@ Xcode/9.3	Xcode 9.3	False									/Applications/Xcode_9.3_beta.app, /Application
 Xcode/9.4	Xcode 9.4	False									/Applications/Xcode_9.4_beta_2.app, /Applications/Xcode_9.4_beta.app, /Applications/Xcode_9.4-beta.app, /Applications/Xcode_9.4.app	
 Xcode/All	Xcode (All)	False	^Xcode/								/Applications/Xcode*	
 YAMLLint	YAML Lint	False						yamllint		/opt/pipx_bin/yamllint		
-Yarn	Yarn	True					yarn			/usr/local/lib/node_modules/yarn		
+Yarn	Yarn	False					yarn			/usr/local/lib/node_modules/yarn		

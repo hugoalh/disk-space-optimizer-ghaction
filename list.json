@@ -1145,7 +1145,7 @@
 		{
 			"Name": "MSYS2",
 			"Description": "MSYS2 Pacman",
-			"IsManager": true,
+			"IsManager": false,
 			"Postpone": [ ],
 			"APT": [ ],
 			"Chocolatey": [ ],
@@ -1673,7 +1673,7 @@
 		{
 			"Name": "VCPkg",
 			"Description": "VCPkg",
-			"IsManager": true,
+			"IsManager": false,
 			"Postpone": [ ],
 			"APT": [ ],
 			"Chocolatey": [ ],
@@ -2201,7 +2201,7 @@
 		{
 			"Name": "Yarn",
 			"Description": "Yarn",
-			"IsManager": true,
+			"IsManager": false,
 			"Postpone": [ ],
 			"APT": [ ],
 			"Chocolatey": [ ],

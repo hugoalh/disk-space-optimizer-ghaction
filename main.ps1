@@ -568,18 +568,35 @@ If ($OperationAsync) {
 				Start-Job -Name $Operation.Name -ScriptBlock $Operation.ScriptBlock -ArgumentList $Operation.ArgumentList
 				Continue
 			}
+			[AllowEmptyCollection()][String[]]$OperationWaitNeed = $GeneralRemove |
+				Select-Object -ExpandProperty 'Name' |
+				Where-Object -FilterScript { Test-StringMatchRegEx -Item $_ -Matcher $Operation.Wait }
+			If ($OperationWaitNeed.Count -eq 0) {
+				Write-Host -Object $Operation.Description
+				$OperationDispatch += $Operation.Name
+				Start-Job -Name $Operation.Name -ScriptBlock $Operation.ScriptBlock -ArgumentList $Operation.ArgumentList
+				Continue
+			}
+			[AllowEmptyCollection()]$OperationWaitJob = Get-Job |
+				Where-Object -FilterScript { $_.Name -iin $OperationWaitNeed }
+			If ($OperationWaitJob.State -inotcontains @('NotStarted', 'Running', 'Suspending', 'Stopping')) {
+				Write-Host -Object $Operation.Description
+				$OperationDispatch += $Operation.Name
+				Start-Job -Name $Operation.Name -ScriptBlock $Operation.ScriptBlock -ArgumentList $Operation.ArgumentList
+				Continue
+			}
 		}
 		Start-Sleep -Seconds 1
 	}
 	$Null = Wait-Job -Name "$SessionId/*" -ErrorAction 'SilentlyContinue'
-}
-If ($OperationAsync -and (Get-GitHubActionsDebugStatus)) {
-	Get-Job -Name "$SessionId/*" |
-		ForEach-Object -Process {
-			Enter-GitHubActionsLogGroup -Title "$($_.Name -ireplace "^$($SessionId)\/", '') ($($_.State))"
-			Receive-Job -Name $_.Name -Wait -AutoRemoveJob
-			Exit-GitHubActionsLogGroup
-		}
+	If (Get-GitHubActionsDebugStatus) {
+		Get-Job -Name "$SessionId/*" |
+			ForEach-Object -Process {
+				Enter-GitHubActionsLogGroup -Title "$($_.Name -ireplace "^$($SessionId)\/", '') ($($_.State))"
+				Receive-Job -Name $_.Name -Wait -AutoRemoveJob
+				Exit-GitHubActionsLogGroup
+			}
+	}
 }
 If ($APTProgramIsExist -and $InputAptPrune) {
 	Write-Host -Object 'Prune APT package.'
