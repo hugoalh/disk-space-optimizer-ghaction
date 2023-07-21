@@ -51,15 +51,19 @@ inputs:
     required: false
     default: "False"
   npm_prune:
-    description: "{Boolean} Whether to prune Homebrew package."
+    description: "{Boolean} Whether to prune NPM package."
     required: false
     default: "False"
   npm_clean:
-    description: "{Boolean} Whether to remove Homebrew cache."
+    description: "{Boolean} Whether to remove NPM cache."
     required: false
     default: "False"
-  linux_swap:
-    description: "{Boolean} Whether to remove Linux Swap Space."
+  os_log:
+    description: "{Boolean} Whether to remove all of the `.log` files in the system."
+    required: false
+    default: "False"
+  os_swap:
+    description: "{Boolean} Whether to remove system page/swap file."
     required: false
     default: "False"
   dockerimage_include:
@@ -89,7 +93,7 @@ inputs:
   swap:
     description: "{Boolean} Whether to remove Linux Swap Space."
     required: false
-    deprecationMessage: "Replaced by input `linux_swap`!"
+    deprecationMessage: "Replaced by input `os_swap`!"
 runs:
   using: "composite"
   steps:
@@ -111,10 +115,11 @@ runs:
         INPUT_HOMEBREW_CLEAN: "${{inputs.cache_homebrew || inputs.homebrew_clean}}"
         INPUT_HOMEBREW_PRUNE: "${{inputs.cache_homebrew || inputs.homebrew_prune}}"
         INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
-        INPUT_LINUX_SWAP: "${{inputs.swap || inputs.linux_swap}}"
         INPUT_NPM_CLEAN: "${{inputs.cache_npm || inputs.npm_clean}}"
         INPUT_NPM_PRUNE: "${{inputs.cache_npm || inputs.npm_prune}}"
         INPUT_OPERATE_ASYNC: "${{inputs.operate_async}}"
+        INPUT_OS_LOG: "${{inputs.os_log}}"
+        INPUT_OS_SWAP: "${{inputs.swap || inputs.os_swap}}"
       run: |
         sudo --non-interactive --preserve-env pwsh -NonInteractive "$GITHUB_ACTION_PATH/main.ps1"
       shell: "sh"
@@ -133,10 +138,11 @@ runs:
         INPUT_HOMEBREW_CLEAN: "${{inputs.cache_homebrew || inputs.homebrew_clean}}"
         INPUT_HOMEBREW_PRUNE: "${{inputs.cache_homebrew || inputs.homebrew_prune}}"
         INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
-        INPUT_LINUX_SWAP: "${{inputs.swap || inputs.linux_swap}}"
         INPUT_NPM_CLEAN: "${{inputs.cache_npm || inputs.npm_clean}}"
         INPUT_NPM_PRUNE: "${{inputs.cache_npm || inputs.npm_prune}}"
         INPUT_OPERATE_ASYNC: "${{inputs.operate_async}}"
+        INPUT_OS_LOG: "${{inputs.os_log}}"
+        INPUT_OS_SWAP: "${{inputs.swap || inputs.os_swap}}"
       run: |
         pwsh -NonInteractive (Join-Path -Path $Env:GITHUB_ACTION_PATH -ChildPath 'main.ps1')
       shell: "pwsh"

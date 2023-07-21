@@ -271,7 +271,8 @@ Write-Host -Object 'Import input.'
 [Boolean]$InputHomebrewClean = [Boolean]::Parse((Get-GitHubActionsInput -Name 'homebrew_clean' -Mandatory -EmptyStringAsNull))
 [Boolean]$InputNpmPrune = [Boolean]::Parse((Get-GitHubActionsInput -Name 'npm_prune' -Mandatory -EmptyStringAsNull))
 [Boolean]$InputNpmClean = [Boolean]::Parse((Get-GitHubActionsInput -Name 'npm_clean' -Mandatory -EmptyStringAsNull))
-[Boolean]$InputLinuxSwap = [Boolean]::Parse((Get-GitHubActionsInput -Name 'linux_swap' -Mandatory -EmptyStringAsNull))
+[Boolean]$InputOsLog = [Boolean]::Parse((Get-GitHubActionsInput -Name 'os_log' -Mandatory -EmptyStringAsNull))
+[Boolean]$InputOsSwap = [Boolean]::Parse((Get-GitHubActionsInput -Name 'os_swap' -Mandatory -EmptyStringAsNull))
 Write-Host -Object 'Resolve operation.'
 [String[]]$DockerImageListRaw = @()
 [String[]]$DockerImageRemove = @()
@@ -586,9 +587,14 @@ If ($NPMProgramIsExist) {
 			Write-GitHubActionsDebug
 	}
 }
-If ($OsIsLinux) {
-	If ($InputLinuxSwap) {
-		Write-Host -Object 'Remove Linux swap space.'
+If ($InputOsLog) {
+	Write-Host -Object 'Remove `.log` files.'
+	Get-ChildItem -LiteralPath ($OsIsWindows ? 'C:\' : '/') -Include '*.log' -Recurse -Force |
+		Remove-Item -Force -Confirm:$False -ErrorAction 'Continue'
+}
+If ($InputOsSwap) {
+	If ($OsIsLinux) {
+		Write-Host -Object 'Remove Linux page/swap file.'
 		swapoff -a *>&1 |
 			Write-GitHubActionsDebug
 		Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue'

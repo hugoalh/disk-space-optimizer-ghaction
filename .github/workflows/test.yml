@@ -32,4 +32,5 @@ jobs:
           homebrew_clean: "True"
           npm_prune: "True"
           npm_clean: "True"
-          linux_swap: "True"
+          os_log: "True"
+          os_swap: "True"

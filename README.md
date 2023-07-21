@@ -40,9 +40,10 @@ This action is inspired from:
 - Docker images
 - Homebrew caches
 - [Homebrew packages][list]
-- Linux Swap Space
 - NPM (NodeJS Package Manager) caches
 - [NPM (NodeJS Package Manager) packages][list]
+- OS logs
+- OS page/swap file
 - [Pipx packages][list]
 - [Windows programs (WMIC)][list]
 
@@ -132,9 +133,13 @@ jobs:
 
 **\[Optional\]** `<Boolean = False>` Whether to remove NPM (NodeJS Package Manager) cache.
 
-#### `linux_swap`
+#### `os_log`
 
-**\[Optional\]** `<Boolean = False>` Whether to remove Linux Swap Space.
+**\[Optional\]** `<Boolean = False>` Whether to remove all of the `.log` files in the system.
+
+#### `os_swap`
+
+**\[Optional\]** `<Boolean = False>` Whether to remove system page/swap file.
 
 ### 📤 Output
 
@@ -160,7 +165,8 @@ jobs:
           homebrew_clean: "True"
           npm_prune: "True"
           npm_clean: "True"
-          linux_swap: "True"
+          os_log: "True"
+          os_swap: "True"
 ```
 
 [list]: ./list.tsv
