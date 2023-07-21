@@ -42,14 +42,6 @@ If ($True -inotin @($OsIsLinux, $OsIsMac, $OsIsWindows)) {
 	docker image ls --all --format '{{json .}}' *>&1 |
 		Write-Output
 }
-[ScriptBlock]$DockerCommandPruneImage = {
-	docker image prune --force *>&1 |
-		Write-Output
-}
-[ScriptBlock]$DockerCommandRemoveCache = {
-	docker system prune --force *>&1 |
-		Write-Output
-}
 [ScriptBlock]$DockerCommandRemoveImage = {
 	Param ([String[]]$InputObject = @())
 	ForEach ($_ In $InputObject) {
@@ -314,55 +306,15 @@ $Script:ErrorActionPreference = 'Continue'
 If (Get-GitHubActionsDebugStatus) {
 	Show-TreeDetail -Stage 'Before'
 }
-[String[]]$OperationDispatch = @()
-[Hashtable[]]$OperationObject = @()
 If ($DockerProgramIsExist) {
 	If ($OperationAsync) {
-		$OperationObject += @{
-			Name = "$SessionId/Docker/Remove"
-			Description = '[ASYNC] Remove Docker image.'
-			Wait = @()
-			ScriptBlock = $DockerCommandRemoveImage
-			ArgumentList = @(, $DockerImageRemove)
-		}
-		If ($InputDockerPrune) {
-			$OperationObject += @{
-				Name = "$SessionId/Docker/Prune"
-				Description = '[ASYNC] Prune Docker image.'
-				Wait = @(
-					"^$SessionId/Docker/Remove$"
-				)
-				ScriptBlock = $DockerCommandPruneImage
-				ArgumentList = @()
-			}
-		}
-		If ($InputDockerClean) {
-			$OperationObject += @{
-				Name = "$SessionId/Docker/Clean"
-				Description = '[ASYNC] Clean Docker cache.'
-				Wait = @(
-					"^$SessionId/Docker/Remove$",
-					"^$SessionId/Docker/Prune$"
-				)
-				ScriptBlock = $DockerCommandRemoveCache
-				ArgumentList = @()
-			}
-		}
+		Write-Host -Object '[ASYNC] Remove Docker image.'
+		$Null = Start-Job -Name "$JobIdPrefix/Docker/Remove" -ScriptBlock $DockerCommandRemoveImage -ArgumentList @(, $DockerImageRemove)
 	}
 	Else {
 		ForEach ($_DI In $DockerImageRemove) {
 			Write-Host -Object "Remove Docker image ``$_DI``."
 			Invoke-Command -ScriptBlock $DockerCommandRemoveImage -ArgumentList @(, $_DI) |
-				Write-GitHubActionsDebug
-		}
-		If ($InputDockerPrune) {
-			Write-Host -Object 'Prune Docker image.'
-			Invoke-Command -ScriptBlock $DockerCommandPruneImage |
-				Write-GitHubActionsDebug
-		}
-		If ($InputDockerClean) {
-			Write-Host -Object 'Clean Docker cache.'
-			Invoke-Command -ScriptBlock $DockerCommandRemoveCache |
 				Write-GitHubActionsDebug
 		}
 	}
@@ -416,43 +368,23 @@ Function Invoke-GeneralOptimizeOperation {
 			}
 		If ($APTProgramIsExist -and $QueueAPT.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove APT package with postpone #$Index."
-			$Null = Start-Job -Name "$SessionId/$Index/PM/APT" -ScriptBlock {
-				ForEach ($APT In $Using:QueueAPT) {
-					apt-get --assume-yes remove $APT *>&1
-				}
-			}
+			$Null = Start-Job -Name "$SessionId/$Index/PM/APT" -ScriptBlock $APTCommandUninstallPackage -ArgumentList @(, $QueueAPT)
 		}
 		If ($ChocolateyProgramIsExist -and $QueueChocolatey.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove Chocolatey package with postpone #$Index."
-			$Null = Start-Job -Name "$SessionId/$Index/PM/Chocolatey" -ScriptBlock {
-				ForEach ($Chocolatey In $Using:QueueChocolatey) {
-					choco uninstall $Chocolatey --ignore-detected-reboot --yes *>&1
-				}
-			}
+			$Null = Start-Job -Name "$SessionId/$Index/PM/Chocolatey" -ScriptBlock $ChocolateyCommandUninstallPackage -ArgumentList @(, $QueueChocolatey)
 		}
 		If ($HomebrewProgramIsExist -and $QueueHomebrew.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove Homebrew package with postpone #$Index."
-			$Null = Start-Job -Name "$SessionId/$Index/PM/Homebrew" -ScriptBlock {
-				ForEach ($Homebrew In $Using:QueueHomebrew) {
-					brew uninstall $Homebrew *>&1
-				}
-			}
+			$Null = Start-Job -Name "$SessionId/$Index/PM/Homebrew" -ScriptBlock $HomebrewCommandUninstallPackage -ArgumentList @(, $QueueHomebrew)
 		}
 		If ($NPMProgramIsExist -and $QueueNPM.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove NPM package with postpone #$Index."
-			$Null = Start-Job -Name "$SessionId/$Index/PM/NPM" -ScriptBlock {
-				ForEach ($NPM In $Using:QueueNPM) {
-					npm --global uninstall $NPM *>&1
-				}
-			}
+			$Null = Start-Job -Name "$SessionId/$Index/PM/NPM" -ScriptBlock $NPMCommandUninstallPackage -ArgumentList @(, $QueueNPM)
 		}
 		If ($PipxProgramIsExist -and $QueuePipx.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove Pipx package with postpone #$Index."
-			$Null = Start-Job -Name "$SessionId/$Index/PM/Pipx" -ScriptBlock {
-				ForEach ($Pipx In $Using:QueuePipx) {
-					pipx uninstall $Pipx *>&1
-				}
-			}
+			$Null = Start-Job -Name "$SessionId/$Index/PM/Pipx" -ScriptBlock $PipxCommandUninstallPackage -ArgumentList @(, $QueuePipx)
 		}
 		If ($QueueFSPlain.Count -gt 0) {
 			ForEach ($FSPlain In $QueueFSPlain) {
@@ -503,38 +435,28 @@ Function Invoke-GeneralOptimizeOperation {
 		ForEach ($Item In $Queue) {
 			If ($APTProgramIsExist -and $Item.APT.Count -gt 0) {
 				Write-Host -Object "Remove $($Item.Description) via APT."
-				ForEach ($APT In $Item.APT) {
-					apt-get --assume-yes remove $APT *>&1 |
-						Write-GitHubActionsDebug
-				}
+				Invoke-Command -ScriptBlock $APTCommandUninstallPackage -ArgumentList @(, $Item.APT) |
+					Write-GitHubActionsDebug
 			}
 			If ($ChocolateyProgramIsExist -and $Item.Chocolatey.Count -gt 0) {
 				Write-Host -Object "Remove $($Item.Description) via Chocolatey."
-				ForEach ($Chocolatey In $Item.Chocolatey) {
-					choco uninstall $Chocolatey --ignore-detected-reboot --yes *>&1 |
-						Write-GitHubActionsDebug
-				}
+				Invoke-Command -ScriptBlock $ChocolateyCommandUninstallPackage -ArgumentList @(, $Item.Chocolatey) |
+					Write-GitHubActionsDebug
 			}
 			If ($HomebrewProgramIsExist -and $Item.Homebrew.Count -gt 0) {
 				Write-Host -Object "Remove $($Item.Description) via Homebrew."
-				ForEach ($Homebrew In $Item.Homebrew) {
-					brew uninstall $Homebrew *>&1 |
-						Write-GitHubActionsDebug
-				}
+				Invoke-Command -ScriptBlock $HomebrewCommandUninstallPackage -ArgumentList @(, $Item.Homebrew) |
+					Write-GitHubActionsDebug
 			}
 			If ($NPMProgramIsExist -and $Item.NPM.Count -gt 0) {
 				Write-Host -Object "Remove $($Item.Description) via NPM."
-				ForEach ($NPM In $Item.NPM) {
-					npm --global uninstall $NPM *>&1 |
-						Write-GitHubActionsDebug
-				}
+				Invoke-Command -ScriptBlock $NPMCommandUninstallPackage -ArgumentList @(, $Item.NPM) |
+					Write-GitHubActionsDebug
 			}
 			If ($PipxProgramIsExist -and $Item.Pipx.Count -gt 0) {
 				Write-Host -Object "Remove $($Item.Description) via Pipx."
-				ForEach ($Pipx In $Item.Pipx) {
-					pipx uninstall $Pipx *>&1 |
-						Write-GitHubActionsDebug
-				}
+				Invoke-Command -ScriptBlock $PipxCommandUninstallPackage -ArgumentList @(, $Item.Pipx) |
+					Write-GitHubActionsDebug
 			}
 			If ($Item.Env.Count -gt 0 -or $Item.($OsPathPropertyName).Count -gt 0) {
 				Write-Host -Object "Remove $($Item.Description) files."
@@ -556,83 +478,86 @@ Function Invoke-GeneralOptimizeOperation {
 		}
 	}
 }
+ForEach ($Index In (
+	$GeneralRemove |
+		Select-Object -ExpandProperty 'Postpone' |
+		Sort-Object -Unique
+)) {
+	Invoke-GeneralOptimizeOperation -Queue (
+		$GeneralRemove |
+			Where-Object -FilterScript { $_.Postpone -eq $Index }
+	) -Index $Index
+}
 If ($OperationAsync) {
-	While ($OperationDispatch.Count -lt $OperationObject.Count) {
-		ForEach ($Operation In $OperationObject) {
-			If ($Operation.Name -iin $OperationDispatch) {
-				Continue
-			}
-			If ($Operation.Wait.Count -eq 0) {
-				Write-Host -Object $Operation.Description
-				$OperationDispatch += $Operation.Name
-				Start-Job -Name $Operation.Name -ScriptBlock $Operation.ScriptBlock -ArgumentList $Operation.ArgumentList
-				Continue
-			}
-			[AllowEmptyCollection()][String[]]$OperationWaitNeed = $GeneralRemove |
-				Select-Object -ExpandProperty 'Name' |
-				Where-Object -FilterScript { Test-StringMatchRegEx -Item $_ -Matcher $Operation.Wait }
-			If ($OperationWaitNeed.Count -eq 0) {
-				Write-Host -Object $Operation.Description
-				$OperationDispatch += $Operation.Name
-				Start-Job -Name $Operation.Name -ScriptBlock $Operation.ScriptBlock -ArgumentList $Operation.ArgumentList
-				Continue
-			}
-			[AllowEmptyCollection()]$OperationWaitJob = Get-Job |
-				Where-Object -FilterScript { $_.Name -iin $OperationWaitNeed }
-			If ($OperationWaitJob.State -inotcontains @('NotStarted', 'Running', 'Suspending', 'Stopping')) {
-				Write-Host -Object $Operation.Description
-				$OperationDispatch += $Operation.Name
-				Start-Job -Name $Operation.Name -ScriptBlock $Operation.ScriptBlock -ArgumentList $Operation.ArgumentList
-				Continue
-			}
-		}
-		Start-Sleep -Seconds 1
-	}
 	$Null = Wait-Job -Name "$SessionId/*" -ErrorAction 'SilentlyContinue'
 	If (Get-GitHubActionsDebugStatus) {
-		Get-Job -Name "$SessionId/*" |
+		Get-Job -Name "$JobIdPrefix/*" |
 			ForEach-Object -Process {
-				Enter-GitHubActionsLogGroup -Title "$($_.Name -ireplace "^$($SessionId)\/", '') ($($_.State))"
+				Enter-GitHubActionsLogGroup -Title "$($_.Name) ($($_.State))"
 				Receive-Job -Name $_.Name -Wait -AutoRemoveJob
 				Exit-GitHubActionsLogGroup
 			}
 	}
+	Else {
+		Get-Job -Name "$JobIdPrefix/*" |
+			Remove-Job -Force -Confirm:$False
+	}
 }
-If ($APTProgramIsExist -and $InputAptPrune) {
-	Write-Host -Object 'Prune APT package.'
-	apt-get --assume-yes autoremove *>&1 |
-		Write-GitHubActionsDebug
+If ($APTProgramIsExist) {
+	If ($InputAptPrune) {
+		Write-Host -Object 'Prune APT package.'
+		apt-get --assume-yes autoremove *>&1 |
+			Write-GitHubActionsDebug
+	}
+	If ($InputAptClean) {
+		Write-Host -Object 'Remove APT cache.'
+		apt-get --assume-yes clean *>&1 |
+			Write-GitHubActionsDebug
+	}
 }
-If ($APTProgramIsExist -and $InputAptClean) {
-	Write-Host -Object 'Remove APT cache.'
-	apt-get --assume-yes clean *>&1 |
-		Write-GitHubActionsDebug
+If ($DockerProgramIsExist) {
+	If ($InputDockerPrune) {
+		Write-Host -Object 'Prune Docker image.'
+		docker image prune --force *>&1 |
+			Write-GitHubActionsDebug
+	}
+	If ($InputDockerClean) {
+		Write-Host -Object 'Clean Docker cache.'
+		docker system prune --force *>&1 |
+			Write-GitHubActionsDebug
+	}
 }
-If ($HomebrewProgramIsExist -and $InputHomebrewPrune) {
-	Write-Host -Object 'Prune Homebrew package.'
-	brew autoremove *>&1 |
-		Write-GitHubActionsDebug
+If ($HomebrewProgramIsExist) {
+	If ($InputHomebrewPrune) {
+		Write-Host -Object 'Prune Homebrew package.'
+		brew autoremove *>&1 |
+			Write-GitHubActionsDebug
+	}
+	If ($InputHomebrewClean) {
+		Write-Host -Object 'Remove Homebrew cache.'
+		brew cleanup --prune=all -s *>&1 |
+			Write-GitHubActionsDebug
+	}
 }
-If ($HomebrewProgramIsExist -and $InputHomebrewClean) {
-	Write-Host -Object 'Remove Homebrew cache.'
-	brew cleanup --prune=all -s *>&1 |
-		Write-GitHubActionsDebug
+If ($NPMProgramIsExist) {
+	If ($InputNpmPrune) {
+		Write-Host -Object 'Prune NPM package.'
+		npm prune *>&1 |
+			Write-GitHubActionsDebug
+	}
+	If ($InputNpmClean) {
+		Write-Host -Object 'Remove NPM cache.'
+		npm cache clean --force *>&1 |
+			Write-GitHubActionsDebug
+	}
 }
-If ($NPMProgramIsExist -and $InputNpmPrune) {
-	Write-Host -Object 'Prune NPM package.'
-	npm prune *>&1 |
-		Write-GitHubActionsDebug
-}
-If ($NPMProgramIsExist -and $InputNpmClean) {
-	Write-Host -Object 'Remove NPM cache.'
-	npm cache clean --force *>&1 |
-		Write-GitHubActionsDebug
-}
-If ($OsIsLinux -and $InputLinuxSwap) {
-	Write-Host -Object 'Remove Linux swap space.'
-	swapoff -a *>&1 |
-		Write-GitHubActionsDebug
-	Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+If ($OsIsLinux) {
+	If ($InputLinuxSwap) {
+		Write-Host -Object 'Remove Linux swap space.'
+		swapoff -a *>&1 |
+			Write-GitHubActionsDebug
+		Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
+	}
 }
 If (Get-GitHubActionsDebugStatus) {
 	Show-TreeDetail -Stage 'After'

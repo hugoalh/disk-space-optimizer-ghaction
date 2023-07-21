@@ -19,16 +19,9 @@
 						"type": "string",
 						"minLength": 1
 					},
-					"IsManager": {
-						"type": "boolean"
-					},
 					"Postpone": {
-						"type": "array",
-						"items": {
-							"type": "string",
-							"minLength": 1
-						},
-						"uniqueItems": true
+						"type": "integer",
+						"minimum": 0
 					},
 					"APT": {
 						"type": "array",
@@ -110,7 +103,6 @@
 				"required": [
 					"Name",
 					"Description",
-					"IsManager",
 					"Postpone",
 					"APT",
 					"Chocolatey",

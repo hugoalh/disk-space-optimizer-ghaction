@@ -4,8 +4,7 @@
 		{
 			"Name": "AliYun",
 			"Description": "AliYun (Alibaba Cloud)",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -25,8 +24,7 @@
 		{
 			"Name": "AndroidNDK",
 			"Description": "Android NDK",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -35,10 +33,10 @@
 			"NPM": [ ],
 			"Pipx": [ ],
 			"Env": [
-				"ANDROID_ROOT",
+				"ANDROID_HOME",
 				"ANDROID_NDK_ROOT",
-				"ANDROID_SDK_ROOT",
-				"ANDROID_HOME"
+				"ANDROID_ROOT",
+				"ANDROID_SDK_ROOT"
 			],
 			"PathLinux": [
 				"/usr/local/lib/android"
@@ -47,15 +45,14 @@
 				"/Users/runner/Library/Android"
 			],
 			"PathWindows": [
-				"C:\\Program Files (x86)\\Android",
-				"C:\\Android"
+				"C:\\Android",
+				"C:\\Program Files (x86)\\Android"
 			]
 		},
 		{
 			"Name": "Ansible",
 			"Description": "Ansible",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -75,8 +72,7 @@
 		{
 			"Name": "ApacheAnt",
 			"Description": "Apache Ant",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"ant-optional",
 				"ant"
@@ -101,11 +97,10 @@
 		{
 			"Name": "ApacheHTTPD",
 			"Description": "Apache HTTPD",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
-				"apache2",
-				"^apache2-.*"
+				"^apache2-.*",
+				"apache2"
 			],
 			"Chocolatey": [
 				"apache-httpd"
@@ -130,8 +125,7 @@
 		{
 			"Name": "AWS",
 			"Description": "AWS (Amazon Web Service)",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -152,8 +146,7 @@
 		{
 			"Name": "AzCopy",
 			"Description": "AzCopy",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [
 				"azcopy10"
@@ -176,10 +169,7 @@
 		{
 			"Name": "Azure",
 			"Description": "Azure",
-			"IsManager": false,
-			"Postpone": [
-				"AzCopy"
-			],
+			"Postpone": 1,
 			"APT": [
 				"azure-cli"
 			],
@@ -204,8 +194,7 @@
 		{
 			"Name": "Bazel",
 			"Description": "Bazel",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -227,8 +216,7 @@
 		{
 			"Name": "Bicep",
 			"Description": "Azure Bicep",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -246,8 +234,7 @@
 		{
 			"Name": "Chromium",
 			"Description": "Chromium",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -259,8 +246,8 @@
 				"CHROMIUM_DIR"
 			],
 			"PathLinux": [
-				"/usr/bin/chromium",
 				"/usr/bin/chromium-browser",
+				"/usr/bin/chromium",
 				"/usr/local/share/chromium"
 			],
 			"PathMacOS": [ ],
@@ -269,8 +256,7 @@
 		{
 			"Name": "Clang",
 			"Description": "Clang",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"^clang-.*",
 				"^clang-format-.*",
@@ -296,8 +282,7 @@
 		{
 			"Name": "CodeQL",
 			"Description": "CodeQL",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -320,8 +305,7 @@
 		{
 			"Name": "DotNet",
 			"Description": ".Net",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"^aspnetcore-.*",
 				"^dotnet-.*"
@@ -338,16 +322,15 @@
 				"/usr/share/dotnet"
 			],
 			"PathMacOS": [
-				"/usr/local/bin/dotnet",
-				"$Env:HOME/.dotnet"
+				"$Env:HOME/.dotnet",
+				"/usr/local/bin/dotnet"
 			],
 			"PathWindows": [ ]
 		},
 		{
 			"Name": "Erlang",
 			"Description": "Erlang",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"esl-erlang"
 			],
@@ -368,8 +351,7 @@
 		{
 			"Name": "Firefox",
 			"Description": "Mozilla Firefox Browser",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"firefox"
 			],
@@ -381,8 +363,8 @@
 			"Pipx": [ ],
 			"Env": [ ],
 			"PathLinux": [
-				"/usr/lib/firefox",
-				"/usr/lib/firefox-addons"
+				"/usr/lib/firefox-addons",
+				"/usr/lib/firefox"
 			],
 			"PathMacOS": [ ],
 			"PathWindows": [ ]
@@ -390,8 +372,7 @@
 		{
 			"Name": "G++",
 			"Description": "GNU C++ compiler",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"^g\\+\\+.*"
 			],
@@ -410,8 +391,7 @@
 		{
 			"Name": "GCC",
 			"Description": "GNU C compiler",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"gcc",
 				"^gcc-.*"
@@ -435,8 +415,7 @@
 		{
 			"Name": "GeckoWebDriver",
 			"Description": "Gecko Web Driver",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -460,11 +439,10 @@
 		{
 			"Name": "GFortran",
 			"Description": "GNU Fortran",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
-				"gfortran",
-				"^gfortran-.*"
+				"^gfortran-.*",
+				"gfortran"
 			],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -481,8 +459,7 @@
 		{
 			"Name": "Go",
 			"Description": "Go",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -505,8 +482,7 @@
 		{
 			"Name": "GoogleChrome",
 			"Description": "Google Chrome Browser",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"google-chrome-stable"
 			],
@@ -521,8 +497,8 @@
 			],
 			"PathLinux": [
 				"/opt/google/chrome",
-				"/usr/bin/google-chrome",
-				"/usr/bin/google-chrome-stable"
+				"/usr/bin/google-chrome-stable",
+				"/usr/bin/google-chrome"
 			],
 			"PathMacOS": [ ],
 			"PathWindows": [ ]
@@ -530,8 +506,7 @@
 		{
 			"Name": "GoogleChromeWebDriver",
 			"Description": "Google Chrome Web Driver",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -557,8 +532,7 @@
 		{
 			"Name": "GoogleCloudSDK",
 			"Description": "Google Cloud SDK",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"google-cloud-sdk"
 			],
@@ -580,8 +554,7 @@
 		{
 			"Name": "Gradle",
 			"Description": "Gradle",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -600,22 +573,21 @@
 		{
 			"Name": "Grunt",
 			"Description": "Grunt",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
 				"grunt-cli"
 			],
 			"NPM": [
-				"grunt",
-				"grunt-cli"
+				"grunt-cli",
+				"grunt"
 			],
 			"Pipx": [ ],
 			"Env": [ ],
 			"PathLinux": [
-				"/usr/local/lib/node_modules/grunt",
-				"/usr/local/lib/node_modules/grunt-cli"
+				"/usr/local/lib/node_modules/grunt-cli",
+				"/usr/local/lib/node_modules/grunt"
 			],
 			"PathMacOS": [ ],
 			"PathWindows": [ ]
@@ -623,22 +595,21 @@
 		{
 			"Name": "Gulp",
 			"Description": "Gulp",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
 				"gulp-cli"
 			],
 			"NPM": [
-				"gulp",
-				"gulp-cli"
+				"gulp-cli",
+				"gulp"
 			],
 			"Pipx": [ ],
 			"Env": [ ],
 			"PathLinux": [
-				"/usr/local/lib/node_modules/gulp",
-				"/usr/local/lib/node_modules/gulp-cli"
+				"/usr/local/lib/node_modules/gulp-cli",
+				"/usr/local/lib/node_modules/gulp"
 			],
 			"PathMacOS": [ ],
 			"PathWindows": [ ]
@@ -646,8 +617,7 @@
 		{
 			"Name": "HaskellGHC",
 			"Description": "Haskell GHC",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -664,8 +634,7 @@
 		{
 			"Name": "Heroku",
 			"Description": "Heroku",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -683,8 +652,7 @@
 		{
 			"Name": "HHVM",
 			"Description": "HipHop Virtual Machine",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"hhvm"
 			],
@@ -700,8 +668,7 @@
 		{
 			"Name": "ImageMagick",
 			"Description": "ImageMagick",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"imagemagick",
 				"^imagemagick-.*"
@@ -718,8 +685,7 @@
 		{
 			"Name": "Java/8",
 			"Description": "Java 8",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"temurin-8-jdk"
 			],
@@ -745,8 +711,7 @@
 		{
 			"Name": "Java/11",
 			"Description": "Java 11",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"temurin-11-jdk"
 			],
@@ -772,8 +737,7 @@
 		{
 			"Name": "Java/13",
 			"Description": "Java 13",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -797,8 +761,7 @@
 		{
 			"Name": "Java/17",
 			"Description": "Java 17",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"temurin-17-jdk"
 			],
@@ -824,10 +787,7 @@
 		{
 			"Name": "Java/All",
 			"Description": "Java (All)",
-			"IsManager": false,
-			"Postpone": [
-				"Java/*"
-			],
+			"Postpone": 1,
 			"APT": [
 				"^java-.*",
 				".*-jdk$"
@@ -854,8 +814,7 @@
 		{
 			"Name": "Julia",
 			"Description": "Julia",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [
 				"julia"
@@ -876,8 +835,7 @@
 		{
 			"Name": "Kotlin",
 			"Description": "Kotlin",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -895,8 +853,7 @@
 		{
 			"Name": "Leiningen",
 			"Description": "Leiningen",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -914,8 +871,7 @@
 		{
 			"Name": "Lerna",
 			"Description": "Lerna",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -935,8 +891,7 @@
 		{
 			"Name": "LLVM",
 			"Description": "LLVM",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"^llvm-.*"
 			],
@@ -959,8 +914,7 @@
 		{
 			"Name": "Maven",
 			"Description": "Maven",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -979,8 +933,7 @@
 		{
 			"Name": "MicrosoftEdge",
 			"Description": "Microsoft Edge",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"microsoft-edge-stable"
 			],
@@ -993,8 +946,8 @@
 			"Env": [ ],
 			"PathLinux": [
 				"/opt/microsoft/msedge",
-				"/usr/bin/microsoft-edge",
-				"/usr/bin/microsoft-edge-stable"
+				"/usr/bin/microsoft-edge-stable",
+				"/usr/bin/microsoft-edge"
 			],
 			"PathMacOS": [
 				"/Applications/Microsoft Edge.app"
@@ -1004,8 +957,7 @@
 		{
 			"Name": "MicrosoftEdgeWebDriver",
 			"Description": "Microsoft Edge Web Driver",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1030,8 +982,7 @@
 		{
 			"Name": "MicrosoftInternetExplorerWebDriver",
 			"Description": "Microsoft Internet Explorer Web Driver",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1049,8 +1000,7 @@
 		{
 			"Name": "Miniconda",
 			"Description": "Mini Conda",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -1077,8 +1027,7 @@
 		{
 			"Name": "MongoDB",
 			"Description": "MongoDB",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"^mongodb-.*"
 			],
@@ -1094,8 +1043,7 @@
 		{
 			"Name": "Mono",
 			"Description": "Mono",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"^mono-.*",
 				"^monodoc-.*"
@@ -1123,8 +1071,7 @@
 		{
 			"Name": "MSSQL",
 			"Description": "MS SQL",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"mssql-tools",
 				"unixodbc-dev"
@@ -1145,8 +1092,7 @@
 		{
 			"Name": "MSYS2",
 			"Description": "MSYS2 Pacman",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1162,8 +1108,7 @@
 		{
 			"Name": "MySQL",
 			"Description": "MySQL",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"^mysql-.*",
 				"libmysqlclient-dev"
@@ -1188,8 +1133,7 @@
 		{
 			"Name": "Netlify",
 			"Description": "Netlify",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -1211,8 +1155,7 @@
 		{
 			"Name": "Newman",
 			"Description": "Newman",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1230,8 +1173,7 @@
 		{
 			"Name": "Nginx",
 			"Description": "Nginx",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"nginx"
 			],
@@ -1253,8 +1195,7 @@
 		{
 			"Name": "NVMBuild",
 			"Description": "NVM (NodeJS Version Manager) Build",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1283,8 +1224,7 @@
 		{
 			"Name": "OpenGLDRI",
 			"Description": "OpenGL API DRI Modules",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"libgl1-mesa-dri"
 			],
@@ -1300,8 +1240,7 @@
 		{
 			"Name": "OpenShiftClient",
 			"Description": "OpenShift Client",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1317,8 +1256,7 @@
 		{
 			"Name": "Packer",
 			"Description": "Packer",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1334,8 +1272,7 @@
 		{
 			"Name": "Parcel",
 			"Description": "Parcel",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1353,8 +1290,7 @@
 		{
 			"Name": "Perl",
 			"Description": "Perl",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"^perl.*"
 			],
@@ -1373,8 +1309,7 @@
 		{
 			"Name": "PhantomJS",
 			"Description": "Phantom JS",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"phantomjs"
 			],
@@ -1384,8 +1319,8 @@
 			"Pipx": [ ],
 			"Env": [ ],
 			"PathLinux": [
-				"/usr/local/share/phantomjs*",
-				"/usr/local/bin/phantomjs"
+				"/usr/local/bin/phantomjs",
+				"/usr/local/share/phantomjs*"
 			],
 			"PathMacOS": [ ],
 			"PathWindows": [ ]
@@ -1393,8 +1328,7 @@
 		{
 			"Name": "PHP",
 			"Description": "PHP",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"^php.*",
 				"snmp"
@@ -1417,7 +1351,7 @@
 			"Name": "Pipx",
 			"Description": "Pipx",
 			"IsManager": true,
-			"Postpone": [ ],
+			"Postpone": 9,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1428,23 +1362,22 @@
 				"PIPX_HOME"
 			],
 			"PathLinux": [
-				"/opt/pipx",
 				"/opt/pipx_bin",
+				"/opt/pipx",
 				"/usr/local/bin/pipx"
 			],
 			"PathMacOS": [
 				"/opt/pipx_bin"
 			],
 			"PathWindows": [
-				"C:\\Program Files (x86)\\pipx",
-				"C:\\Program Files (x86)\\pipx_bin"
+				"C:\\Program Files (x86)\\pipx_bin",
+				"C:\\Program Files (x86)\\pipx"
 			]
 		},
 		{
 			"Name": "PostgreSQL",
 			"Description": "PostgreSQL",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"^postgresql-.*",
 				"libpq-dev"
@@ -1471,8 +1404,7 @@
 		{
 			"Name": "Pulumi",
 			"Description": "Pulumi",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1488,8 +1420,7 @@
 		{
 			"Name": "R",
 			"Description": "R",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"r-base",
 				"^r-base-.*"
@@ -1511,8 +1442,7 @@
 		{
 			"Name": "Ruby",
 			"Description": "Ruby",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"ruby",
 				"ruby3.0",
@@ -1536,8 +1466,7 @@
 		{
 			"Name": "Selenium",
 			"Description": "Selenium",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1557,8 +1486,7 @@
 		{
 			"Name": "Sphinx",
 			"Description": "Sphinx",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [
 				"sphinxsearch"
 			],
@@ -1574,8 +1502,7 @@
 		{
 			"Name": "SQLPackage",
 			"Description": "SQL Package",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1592,8 +1519,7 @@
 		{
 			"Name": "Stack",
 			"Description": "Stack",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1614,8 +1540,7 @@
 		{
 			"Name": "Swift",
 			"Description": "Swift",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [
@@ -1627,7 +1552,7 @@
 				"SWIFT_PATH"
 			],
 			"PathLinux": [
-				"/usr/local/bin/swift*",
+				"/usr/local/bin/swift",
 				"/usr/local/bin/swiftc",
 				"/usr/share/swift*"
 			],
@@ -1637,8 +1562,7 @@
 		{
 			"Name": "Terraform",
 			"Description": "Terraform",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1654,8 +1578,7 @@
 		{
 			"Name": "TypeScript",
 			"Description": "TypeScript",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1673,8 +1596,7 @@
 		{
 			"Name": "VCPkg",
 			"Description": "VCPkg",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1698,8 +1620,7 @@
 		{
 			"Name": "Vercel",
 			"Description": "Vercel",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1717,8 +1638,7 @@
 		{
 			"Name": "VisualStudio/2019",
 			"Description": "Visual Studio 2019",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1736,8 +1656,7 @@
 		{
 			"Name": "VisualStudio/2022",
 			"Description": "Visual Studio 2022",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1753,10 +1672,7 @@
 		{
 			"Name": "VisualStudio/All",
 			"Description": "Visual Studio",
-			"IsManager": false,
-			"Postpone": [
-				"VisualStudio/*"
-			],
+			"Postpone": 1,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1775,8 +1691,7 @@
 		{
 			"Name": "Webpack",
 			"Description": "Webpack",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1796,8 +1711,7 @@
 		{
 			"Name": "Xcode/8",
 			"Description": "Xcode 8",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1814,8 +1728,7 @@
 		{
 			"Name": "Xcode/8.1",
 			"Description": "Xcode 8.1",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1832,8 +1745,7 @@
 		{
 			"Name": "Xcode/9",
 			"Description": "Xcode 9",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1850,8 +1762,7 @@
 		{
 			"Name": "Xcode/9.1",
 			"Description": "Xcode 9.1",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1868,8 +1779,7 @@
 		{
 			"Name": "Xcode/9.2",
 			"Description": "Xcode 9.2",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1886,8 +1796,7 @@
 		{
 			"Name": "Xcode/9.3",
 			"Description": "Xcode 9.3",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1905,8 +1814,7 @@
 		{
 			"Name": "Xcode/9.4",
 			"Description": "Xcode 9.4",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1925,8 +1833,7 @@
 		{
 			"Name": "Xcode/11.7",
 			"Description": "Xcode 11.7",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1942,8 +1849,7 @@
 		{
 			"Name": "Xcode/12.4",
 			"Description": "Xcode 12.4",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1959,8 +1865,7 @@
 		{
 			"Name": "Xcode/12.5.1",
 			"Description": "Xcode 12.5.1",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1976,8 +1881,7 @@
 		{
 			"Name": "Xcode/13.0",
 			"Description": "Xcode 13.0",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -1993,8 +1897,7 @@
 		{
 			"Name": "Xcode/13.1",
 			"Description": "Xcode 13.1",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -2010,8 +1913,7 @@
 		{
 			"Name": "Xcode/13.2.1",
 			"Description": "Xcode 13.2.1",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -2027,8 +1929,7 @@
 		{
 			"Name": "Xcode/13.3.1",
 			"Description": "Xcode 13.3.1",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -2044,8 +1945,7 @@
 		{
 			"Name": "Xcode/13.4.1",
 			"Description": "Xcode 13.4.1",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -2061,8 +1961,7 @@
 		{
 			"Name": "Xcode/14.0.1",
 			"Description": "Xcode 14.0.1",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -2078,8 +1977,7 @@
 		{
 			"Name": "Xcode/14.1",
 			"Description": "Xcode 14.1",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -2095,8 +1993,7 @@
 		{
 			"Name": "Xcode/14.2",
 			"Description": "Xcode 14.2",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -2112,8 +2009,7 @@
 		{
 			"Name": "Xcode/14.3",
 			"Description": "Xcode 14.3",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -2129,8 +2025,7 @@
 		{
 			"Name": "Xcode/14.3.1",
 			"Description": "Xcode 14.3.1",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -2146,8 +2041,7 @@
 		{
 			"Name": "Xcode/15.0",
 			"Description": "Xcode 15.0",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -2163,10 +2057,7 @@
 		{
 			"Name": "Xcode/All",
 			"Description": "Xcode (All)",
-			"IsManager": false,
-			"Postpone": [
-				"Xcode/*"
-			],
+			"Postpone": 1,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -2182,8 +2073,7 @@
 		{
 			"Name": "YAMLLint",
 			"Description": "YAML Lint",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
@@ -2201,8 +2091,7 @@
 		{
 			"Name": "Yarn",
 			"Description": "Yarn",
-			"IsManager": false,
-			"Postpone": [ ],
+			"Postpone": 0,
 			"APT": [ ],
 			"Chocolatey": [ ],
 			"Homebrew": [ ],
