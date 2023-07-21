@@ -48,7 +48,7 @@ This action is inspired from:
 
 ## 📚 Documentation
 
-> **⚠ Important:** This documentation is v0.5.0 based; To view other version's documentation, please visit the [versions list](https://github.com/hugoalh/disk-space-optimizer-ghaction/tags) and select the correct version.
+> **⚠️ Important:** This documentation is v0.5.0 based; To view other version's documentation, please visit the [versions list](https://github.com/hugoalh/disk-space-optimizer-ghaction/tags) and select the correct version.
 
 ### Getting Started
 
