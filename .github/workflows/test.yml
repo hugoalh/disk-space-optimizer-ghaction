@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: "Optimize Disk Space"
         uses: "hugoalh/disk-space-optimizer-ghaction@main"
+        env:
+          INPUT_INTERNALTEST: "True"
         with:
           operate_async: "${{matrix.operate_async}}"
           general_include: ".+"

@@ -5,6 +5,7 @@ Get-Alias -Scope 'Local' -ErrorAction 'SilentlyContinue' |
 Import-Module -Name 'hugoalh.GitHubActionsToolkit' -Scope 'Local'
 Test-GitHubActionsEnvironment -Mandatory
 Write-Host -Object 'Initialize.'
+[Boolean]$IsInternalTest = $Env:INPUT_INTERNALTEST -iin @('1', 'True')
 [Boolean]$OsIsLinux = $Env:RUNNER_OS -ieq 'Linux'
 [Boolean]$OsIsMac = $Env:RUNNER_OS -ieq 'MacOS'
 [Boolean]$OsIsWindows = $Env:RUNNER_OS -ieq 'Windows'
@@ -303,7 +304,7 @@ If ($DockerImageRemove.Count -gt 0) {
 	)"
 }
 $Script:ErrorActionPreference = 'Continue'
-If (Get-GitHubActionsDebugStatus) {
+If ($IsInternalTest) {
 	Show-TreeDetail -Stage 'Before'
 }
 If ($DockerProgramIsExist) {
@@ -559,7 +560,7 @@ If ($OsIsLinux) {
 		Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 	}
 }
-If (Get-GitHubActionsDebugStatus) {
+If ($IsInternalTest) {
 	Show-TreeDetail -Stage 'After'
 }
 $Script:ErrorActionPreference = 'Stop'
