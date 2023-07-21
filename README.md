@@ -44,6 +44,7 @@ This action is inspired from:
 - NPM (NodeJS Package Manager) caches
 - [NPM (NodeJS Package Manager) packages][list]
 - [Pipx packages][list]
+- [Windows programs (WMIC)][list]
 
 ## 📚 Documentation
 

@@ -63,6 +63,14 @@
 						},
 						"uniqueItems": true
 					},
+					"WMIC": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						},
+						"uniqueItems": true
+					},
 					"Env": {
 						"type": "array",
 						"items": {
@@ -109,6 +117,7 @@
 					"Homebrew",
 					"NPM",
 					"Pipx",
+					"WMIC",
 					"Env",
 					"PathLinux",
 					"PathMacOS",

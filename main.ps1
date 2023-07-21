@@ -86,6 +86,18 @@ If ($True -inotin @($OsIsLinux, $OsIsMac, $OsIsWindows)) {
 			Write-Output
 	}
 }
+[Boolean]$WMICProgramIsExist = $Null -ine (Get-Command -Name 'wmic' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
+[ScriptBlock]$WMICCommandListPackage = {
+	wmic product get name *>&1 |
+		Write-Output
+}
+[ScriptBlock]$WMICCommandUninstallPackage = {
+	Param ([String[]]$InputObject = @())
+	ForEach ($_ In $InputObject) {
+		wmic product where name="$_" call uninstall *>&1 |
+			Write-Output
+	}
+}
 [String]$SessionId = (
 	New-Guid |
 		Select-Object -ExpandProperty 'Guid'
@@ -195,6 +207,12 @@ Function Show-TreeDetail {
 			Write-Host
 		Exit-GitHubActionsLogGroup
 	}
+	If ($WMICProgramIsExist) {
+		Enter-GitHubActionsLogGroup -Title "WMIC ($Stage): "
+		Invoke-Command -ScriptBlock $WMICCommandListPackage |
+			Write-Host
+		Exit-GitHubActionsLogGroup
+	}
 }
 Function Test-StringMatchRegEx {
 	[CmdletBinding()]
@@ -221,6 +239,7 @@ Function Test-StringMatchRegEx {
 	Program_Homebrew = $HomebrewProgramIsExist
 	Program_NPM = $NPMProgramIsExist
 	Program_Pipx = $PipxProgramIsExist
+	Program_WMIC = $WMICProgramIsExist
 } |
 	Format-List |
 	Out-String -Width 120 |
@@ -275,6 +294,7 @@ If ($InputGeneralInclude.Count -gt 0) {
 			($HomebrewProgramIsExist -and $_.Homebrew.Count -gt 0) -or
 			($NPMProgramIsExist -and $_.NPM.Count -gt 0) -or
 			($PipxProgramIsExist -and $_.Pipx.Count -gt 0) -or
+			($WMICProgramIsExist -and $_.WMIC.Count -gt 0) -or
 			$_.Env.Count -gt 0 -or
 			$_.($OsPathPropertyName).Count -gt 0
 		} |
@@ -353,16 +373,21 @@ Function Invoke-GeneralOptimizeOperation {
 				$_.Pipx |
 					Write-Output
 			}
+		[String[]]$QueueWMIC = $Queue |
+			ForEach-Object -Process {
+				$_.WMIC |
+					Write-Output
+			}
 		[PSCustomObject[]]$QueueFSPlain = $Queue |
 			Where-Object -FilterScript {
-				$_.APT.Count -eq 0 -and $_.Chocolatey.Count -eq 0 -and $_.Homebrew.Count -eq 0 -and $_.NPM.Count -eq 0 -and $_.Pipx.Count -eq 0 -and (
+				$_.APT.Count -eq 0 -and $_.Chocolatey.Count -eq 0 -and $_.Homebrew.Count -eq 0 -and $_.NPM.Count -eq 0 -and $_.Pipx.Count -eq 0 -and $_.WMIC.Count -eq 0 -and (
 					$_.Env.Count -gt 0 -or
 					$_.($OsPathPropertyName).Count -gt 0
 				)
 			}
 		[PSCustomObject[]]$QueueFSRest = $Queue |
 			Where-Object -FilterScript {
-				($_.APT.Count -gt 0 -or $_.Chocolatey.Count -gt 0 -or $_.Homebrew.Count -gt 0 -or $_.NPM.Count -gt 0 -or $_.Pipx.Count -gt 0) -and (
+				($_.APT.Count -gt 0 -or $_.Chocolatey.Count -gt 0 -or $_.Homebrew.Count -gt 0 -or $_.NPM.Count -gt 0 -or $_.Pipx.Count -gt 0 -or $_.WMIC.Count -gt 0) -and (
 					$_.Env.Count -gt 0 -or
 					$_.($OsPathPropertyName).Count -gt 0
 				)
@@ -386,6 +411,10 @@ Function Invoke-GeneralOptimizeOperation {
 		If ($PipxProgramIsExist -and $QueuePipx.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove Pipx package with postpone #$Index."
 			$Null = Start-Job -Name "$SessionId/$Index/PM/Pipx" -ScriptBlock $PipxCommandUninstallPackage -ArgumentList @(, $QueuePipx)
+		}
+		If ($WMICProgramIsExist -and $QueueWMIC.Count -gt 0) {
+			Write-Host -Object "[ASYNC] Remove WMIC package with postpone #$Index."
+			$Null = Start-Job -Name "$SessionId/$Index/PM/WMIC" -ScriptBlock $WMICCommandUninstallPackage -ArgumentList @(, $QueueWMIC)
 		}
 		If ($QueueFSPlain.Count -gt 0) {
 			ForEach ($FSPlain In $QueueFSPlain) {
@@ -457,6 +486,11 @@ Function Invoke-GeneralOptimizeOperation {
 			If ($PipxProgramIsExist -and $Item.Pipx.Count -gt 0) {
 				Write-Host -Object "Remove $($Item.Description) via Pipx."
 				Invoke-Command -ScriptBlock $PipxCommandUninstallPackage -ArgumentList @(, $Item.Pipx) |
+					Write-GitHubActionsDebug
+			}
+			If ($WMICProgramIsExist -and $Item.WMIC.Count -gt 0) {
+				Write-Host -Object "Remove $($Item.Description) via WMIC."
+				Invoke-Command -ScriptBlock $WMICCommandUninstallPackage -ArgumentList @(, $Item.WMIC) |
 					Write-GitHubActionsDebug
 			}
 			If ($Item.Env.Count -gt 0 -or $Item.($OsPathPropertyName).Count -gt 0) {
