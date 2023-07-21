@@ -331,7 +331,7 @@ If ($IsInternalTest) {
 If ($DockerProgramIsExist) {
 	If ($OperationAsync) {
 		Write-Host -Object '[ASYNC] Remove Docker image.'
-		$Null = Start-Job -Name "$JobIdPrefix/Docker/Remove" -ScriptBlock $DockerCommandRemoveImage -ArgumentList @(, $DockerImageRemove)
+		$Null = Start-Job -Name "$SessionId/Docker/Remove" -ScriptBlock $DockerCommandRemoveImage -ArgumentList @(, $DockerImageRemove)
 	}
 	Else {
 		ForEach ($_DI In $DockerImageRemove) {
@@ -527,7 +527,7 @@ ForEach ($Index In (
 If ($OperationAsync) {
 	$Null = Wait-Job -Name "$SessionId/*" -ErrorAction 'SilentlyContinue'
 	If (Get-GitHubActionsDebugStatus) {
-		Get-Job -Name "$JobIdPrefix/*" |
+		Get-Job -Name "$SessionId/*" |
 			ForEach-Object -Process {
 				Enter-GitHubActionsLogGroup -Title "$($_.Name) ($($_.State))"
 				Receive-Job -Name $_.Name -Wait -AutoRemoveJob
@@ -535,7 +535,7 @@ If ($OperationAsync) {
 			}
 	}
 	Else {
-		Get-Job -Name "$JobIdPrefix/*" |
+		Get-Job -Name "$SessionId/*" |
 			Remove-Job -Force -Confirm:$False
 	}
 }
