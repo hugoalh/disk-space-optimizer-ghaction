@@ -178,7 +178,7 @@
 			"Description": "Azure",
 			"IsManager": false,
 			"Postpone": [
-				"^AzCopy$"
+				"AzCopy"
 			],
 			"APT": [
 				"azure-cli"
@@ -826,7 +826,7 @@
 			"Description": "Java (All)",
 			"IsManager": false,
 			"Postpone": [
-				"^Java/"
+				"Java/*"
 			],
 			"APT": [
 				"^java-.*",
@@ -1755,7 +1755,7 @@
 			"Description": "Visual Studio",
 			"IsManager": false,
 			"Postpone": [
-				"^VisualStudio/"
+				"VisualStudio/*"
 			],
 			"APT": [ ],
 			"Chocolatey": [ ],
@@ -2165,7 +2165,7 @@
 			"Description": "Xcode (All)",
 			"IsManager": false,
 			"Postpone": [
-				"^Xcode/"
+				"Xcode/*"
 			],
 			"APT": [ ],
 			"Chocolatey": [ ],

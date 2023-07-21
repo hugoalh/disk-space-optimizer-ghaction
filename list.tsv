@@ -6,7 +6,7 @@ ApacheAnt	Apache Ant	False		ant-optional, ant	ant	ant			ANT_HOME	/usr/share/ant
 ApacheHTTPD	Apache HTTPD	False		apache2, ^apache2-.*	apache-httpd	httpd				/usr/lib/apache2, /usr/share/apache2	/usr/local/etc/httpd	C:\tools\Apache*
 AWS	AWS (Amazon Web Service)	False				aws-sam-cli, session-manager-plugin				/usr/local/aws-cli, /usr/local/aws-sam-cli, /usr/local/bin/aws		
 AzCopy	AzCopy	False			azcopy10	azcopy				/usr/local/bin/azcopy, /usr/local/bin/azcopy10	/usr/local/bin/azcopy	
-Azure	Azure	False	^AzCopy$	azure-cli		azure-cli			AZURE_EXTENSION_DIR	/opt/az, /usr/lib/linux-azure-tools-*, /usr/lib/modules/*-azure, /usr/share/az_*		
+Azure	Azure	False	AzCopy	azure-cli		azure-cli			AZURE_EXTENSION_DIR	/opt/az, /usr/lib/linux-azure-tools-*, /usr/lib/modules/*-azure, /usr/share/az_*		
 Bazel	Bazel	False				bazel, bazelisk	@bazel/bazelisk			/usr/local/bin/bazel, /usr/local/lib/node_modules/@bazel		
 Bicep	Azure Bicep	False				bicep				/usr/local/bin/bicep		
 Chromium	Chromium	False				chromium			CHROMIUM_DIR	/usr/bin/chromium, /usr/bin/chromium-browser, /usr/local/share/chromium		
@@ -34,7 +34,7 @@ Java/11	Java 11	False		temurin-11-jdk					JAVA_HOME_11_X64	$Env:AGENT_TOOLSDIREC
 Java/13	Java 13	False							JAVA_HOME_13_X64	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*, /opt/hostedtoolcache/Java_*_jdk/13.*, /usr/lib/jvm/*-13-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\13.*
 Java/17	Java 17	False		temurin-17-jdk					JAVA_HOME_17_X64	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*, /opt/hostedtoolcache/Java_*_jdk/17.*, /usr/lib/jvm/*-17-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\17.*
 Java/8	Java 8	False		temurin-8-jdk					JAVA_HOME_8_X64	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*, /opt/hostedtoolcache/Java_*_jdk/8.*, /usr/lib/jvm/*-8-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\8.*
-Java/All	Java (All)	False	^Java/	^java-.*, .*-jdk$					JAVA_HOME	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk, /opt/hostedtoolcache/Java_*_jdk, /usr/lib/jvm	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk
+Java/All	Java (All)	False	Java/*	^java-.*, .*-jdk$					JAVA_HOME	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk, /opt/hostedtoolcache/Java_*_jdk, /usr/lib/jvm	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk
 Julia	Julia	False			julia	julia				/usr/local/julia*, /usr/bin/julia		
 Kotlin	Kotlin	False				kotlin				/usr/share/kotlinc		
 Leiningen	Leiningen	False							LEIN_HOME	/usr/local/bin/lein		
@@ -77,7 +77,7 @@ VCPkg	VCPkg	False							VCPKG_INSTALLATION_ROOT	/usr/local/share/vcpkg, /root/.v
 Vercel	Vercel	False					vercel			/usr/local/lib/node_modules/vercel		
 VisualStudio/2019	Visual Studio 2019	False									/Applications/Visual Studio 2019*	C:\Program Files\Microsoft Visual Studio\2019
 VisualStudio/2022	Visual Studio 2022	False										C:\Program Files\Microsoft Visual Studio\2022
-VisualStudio/All	Visual Studio	False	^VisualStudio/								/Applications/Visual Studio*	C:\Program Files\Microsoft Visual Studio, C:\ProgramData\Microsoft\VisualStudio
+VisualStudio/All	Visual Studio	False	VisualStudio/*								/Applications/Visual Studio*	C:\Program Files\Microsoft Visual Studio, C:\ProgramData\Microsoft\VisualStudio
 Webpack	Webpack	False					webpack-cli, webpack			/usr/local/lib/node_modules/webpack-cli, /usr/local/lib/node_modules/webpack		
 Xcode/11.7	Xcode 11.7	False									/Applications/Xcode_11.7.app	
 Xcode/12.4	Xcode 12.4	False									/Applications/Xcode_12.4.app	
@@ -100,6 +100,6 @@ Xcode/9.1	Xcode 9.1	False									/Applications/Xcode_9.1.app, /Applications/Xco
 Xcode/9.2	Xcode 9.2	False									/Applications/Xcode_9.2.app, /Applications/Xcode92.app	
 Xcode/9.3	Xcode 9.3	False									/Applications/Xcode_9.3_beta.app, /Applications/Xcode_9.3.app, /Applications/Xcode93.app	
 Xcode/9.4	Xcode 9.4	False									/Applications/Xcode_9.4_beta_2.app, /Applications/Xcode_9.4_beta.app, /Applications/Xcode_9.4-beta.app, /Applications/Xcode_9.4.app	
-Xcode/All	Xcode (All)	False	^Xcode/								/Applications/Xcode*	
+Xcode/All	Xcode (All)	False	Xcode/*								/Applications/Xcode*	
 YAMLLint	YAML Lint	False						yamllint		/opt/pipx_bin/yamllint		
 Yarn	Yarn	False					yarn			/usr/local/lib/node_modules/yarn		
