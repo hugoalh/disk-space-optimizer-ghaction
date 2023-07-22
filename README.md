@@ -42,7 +42,6 @@ This action is inspired from:
 - [Homebrew packages][list]
 - NPM (NodeJS Package Manager) caches
 - [NPM (NodeJS Package Manager) packages][list]
-- OS logs
 - OS page/swap file
 - [Pipx packages][list]
 - [Windows programs (WMIC)][list]
@@ -133,10 +132,6 @@ jobs:
 
 **\[Optional\]** `<Boolean = False>` Whether to remove NPM (NodeJS Package Manager) cache.
 
-#### `os_log`
-
-**\[Optional\]** `<Boolean = False>` Whether to remove all of the `.log` files in the system.
-
 #### `os_swap`
 
 **\[Optional\]** `<Boolean = False>` Whether to remove system page/swap file.
@@ -165,7 +160,6 @@ jobs:
           homebrew_clean: "True"
           npm_prune: "True"
           npm_clean: "True"
-          os_log: "True"
           os_swap: "True"
 ```
 

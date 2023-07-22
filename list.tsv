@@ -58,8 +58,6 @@ Nginx	Nginx	0	nginx		nginx						/usr/local/etc/nginx	C:\tools\nginx*
 NVMBuild	NVM (NodeJS Version Manager) Build	0								/home/runner/.nvm/.dockerignore, /home/runner/.nvm/.editorconfig, /home/runner/.nvm/.git, /home/runner/.nvm/.github, /home/runner/.nvm/.gitignore, /home/runner/.nvm/.mailmap, /home/runner/.nvm/.npmrc, /home/runner/.nvm/.travis.yml, /home/runner/.nvm/CODE_OF_CONDUCT.md, /home/runner/.nvm/CONTRIBUTING.md, /home/runner/.nvm/Dockerfile, /home/runner/.nvm/GOVERNANCE.md, /home/runner/.nvm/ROADMAP.md, /home/runner/.nvm/test	/Users/runner/.nvm/.dockerignore, /Users/runner/.nvm/.editorconfig, /Users/runner/.nvm/.git, /Users/runner/.nvm/.github, /Users/runner/.nvm/.gitignore, /Users/runner/.nvm/.mailmap, /Users/runner/.nvm/.npmrc, /Users/runner/.nvm/.travis.yml, /Users/runner/.nvm/CODE_OF_CONDUCT.md, /Users/runner/.nvm/CONTRIBUTING.md, /Users/runner/.nvm/Dockerfile, /Users/runner/.nvm/GOVERNANCE.md, /Users/runner/.nvm/ROADMAP.md, /Users/runner/.nvm/test	
 OpenGLDRI	OpenGL API DRI Modules	0	libgl1-mesa-dri									
 OpenShiftClient	OpenShift Client	0								/usr/local/bin/oc		
-OSDocumentation	OS Documentation	9								/usr/share/doc		
-OSManpage	OS Manpage	9								/usr/share/man	/usr/local/share/man, /usr/share/man, /usr/X11/share/man	
 Packer	Packer	0								/usr/local/bin/packer		
 Parcel	Parcel	0				parcel				/usr/local/lib/node_modules/parcel		
 Perl	Perl	0	^perl.*							/usr/bin/perl*, /usr/share/perl*		

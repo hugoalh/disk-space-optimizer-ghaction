@@ -58,10 +58,6 @@ inputs:
     description: "{Boolean} Whether to remove NPM cache."
     required: false
     default: "False"
-  os_log:
-    description: "{Boolean} Whether to remove all of the `.log` files in the system."
-    required: false
-    default: "False"
   os_swap:
     description: "{Boolean} Whether to remove system page/swap file."
     required: false
@@ -101,6 +97,18 @@ runs:
       uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.4.0"
       with:
         version: "^1.6.0"
+    - name: "Debug Before (Non-Windows)"
+      if: "${{runner.os != 'Windows' && env.INPUT_INTERNALTEST == 'true'}}"
+      run: |
+        sudo --non-interactive --preserve-env pwsh -NonInteractive "$GITHUB_ACTION_PATH/debug.ps1"
+      shell: "sh"
+      continue-on-error: true
+    - name: "Debug Before (Windows)"
+      if: "${{runner.os == 'Windows' && env.INPUT_INTERNALTEST == 'true'}}"
+      run: |
+        pwsh -NonInteractive (Join-Path -Path $Env:GITHUB_ACTION_PATH -ChildPath 'debug.ps1')
+      shell: "pwsh"
+      continue-on-error: true
     - name: "Main (Non-Windows)"
       if: "${{runner.os != 'Windows'}}"
       env:
@@ -118,7 +126,6 @@ runs:
         INPUT_NPM_CLEAN: "${{inputs.cache_npm || inputs.npm_clean}}"
         INPUT_NPM_PRUNE: "${{inputs.cache_npm || inputs.npm_prune}}"
         INPUT_OPERATE_ASYNC: "${{inputs.operate_async}}"
-        INPUT_OS_LOG: "${{inputs.os_log}}"
         INPUT_OS_SWAP: "${{inputs.swap || inputs.os_swap}}"
       run: |
         sudo --non-interactive --preserve-env pwsh -NonInteractive "$GITHUB_ACTION_PATH/main.ps1"
@@ -141,10 +148,21 @@ runs:
         INPUT_NPM_CLEAN: "${{inputs.cache_npm || inputs.npm_clean}}"
         INPUT_NPM_PRUNE: "${{inputs.cache_npm || inputs.npm_prune}}"
         INPUT_OPERATE_ASYNC: "${{inputs.operate_async}}"
-        INPUT_OS_LOG: "${{inputs.os_log}}"
         INPUT_OS_SWAP: "${{inputs.swap || inputs.os_swap}}"
       run: |
         pwsh -NonInteractive (Join-Path -Path $Env:GITHUB_ACTION_PATH -ChildPath 'main.ps1')
+      shell: "pwsh"
+      continue-on-error: true
+    - name: "Debug After (Non-Windows)"
+      if: "${{runner.os != 'Windows' && env.INPUT_INTERNALTEST == 'true'}}"
+      run: |
+        sudo --non-interactive --preserve-env pwsh -NonInteractive "$GITHUB_ACTION_PATH/debug.ps1"
+      shell: "sh"
+      continue-on-error: true
+    - name: "Debug After (Windows)"
+      if: "${{runner.os == 'Windows' && env.INPUT_INTERNALTEST == 'true'}}"
+      run: |
+        pwsh -NonInteractive (Join-Path -Path $Env:GITHUB_ACTION_PATH -ChildPath 'debug.ps1')
       shell: "pwsh"
       continue-on-error: true
 branding:

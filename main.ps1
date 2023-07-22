@@ -3,101 +3,14 @@ $Script:ErrorActionPreference = 'Stop'
 Get-Alias -Scope 'Local' -ErrorAction 'SilentlyContinue' |
 	Remove-Alias -Scope 'Local' -Force -ErrorAction 'SilentlyContinue'
 Import-Module -Name 'hugoalh.GitHubActionsToolkit' -Scope 'Local'
+Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath 'common.psm1') -Scope 'Local'
 Test-GitHubActionsEnvironment -Mandatory
 Write-Host -Object 'Initialize.'
-[Boolean]$IsInternalTest = $Env:INPUT_INTERNALTEST -iin @('1', 'True')
-[Boolean]$OsIsLinux = $Env:RUNNER_OS -ieq 'Linux'
-[Boolean]$OsIsMac = $Env:RUNNER_OS -ieq 'MacOS'
-[Boolean]$OsIsWindows = $Env:RUNNER_OS -ieq 'Windows'
 If ($True -inotin @($OsIsLinux, $OsIsMac, $OsIsWindows)) {
 	Write-GitHubActionsWarning -Message "``$Env:RUNNER_OS`` is not an supported runner OS!"
 	Exit 0
 }
 [String]$OsPathPropertyName = "Path$($Env:RUNNER_OS)"
-[Boolean]$APTProgramIsExist = $Null -ine (Get-Command -Name 'apt-get' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
-[ScriptBlock]$APTCommandListPackage = {
-	apt list --installed *>&1 |
-		Write-Output
-}
-[ScriptBlock]$APTCommandUninstallPackage = {
-	Param ([String[]]$InputObject = @())
-	ForEach ($_ In $InputObject) {
-		apt-get --assume-yes remove $_ *>&1 |
-			Write-Output
-	}
-}
-[Boolean]$ChocolateyProgramIsExist = $Null -ine (Get-Command -Name 'choco' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
-[ScriptBlock]$ChocolateyCommandListPackage = {
-	choco list --include-programs --no-progress --prerelease *>&1 |
-		Write-Output
-}
-[ScriptBlock]$ChocolateyCommandUninstallPackage = {
-	Param ([String[]]$InputObject = @())
-	ForEach ($_ In $InputObject) {
-		choco uninstall $_ --ignore-detected-reboot --yes *>&1 |
-			Write-Output
-	}
-}
-[Boolean]$DockerProgramIsExist = $Null -ine (Get-Command -Name 'docker' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
-[ScriptBlock]$DockerCommandListImage = {
-	docker image ls --all --format '{{json .}}' *>&1 |
-		Write-Output
-}
-[ScriptBlock]$DockerCommandRemoveImage = {
-	Param ([String[]]$InputObject = @())
-	ForEach ($_ In $InputObject) {
-		docker image rm $_ *>&1 |
-			Write-Output
-	}
-}
-[Boolean]$HomebrewProgramIsExist = $Null -ine (Get-Command -Name 'brew' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
-[ScriptBlock]$HomebrewCommandListPackage = {
-	brew list -1 --versions *>&1 |
-		Write-Output
-}
-[ScriptBlock]$HomebrewCommandUninstallPackage = {
-	Param ([String[]]$InputObject = @())
-	ForEach ($_ In $InputObject) {
-		brew uninstall $_ *>&1 |
-			Write-Output
-	}
-}
-[Boolean]$NPMProgramIsExist = $Null -ine (Get-Command -Name 'npm' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
-[ScriptBlock]$NPMCommandListPackage = {
-	npm --global list *>&1 |
-		Write-Output
-}
-[ScriptBlock]$NPMCommandUninstallPackage = {
-	Param ([String[]]$InputObject = @())
-	ForEach ($_ In $InputObject) {
-		npm --global uninstall $_ *>&1 |
-			Write-Output
-	}
-}
-[Boolean]$PipxProgramIsExist = $Null -ine (Get-Command -Name 'pipx' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
-[ScriptBlock]$PipxCommandListPackage = {
-	pipx list --json *>&1 |
-		Write-Output
-}
-[ScriptBlock]$PipxCommandUninstallPackage = {
-	Param ([String[]]$InputObject = @())
-	ForEach ($_ In $InputObject) {
-		pipx uninstall $_ *>&1 |
-			Write-Output
-	}
-}
-[Boolean]$WMICProgramIsExist = $Null -ine (Get-Command -Name 'wmic' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
-[ScriptBlock]$WMICCommandListPackage = {
-	wmic product get name *>&1 |
-		Write-Output
-}
-[ScriptBlock]$WMICCommandUninstallPackage = {
-	Param ([String[]]$InputObject = @())
-	ForEach ($_ In $InputObject) {
-		wmic product where name="$_" call uninstall *>&1 |
-			Write-Output
-	}
-}
 [String]$SessionId = (
 	New-Guid |
 		Select-Object -ExpandProperty 'Guid'
@@ -115,103 +28,6 @@ Function Get-DiskSpace {
 		df -h |
 			Join-String -Separator "`n" |
 			Write-Output
-	}
-}
-Function Show-TreeDetail {
-	[CmdletBinding()]
-	[OutputType([Void])]
-	Param (
-		[Parameter(Mandatory = $True, Position = 0)][String]$Stage
-	)
-	Enter-GitHubActionsLogGroup -Title "Path ($Stage): "
-	[String[]]$PathTree = @()
-	If ($OsIsLinux) {
-		$PathTree += @(
-			$Env:AGENT_TOOLSDIRECTORY,
-			$Env:HOME,
-			'/opt',
-			'/usr/bin',
-			'/usr/lib',
-			'/usr/local',
-			'/usr/sbin',
-			'/usr/share'
-		)
-	}
-	If ($OsIsMac) {
-		$PathTree += @(
-			$Env:AGENT_TOOLSDIRECTORY,
-			$Env:HOME,
-			'/Applications',
-			'/opt',
-			'/Users/runner',
-			'/usr/bin',
-			'/usr/lib',
-			'/usr/local',
-			'/usr/sbin',
-			'/usr/share'
-		)
-	}
-	If ($OsIsWindows) {
-		$PathTree += @(
-			$Env:APPDATA,
-			$Env:LOCALAPPDATA,
-			'C:\',
-			'C:\Program Files (x86)',
-			'C:\Program Files',
-			'C:\ProgramData',
-			'C:\Users',
-			'D:\'
-		)
-	}
-	$PathTree |
-		ForEach-Object -Process {
-			Get-ChildItem -LiteralPath $_ -Recurse -Depth 2 -Force -ErrorAction 'Continue'
-		} |
-		Select-Object -ExpandProperty 'FullName' |
-		Sort-Object -Unique |
-		Write-Host
-	Exit-GitHubActionsLogGroup
-	If ($APTProgramIsExist) {
-		Enter-GitHubActionsLogGroup -Title "APT ($Stage): "
-		Invoke-Command -ScriptBlock $APTCommandListPackage |
-			Write-Host
-		Exit-GitHubActionsLogGroup
-	}
-	If ($ChocolateyProgramIsExist) {
-		Enter-GitHubActionsLogGroup -Title "Chocolatey ($Stage): "
-		Invoke-Command -ScriptBlock $ChocolateyCommandListPackage |
-			Write-Host
-		Exit-GitHubActionsLogGroup
-	}
-	If ($DockerProgramIsExist) {
-		Enter-GitHubActionsLogGroup -Title "Docker ($Stage): "
-		Invoke-Command -ScriptBlock $DockerCommandListImage |
-			Write-Host
-		Exit-GitHubActionsLogGroup
-	}
-	If ($HomebrewProgramIsExist) {
-		Enter-GitHubActionsLogGroup -Title "Homebrew ($Stage): "
-		Invoke-Command -ScriptBlock $HomebrewCommandListPackage |
-			Write-Host
-		Exit-GitHubActionsLogGroup
-	}
-	If ($NPMProgramIsExist) {
-		Enter-GitHubActionsLogGroup -Title "NPM ($Stage): "
-		Invoke-Command -ScriptBlock $NPMCommandListPackage |
-			Write-Host
-		Exit-GitHubActionsLogGroup
-	}
-	If ($PipxProgramIsExist) {
-		Enter-GitHubActionsLogGroup -Title "Pipx ($Stage): "
-		Invoke-Command -ScriptBlock $PipxCommandListPackage |
-			Write-Host
-		Exit-GitHubActionsLogGroup
-	}
-	If ($WMICProgramIsExist) {
-		Enter-GitHubActionsLogGroup -Title "WMIC ($Stage): "
-		Invoke-Command -ScriptBlock $WMICCommandListPackage |
-			Write-Host
-		Exit-GitHubActionsLogGroup
 	}
 }
 Function Test-StringMatchRegEx {
@@ -271,7 +87,6 @@ Write-Host -Object 'Import input.'
 [Boolean]$InputHomebrewClean = [Boolean]::Parse((Get-GitHubActionsInput -Name 'homebrew_clean' -Mandatory -EmptyStringAsNull))
 [Boolean]$InputNpmPrune = [Boolean]::Parse((Get-GitHubActionsInput -Name 'npm_prune' -Mandatory -EmptyStringAsNull))
 [Boolean]$InputNpmClean = [Boolean]::Parse((Get-GitHubActionsInput -Name 'npm_clean' -Mandatory -EmptyStringAsNull))
-[Boolean]$InputOsLog = [Boolean]::Parse((Get-GitHubActionsInput -Name 'os_log' -Mandatory -EmptyStringAsNull))
 [Boolean]$InputOsSwap = [Boolean]::Parse((Get-GitHubActionsInput -Name 'os_swap' -Mandatory -EmptyStringAsNull))
 Write-Host -Object 'Resolve operation.'
 [String[]]$DockerImageListRaw = @()
@@ -325,9 +140,6 @@ If ($DockerImageRemove.Count -gt 0) {
 	)"
 }
 $Script:ErrorActionPreference = 'Continue'
-If ($IsInternalTest) {
-	Show-TreeDetail -Stage 'Before'
-}
 If ($DockerProgramIsExist) {
 	If ($OperationAsync) {
 		Write-Host -Object '[ASYNC] Remove Docker image.'
@@ -587,11 +399,6 @@ If ($NPMProgramIsExist) {
 			Write-GitHubActionsDebug
 	}
 }
-If ($InputOsLog) {
-	Write-Host -Object 'Remove `.log` files.'
-	Get-ChildItem -LiteralPath ($OsIsWindows ? 'C:\' : '/') -Include '*.log' -Recurse -Force |
-		Remove-Item -Force -Confirm:$False -ErrorAction 'Continue'
-}
 If ($InputOsSwap) {
 	If ($OsIsLinux) {
 		Write-Host -Object 'Remove Linux page/swap file.'
@@ -599,9 +406,6 @@ If ($InputOsSwap) {
 			Write-GitHubActionsDebug
 		Remove-Item -LiteralPath '/mnt/swapfile' -Recurse -Force -Confirm:$False -ErrorAction 'Continue'
 	}
-}
-If ($IsInternalTest) {
-	Show-TreeDetail -Stage 'After'
 }
 $Script:ErrorActionPreference = 'Stop'
 [String]$DiskSpaceAfter = Get-DiskSpace

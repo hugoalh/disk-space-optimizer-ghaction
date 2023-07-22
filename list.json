@@ -370,7 +370,9 @@
 				"/Users/runner/.dotnet",
 				"/usr/local/bin/dotnet"
 			],
-			"PathWindows": [ ]
+			"PathWindows": [
+				"C:\\Program Files (x86)\\dotnet"
+			]
 		},
 		{
 			"Name": "EpicGames",
@@ -388,7 +390,9 @@
 			"Env": [ ],
 			"PathLinux": [ ],
 			"PathMacOS": [ ],
-			"PathWindows": [ ]
+			"PathWindows": [
+				"C:\\Program Files (x86)\\Epic Games"
+			]
 		},
 		{
 			"Name": "Erlang",
@@ -759,6 +763,24 @@
 			"PathWindows": [ ]
 		},
 		{
+			"Name": "IIS",
+			"Description": "IIS",
+			"Postpone": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"WMIC": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [
+				"C:\\Program Files (x86)\\IIS Express",
+				"C:\\Program Files (x86)\\IIS"
+			]
+		},
+		{
 			"Name": "ImageMagick",
 			"Description": "ImageMagick",
 			"Postpone": 0,
@@ -775,6 +797,23 @@
 			"PathLinux": [ ],
 			"PathMacOS": [ ],
 			"PathWindows": [ ]
+		},
+		{
+			"Name": "InnoSetup",
+			"Description": "Inno Setup",
+			"Postpone": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"WMIC": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [
+				"C:\\Program Files (x86)\\Inno Setup*"
+			]
 		},
 		{
 			"Name": "Java/8",
@@ -1120,6 +1159,23 @@
 			]
 		},
 		{
+			"Name": "MicrosoftInternetExplorer",
+			"Description": "Microsoft Internet Explorer",
+			"Postpone": 0,
+			"APT": [ ],
+			"Chocolatey": [ ],
+			"Homebrew": [ ],
+			"NPM": [ ],
+			"Pipx": [ ],
+			"WMIC": [ ],
+			"Env": [ ],
+			"PathLinux": [ ],
+			"PathMacOS": [ ],
+			"PathWindows": [
+				"C:\\Program Files (x86)\\Internet Explorer"
+			]
+		},
+		{
 			"Name": "MicrosoftInternetExplorerWebDriver",
 			"Description": "Microsoft Internet Explorer Web Driver",
 			"Postpone": 0,
@@ -1424,44 +1480,6 @@
 				"/usr/local/bin/oc"
 			],
 			"PathMacOS": [ ],
-			"PathWindows": [ ]
-		},
-		{
-			"Name": "OSDocumentation",
-			"Description": "OS Documentation",
-			"Postpone": 9,
-			"APT": [ ],
-			"Chocolatey": [ ],
-			"Homebrew": [ ],
-			"NPM": [ ],
-			"Pipx": [ ],
-			"WMIC": [ ],
-			"Env": [ ],
-			"PathLinux": [
-				"/usr/share/doc"
-			],
-			"PathMacOS": [ ],
-			"PathWindows": [ ]
-		},
-		{
-			"Name": "OSManpage",
-			"Description": "OS Manpage",
-			"Postpone": 9,
-			"APT": [ ],
-			"Chocolatey": [ ],
-			"Homebrew": [ ],
-			"NPM": [ ],
-			"Pipx": [ ],
-			"WMIC": [ ],
-			"Env": [ ],
-			"PathLinux": [
-				"/usr/share/man"
-			],
-			"PathMacOS": [
-				"/usr/local/share/man",
-				"/usr/share/man",
-				"/usr/X11/share/man"
-			],
 			"PathWindows": [ ]
 		},
 		{
