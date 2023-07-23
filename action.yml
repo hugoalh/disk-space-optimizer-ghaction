@@ -62,6 +62,10 @@ inputs:
     description: "{Boolean} Whether to remove system page/swap file."
     required: false
     default: "False"
+  operate_debug:
+    description: "[DEBUG] {Boolean}"
+    required: false
+    default: "False"
   dockerimage_include:
     description: "{RegEx[]} Remove Docker image."
     required: false
@@ -94,17 +98,17 @@ runs:
   using: "composite"
   steps:
     - name: "Setup PowerShell Toolkit"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.4.0"
+      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.4.1"
       with:
         version: "^1.6.0"
     - name: "Debug Before (Non-Windows)"
-      if: "${{runner.os != 'Windows' && env.INPUT_INTERNALTEST == 'true'}}"
+      if: "${{runner.os != 'Windows' && inputs.operate_debug == 'true'}}"
       run: |
         sudo --non-interactive --preserve-env pwsh -NonInteractive "$GITHUB_ACTION_PATH/debug.ps1"
       shell: "sh"
       continue-on-error: true
     - name: "Debug Before (Windows)"
-      if: "${{runner.os == 'Windows' && env.INPUT_INTERNALTEST == 'true'}}"
+      if: "${{runner.os == 'Windows' && inputs.operate_debug == 'true'}}"
       run: |
         pwsh -NonInteractive (Join-Path -Path $Env:GITHUB_ACTION_PATH -ChildPath 'debug.ps1')
       shell: "pwsh"
@@ -154,13 +158,13 @@ runs:
       shell: "pwsh"
       continue-on-error: true
     - name: "Debug After (Non-Windows)"
-      if: "${{runner.os != 'Windows' && env.INPUT_INTERNALTEST == 'true'}}"
+      if: "${{runner.os != 'Windows' && inputs.operate_debug == 'true'}}"
       run: |
         sudo --non-interactive --preserve-env pwsh -NonInteractive "$GITHUB_ACTION_PATH/debug.ps1"
       shell: "sh"
       continue-on-error: true
     - name: "Debug After (Windows)"
-      if: "${{runner.os == 'Windows' && env.INPUT_INTERNALTEST == 'true'}}"
+      if: "${{runner.os == 'Windows' && inputs.operate_debug == 'true'}}"
       run: |
         pwsh -NonInteractive (Join-Path -Path $Env:GITHUB_ACTION_PATH -ChildPath 'debug.ps1')
       shell: "pwsh"
