@@ -12,8 +12,8 @@ Bicep	Azure Bicep	0		bicep	bicep					/usr/local/bin/bicep	/Users/runner/.net/bic
 Chromium	Chromium	0			chromium				CHROMIUM_DIR	/usr/bin/chromium-browser, /usr/bin/chromium, /usr/local/share/chromium		
 Clang	Clang	0	^clang-.*, ^clang-format-.*, ^clang-tidy-.*, ^lld-.*, ^lldb-.*							/usr/bin/clang*, /usr/bin/lld-*, /usr/bin/lldb-*, /usr/lib/clang, /usr/share/clang		
 CodeQL	CodeQL	0			codeql					$Env:AGENT_TOOLSDIRECTORY/CodeQL, /opt/hostedtoolcache/CodeQL	$Env:AGENT_TOOLSDIRECTORY/CodeQL, /Users/runner/hostedtoolcache/CodeQL	$Env:AGENT_TOOLSDIRECTORY\CodeQL
-DotNet	.Net	0	^aspnetcore-.*, ^dotnet-.*		dotnet			Microsoft .NET 6.0.20 - Windows Server Hosting, Microsoft .NET Runtime - 6.0.20 (x64), Microsoft .NET Runtime - 6.0.20 (x86), Microsoft .NET SDK 7.0.306 (x64) from Visual Studio, Microsoft ASP.NET Core 6.0.20 - Shared Framework (x64), Microsoft ASP.NET Core 6.0.20 - Shared Framework (x86)		/usr/bin/dotnet, /usr/share/dotnet	$Env:HOME/.dotnet, /Users/runner/.dotnet, /usr/local/bin/dotnet	
-EpicGames	Epic Games	0						Epic Games Launcher, Epic Online Services				
+DotNet	.Net	0	^aspnetcore-.*, ^dotnet-.*		dotnet			Microsoft .NET 6.0.20 - Windows Server Hosting, Microsoft .NET Runtime - 6.0.20 (x64), Microsoft .NET Runtime - 6.0.20 (x86), Microsoft .NET SDK 7.0.306 (x64) from Visual Studio, Microsoft ASP.NET Core 6.0.20 - Shared Framework (x64), Microsoft ASP.NET Core 6.0.20 - Shared Framework (x86)		/usr/bin/dotnet, /usr/share/dotnet	$Env:HOME/.dotnet, /Users/runner/.dotnet, /usr/local/bin/dotnet	C:\Program Files (x86)\dotnet
+EpicGames	Epic Games	0						Epic Games Launcher, Epic Online Services				C:\Program Files (x86)\Epic Games
 Erlang	Erlang	0	esl-erlang		erlang, rebar3					/usr/local/bin/rebar3		
 Firefox	Mozilla Firefox Browser	0	firefox		firefox			Mozilla Firefox (x64 en-US), Mozilla Maintenance Service		/usr/lib/firefox-addons, /usr/lib/firefox	/Applications/Firefox.app	
 G++	GNU C++ compiler	0	^g\+\+.*							/usr/bin/g++*, /usr/bin/x86_64-linux-gnu-g++*		
@@ -30,7 +30,9 @@ Gulp	Gulp	0			gulp-cli	gulp-cli, gulp				/usr/local/lib/node_modules/gulp-cli, /
 HaskellGHC	Haskell GHC	0								/opt/ghc, /usr/local/.ghcup/ghc	/Users/runner/.ghcup	
 Heroku	Heroku	0								/usr/local/lib/heroku	/usr/local/lib/heroku	
 HHVM	HipHop Virtual Machine	0	hhvm									
+IIS	IIS	0										C:\Program Files (x86)\IIS Express, C:\Program Files (x86)\IIS
 ImageMagick	ImageMagick	0	imagemagick, ^imagemagick-.*									
+InnoSetup	Inno Setup	0										C:\Program Files (x86)\Inno Setup*
 Java/11	Java 11	0	temurin-11-jdk					Microsoft Build of OpenJDK with Hotspot 11.0.16.1+1 (x64)	JAVA_HOME_11_X64	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/11.*, /opt/hostedtoolcache/Java_*_jdk/11.*, /usr/lib/jvm/*-11-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/11.*, /Users/runner/hostedtoolcache/Java_*_jdk/11.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\11.*
 Java/13	Java 13	0							JAVA_HOME_13_X64	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*, /opt/hostedtoolcache/Java_*_jdk/13.*, /usr/lib/jvm/*-13-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*, /Users/runner/hostedtoolcache/Java_*_jdk/13.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\13.*
 Java/17	Java 17	0	temurin-17-jdk						JAVA_HOME_17_X64	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*, /opt/hostedtoolcache/Java_*_jdk/17.*, /usr/lib/jvm/*-17-*-*	$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*, /Users/runner/hostedtoolcache/Java_*_jdk/17.*	$Env:AGENT_TOOLSDIRECTORY\Java_*_jdk\17.*
@@ -45,6 +47,7 @@ LLVM	LLVM	0	^llvm-.*	llvm	llvm					/usr/bin/llvm-*, /usr/lib/llvm-*
 Maven	Maven	0		maven	maven					/usr/bin/mvn, /usr/share/apache-maven-*		
 MicrosoftEdge	Microsoft Edge	0	microsoft-edge-stable		microsoft-edge			Microsoft Edge		/opt/microsoft/msedge, /usr/bin/microsoft-edge-stable, /usr/bin/microsoft-edge	/Applications/Microsoft Edge.app	
 MicrosoftEdgeWebDriver	Microsoft Edge Web Driver	0						Microsoft Edge WebView2 Runtime	EDGEWEBDRIVER	/usr/bin/edgedriver, /usr/bin/msedgedriver, /usr/local/share/edge_driver	/usr/local/bin/msedgedriver, /usr/local/share/edge_driver	C:\SeleniumWebDrivers\EdgeDriver
+MicrosoftInternetExplorer	Microsoft Internet Explorer	0										C:\Program Files (x86)\Internet Explorer
 MicrosoftInternetExplorerWebDriver	Microsoft Internet Explorer Web Driver	0							IEWEBDRIVER			C:\SeleniumWebDrivers\IEDriver
 Miniconda	Mini Conda	0			miniconda			Miniconda3 py311_23.5.2-0 (Python 3.11.4 64-bit)	CONDA	/usr/bin/conda, /usr/share/miniconda	/usr/local/bin/conda, /usr/local/miniconda, $Env:HOME/.conda	C:\Miniconda
 MongoDB	MongoDB	0	^mongodb-.*	mongodb.install, mongodb								
