@@ -27,8 +27,8 @@ This action is inspired from:
 
 ### 🌟 Feature
 
-- Always continue on error to not breaking any process
-- Support all of the platforms
+- Always continue on error to not breaking any process.
+- Support all of the platforms.
 
 ### Types
 
