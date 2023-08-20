@@ -100,7 +100,7 @@ runs:
     - name: "Setup PowerShell Toolkit"
       uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.4.1"
       with:
-        version: "^1.6.0"
+        version: "^1.7.1"
     - name: "Debug Before (Non-Windows)"
       if: "${{runner.os != 'Windows' && inputs.operate_debug == 'true'}}"
       run: |
