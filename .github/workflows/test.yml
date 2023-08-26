@@ -4,17 +4,27 @@ on:
   workflow_dispatch:
 jobs:
   main:
-    name: "${{matrix.os}} (Async: ${{matrix.operate_async}})"
+    name: "${{matrix.os}} (Async: ${{matrix.operate_async}}; Sudo: ${{matrix.operate_sudo}})"
     runs-on: "${{matrix.os}}"
     strategy:
       matrix:
         operate_async:
           - "False"
           - "True"
+        operate_sudo:
+          - "False"
+          - "True"
         os:
           - "macos-latest"
           - "ubuntu-latest"
           - "windows-latest"
+        exclude:
+          - operate_async: "False"
+            operate_sudo: "True"
+            os: "windows-latest"
+          - operate_async: "True"
+            operate_sudo: "True"
+            os: "windows-latest"
       fail-fast: false
     steps:
       - name: "Optimize Disk Space"
@@ -22,6 +32,7 @@ jobs:
         with:
           operate_async: "${{matrix.operate_async}}"
           operate_debug: "True"
+          operate_sudo: "${{matrix.operate_sudo}}"
           general_include: ".+"
           docker_include: ".+"
           docker_prune: "True"
