@@ -68,6 +68,10 @@ jobs:
 
 **\[Optional\]** `<Boolean = False>` Whether to operate in asynchronously to reduce the operation duration.
 
+#### `operate_sudo`
+
+**(>= v0.6.0) \[Optional\]** `<Boolean = False>` Whether to execute this action in sudo mode on non-Windows environment. This can set to `True` in order to able operate protected resources on non-Windows environment.
+
 #### `general_include`
 
 **\[Optional\]** `<RegEx[]>` Remove general item, by regular expression and [general list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
@@ -141,8 +145,9 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Optimize Disk Space"
-        uses: "hugoalh/disk-space-optimizer-ghaction@v0.5.0"
+        uses: "hugoalh/disk-space-optimizer-ghaction@v0.6.0"
         with:
+          operate_sudo: "True"
           general_include: ".+"
           docker_include: ".+"
           docker_prune: "True"

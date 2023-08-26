@@ -19,11 +19,7 @@ jobs:
           - "ubuntu-latest"
           - "windows-latest"
         exclude:
-          - operate_async: "False"
-            operate_sudo: "True"
-            os: "windows-latest"
-          - operate_async: "True"
-            operate_sudo: "True"
+          - operate_sudo: "True"
             os: "windows-latest"
       fail-fast: false
     steps:
