@@ -60,7 +60,7 @@ jobs:
 
 #### `input_listdelimiter`
 
-**\[Optional\]** `<RegEx = ",|;|\r?\n">` Delimiter when the input is type of list (i.e.: array), by regular expression.
+**\[Optional\]** `<RegEx = ",|;|\r?\n">` Delimiter when the input is accept list of values, by regular expression.
 
 #### `operate_async`
 

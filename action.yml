@@ -3,7 +3,7 @@ author: "hugoalh"
 description: "Optimize disk space for GitHub hosted runner."
 inputs:
   input_listdelimiter:
-    description: "{RegEx} Delimiter when the input is type of list."
+    description: "{RegEx} Delimiter when the input is accept list of values."
     required: false
     default: ",|;|\\r?\\n"
   operate_async:
@@ -104,7 +104,7 @@ runs:
     - name: "Throw Error - Input `operate_sudo`"
       if: "${{inputs.operate_sudo != 'False' && inputs.operate_sudo != 'True'}}"
       run: |
-        Write-Host -Object '::error::Input `operate_sudo` must be type of boolean!'
+        Write-Host -Object '::error::Input `operate_sudo` must be a boolean!'
         Exit 1
       shell: "pwsh"
     - name: "Setup PowerShell Toolkit"
