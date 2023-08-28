@@ -104,7 +104,7 @@ runs:
     - name: "Throw Error - Input `operate_sudo`"
       if: "${{inputs.operate_sudo != 'False' && inputs.operate_sudo != 'True'}}"
       run: |
-        Write-Host -Object '::error::Input `operate_sudo` must be a boolean!'
+        Write-Host -Object '::error::Input `operate_sudo` is not a boolean!'
         Exit 1
       shell: "pwsh"
     - name: "Setup PowerShell Toolkit"
