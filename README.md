@@ -3,6 +3,7 @@
 # Disk Space Optimizer (GitHub Action)
 
 [⚖️ MIT](./LICENSE.md)
+[![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/hugoalh/disk-space-optimizer-ghaction?label=Grade&logo=codefactor&logoColor=ffffff&style=flat-square "CodeFactor Grade")](https://www.codefactor.io/repository/github/hugoalh/disk-space-optimizer-ghaction)
 
 |  | **Heat** | **Release - Latest** | **Release - Pre** |
 |:-:|:-:|:-:|:-:|
