@@ -124,6 +124,9 @@
 					"aws-sam-cli",
 					"session-manager-plugin"
 				],
+				"powershellget": [
+					"AWSPowershell"
+				],
 				"wmic": [
 					"AWS SAM Command Line Interface"
 				]
@@ -278,6 +281,17 @@
 			"pathMacOS": [ ],
 			"pathWindows": [ ]
 		},
+		"CloudFoundry": {
+			"description": "Cloud Foundry",
+			"priority": 0,
+			"registry": { },
+			"env": [ ],
+			"pathLinux": [ ],
+			"pathMacOS": [ ],
+			"pathWindows": [
+				"C:\\cf-cli"
+			]
+		},
 		"CodeQL": {
 			"description": "CodeQL",
 			"priority": 0,
@@ -330,7 +344,9 @@
 				"/usr/local/bin/dotnet"
 			],
 			"pathWindows": [
-				"C:\\Program Files (x86)\\dotnet"
+				"C:\\Program Files\\dotnet",
+				"C:\\Program Files (x86)\\dotnet",
+				"C:\\Users\\Default\\.dotnet"
 			]
 		},
 		"EpicGames": {
@@ -414,8 +430,8 @@
 			"priority": 0,
 			"registry": {
 				"apt": [
-					"gcc",
-					"^gcc-.*"
+					"^gcc-.*",
+					"gcc"
 				],
 				"homebrew": [
 					"gcc"
@@ -531,6 +547,7 @@
 			],
 			"pathLinux": [
 				"/usr/bin/chromedriver",
+				"/usr/local/share/chromedriver-linux64",
 				"/usr/local/share/chrome_driver"
 			],
 			"pathMacOS": [
@@ -710,7 +727,7 @@
 			"pathLinux": [
 				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*",
 				"/opt/hostedtoolcache/Java_*_jdk/8.*",
-				"/usr/lib/jvm/*-8-*-*"
+				"/usr/lib/jvm/*-8-jdk-*"
 			],
 			"pathMacOS": [
 				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*",
@@ -737,7 +754,7 @@
 			"pathLinux": [
 				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/11.*",
 				"/opt/hostedtoolcache/Java_*_jdk/11.*",
-				"/usr/lib/jvm/*-11-*-*"
+				"/usr/lib/jvm/*-11-jdk-*"
 			],
 			"pathMacOS": [
 				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/11.*",
@@ -757,7 +774,7 @@
 			"pathLinux": [
 				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*",
 				"/opt/hostedtoolcache/Java_*_jdk/13.*",
-				"/usr/lib/jvm/*-13-*-*"
+				"/usr/lib/jvm/*-13-jdk-*"
 			],
 			"pathMacOS": [
 				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*",
@@ -781,7 +798,7 @@
 			"pathLinux": [
 				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*",
 				"/opt/hostedtoolcache/Java_*_jdk/17.*",
-				"/usr/lib/jvm/*-17-*-*"
+				"/usr/lib/jvm/*-17-jdk-*"
 			],
 			"pathMacOS": [
 				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*",
@@ -835,7 +852,9 @@
 			"pathMacOS": [
 				"/Applications/Julia*.app"
 			],
-			"pathWindows": [ ]
+			"pathWindows": [
+				"C:\\Julia"
+			]
 		},
 		"Kotlin": {
 			"description": "Kotlin",
@@ -1086,6 +1105,9 @@
 				"apt": [
 					"mssql-tools",
 					"unixodbc-dev"
+				],
+				"powershellget": [
+					"SqlServer"
 				]
 			},
 			"env": [ ],
@@ -1094,18 +1116,8 @@
 			],
 			"pathMacOS": [ ],
 			"pathWindows": [
-				"$Env:PROGRAMFILES\\Microsoft SQL Server\\"
-			]
-		},
-		"MSYS2": {
-			"description": "MSYS2 Pacman",
-			"priority": 0,
-			"registry": { },
-			"env": [ ],
-			"pathLinux": [ ],
-			"pathMacOS": [ ],
-			"pathWindows": [
-				"C:\\msys64"
+				"$Env:PROGRAMFILES\\Microsoft SQL Server",
+				"C:\\Program Files\\Microsoft SQL Server"
 			]
 		},
 		"MySQL": {
@@ -1291,6 +1303,19 @@
 			"pathMacOS": [ ],
 			"pathWindows": [ ]
 		},
+		"Pester": {
+			"description": "Pester",
+			"priority": 0,
+			"registry": {
+				"powershellget": [
+					"Pester"
+				]
+			},
+			"env": [ ],
+			"pathLinux": [ ],
+			"pathMacOS": [ ],
+			"pathWindows": [ ]
+		},
 		"PhantomJS": {
 			"description": "Phantom JS",
 			"priority": 0,
@@ -1327,7 +1352,9 @@
 				"/usr/share/php*"
 			],
 			"pathMacOS": [ ],
-			"pathWindows": [ ]
+			"pathWindows": [
+				"C:\\tools\\php"
+			]
 		},
 		"Pipx": {
 			"description": "Pipx",
@@ -1392,6 +1419,32 @@
 			"pathMacOS": [ ],
 			"pathWindows": [ ]
 		},
+		"PSScriptAnalyzer": {
+			"description": "PowerShell Script Analyzer",
+			"priority": 0,
+			"registry": {
+				"powershellget": [
+					"PSScriptAnalyzer"
+				]
+			},
+			"env": [ ],
+			"pathLinux": [ ],
+			"pathMacOS": [ ],
+			"pathWindows": [ ]
+		},
+		"PSWindowsUpdate": {
+			"description": "PowerShell Windows Update",
+			"priority": 0,
+			"registry": {
+				"powershellget": [
+					"PSWindowsUpdate"
+				]
+			},
+			"env": [ ],
+			"pathLinux": [ ],
+			"pathMacOS": [ ],
+			"pathWindows": [ ]
+		},
 		"R": {
 			"description": "R",
 			"priority": 0,
@@ -1409,7 +1462,9 @@
 				"/usr/share/R"
 			],
 			"pathMacOS": [ ],
-			"pathWindows": [ ]
+			"pathWindows": [
+				"C:\\Program Files\\R"
+			]
 		},
 		"Ruby": {
 			"description": "Ruby",
@@ -1523,7 +1578,8 @@
 			"pathLinux": [
 				"/usr/local/bin/swift",
 				"/usr/local/bin/swiftc",
-				"/usr/share/swift*"
+				"/usr/share/swift",
+				"/usr/share/swiftc"
 			],
 			"pathMacOS": [ ],
 			"pathWindows": [ ]
@@ -1556,7 +1612,7 @@
 		},
 		"VCPkg": {
 			"description": "VCPkg",
-			"priority": 0,
+			"priority": -9,
 			"registry": { },
 			"env": [
 				"VCPKG_INSTALLATION_ROOT"
