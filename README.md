@@ -160,3 +160,8 @@ jobs:
             npm_clean: "True"
             os_swap: "True"
   ```
+
+## 📚 Guide
+
+- GitHub Actions
+  - [Enabling debug logging](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging)
