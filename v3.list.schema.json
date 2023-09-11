@@ -1,0 +1,98 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Disk Space Optimizer (GitHub Action) List Schema Version 3",
+	"type": "object",
+	"properties": {
+		"collection": {
+			"type": "object",
+			"patternProperties": {
+				"^[\\dA-Za-z/+._-]+$": {
+					"type": "object",
+					"description": "Unique name of the element.",
+					"properties": {
+						"description": {
+							"type": "string",
+							"description": "Description of the element.",
+							"minLength": 1
+						},
+						"priority": {
+							"type": "integer",
+							"description": "Priority of the element.",
+							"maximum": 9,
+							"minimum": -9
+						},
+						"registry": {
+							"type": "object",
+							"description": "Registry of the element.",
+							"patternProperties": {
+								"^[\\dA-Za-z+_-]+$": {
+									"type": "array",
+									"description": "Name of the registry manager of the element.",
+									"items": {
+										"type": "string",
+										"description": "Names of the element in the registry manager.",
+										"minLength": 1
+									},
+									"uniqueItems": true
+								}
+							}
+						},
+						"env": {
+							"type": "array",
+							"description": "Environment variables as paths of the element.",
+							"items": {
+								"type": "string",
+								"minLength": 1,
+								"pattern": "^[\\dA-Z](?:[\\dA-Z_]*[\\dA-Z])?$"
+							},
+							"uniqueItems": true
+						},
+						"pathLinux": {
+							"type": "array",
+							"description": "Linux paths of the element.",
+							"items": {
+								"type": "string",
+								"minLength": 1,
+								"pattern": "^(?:\\/|\\$Env:)[^\\\\]+$"
+							},
+							"uniqueItems": true
+						},
+						"pathMacOS": {
+							"type": "array",
+							"description": "MacOS paths of the element.",
+							"items": {
+								"type": "string",
+								"minLength": 1,
+								"pattern": "^(?:\\/|\\$Env:)[^\\\\]+$"
+							},
+							"uniqueItems": true
+						},
+						"pathWindows": {
+							"type": "array",
+							"description": "Windows paths of the element.",
+							"items": {
+								"type": "string",
+								"minLength": 1,
+								"pattern": "^(?:[A-Z]:\\\\|\\$Env:)[^\\/]+$"
+							},
+							"uniqueItems": true
+						}
+					},
+					"required": [
+						"description",
+						"priority",
+						"registry",
+						"env",
+						"pathLinux",
+						"pathMacOS",
+						"pathWindows"
+					],
+					"additionalProperties": false
+				}
+			}
+		}
+	},
+	"required": [
+		"collection"
+	]
+}

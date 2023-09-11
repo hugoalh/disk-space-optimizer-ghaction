@@ -1,4 +1,4 @@
-[list]: ./list.tsv
+[list]: ./list.json
 
 # Disk Space Optimizer (GitHub Action)
 
