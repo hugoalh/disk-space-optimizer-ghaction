@@ -108,7 +108,7 @@ runs:
         Exit 1
       shell: "pwsh"
     - name: "Setup PowerShell Toolkit"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.5.0"
+      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.5.1"
       with:
         sudo: "True"
         version: "^1.7.2"
@@ -217,7 +217,7 @@ runs:
       shell: "pwsh"
       continue-on-error: true
     - name: "Setup PowerShell Toolkit"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.5.0"
+      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.5.1"
       with:
         sudo: "True"
         version: "False"
