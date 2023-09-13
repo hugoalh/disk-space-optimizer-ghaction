@@ -40,7 +40,7 @@ This project is inspired from:
   - [Pipx packages][list]
   - [Windows programs (WMIC)][list]
 
-## 📥 Import
+## 🔰 Begin
 
 ### GitHub Actions
 
