@@ -277,27 +277,27 @@ Function Invoke-GeneralOptimizeOperation {
 			}
 		If ($RegistryAPT.IsExist -and $QueueAPT.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove APT package with postpone #$Index."
-			$Null = Start-Job -Name "$Index/PM/APT" -ScriptBlock $APTCommandUninstallPackage -ArgumentList @(, $QueueAPT)
+			$Null = Start-Job -Name "$Index/PM/APT" -ScriptBlock $RegistryApt.ScriptRemove -ArgumentList @(, $QueueAPT)
 		}
 		If ($RegistryChocolatey.IsExist -and $QueueChocolatey.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove Chocolatey package with postpone #$Index."
-			$Null = Start-Job -Name "$Index/PM/Chocolatey" -ScriptBlock $ChocolateyCommandUninstallPackage -ArgumentList @(, $QueueChocolatey)
+			$Null = Start-Job -Name "$Index/PM/Chocolatey" -ScriptBlock $RegistryChocolatey.ScriptRemove -ArgumentList @(, $QueueChocolatey)
 		}
 		If ($RegistryHomebrew.IsExist -and $QueueHomebrew.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove Homebrew package with postpone #$Index."
-			$Null = Start-Job -Name "$Index/PM/Homebrew" -ScriptBlock $HomebrewCommandUninstallPackage -ArgumentList @(, $QueueHomebrew)
+			$Null = Start-Job -Name "$Index/PM/Homebrew" -ScriptBlock $RegistryHomebrew.ScriptRemove -ArgumentList @(, $QueueHomebrew)
 		}
 		If ($RegistryNpm.IsExist -and $QueueNPM.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove NPM package with postpone #$Index."
-			$Null = Start-Job -Name "$Index/PM/NPM" -ScriptBlock $NPMCommandUninstallPackage -ArgumentList @(, $QueueNPM)
+			$Null = Start-Job -Name "$Index/PM/NPM" -ScriptBlock $RegistryNpm.ScriptRemove -ArgumentList @(, $QueueNPM)
 		}
 		If ($RegistryPipx.IsExist -and $QueuePipx.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove Pipx package with postpone #$Index."
-			$Null = Start-Job -Name "$Index/PM/Pipx" -ScriptBlock $PipxCommandUninstallPackage -ArgumentList @(, $QueuePipx)
+			$Null = Start-Job -Name "$Index/PM/Pipx" -ScriptBlock $RegistryPipx.ScriptRemove -ArgumentList @(, $QueuePipx)
 		}
 		If ($RegistryWmic.IsExist -and $QueueWMIC.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove WMIC package with postpone #$Index."
-			$Null = Start-Job -Name "$Index/PM/WMIC" -ScriptBlock $WMICCommandUninstallPackage -ArgumentList @(, $QueueWMIC)
+			$Null = Start-Job -Name "$Index/PM/WMIC" -ScriptBlock $RegistryWmic.ScriptRemove -ArgumentList @(, $QueueWMIC)
 		}
 		If ($QueueFSPlain.Count -gt 0) {
 			ForEach ($FSPlain In $QueueFSPlain) {
@@ -348,32 +348,32 @@ Function Invoke-GeneralOptimizeOperation {
 		ForEach ($Item In $Queue) {
 			If ($RegistryAPT.IsExist -and $Null -ine $Item.APT) {
 				Write-Host -Object "Remove $($Item.Description) via APT."
-				Invoke-Command -ScriptBlock $APTCommandUninstallPackage -ArgumentList @(, $Item.APT) |
+				Invoke-Command -ScriptBlock $RegistryApt.ScriptRemove -ArgumentList @(, $Item.APT) |
 					Write-GitHubActionsDebug
 			}
 			If ($RegistryChocolatey.IsExist -and $Null -ine $Item.Chocolatey) {
 				Write-Host -Object "Remove $($Item.Description) via Chocolatey."
-				Invoke-Command -ScriptBlock $ChocolateyCommandUninstallPackage -ArgumentList @(, $Item.Chocolatey) |
+				Invoke-Command -ScriptBlock $RegistryChocolatey.ScriptRemove -ArgumentList @(, $Item.Chocolatey) |
 					Write-GitHubActionsDebug
 			}
 			If ($RegistryHomebrew.IsExist -and $Null -ine $Item.Homebrew) {
 				Write-Host -Object "Remove $($Item.Description) via Homebrew."
-				Invoke-Command -ScriptBlock $HomebrewCommandUninstallPackage -ArgumentList @(, $Item.Homebrew) |
+				Invoke-Command -ScriptBlock $RegistryHomebrew.ScriptRemove -ArgumentList @(, $Item.Homebrew) |
 					Write-GitHubActionsDebug
 			}
 			If ($RegistryNpm.IsExist -and $Null -ine $Item.NPM) {
 				Write-Host -Object "Remove $($Item.Description) via NPM."
-				Invoke-Command -ScriptBlock $NPMCommandUninstallPackage -ArgumentList @(, $Item.NPM) |
+				Invoke-Command -ScriptBlock $RegistryNpm.ScriptRemove -ArgumentList @(, $Item.NPM) |
 					Write-GitHubActionsDebug
 			}
 			If ($RegistryPipx.IsExist -and $Null -ine $Item.Pipx) {
 				Write-Host -Object "Remove $($Item.Description) via Pipx."
-				Invoke-Command -ScriptBlock $PipxCommandUninstallPackage -ArgumentList @(, $Item.Pipx) |
+				Invoke-Command -ScriptBlock $RegistryPipx.ScriptRemove -ArgumentList @(, $Item.Pipx) |
 					Write-GitHubActionsDebug
 			}
 			If ($RegistryWmic.IsExist -and $Null -ine $Item.WMIC) {
 				Write-Host -Object "Remove $($Item.Description) via WMIC."
-				Invoke-Command -ScriptBlock $WMICCommandUninstallPackage -ArgumentList @(, $Item.WMIC) |
+				Invoke-Command -ScriptBlock $RegistryWmic.ScriptRemove -ArgumentList @(, $Item.WMIC) |
 					Write-GitHubActionsDebug
 			}
 			If ($Null -ine $Item.Env -or $Null -ine $Item.($OsPathPropertyName)) {
