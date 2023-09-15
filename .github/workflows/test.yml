@@ -27,7 +27,6 @@ jobs:
         uses: "hugoalh/disk-space-optimizer-ghaction@main"
         with:
           operate_async: "${{matrix.operate_async}}"
-          operate_debug: "True"
           operate_sudo: "${{matrix.operate_sudo}}"
           general_include: ".+"
           docker_include: ".+"

@@ -112,7 +112,7 @@ runs:
       with:
         sudo: "${{inputs.operate_sudo}}"
         version: "^1.7.2"
-        scope: "CurrentUsers"
+        scope: "CurrentUser"
         keepsetting: "False"
       continue-on-error: true
     - name: "Main"
@@ -168,7 +168,7 @@ runs:
       with:
         sudo: "${{inputs.operate_sudo}}"
         version: "False"
-        scope: "CurrentUsers"
+        scope: "CurrentUser"
         keepsetting: "False"
       continue-on-error: true
 branding:
