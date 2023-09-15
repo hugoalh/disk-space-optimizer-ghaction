@@ -127,8 +127,8 @@ runs:
         If (!(Test-Path -LiteralPath $MainScriptPath -PathType 'Leaf')) {
           Write-GitHubActionsFail -Message 'Invalid script path!'
         }
-        [Boolean]$InputSudo = [Boolean]::Parse($Env:INPUT_OPERATE_SUDO)
-        If ($InputSudo -and $Env:RUNNER_OS -iin @('Linux', 'MacOS')) {
+        [Boolean]$InputOperateSudo = [Boolean]::Parse($Env:INPUT_OPERATE_SUDO)
+        If ($InputOperateSudo -and $Env:RUNNER_OS -iin @('Linux', 'MacOS')) {
           sudo --non-interactive --preserve-env pwsh -NonInteractive $MainScriptPath
         }
         Else {

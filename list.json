@@ -154,12 +154,7 @@
 			],
 			"WMIC": [
 				"Azure Cosmos DB Emulator",
-				"Microsoft Azure Authoring Tools",
-				"Microsoft Azure CLI",
-				"Microsoft Azure Compute Emulator",
-				"Microsoft Azure Libraries for .NET",
-				"Microsoft Azure Service Fabric SDK",
-				"Microsoft Azure Service Fabric"
+				"Microsoft Azure*"
 			],
 			"Env": [
 				"AZURE_EXTENSION_DIR"
@@ -284,12 +279,8 @@
 				"dotnet"
 			],
 			"WMIC": [
-				"Microsoft .NET 6.0.20 - Windows Server Hosting",
-				"Microsoft .NET Runtime - 6.0.20 (x64)",
-				"Microsoft .NET Runtime - 6.0.20 (x86)",
-				"Microsoft .NET SDK 7.0.306 (x64) from Visual Studio",
-				"Microsoft ASP.NET Core 6.0.20 - Shared Framework (x64)",
-				"Microsoft ASP.NET Core 6.0.20 - Shared Framework (x86)"
+				"Microsoft .NET*",
+				"Microsoft ASP.NET*"
 			],
 			"PathLinux": [
 				"/usr/bin/dotnet",
@@ -344,8 +335,7 @@
 				"firefox"
 			],
 			"WMIC": [
-				"Mozilla Firefox (x64 en-US)",
-				"Mozilla Maintenance Service"
+				"Mozilla Firefox*"
 			],
 			"PathLinux": [
 				"/usr/lib/firefox-addons",
@@ -636,7 +626,7 @@
 				"temurin-11-jdk"
 			],
 			"WMIC": [
-				"Microsoft Build of OpenJDK with Hotspot 11.0.16.1+1 (x64)"
+				"Microsoft Build of OpenJDK with Hotspot 11*"
 			],
 			"Env": [
 				"JAVA_HOME_11_X64"
@@ -892,7 +882,7 @@
 				"miniconda"
 			],
 			"WMIC": [
-				"Miniconda3 py311_23.5.2-0 (Python 3.11.4 64-bit)"
+				"Miniconda*"
 			],
 			"Env": [
 				"CONDA"
@@ -1181,7 +1171,7 @@
 				"libpq-dev"
 			],
 			"WMIC": [
-				"PostgreSQL 14"
+				"PostgreSQL*"
 			],
 			"Env": [
 				"PGBIN",
