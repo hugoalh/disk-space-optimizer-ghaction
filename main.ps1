@@ -235,32 +235,38 @@ Function Invoke-GeneralOptimizeOperation {
 			ForEach-Object -Process {
 				$_.APT |
 					Write-Output
-			}
+			} |
+			Where-Object -FilterScript { $Null -ine $_ }
 		[String[]]$QueueChocolatey = $Queue |
 			ForEach-Object -Process {
 				$_.Chocolatey |
 					Write-Output
-			}
+			} |
+			Where-Object -FilterScript { $Null -ine $_ }
 		[String[]]$QueueHomebrew = $Queue |
 			ForEach-Object -Process {
 				$_.Homebrew |
 					Write-Output
-			}
+			} |
+			Where-Object -FilterScript { $Null -ine $_ }
 		[String[]]$QueueNPM = $Queue |
 			ForEach-Object -Process {
 				$_.NPM |
 					Write-Output
-			}
+			} |
+			Where-Object -FilterScript { $Null -ine $_ }
 		[String[]]$QueuePipx = $Queue |
 			ForEach-Object -Process {
 				$_.Pipx |
 					Write-Output
-			}
+			} |
+			Where-Object -FilterScript { $Null -ine $_ }
 		[String[]]$QueueWMIC = $Queue |
 			ForEach-Object -Process {
 				$_.WMIC |
 					Write-Output
-			}
+			} |
+			Where-Object -FilterScript { $Null -ine $_ }
 		[PSCustomObject[]]$QueueFSPlain = $Queue |
 			Where-Object -FilterScript {
 				$Null -ieq $_.APT -and $Null -ieq $_.Chocolatey -and $Null -ieq $_.Homebrew -and $Null -ieq $_.NPM -and $Null -ieq $_.Pipx -and $Null -ieq $_.WMIC -and (
