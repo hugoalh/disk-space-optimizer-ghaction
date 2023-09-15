@@ -3,31 +3,102 @@ $Script:ErrorActionPreference = 'Stop'
 Get-Alias -Scope 'Local' -ErrorAction 'SilentlyContinue' |
 	Remove-Alias -Scope 'Local' -Force -ErrorAction 'SilentlyContinue'
 Import-Module -Name 'hugoalh.GitHubActionsToolkit' -Scope 'Local'
-Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath 'common.psm1') -Scope 'Local'
-Test-GitHubActionsEnvironment -Mandatory
-Write-Host -Object 'Initialize.'
-If ($True -inotin @($OsIsLinux, $OsIsMac, $OsIsWindows)) {
-	Write-GitHubActionsWarning -Message "``$Env:RUNNER_OS`` is not an supported runner OS!"
-	Exit 0
-}
 [String]$OsPathPropertyName = "Path$($Env:RUNNER_OS)"
-[String]$SessionId = (
-	New-Guid |
-		Select-Object -ExpandProperty 'Guid'
-).ToUpper() -ireplace '-', ''
+$RegistryApt = @{
+	IsExist = $Null -ine (Get-Command -Name 'apt-get' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
+	ScriptRemove = {
+		Param ([String[]]$Packages = @())
+		ForEach ($Package In $Packages) {
+			apt-get --assume-yes remove $Package *>&1 |
+				Write-Output
+		}
+	}
+}
+$RegistryChocolatey = @{
+	IsExist = $Null -ine (Get-Command -Name 'choco' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
+	ScriptRemove = {
+		Param ([String[]]$Packages = @())
+		ForEach ($Package In $Packages) {
+			choco uninstall $Package --ignore-detected-reboot --yes *>&1 |
+				Write-Output
+		}
+	}
+}
+$RegistryDocker = @{
+	IsExist = $Null -ine (Get-Command -Name 'docker' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
+	ScriptList = {
+		docker image ls --all --format '{{json .}}' *>&1 |
+			Write-Output
+	}
+	ScriptRemove = {
+		Param ([String[]]$Images = @())
+		ForEach ($Image In $Images) {
+			docker image rm $Image *>&1 |
+				Write-Output
+		}
+	}
+}
+$RegistryHomebrew = @{
+	IsExist = $Null -ine (Get-Command -Name 'brew' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
+	ScriptRemove = {
+		Param ([String[]]$Packages = @())
+		ForEach ($Package In $Packages) {
+			brew uninstall $Package *>&1 |
+				Write-Output
+		}
+	}
+}
+$RegistryNpm = @{
+	IsExist = $Null -ine (Get-Command -Name 'npm' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
+	ScriptRemove = {
+		Param ([String[]]$Packages = @())
+		ForEach ($Package In $Packages) {
+			npm --global uninstall $Package *>&1 |
+				Write-Output
+		}
+	}
+}
+$RegistryPipx = @{
+	IsExist = $Null -ine (Get-Command -Name 'pipx' -CommandType 'Application' -ErrorAction 'SilentlyContinue')
+	ScriptRemove = {
+		Param ([String[]]$Packages = @())
+		ForEach ($Package In $Packages) {
+			pipx uninstall $Package *>&1 |
+				Write-Output
+		}
+	}
+}
+$RegistryWmic = @{
+	IsExist = $Env:RUNNER_OS -iin @('Windows') -and $Null -ine (Get-Command -Name 'Invoke-CimMethod' -ErrorAction 'SilentlyContinue')
+	ScriptRemove = {
+		Param ([String[]]$Packages = @())
+		ForEach ($Package In $Packages) {
+			[String[]]$PackageResolve = Get-CimInstance -ClassName 'Win32_Product' |
+				Select-Object -ExpandProperty 'Name' |
+				Where-Object -FilterScript { $_ -ilike $Package }
+			ForEach ($_ In $PackageResolve) {
+				Invoke-CimMethod -Query "select * from Win32_Product where name like `"%$_%`"" -MethodName 'Uninstall' *>&1 |
+					Write-Output
+			}
+		}
+	}
+}
 Function Get-DiskSpace {
 	[CmdletBinding()]
 	[OutputType([String])]
 	Param ()
-	If ($OsIsWindows) {
+	If ($Env:RUNNER_OS -iin @('Linux', 'MacOS')) {
+		df -h |
+			Join-String -Separator "`n" |
+			Write-Output
+	}
+	ElseIf ($Env:RUNNER_OS -iin @('Windows')) {
 		Get-Volume |
 			Out-String -Width 120 |
 			Write-Output
 	}
 	Else {
-		df -h |
-			Join-String -Separator "`n" |
-			Write-Output
+		Write-Output -InputObject 'Unknown.'
 	}
 }
 Function Test-StringMatchRegEx {
@@ -49,20 +120,18 @@ Function Test-StringMatchRegEx {
 [PSCustomObject]@{
 	Runner_OS = $Env:RUNNER_OS
 	Env_ToolDirectory = $Env:AGENT_TOOLSDIRECTORY
-	Program_APT = $APTProgramIsExist
-	Program_Chocolatey = $ChocolateyProgramIsExist
-	Program_Docker = $DockerProgramIsExist
-	Program_Homebrew = $HomebrewProgramIsExist
-	Program_NPM = $NPMProgramIsExist
-	Program_Pipx = $PipxProgramIsExist
-	Program_WMIC = $WMICProgramIsExist
+	Registry_APT = $RegistryApt.IsExist
+	Registry_Chocolatey = $RegistryChocolatey.IsExist
+	Registry_Docker = $RegistryDocker.IsExist
+	Registry_Homebrew = $RegistryHomebrew.IsExist
+	Registry_NPM = $RegistryNpm.IsExist
+	Registry_Pipx = $RegistryPipx.IsExist
+	Registry_WMIC = $RegistryWmic.IsExist
 } |
 	Format-List |
 	Out-String -Width 120 |
 	Write-GitHubActionsDebug
-Write-Host -Object 'Import input.'
 [RegEx]$InputListDelimiter = Get-GitHubActionsInput -Name 'input_listdelimiter' -Mandatory -EmptyStringAsNull
-[Boolean]$OperationAsync = [Boolean]::Parse((Get-GitHubActionsInput -Name 'operate_async' -Mandatory -EmptyStringAsNull))
 [AllowEmptyCollection()][RegEx[]]$InputGeneralInclude = (
 	((Get-GitHubActionsInput -Name 'general_include' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
@@ -79,76 +148,77 @@ Write-Host -Object 'Import input.'
 	((Get-GitHubActionsInput -Name 'docker_exclude' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
 		Where-Object -FilterScript { $_.Length -gt 0 }
 ) ?? @()
-[Boolean]$InputDockerPrune = [Boolean]::Parse((Get-GitHubActionsInput -Name 'docker_prune' -Mandatory -EmptyStringAsNull))
-[Boolean]$InputDockerClean = [Boolean]::Parse((Get-GitHubActionsInput -Name 'docker_clean' -Mandatory -EmptyStringAsNull))
-[Boolean]$InputAptPrune = [Boolean]::Parse((Get-GitHubActionsInput -Name 'apt_prune' -Mandatory -EmptyStringAsNull))
-[Boolean]$InputAptClean = [Boolean]::Parse((Get-GitHubActionsInput -Name 'apt_clean' -Mandatory -EmptyStringAsNull))
-[Boolean]$InputHomebrewPrune = [Boolean]::Parse((Get-GitHubActionsInput -Name 'homebrew_prune' -Mandatory -EmptyStringAsNull))
-[Boolean]$InputHomebrewClean = [Boolean]::Parse((Get-GitHubActionsInput -Name 'homebrew_clean' -Mandatory -EmptyStringAsNull))
-[Boolean]$InputNpmPrune = [Boolean]::Parse((Get-GitHubActionsInput -Name 'npm_prune' -Mandatory -EmptyStringAsNull))
-[Boolean]$InputNpmClean = [Boolean]::Parse((Get-GitHubActionsInput -Name 'npm_clean' -Mandatory -EmptyStringAsNull))
-[Boolean]$InputOsSwap = [Boolean]::Parse((Get-GitHubActionsInput -Name 'os_swap' -Mandatory -EmptyStringAsNull))
+[Boolean]$InputAptClean = [Boolean]::Parse($Env:INPUT_APT_CLEAN)
+[Boolean]$InputAptPrune = [Boolean]::Parse($Env:INPUT_APT_PRUNE)
+[Boolean]$InputDockerClean = [Boolean]::Parse($Env:INPUT_DOCKER_CLEAN)
+[Boolean]$InputDockerPrune = [Boolean]::Parse($Env:INPUT_DOCKER_PRUNE)
+[Boolean]$InputHomebrewClean = [Boolean]::Parse($Env:INPUT_HOMEBREW_CLEAN)
+[Boolean]$InputHomebrewPrune = [Boolean]::Parse($Env:INPUT_HOMEBREW_PRUNE)
+[Boolean]$InputNpmClean = [Boolean]::Parse($Env:INPUT_NPM_CLEAN)
+[Boolean]$InputNpmPrune = [Boolean]::Parse($Env:INPUT_NPM_PRUNE)
+[Boolean]$InputOperateAsync = [Boolean]::Parse($Env:INPUT_OPERATE_ASYNC)
+[Boolean]$InputOsSwap = [Boolean]::Parse($Env:INPUT_OS_SWAP)
 Write-Host -Object 'Resolve operation.'
 [String[]]$DockerImageListRaw = @()
 [String[]]$DockerImageRemove = @()
 [PSCustomObject[]]$GeneralRemove = @()
-If ($DockerProgramIsExist -and $InputDockerInclude.Count -gt 0) {
-	If ($OperationAsync) {
-		$Null = Start-Job -Name "$SessionId/Docker/List" -ScriptBlock $DockerCommandListImage
+If ($RegistryDocker.IsExist -and $InputDockerInclude.Count -gt 0) {
+	If ($InputOperateAsync) {
+		$Null = Start-Job -Name "Docker/List" -ScriptBlock $RegistryDocker.ScriptList
 	}
 	Else {
-		$DockerImageListRaw += Invoke-Command -ScriptBlock $DockerCommandListImage
+		$DockerImageListRaw += Invoke-Command -ScriptBlock $RegistryDocker.ScriptList
 	}
 }
 If ($InputGeneralInclude.Count -gt 0) {
 	$GeneralRemove += Get-Content -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.json') -Raw -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
 		ConvertFrom-Json -Depth 100 |
-		Select-Object -ExpandProperty 'content' |
-		Where-Object -FilterScript {
-			($APTProgramIsExist -and $_.APT.Count -gt 0) -or
-			($ChocolateyProgramIsExist -and $_.Chocolatey.Count -gt 0) -or
-			($HomebrewProgramIsExist -and $_.Homebrew.Count -gt 0) -or
-			($NPMProgramIsExist -and $_.NPM.Count -gt 0) -or
-			($PipxProgramIsExist -and $_.Pipx.Count -gt 0) -or
-			($WMICProgramIsExist -and $_.WMIC.Count -gt 0) -or
-			$_.Env.Count -gt 0 -or
-			$_.($OsPathPropertyName).Count -gt 0
-		} |
+		Select-Object -ExpandProperty 'Collection' |
 		Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_.Name -Matcher $InputGeneralInclude) -and !(Test-StringMatchRegEx -Item $_.Name -Matcher $InputGeneralExclude) } |
-		Sort-Object -Property 'Name'
+		Where-Object -FilterScript {
+			($RegistryApt.IsExist -and $Null -ine $_.APT) -or
+			($RegistryChocolatey.IsExist -and $Null -ine $_.Chocolatey) -or
+			($RegistryHomebrew.IsExist -and $Null -ine $_.Homebrew) -or
+			($RegistryNpm.IsExist -and $Null -ine $_.NPM) -or
+			($RegistryPipx.IsExist -and $Null -ine $_.Pipx) -or
+			($RegistryWmic.IsExist -and $Null -ine $_.WMIC) -or
+			$Null -ine $_.Env -or
+			$Null -ine $_.($OsPathPropertyName)
+		}
 }
-If ($DockerProgramIsExist -and $InputDockerInclude.Count -gt 0 -and $OperationAsync) {
-	$DockerImageListRaw += Receive-Job -Name "$SessionId/Docker/List" -Wait -AutoRemoveJob -ErrorAction 'Continue'
+If ($RegistryDocker.IsExist -and $InputDockerInclude.Count -gt 0 -and $InputOperateAsync) {
+	$DockerImageListRaw += Receive-Job -Name "Docker/List" -Wait -AutoRemoveJob -ErrorAction 'Continue'
 }
 $DockerImageRemove += $DockerImageListRaw |
 	Join-String -Separator ',' -OutputPrefix '[' -OutputSuffix ']' |
 	ConvertFrom-Json -Depth 100 -ErrorAction 'Continue' |
 	ForEach-Object -Process { "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" } |
-	Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_ -Matcher $InputDockerInclude) -and !(Test-StringMatchRegEx -Item $_ -Matcher $InputDockerExclude) } |
-	Sort-Object
+	Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_ -Matcher $InputDockerInclude) -and !(Test-StringMatchRegEx -Item $_ -Matcher $InputDockerExclude) }
 If ($GeneralRemove.Count -gt 0) {
 	Write-Host -Object "Removable item [$($GeneralRemove.Count)]: $(
 		$GeneralRemove |
 			Select-Object -ExpandProperty 'Name' |
+			Sort-Object |
 			Join-String -Separator ', '
 	)"
 }
 If ($DockerImageRemove.Count -gt 0) {
 	Write-Host -Object "Removable Docker image [$($DockerImageRemove.Count)]: $(
 		$DockerImageRemove |
+			Sort-Object |
 			Join-String -Separator ', '
 	)"
 }
 $Script:ErrorActionPreference = 'Continue'
-If ($DockerProgramIsExist) {
-	If ($OperationAsync) {
+If ($RegistryDocker.IsExist) {
+	If ($InputOperateAsync) {
 		Write-Host -Object '[ASYNC] Remove Docker image.'
-		$Null = Start-Job -Name "$SessionId/Docker/Remove" -ScriptBlock $DockerCommandRemoveImage -ArgumentList @(, $DockerImageRemove)
+		$Null = Start-Job -Name "Docker/Remove" -ScriptBlock $RegistryDocker.ScriptRemove -ArgumentList @(, $DockerImageRemove)
 	}
 	Else {
 		ForEach ($_DI In $DockerImageRemove) {
 			Write-Host -Object "Remove Docker image ``$_DI``."
-			Invoke-Command -ScriptBlock $DockerCommandRemoveImage -ArgumentList @(, $_DI) |
+			Invoke-Command -ScriptBlock $RegistryDocker.ScriptRemove -ArgumentList @(, $_DI) |
 				Write-GitHubActionsDebug
 		}
 	}
@@ -160,7 +230,7 @@ Function Invoke-GeneralOptimizeOperation {
 		[Parameter(Mandatory = $True, Position = 0)][PSCustomObject[]]$Queue,
 		[Parameter(Mandatory = $True, Position = 1)][UInt64]$Index
 	)
-	If ($OperationAsync) {
+	If ($InputOperateAsync) {
 		[String[]]$QueueAPT = $Queue |
 			ForEach-Object -Process {
 				$_.APT |
@@ -193,46 +263,46 @@ Function Invoke-GeneralOptimizeOperation {
 			}
 		[PSCustomObject[]]$QueueFSPlain = $Queue |
 			Where-Object -FilterScript {
-				$_.APT.Count -eq 0 -and $_.Chocolatey.Count -eq 0 -and $_.Homebrew.Count -eq 0 -and $_.NPM.Count -eq 0 -and $_.Pipx.Count -eq 0 -and $_.WMIC.Count -eq 0 -and (
-					$_.Env.Count -gt 0 -or
-					$_.($OsPathPropertyName).Count -gt 0
+				$Null -ieq $_.APT -and $Null -ieq $_.Chocolatey -and $Null -ieq $_.Homebrew -and $Null -ieq $_.NPM -and $Null -ieq $_.Pipx -and $Null -ieq $_.WMIC -and (
+					$Null -ine $_.Env -or
+					$Null -ine $_.($OsPathPropertyName)
 				)
 			}
 		[PSCustomObject[]]$QueueFSRest = $Queue |
 			Where-Object -FilterScript {
-				($_.APT.Count -gt 0 -or $_.Chocolatey.Count -gt 0 -or $_.Homebrew.Count -gt 0 -or $_.NPM.Count -gt 0 -or $_.Pipx.Count -gt 0 -or $_.WMIC.Count -gt 0) -and (
-					$_.Env.Count -gt 0 -or
-					$_.($OsPathPropertyName).Count -gt 0
+				($Null -ine $_.APT -or $Null -ine $_.Chocolatey -or $Null -ine $_.Homebrew -or $Null -ine $_.NPM -or $Null -ine $_.Pipx -or $Null -ine $_.WMIC) -and (
+					$Null -ine $_.Env -or
+					$Null -ine $_.($OsPathPropertyName)
 				)
 			}
-		If ($APTProgramIsExist -and $QueueAPT.Count -gt 0) {
+		If ($RegistryAPT.IsExist -and $QueueAPT.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove APT package with postpone #$Index."
-			$Null = Start-Job -Name "$SessionId/$Index/PM/APT" -ScriptBlock $APTCommandUninstallPackage -ArgumentList @(, $QueueAPT)
+			$Null = Start-Job -Name "$Index/PM/APT" -ScriptBlock $APTCommandUninstallPackage -ArgumentList @(, $QueueAPT)
 		}
-		If ($ChocolateyProgramIsExist -and $QueueChocolatey.Count -gt 0) {
+		If ($RegistryChocolatey.IsExist -and $QueueChocolatey.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove Chocolatey package with postpone #$Index."
-			$Null = Start-Job -Name "$SessionId/$Index/PM/Chocolatey" -ScriptBlock $ChocolateyCommandUninstallPackage -ArgumentList @(, $QueueChocolatey)
+			$Null = Start-Job -Name "$Index/PM/Chocolatey" -ScriptBlock $ChocolateyCommandUninstallPackage -ArgumentList @(, $QueueChocolatey)
 		}
-		If ($HomebrewProgramIsExist -and $QueueHomebrew.Count -gt 0) {
+		If ($RegistryHomebrew.IsExist -and $QueueHomebrew.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove Homebrew package with postpone #$Index."
-			$Null = Start-Job -Name "$SessionId/$Index/PM/Homebrew" -ScriptBlock $HomebrewCommandUninstallPackage -ArgumentList @(, $QueueHomebrew)
+			$Null = Start-Job -Name "$Index/PM/Homebrew" -ScriptBlock $HomebrewCommandUninstallPackage -ArgumentList @(, $QueueHomebrew)
 		}
-		If ($NPMProgramIsExist -and $QueueNPM.Count -gt 0) {
+		If ($RegistryNpm.IsExist -and $QueueNPM.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove NPM package with postpone #$Index."
-			$Null = Start-Job -Name "$SessionId/$Index/PM/NPM" -ScriptBlock $NPMCommandUninstallPackage -ArgumentList @(, $QueueNPM)
+			$Null = Start-Job -Name "$Index/PM/NPM" -ScriptBlock $NPMCommandUninstallPackage -ArgumentList @(, $QueueNPM)
 		}
-		If ($PipxProgramIsExist -and $QueuePipx.Count -gt 0) {
+		If ($RegistryPipx.IsExist -and $QueuePipx.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove Pipx package with postpone #$Index."
-			$Null = Start-Job -Name "$SessionId/$Index/PM/Pipx" -ScriptBlock $PipxCommandUninstallPackage -ArgumentList @(, $QueuePipx)
+			$Null = Start-Job -Name "$Index/PM/Pipx" -ScriptBlock $PipxCommandUninstallPackage -ArgumentList @(, $QueuePipx)
 		}
-		If ($WMICProgramIsExist -and $QueueWMIC.Count -gt 0) {
+		If ($RegistryWmic.IsExist -and $QueueWMIC.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove WMIC package with postpone #$Index."
-			$Null = Start-Job -Name "$SessionId/$Index/PM/WMIC" -ScriptBlock $WMICCommandUninstallPackage -ArgumentList @(, $QueueWMIC)
+			$Null = Start-Job -Name "$Index/PM/WMIC" -ScriptBlock $WMICCommandUninstallPackage -ArgumentList @(, $QueueWMIC)
 		}
 		If ($QueueFSPlain.Count -gt 0) {
 			ForEach ($FSPlain In $QueueFSPlain) {
 				Write-Host -Object "[ASYNC] Remove $($FSPlain.Description) file with postpone #$Index."
-				$Null = Start-Job -Name "$SessionId/$Index/FSPlain/$($FSPlain.Name)" -ScriptBlock {
+				$Null = Start-Job -Name "$Index/FSPlain/$($FSPlain.Name)" -ScriptBlock {
 					ForEach ($EnvName In ($Using:FSPlain).Env) {
 						[String]$EnvValue = Get-Content -LiteralPath "Env:\$EnvName" -ErrorAction 'SilentlyContinue'
 						If ($EnvValue.Length -gt 0 -and (Test-Path -LiteralPath $EnvValue)) {
@@ -251,10 +321,10 @@ Function Invoke-GeneralOptimizeOperation {
 			}
 		}
 		If ($QueueFSRest.Count -gt 0) {
-			$Null = Wait-Job -Name "$SessionId/$Index/PM/*" -ErrorAction 'SilentlyContinue'
+			$Null = Wait-Job -Name "$Index/PM/*" -ErrorAction 'SilentlyContinue'
 			ForEach ($FSRest In $QueueFSRest) {
 				Write-Host -Object "[ASYNC] Remove $($FSRest.Description) file with postpone #$Index."
-				$Null = Start-Job -Name "$SessionId/$Index/FSRest/$($FSRest.Name)" -ScriptBlock {
+				$Null = Start-Job -Name "$Index/FSRest/$($FSRest.Name)" -ScriptBlock {
 					ForEach ($EnvName In ($Using:FSRest).Env) {
 						[String]$EnvValue = Get-Content -LiteralPath "Env:\$EnvName" -ErrorAction 'SilentlyContinue'
 						If ($EnvValue.Length -gt 0 -and (Test-Path -LiteralPath $EnvValue)) {
@@ -272,41 +342,41 @@ Function Invoke-GeneralOptimizeOperation {
 				}
 			}
 		}
-		$Null = Wait-Job -Name "$SessionId/$Index/*" -ErrorAction 'SilentlyContinue'
+		$Null = Wait-Job -Name "$Index/*" -ErrorAction 'SilentlyContinue'
 	}
 	Else {
 		ForEach ($Item In $Queue) {
-			If ($APTProgramIsExist -and $Item.APT.Count -gt 0) {
+			If ($RegistryAPT.IsExist -and $Null -ine $Item.APT) {
 				Write-Host -Object "Remove $($Item.Description) via APT."
 				Invoke-Command -ScriptBlock $APTCommandUninstallPackage -ArgumentList @(, $Item.APT) |
 					Write-GitHubActionsDebug
 			}
-			If ($ChocolateyProgramIsExist -and $Item.Chocolatey.Count -gt 0) {
+			If ($RegistryChocolatey.IsExist -and $Null -ine $Item.Chocolatey) {
 				Write-Host -Object "Remove $($Item.Description) via Chocolatey."
 				Invoke-Command -ScriptBlock $ChocolateyCommandUninstallPackage -ArgumentList @(, $Item.Chocolatey) |
 					Write-GitHubActionsDebug
 			}
-			If ($HomebrewProgramIsExist -and $Item.Homebrew.Count -gt 0) {
+			If ($RegistryHomebrew.IsExist -and $Null -ine $Item.Homebrew) {
 				Write-Host -Object "Remove $($Item.Description) via Homebrew."
 				Invoke-Command -ScriptBlock $HomebrewCommandUninstallPackage -ArgumentList @(, $Item.Homebrew) |
 					Write-GitHubActionsDebug
 			}
-			If ($NPMProgramIsExist -and $Item.NPM.Count -gt 0) {
+			If ($RegistryNpm.IsExist -and $Null -ine $Item.NPM) {
 				Write-Host -Object "Remove $($Item.Description) via NPM."
 				Invoke-Command -ScriptBlock $NPMCommandUninstallPackage -ArgumentList @(, $Item.NPM) |
 					Write-GitHubActionsDebug
 			}
-			If ($PipxProgramIsExist -and $Item.Pipx.Count -gt 0) {
+			If ($RegistryPipx.IsExist -and $Null -ine $Item.Pipx) {
 				Write-Host -Object "Remove $($Item.Description) via Pipx."
 				Invoke-Command -ScriptBlock $PipxCommandUninstallPackage -ArgumentList @(, $Item.Pipx) |
 					Write-GitHubActionsDebug
 			}
-			If ($WMICProgramIsExist -and $Item.WMIC.Count -gt 0) {
+			If ($RegistryWmic.IsExist -and $Null -ine $Item.WMIC) {
 				Write-Host -Object "Remove $($Item.Description) via WMIC."
 				Invoke-Command -ScriptBlock $WMICCommandUninstallPackage -ArgumentList @(, $Item.WMIC) |
 					Write-GitHubActionsDebug
 			}
-			If ($Item.Env.Count -gt 0 -or $Item.($OsPathPropertyName).Count -gt 0) {
+			If ($Null -ine $Item.Env -or $Null -ine $Item.($OsPathPropertyName)) {
 				Write-Host -Object "Remove $($Item.Description) files."
 				ForEach ($EnvName In $Item.Env) {
 					[String]$EnvValue = Get-Content -LiteralPath "Env:\$EnvName" -ErrorAction 'SilentlyContinue'
@@ -336,10 +406,10 @@ ForEach ($Index In (
 			Where-Object -FilterScript { $_.Postpone -eq $Index }
 	) -Index $Index
 }
-If ($OperationAsync) {
-	$Null = Wait-Job -Name "$SessionId/*" -ErrorAction 'SilentlyContinue'
+If ($InputOperateAsync) {
+	$Null = Wait-Job -ErrorAction 'SilentlyContinue'
 	If (Get-GitHubActionsDebugStatus) {
-		Get-Job -Name "$SessionId/*" |
+		Get-Job |
 			ForEach-Object -Process {
 				Enter-GitHubActionsLogGroup -Title "$($_.Name) ($($_.State))"
 				Receive-Job -Name $_.Name -Wait -AutoRemoveJob
@@ -347,11 +417,11 @@ If ($OperationAsync) {
 			}
 	}
 	Else {
-		Get-Job -Name "$SessionId/*" |
+		Get-Job |
 			Remove-Job -Force -Confirm:$False
 	}
 }
-If ($APTProgramIsExist) {
+If ($RegistryAPT.IsExist) {
 	If ($InputAptPrune) {
 		Write-Host -Object 'Prune APT package.'
 		apt-get --assume-yes autoremove *>&1 |
@@ -363,7 +433,7 @@ If ($APTProgramIsExist) {
 			Write-GitHubActionsDebug
 	}
 }
-If ($DockerProgramIsExist) {
+If ($RegistryDocker.IsExist) {
 	If ($InputDockerPrune) {
 		Write-Host -Object 'Prune Docker image.'
 		docker image prune --force *>&1 |
@@ -375,7 +445,7 @@ If ($DockerProgramIsExist) {
 			Write-GitHubActionsDebug
 	}
 }
-If ($HomebrewProgramIsExist) {
+If ($RegistryHomebrew.IsExist) {
 	If ($InputHomebrewPrune) {
 		Write-Host -Object 'Prune Homebrew package.'
 		brew autoremove *>&1 |
@@ -387,7 +457,7 @@ If ($HomebrewProgramIsExist) {
 			Write-GitHubActionsDebug
 	}
 }
-If ($NPMProgramIsExist) {
+If ($RegistryNpm.IsExist) {
 	If ($InputNpmPrune) {
 		Write-Host -Object 'Prune NPM package.'
 		npm prune *>&1 |
@@ -400,7 +470,7 @@ If ($NPMProgramIsExist) {
 	}
 }
 If ($InputOsSwap) {
-	If ($OsIsLinux) {
+	If ($Env:RUNNER_OS -iin @('Linux')) {
 		Write-Host -Object 'Remove Linux page/swap file.'
 		swapoff -a *>&1 |
 			Write-GitHubActionsDebug
