@@ -407,7 +407,7 @@ ForEach ($Index In (
 	) -Index $Index
 }
 If ($InputOperateAsync) {
-	$Null = Wait-Job -ErrorAction 'SilentlyContinue'
+	$Null = Wait-Job -Name '*' -ErrorAction 'SilentlyContinue'
 	If (Get-GitHubActionsDebugStatus) {
 		Get-Job |
 			ForEach-Object -Process {
