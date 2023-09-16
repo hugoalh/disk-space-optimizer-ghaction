@@ -149,15 +149,22 @@ Function Test-StringMatchRegEx {
 		Where-Object -FilterScript { $_.Length -gt 0 }
 ) ?? @()
 [Boolean]$InputAptClean = [Boolean]::Parse($Env:INPUT_APT_CLEAN)
+[Boolean]$InputAptEnable = [Boolean]::Parse($Env:INPUT_APT_ENABLE)
 [Boolean]$InputAptPrune = [Boolean]::Parse($Env:INPUT_APT_PRUNE)
+[Boolean]$InputChocolateyEnable = [Boolean]::Parse($Env:INPUT_CHOCOLATEY_ENABLE)
 [Boolean]$InputDockerClean = [Boolean]::Parse($Env:INPUT_DOCKER_CLEAN)
 [Boolean]$InputDockerPrune = [Boolean]::Parse($Env:INPUT_DOCKER_PRUNE)
+[Boolean]$InputFsEnable = [Boolean]::Parse($Env:INPUT_FS_ENABLE)
 [Boolean]$InputHomebrewClean = [Boolean]::Parse($Env:INPUT_HOMEBREW_CLEAN)
+[Boolean]$InputHomebrewEnable = [Boolean]::Parse($Env:INPUT_HOMEBREW_ENABLE)
 [Boolean]$InputHomebrewPrune = [Boolean]::Parse($Env:INPUT_HOMEBREW_PRUNE)
 [Boolean]$InputNpmClean = [Boolean]::Parse($Env:INPUT_NPM_CLEAN)
+[Boolean]$InputNpmEnable = [Boolean]::Parse($Env:INPUT_NPM_ENABLE)
 [Boolean]$InputNpmPrune = [Boolean]::Parse($Env:INPUT_NPM_PRUNE)
 [Boolean]$InputOperateAsync = [Boolean]::Parse($Env:INPUT_OPERATE_ASYNC)
 [Boolean]$InputOsSwap = [Boolean]::Parse($Env:INPUT_OS_SWAP)
+[Boolean]$InputPipxEnable = [Boolean]::Parse($Env:INPUT_PIPX_ENABLE)
+[Boolean]$InputWmicEnable = [Boolean]::Parse($Env:INPUT_WMIC_ENABLE)
 Write-Host -Object 'Resolve operation.'
 [String[]]$DockerImageListRaw = @()
 [String[]]$DockerImageRemove = @()
@@ -176,14 +183,14 @@ If ($InputGeneralInclude.Count -gt 0) {
 		Select-Object -ExpandProperty 'Collection' |
 		Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_.Name -Matcher $InputGeneralInclude) -and !(Test-StringMatchRegEx -Item $_.Name -Matcher $InputGeneralExclude) } |
 		Where-Object -FilterScript {
-			($RegistryApt.IsExist -and $Null -ine $_.APT) -or
-			($RegistryChocolatey.IsExist -and $Null -ine $_.Chocolatey) -or
-			($RegistryHomebrew.IsExist -and $Null -ine $_.Homebrew) -or
-			($RegistryNpm.IsExist -and $Null -ine $_.NPM) -or
-			($RegistryPipx.IsExist -and $Null -ine $_.Pipx) -or
-			($RegistryWmic.IsExist -and $Null -ine $_.WMIC) -or
-			$Null -ine $_.Env -or
-			$Null -ine $_.($OsPathPropertyName)
+			($InputAptEnable -and $RegistryApt.IsExist -and $Null -ine $_.APT) -or
+			($InputChocolateyEnable -and $RegistryChocolatey.IsExist -and $Null -ine $_.Chocolatey) -or
+			($InputHomebrewEnable -and $RegistryHomebrew.IsExist -and $Null -ine $_.Homebrew) -or
+			($InputNpmEnable -and $RegistryNpm.IsExist -and $Null -ine $_.NPM) -or
+			($InputPipxEnable -and $RegistryPipx.IsExist -and $Null -ine $_.Pipx) -or
+			($InputWmicEnable -and $RegistryWmic.IsExist -and $Null -ine $_.WMIC) -or
+			($InputFsEnable -and $Null -ine $_.Env) -or
+			($InputFsEnable -and $Null -ine $_.($OsPathPropertyName))
 		}
 }
 If ($RegistryDocker.IsExist -and $InputDockerInclude.Count -gt 0 -and $InputOperateAsync) {
@@ -281,31 +288,31 @@ Function Invoke-GeneralOptimizeOperation {
 					$Null -ine $_.($OsPathPropertyName)
 				)
 			}
-		If ($RegistryAPT.IsExist -and $QueueAPT.Count -gt 0) {
+		If ($InputAPTEnable -and $RegistryAPT.IsExist -and $QueueAPT.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove APT package with postpone #$Index."
 			$Null = Start-Job -Name "$Index/PM/APT" -ScriptBlock $RegistryApt.ScriptRemove -ArgumentList @(, $QueueAPT)
 		}
-		If ($RegistryChocolatey.IsExist -and $QueueChocolatey.Count -gt 0) {
+		If ($InputChocolateyEnable -and $RegistryChocolatey.IsExist -and $QueueChocolatey.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove Chocolatey package with postpone #$Index."
 			$Null = Start-Job -Name "$Index/PM/Chocolatey" -ScriptBlock $RegistryChocolatey.ScriptRemove -ArgumentList @(, $QueueChocolatey)
 		}
-		If ($RegistryHomebrew.IsExist -and $QueueHomebrew.Count -gt 0) {
+		If ($InputHomebrewEnable -and $RegistryHomebrew.IsExist -and $QueueHomebrew.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove Homebrew package with postpone #$Index."
 			$Null = Start-Job -Name "$Index/PM/Homebrew" -ScriptBlock $RegistryHomebrew.ScriptRemove -ArgumentList @(, $QueueHomebrew)
 		}
-		If ($RegistryNpm.IsExist -and $QueueNPM.Count -gt 0) {
+		If ($InputNpmEnable -and $RegistryNpm.IsExist -and $QueueNPM.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove NPM package with postpone #$Index."
 			$Null = Start-Job -Name "$Index/PM/NPM" -ScriptBlock $RegistryNpm.ScriptRemove -ArgumentList @(, $QueueNPM)
 		}
-		If ($RegistryPipx.IsExist -and $QueuePipx.Count -gt 0) {
+		If ($InputPipxEnable -and $RegistryPipx.IsExist -and $QueuePipx.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove Pipx package with postpone #$Index."
 			$Null = Start-Job -Name "$Index/PM/Pipx" -ScriptBlock $RegistryPipx.ScriptRemove -ArgumentList @(, $QueuePipx)
 		}
-		If ($RegistryWmic.IsExist -and $QueueWMIC.Count -gt 0) {
+		If ($InputWmicEnable -and $RegistryWmic.IsExist -and $QueueWMIC.Count -gt 0) {
 			Write-Host -Object "[ASYNC] Remove WMIC package with postpone #$Index."
 			$Null = Start-Job -Name "$Index/PM/WMIC" -ScriptBlock $RegistryWmic.ScriptRemove -ArgumentList @(, $QueueWMIC)
 		}
-		If ($QueueFSPlain.Count -gt 0) {
+		If ($InputFsEnable -and $QueueFSPlain.Count -gt 0) {
 			ForEach ($FSPlain In $QueueFSPlain) {
 				Write-Host -Object "[ASYNC] Remove $($FSPlain.Description) file with postpone #$Index."
 				$Null = Start-Job -Name "$Index/FSPlain/$($FSPlain.Name)" -ScriptBlock {
@@ -326,7 +333,7 @@ Function Invoke-GeneralOptimizeOperation {
 				}
 			}
 		}
-		If ($QueueFSRest.Count -gt 0) {
+		If ($InputFsEnable -and $QueueFSRest.Count -gt 0) {
 			$Null = Wait-Job -Name "$Index/PM/*" -ErrorAction 'SilentlyContinue'
 			ForEach ($FSRest In $QueueFSRest) {
 				Write-Host -Object "[ASYNC] Remove $($FSRest.Description) file with postpone #$Index."
@@ -352,37 +359,37 @@ Function Invoke-GeneralOptimizeOperation {
 	}
 	Else {
 		ForEach ($Item In $Queue) {
-			If ($RegistryAPT.IsExist -and $Null -ine $Item.APT) {
+			If ($InputAPTEnable -and $RegistryAPT.IsExist -and $Null -ine $Item.APT) {
 				Write-Host -Object "Remove $($Item.Description) via APT."
 				Invoke-Command -ScriptBlock $RegistryApt.ScriptRemove -ArgumentList @(, $Item.APT) |
 					Write-GitHubActionsDebug
 			}
-			If ($RegistryChocolatey.IsExist -and $Null -ine $Item.Chocolatey) {
+			If ($InputChocolateyEnable -and $RegistryChocolatey.IsExist -and $Null -ine $Item.Chocolatey) {
 				Write-Host -Object "Remove $($Item.Description) via Chocolatey."
 				Invoke-Command -ScriptBlock $RegistryChocolatey.ScriptRemove -ArgumentList @(, $Item.Chocolatey) |
 					Write-GitHubActionsDebug
 			}
-			If ($RegistryHomebrew.IsExist -and $Null -ine $Item.Homebrew) {
+			If ($InputHomebrewEnable -and $RegistryHomebrew.IsExist -and $Null -ine $Item.Homebrew) {
 				Write-Host -Object "Remove $($Item.Description) via Homebrew."
 				Invoke-Command -ScriptBlock $RegistryHomebrew.ScriptRemove -ArgumentList @(, $Item.Homebrew) |
 					Write-GitHubActionsDebug
 			}
-			If ($RegistryNpm.IsExist -and $Null -ine $Item.NPM) {
+			If ($InputNpmEnable -and $RegistryNpm.IsExist -and $Null -ine $Item.NPM) {
 				Write-Host -Object "Remove $($Item.Description) via NPM."
 				Invoke-Command -ScriptBlock $RegistryNpm.ScriptRemove -ArgumentList @(, $Item.NPM) |
 					Write-GitHubActionsDebug
 			}
-			If ($RegistryPipx.IsExist -and $Null -ine $Item.Pipx) {
+			If ($InputPipxEnable -and $RegistryPipx.IsExist -and $Null -ine $Item.Pipx) {
 				Write-Host -Object "Remove $($Item.Description) via Pipx."
 				Invoke-Command -ScriptBlock $RegistryPipx.ScriptRemove -ArgumentList @(, $Item.Pipx) |
 					Write-GitHubActionsDebug
 			}
-			If ($RegistryWmic.IsExist -and $Null -ine $Item.WMIC) {
+			If ($InputWmicEnable -and $RegistryWmic.IsExist -and $Null -ine $Item.WMIC) {
 				Write-Host -Object "Remove $($Item.Description) via WMIC."
 				Invoke-Command -ScriptBlock $RegistryWmic.ScriptRemove -ArgumentList @(, $Item.WMIC) |
 					Write-GitHubActionsDebug
 			}
-			If ($Null -ine $Item.Env -or $Null -ine $Item.($OsPathPropertyName)) {
+			If ($InputFsEnable -and ($Null -ine $Item.Env -or $Null -ine $Item.($OsPathPropertyName))) {
 				Write-Host -Object "Remove $($Item.Description) files."
 				ForEach ($EnvName In $Item.Env) {
 					[String]$EnvValue = Get-Content -LiteralPath "Env:\$EnvName" -ErrorAction 'SilentlyContinue'

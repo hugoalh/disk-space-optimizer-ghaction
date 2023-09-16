@@ -38,6 +38,10 @@ inputs:
     description: "{Boolean} Whether to remove Docker cache."
     required: false
     default: "False"
+  apt_enable:
+    description: "{Boolean} Whether to optimize via APT."
+    required: false
+    default: "True"
   apt_prune:
     description: "{Boolean} Whether to prune APT package."
     required: false
@@ -46,6 +50,14 @@ inputs:
     description: "{Boolean} Whether to remove APT cache."
     required: false
     default: "False"
+  chocolatey_enable:
+    description: "{Boolean} Whether to optimize via Chocolatey."
+    required: false
+    default: "True"
+  homebrew_enable:
+    description: "{Boolean} Whether to optimize via Homebrew."
+    required: false
+    default: "True"
   homebrew_prune:
     description: "{Boolean} Whether to prune Homebrew package."
     required: false
@@ -54,6 +66,10 @@ inputs:
     description: "{Boolean} Whether to remove Homebrew cache."
     required: false
     default: "False"
+  npm_enable:
+    description: "{Boolean} Whether to optimize via NPM."
+    required: false
+    default: "True"
   npm_prune:
     description: "{Boolean} Whether to prune NPM package."
     required: false
@@ -62,38 +78,22 @@ inputs:
     description: "{Boolean} Whether to remove NPM cache."
     required: false
     default: "False"
+  pipx_enable:
+    description: "{Boolean} Whether to optimize via Pipx."
+    required: false
+    default: "True"
+  wmic_enable:
+    description: "{Boolean} Whether to optimize via WMIC."
+    required: false
+    default: "True"
+  fs_enable:
+    description: "{Boolean} Whether to optimize via file system."
+    required: false
+    default: "True"
   os_swap:
     description: "{Boolean} Whether to remove system page/swap file."
     required: false
     default: "False"
-  dockerimage_include:
-    description: "{RegEx[]} Remove Docker image."
-    required: false
-    deprecationMessage: "Replaced by input `docker_include`!"
-  dockerimage_exclude:
-    description: "{RegEx[]} Exclude remove Docker image."
-    required: false
-    deprecationMessage: "Replaced by input `docker_exclude`!"
-  cache_apt:
-    description: "{Boolean} Whether to remove APT cache."
-    required: false
-    deprecationMessage: "Replaced by inputs `apt_prune` and `apt_clean`!"
-  cache_docker:
-    description: "{Boolean} Whether to remove Docker cache."
-    required: false
-    deprecationMessage: "Replaced by inputs `docker_prune` and `docker_clean`!"
-  cache_homebrew:
-    description: "{Boolean} Whether to remove Homebrew cache."
-    required: false
-    deprecationMessage: "Replaced by inputs `homebrew_prune` and `homebrew_clean`!"
-  cache_npm:
-    description: "{Boolean} Whether to remove NPM cache."
-    required: false
-    deprecationMessage: "Replaced by inputs `npm_prune` and `npm_clean`!"
-  swap:
-    description: "{Boolean} Whether to remove Linux Swap Space."
-    required: false
-    deprecationMessage: "Replaced by input `os_swap`!"
 runs:
   using: "composite"
   steps:
@@ -136,22 +136,29 @@ runs:
         }
       shell: "pwsh"
       env:
-        INPUT_APT_CLEAN: "${{inputs.cache_apt || inputs.apt_clean}}"
-        INPUT_APT_PRUNE: "${{inputs.cache_apt || inputs.apt_prune}}"
-        INPUT_DOCKER_CLEAN: "${{inputs.cache_docker || inputs.docker_clean}}"
-        INPUT_DOCKER_EXCLUDE: "${{inputs.dockerimage_exclude || inputs.docker_exclude}}"
-        INPUT_DOCKER_INCLUDE: "${{inputs.dockerimage_include || inputs.docker_include}}"
-        INPUT_DOCKER_PRUNE: "${{inputs.cache_docker || inputs.docker_prune}}"
+        INPUT_APT_CLEAN: "${{inputs.apt_clean}}"
+        INPUT_APT_ENABLE: "${{inputs.apt_enable}}"
+        INPUT_APT_PRUNE: "${{inputs.apt_prune}}"
+        INPUT_CHOCOLATEY_ENABLE: "${{inputs.chocolatey_enable}}"
+        INPUT_DOCKER_CLEAN: "${{inputs.docker_clean}}"
+        INPUT_DOCKER_EXCLUDE: "${{inputs.docker_exclude}}"
+        INPUT_DOCKER_INCLUDE: "${{inputs.docker_include}}"
+        INPUT_DOCKER_PRUNE: "${{inputs.docker_prune}}"
+        INPUT_FS_ENABLE: "${{inputs.fs_enable}}"
         INPUT_GENERAL_EXCLUDE: "${{inputs.general_exclude}}"
         INPUT_GENERAL_INCLUDE: "${{inputs.general_include}}"
-        INPUT_HOMEBREW_CLEAN: "${{inputs.cache_homebrew || inputs.homebrew_clean}}"
-        INPUT_HOMEBREW_PRUNE: "${{inputs.cache_homebrew || inputs.homebrew_prune}}"
+        INPUT_HOMEBREW_CLEAN: "${{inputs.homebrew_clean}}"
+        INPUT_HOMEBREW_ENABLE: "${{inputs.homebrew_enable}}"
+        INPUT_HOMEBREW_PRUNE: "${{inputs.homebrew_prune}}"
         INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
-        INPUT_NPM_CLEAN: "${{inputs.cache_npm || inputs.npm_clean}}"
-        INPUT_NPM_PRUNE: "${{inputs.cache_npm || inputs.npm_prune}}"
+        INPUT_NPM_CLEAN: "${{inputs.npm_clean}}"
+        INPUT_NPM_ENABLE: "${{inputs.npm_enable}}"
+        INPUT_NPM_PRUNE: "${{inputs.npm_prune}}"
         INPUT_OPERATE_ASYNC: "${{inputs.operate_async}}"
         INPUT_OPERATE_SUDO: "${{inputs.operate_sudo}}"
-        INPUT_OS_SWAP: "${{inputs.swap || inputs.os_swap}}"
+        INPUT_OS_SWAP: "${{inputs.os_swap}}"
+        INPUT_PIPX_ENABLE: "${{inputs.pipx_enable}}"
+        INPUT_WMIC_ENABLE: "${{inputs.wmic_enable}}"
       continue-on-error: true
     - name: "Setup PowerShell Toolkit (Sudo)"
       if: "${{inputs.operate_sudo == 'True'}}"
