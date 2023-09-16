@@ -60,6 +60,10 @@ jobs:
 
 > **ℹ️ Notice:** All of the inputs are optional; Use this action without any input will default to do nothing.
 
+| **Legend** | **Description** |
+|:-:|:--|
+| 🔀 | Switch with groups (e.g.: `{E}`). |
+
 ### `input_listdelimiter`
 
 `<RegEx = ",|;|\r?\n">` Delimiter when the input is accept list of values, by regular expression.
@@ -105,7 +109,9 @@ jobs:
 
 ### `apt_enable`
 
-`<Boolean = True>` Whether to optimize via APT. Only affect general optimization.
+**🔀{E}** `<Boolean = False>` Whether to optimize via APT. Only affect general optimization.
+
+If all of the inputs inside this switch group are `False`, this input will default to `True`.
 
 ### `apt_prune`
 
@@ -117,11 +123,15 @@ jobs:
 
 ### `chocolatey_enable`
 
-`<Boolean = True>` Whether to optimize via Chocolatey. Only affect general optimization.
+**🔀{E}** `<Boolean = False>` Whether to optimize via Chocolatey. Only affect general optimization.
+
+If all of the inputs inside this switch group are `False`, this input will default to `True`.
 
 ### `homebrew_enable`
 
-`<Boolean = True>` Whether to optimize via Homebrew. Only affect general optimization.
+**🔀{E}** `<Boolean = False>` Whether to optimize via Homebrew. Only affect general optimization.
+
+If all of the inputs inside this switch group are `False`, this input will default to `True`.
 
 ### `homebrew_prune`
 
@@ -137,7 +147,9 @@ jobs:
 
 ### `npm_enable`
 
-`<Boolean = True>` Whether to optimize via NPM. Only affect general optimization.
+**🔀{E}** `<Boolean = False>` Whether to optimize via NPM. Only affect general optimization.
+
+If all of the inputs inside this switch group are `False`, this input will default to `True`.
 
 ### `npm_prune`
 
@@ -149,15 +161,21 @@ jobs:
 
 ### `pipx_enable`
 
-`<Boolean = True>` Whether to optimize via Pipx. Only affect general optimization.
+**🔀{E}** `<Boolean = False>` Whether to optimize via Pipx. Only affect general optimization.
+
+If all of the inputs inside this switch group are `False`, this input will default to `True`.
 
 ### `wmic_enable`
 
-`<Boolean = True>` Whether to optimize via WMIC. Only affect general optimization.
+**🔀{E}** `<Boolean = False>` Whether to optimize via WMIC. Only affect general optimization.
+
+If all of the inputs inside this switch group are `False`, this input will default to `True`.
 
 ### `fs_enable`
 
-`<Boolean = True>` Whether to optimize via file system.
+**🔀{E}** `<Boolean = False>` Whether to optimize via file system.
+
+If all of the inputs inside this switch group are `False`, this input will default to `True`.
 
 ### `os_swap`
 

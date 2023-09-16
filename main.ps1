@@ -165,6 +165,15 @@ Function Test-StringMatchRegEx {
 [Boolean]$InputOsSwap = [Boolean]::Parse($Env:INPUT_OS_SWAP)
 [Boolean]$InputPipxEnable = [Boolean]::Parse($Env:INPUT_PIPX_ENABLE)
 [Boolean]$InputWmicEnable = [Boolean]::Parse($Env:INPUT_WMIC_ENABLE)
+If (!$InputAptEnable -and !$InputChocolateyEnable -and !$InputFsEnable -and !$InputHomebrewEnable -and !$InputNpmEnable -and !$InputPipxEnable -and !$InputWmicEnable) {
+	$InputAptEnable = $True
+	$InputChocolateyEnable = $True
+	$InputFsEnable = $True
+	$InputHomebrewEnable = $True
+	$InputNpmEnable = $True
+	$InputPipxEnable = $True
+	$InputWmicEnable = $True
+}
 Write-Host -Object 'Resolve operation.'
 [String[]]$DockerImageListRaw = @()
 [String[]]$DockerImageRemove = @()

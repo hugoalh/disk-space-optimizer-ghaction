@@ -41,7 +41,7 @@ inputs:
   apt_enable:
     description: "{Boolean} Whether to optimize via APT."
     required: false
-    default: "True"
+    default: "False"
   apt_prune:
     description: "{Boolean} Whether to prune APT package."
     required: false
@@ -53,11 +53,11 @@ inputs:
   chocolatey_enable:
     description: "{Boolean} Whether to optimize via Chocolatey."
     required: false
-    default: "True"
+    default: "False"
   homebrew_enable:
     description: "{Boolean} Whether to optimize via Homebrew."
     required: false
-    default: "True"
+    default: "False"
   homebrew_prune:
     description: "{Boolean} Whether to prune Homebrew package."
     required: false
@@ -69,7 +69,7 @@ inputs:
   npm_enable:
     description: "{Boolean} Whether to optimize via NPM."
     required: false
-    default: "True"
+    default: "False"
   npm_prune:
     description: "{Boolean} Whether to prune NPM package."
     required: false
@@ -81,15 +81,15 @@ inputs:
   pipx_enable:
     description: "{Boolean} Whether to optimize via Pipx."
     required: false
-    default: "True"
+    default: "False"
   wmic_enable:
     description: "{Boolean} Whether to optimize via WMIC."
     required: false
-    default: "True"
+    default: "False"
   fs_enable:
     description: "{Boolean} Whether to optimize via file system."
     required: false
-    default: "True"
+    default: "False"
   os_swap:
     description: "{Boolean} Whether to remove system page/swap file."
     required: false
