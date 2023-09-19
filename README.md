@@ -53,7 +53,7 @@ jobs:
   job_id:
     runs-on: "________" # Any
     steps:
-      - uses: "hugoalh/disk-space-optimizer-ghaction@<Version>"
+      - uses: "hugoalh/disk-space-optimizer-ghaction@<Tag>"
 ```
 
 ## 🧩 Input
