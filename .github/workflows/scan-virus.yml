@@ -46,5 +46,5 @@ jobs:
       ignores_post: |-
         Param($ElementPostMeta)
         Return (
-          $ElementPostMeta.Path -imatch '^node_modules[\/]'
+          $ElementPostMeta.Path -imatch '^node_modules[\\/]'
         )
