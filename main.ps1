@@ -101,21 +101,6 @@ Function Get-DiskSpace {
 		Write-Output -InputObject 'Unknown.'
 	}
 }
-Function Test-StringMatchRegEx {
-	[CmdletBinding()]
-	[OutputType([Boolean])]
-	Param (
-		[Parameter(Mandatory = $True, Position = 0)][String]$Item,
-		[Parameter(Mandatory = $True, Position = 1)][AllowEmptyCollection()][Alias('Matchers')][RegEx[]]$Matcher
-	)
-	ForEach ($_M In $Matcher) {
-		If ($Item -imatch $_M) {
-			Write-Output -InputObject $True
-			Return
-		}
-	}
-	Write-Output -InputObject $False
-}
 [String]$DiskSpaceBefore = Get-DiskSpace
 [PSCustomObject]@{
 	Runner_OS = $Env:RUNNER_OS
@@ -131,23 +116,18 @@ Function Test-StringMatchRegEx {
 	Format-List |
 	Out-String -Width 120 |
 	Write-GitHubActionsDebug
-[RegEx]$InputListDelimiter = Get-GitHubActionsInput -Name 'input_listdelimiter' -Mandatory -EmptyStringAsNull
-[AllowEmptyCollection()][RegEx[]]$InputGeneralInclude = (
-	((Get-GitHubActionsInput -Name 'general_include' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
-		Where-Object -FilterScript { $_.Length -gt 0 }
-) ?? @()
-[AllowEmptyCollection()][RegEx[]]$InputGeneralExclude = (
-	((Get-GitHubActionsInput -Name 'general_exclude' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
-		Where-Object -FilterScript { $_.Length -gt 0 }
-) ?? @()
-[AllowEmptyCollection()][RegEx[]]$InputDockerInclude = (
-	((Get-GitHubActionsInput -Name 'docker_include' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
-		Where-Object -FilterScript { $_.Length -gt 0 }
-) ?? @()
-[AllowEmptyCollection()][RegEx[]]$InputDockerExclude = (
-	((Get-GitHubActionsInput -Name 'docker_exclude' -EmptyStringAsNull) ?? '') -isplit $InputListDelimiter |
-		Where-Object -FilterScript { $_.Length -gt 0 }
-) ?? @()
+[String]$InputGeneralInclude = ((Get-GitHubActionsInput -Name 'general_include' -EmptyStringAsNull) ?? '') -isplit '\r?\n' |
+	Where-Object -FilterScript { $_.Length -gt 0 } |
+	Join-String -Separator '|'
+[String]$InputGeneralExclude = ((Get-GitHubActionsInput -Name 'general_exclude' -EmptyStringAsNull) ?? '') -isplit '\r?\n' |
+	Where-Object -FilterScript { $_.Length -gt 0 } |
+	Join-String -Separator '|'
+[String]$InputDockerInclude = ((Get-GitHubActionsInput -Name 'docker_include' -EmptyStringAsNull) ?? '') -isplit '\r?\n' |
+	Where-Object -FilterScript { $_.Length -gt 0 } |
+	Join-String -Separator '|'
+[String]$InputDockerExclude = ((Get-GitHubActionsInput -Name 'docker_exclude' -EmptyStringAsNull) ?? '') -isplit '\r?\n' |
+	Where-Object -FilterScript { $_.Length -gt 0 } |
+	Join-String -Separator '|'
 [Boolean]$InputAptClean = [Boolean]::Parse($Env:INPUT_APT_CLEAN)
 [Boolean]$InputAptEnable = [Boolean]::Parse($Env:INPUT_APT_ENABLE)
 [Boolean]$InputAptPrune = [Boolean]::Parse($Env:INPUT_APT_PRUNE)
@@ -178,7 +158,7 @@ Write-Host -Object 'Resolve operation.'
 [String[]]$DockerImageListRaw = @()
 [String[]]$DockerImageRemove = @()
 [PSCustomObject[]]$GeneralRemove = @()
-If ($RegistryDocker.IsExist -and $InputDockerInclude.Count -gt 0) {
+If ($RegistryDocker.IsExist -and $InputDockerInclude.Length -gt 0) {
 	If ($InputOperateAsync) {
 		$Null = Start-Job -Name "Docker/List" -ScriptBlock $RegistryDocker.ScriptList
 	}
@@ -186,11 +166,11 @@ If ($RegistryDocker.IsExist -and $InputDockerInclude.Count -gt 0) {
 		$DockerImageListRaw += Invoke-Command -ScriptBlock $RegistryDocker.ScriptList
 	}
 }
-If ($InputGeneralInclude.Count -gt 0) {
+If ($InputGeneralInclude.Length -gt 0) {
 	$GeneralRemove += Get-Content -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.json') -Raw -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
 		ConvertFrom-Json -Depth 100 |
 		Select-Object -ExpandProperty 'Collection' |
-		Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_.Name -Matcher $InputGeneralInclude) -and !(Test-StringMatchRegEx -Item $_.Name -Matcher $InputGeneralExclude) } |
+		Where-Object -FilterScript { (($InputGeneralInclude.Length -gt 0) ? ($_.Name -imatch $InputGeneralInclude) : $False) -and (($InputGeneralExclude.Length -gt 0) ? ($_.Name -inotmatch $InputGeneralExclude) : $True) } |
 		Where-Object -FilterScript {
 			($InputAptEnable -and $RegistryApt.IsExist -and $Null -ine $_.APT) -or
 			($InputChocolateyEnable -and $RegistryChocolatey.IsExist -and $Null -ine $_.Chocolatey) -or
@@ -202,14 +182,14 @@ If ($InputGeneralInclude.Count -gt 0) {
 			($InputFsEnable -and $Null -ine $_.($OsPathPropertyName))
 		}
 }
-If ($RegistryDocker.IsExist -and $InputDockerInclude.Count -gt 0 -and $InputOperateAsync) {
+If ($RegistryDocker.IsExist -and $InputDockerInclude.Length -gt 0 -and $InputOperateAsync) {
 	$DockerImageListRaw += Receive-Job -Name "Docker/List" -Wait -AutoRemoveJob -ErrorAction 'Continue'
 }
 $DockerImageRemove += $DockerImageListRaw |
 	Join-String -Separator ',' -OutputPrefix '[' -OutputSuffix ']' |
 	ConvertFrom-Json -Depth 100 -ErrorAction 'Continue' |
 	ForEach-Object -Process { "$($_.Repository)$(($_.Tag.Length -gt 0) ? ":$($_.Tag)" : '')" } |
-	Where-Object -FilterScript { (Test-StringMatchRegEx -Item $_ -Matcher $InputDockerInclude) -and !(Test-StringMatchRegEx -Item $_ -Matcher $InputDockerExclude) }
+	Where-Object -FilterScript { (($InputDockerInclude.Length -gt 0) ? ($_ -imatch $InputDockerInclude) : $False) -and (($InputDockerExclude.Length -gt 0) ? ($_ -inotmatch $InputDockerExclude) : $True) }
 If ($GeneralRemove.Count -gt 0) {
 	Write-Host -Object "Removable item [$($GeneralRemove.Count)]: $(
 		$GeneralRemove |

@@ -19,7 +19,7 @@ This project is inspired from:
 - [ShubhamTatvamasi/free-disk-space-action](https://github.com/ShubhamTatvamasi/free-disk-space-action)
 - [ThewApp/free-actions](https://github.com/ThewApp/free-actions)
 
-> **⚠️ Important:** This documentation is v0.7.0 based; To view other version's documentation, please visit the [versions list](https://github.com/hugoalh/disk-space-optimizer-ghaction/tags) and select the correct version.
+> **⚠️ Important:** This documentation is v0.7.1 based; To view other version's documentation, please visit the [versions list](https://github.com/hugoalh/disk-space-optimizer-ghaction/tags) and select the correct version.
 
 ## 🌟 Feature
 
@@ -64,10 +64,6 @@ jobs:
 |:-:|:--|
 | 🔀 | Switch with groups (e.g.: `{E}`). |
 
-### `input_listdelimiter`
-
-`<RegEx = ",|;|\r?\n">` Delimiter when the input is accept list of values, by regular expression.
-
 ### `operate_async`
 
 > **🧪 Experimental:** This is in testing, maybe available in the latest version and/or future version.
@@ -80,19 +76,19 @@ jobs:
 
 ### `general_include`
 
-`<RegEx[]>` Remove general item, by regular expression and [general list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+`<RegEx[]>` Remove general item, by regular expression and [general list][list], separate each value per line.
 
 ### `general_exclude`
 
-`<RegEx[]>` Exclude remove general item, by regular expression and [general list][list], separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+`<RegEx[]>` Exclude remove general item, by regular expression and [general list][list], separate each value per line.
 
 ### `docker_include`
 
-`<RegEx[]>` Remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+`<RegEx[]>` Remove Docker image, by regular expression, separate each value per line.
 
 ### `docker_exclude`
 
-`<RegEx[]>` Exclude remove Docker image, by regular expression, separate each name by [list delimiter (input `input_listdelimiter`)](#input_listdelimiter).
+`<RegEx[]>` Exclude remove Docker image, by regular expression, separate each value per line.
 
 ### `docker_prune`
 

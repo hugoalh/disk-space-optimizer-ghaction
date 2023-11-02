@@ -2,10 +2,6 @@ name: "Disk Space Optimizer"
 author: "hugoalh"
 description: "Optimize disk space for GitHub hosted runner."
 inputs:
-  input_listdelimiter:
-    description: "{RegEx} Delimiter when the input is accept list of values."
-    required: false
-    default: ",|;|\\r?\\n"
   operate_async:
     description: "[EXPERIMENTAL] {Boolean} Whether to operate in asynchronously to reduce the operation duration."
     required: false
@@ -150,7 +146,6 @@ runs:
         INPUT_HOMEBREW_CLEAN: "${{inputs.homebrew_clean}}"
         INPUT_HOMEBREW_ENABLE: "${{inputs.homebrew_enable}}"
         INPUT_HOMEBREW_PRUNE: "${{inputs.homebrew_prune}}"
-        INPUT_INPUT_LISTDELIMITER: "${{inputs.input_listdelimiter}}"
         INPUT_NPM_CLEAN: "${{inputs.npm_clean}}"
         INPUT_NPM_ENABLE: "${{inputs.npm_enable}}"
         INPUT_NPM_PRUNE: "${{inputs.npm_prune}}"
