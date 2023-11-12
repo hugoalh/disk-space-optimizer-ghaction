@@ -2,24 +2,22 @@
 
 ## Supported Versions
 
-> | **Legend** | **Description** |
-> |:-:|:--|
-> | L | **LTS:** Long term supported. |
-> | ✔️ | **Active / Current:** Currently supported. |
-> | 👎{🐛} | **Partially (Issue):** Partially supported due to confirmed contains bugs and/or issues. |
-> | 👎{🧓} | **Partially (Old):** Partially supported due to deprecated by newer versions. |
-> | ❌{🐛} | **No (Issue):** Not supported due to confirmed contains bugs and/or issues. |
-> | ❌{🧓} | **No (Old):** Not supported due to too old. |
+> | **Support** | **Legend** | **Description** |
+> |:-:|:-:|:--|
+> | ✔️ | 🟤 | Pending / Pre Release / Unstable |
+> | ✔️ | 🔵 | Current Release |
+> | ✔️ | 🟢 | Long Term Support |
+> | ❌ | 🔴 | End of Life |
 
-| **Versions** | **Status** | **Target - GitHub Actions Runner** | **Target - PowerShell** |
-|:-:|:-:|:-:|:-:|
-| v0.7.X | ✔️ | >= v2.308.0 | >= v7.2.0 |
-| v0.6.X | ✔️ | >= v2.303.0 | >= v7.2.0 |
-| v0.5.X | ✔️ | >= v2.303.0 | >= v7.2.0 |
-| v0.4.X | 👎{🧓} | >= v2.303.0 | >= v7.2.0 |
-| v0.3.X | 👎{🧓} | >= v2.303.0 | >= v7.2.0 |
-| v0.2.X | 👎{🐛} | >= v2.303.0 | >= v7.2.0 |
-| v0.1.X | 👎{🐛} | >= v2.303.0 | >= v7.2.0 |
+| **Versions** | **Status** | **🔵 Date** | **🟢 Date** | **🔴 Date** | **Target - GitHub Actions Runner** | **Target - PowerShell** |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| v0.7.X | 🔵 | 2023-09-16 | *N/A* | *Unknown* | >= v2.308.0 | >= v7.2.0 |
+| v0.6.X | 🔴 | 2023-08-26 | *N/A* | 2023-09-20 | >= v2.303.0 | >= v7.2.0 |
+
+> **ℹ️ Notice:**
+>
+> - The date format is according to ISO 8601 standard.
+> - Versions which not in the list are also end of life.
 
 ## Report Vulnerability
 
