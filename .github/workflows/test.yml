@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 jobs:
   main:
-    name: "${{matrix.os}} (Async: ${{matrix.operate_async}}; Sudo: ${{matrix.operate_sudo}})"
+    name: "${{matrix.os}} (Async: ${{matrix.operate_async}}; Sudo: ${{matrix.operate_sudo}}; WindowsDefender: ${{matrix.operate_windowsdefender}})"
     runs-on: "${{matrix.os}}"
     strategy:
       matrix:
@@ -14,6 +14,9 @@ jobs:
         operate_sudo:
           - "False"
           - "True"
+        operate_windowsdefender:
+          - "False"
+          - "True"
         os:
           - "macos-latest"
           - "ubuntu-latest"
@@ -21,8 +24,53 @@ jobs:
         exclude:
           - operate_sudo: "True"
             os: "windows-latest"
+          - operate_windowsdefender: "True"
+            os: "macos-latest"
+          - operate_windowsdefender: "True"
+            os: "ubuntu-latest"
       fail-fast: false
     steps:
+      - name: "Disable Windows Defender"
+        if: "${{runner.os == 'windows' && matrix.operate_windowsdefender == 'true'}}"
+        run: |
+          Try { Set-MpPreference -AllowNetworkProtectionOnWinServer $False } Catch { }
+          Try { Set-MpPreference -AllowSwitchToAsyncInspection $True } Catch { }
+          Try { Set-MpPreference -DisableArchiveScanning $True } Catch { }
+          Try { Set-MpPreference -DisableBehaviorMonitoring $True } Catch { }
+          Try { Set-MpPreference -DisableBlockAtFirstSeen $True } Catch { }
+          Try { Set-MpPreference -DisableCacheMaintenance 1 } Catch { }
+          Try { Set-MpPreference -DisableCatchupFullScan $True } Catch { }
+          Try { Set-MpPreference -DisableCatchupQuickScan $True } Catch { }
+          Try { Set-MpPreference -DisableCpuThrottleOnIdleScans $True } Catch { }
+          Try { Set-MpPreference -DisableDatagramProcessing $True } Catch { }
+          Try { Set-MpPreference -DisableDnsOverTcpParsing $True } Catch { }
+          Try { Set-MpPreference -DisableDnsParsing $True } Catch { }
+          Try { Set-MpPreference -DisableEmailScanning $True } Catch { }
+          Try { Set-MpPreference -DisableFtpParsing $True } Catch { }
+          Try { Set-MpPreference -DisableHttpParsing $True } Catch { }
+          Try { Set-MpPreference -DisableIOAVProtection $True } Catch { }
+          Try { Set-MpPreference -DisableNetworkProtectionPerfTelemetry $True } Catch { }
+          Try { Set-MpPreference -DisableRdpParsing $True } Catch { }
+          Try { Set-MpPreference -DisableRealtimeMonitoring $True } Catch { }
+          Try { Set-MpPreference -DisableRemovableDriveScanning $True } Catch { }
+          Try { Set-MpPreference -DisableRestorePoint $True } Catch { }
+          Try { Set-MpPreference -DisableScanningMappedNetworkDrivesForFullScan $True } Catch { }
+          Try { Set-MpPreference -DisableScanningNetworkFiles $True } Catch { }
+          Try { Set-MpPreference -DisableScriptScanning $True } Catch { }
+          Try { Set-MpPreference -DisableSmtpParsing $True } Catch { }
+          Try { Set-MpPreference -DisableSshParsing $True } Catch { }
+          Try { Set-MpPreference -DisableTlsParsing $True } Catch { }
+          Try { Set-MpPreference -EnableControlledFolderAccess 'Disabled' } Catch { }
+          Try { Set-MpPreference -EnableFileHashComputation $True } Catch { }
+          Try { Set-MpPreference -EnableFullScanOnBatteryPower $False } Catch { }
+          Try { Set-MpPreference -EnableLowCpuPriority $True } Catch { }
+          Try { Set-MpPreference -EnableNetworkProtection 'Disabled' } Catch { }
+          Try { Set-MpPreference -MAPSReporting 'Disabled' } Catch { }
+          Try { Set-MpPreference -PUAProtection 'Disabled' } Catch { }
+          Try { Set-MpPreference -ScanOnlyIfIdleEnabled $True } Catch { }
+          Try { Set-MpPreference -SubmitSamplesConsent 'NeverSend' } Catch { }
+        shell: "powershell"
+        continue-on-error: true
       - name: "Optimize Disk Space"
         uses: "hugoalh/disk-space-optimizer-ghaction@main"
         with:
