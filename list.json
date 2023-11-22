@@ -688,6 +688,29 @@
 			]
 		},
 		{
+			"Name": "Java/21",
+			"Description": "Java 21",
+			"Postpone": 0,
+			"APT": [
+				"temurin-21-jdk"
+			],
+			"Env": [
+				"JAVA_HOME_21_X64"
+			],
+			"PathLinux": [
+				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/21.*",
+				"/opt/hostedtoolcache/Java_*_jdk/21.*",
+				"/usr/lib/jvm/*-21-jdk-*"
+			],
+			"PathMacOS": [
+				"$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/21.*",
+				"/Users/runner/hostedtoolcache/Java_*_jdk/21.*"
+			],
+			"PathWindows": [
+				"$Env:AGENT_TOOLSDIRECTORY\\Java_*_jdk\\21.*"
+			]
+		},
+		{
 			"Name": "Java/All",
 			"Description": "Java (All)",
 			"Postpone": 1,
