@@ -9,7 +9,7 @@
 |:-:|:-:|:-:|
 | [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=ffffff&style=flat-square "GitHub")](https://github.com/hugoalh/disk-space-optimizer-ghaction) | ![GitHub Latest Release Version](https://img.shields.io/github/release/hugoalh/disk-space-optimizer-ghaction?sort=semver&label=&style=flat-square "GitHub Latest Release Version") (![GitHub Latest Release Date](https://img.shields.io/github/release-date/hugoalh/disk-space-optimizer-ghaction?label=&style=flat-square "GitHub Latest Release Date")) | ![GitHub Latest Pre-Release Version](https://img.shields.io/github/release/hugoalh/disk-space-optimizer-ghaction?include_prereleases&sort=semver&label=&style=flat-square "GitHub Latest Pre-Release Version") (![GitHub Latest Pre-Release Date](https://img.shields.io/github/release-date-pre/hugoalh/disk-space-optimizer-ghaction?label=&style=flat-square "GitHub Latest Pre-Release Date")) |
 
-A GitHub Action to optimize disk space for GitHub hosted runner.
+A GitHub Action to optimize disk space for GitHub-hosted runner.
 
 This project is inspired from:
 
@@ -19,7 +19,7 @@ This project is inspired from:
 - [ShubhamTatvamasi/free-disk-space-action](https://github.com/ShubhamTatvamasi/free-disk-space-action)
 - [ThewApp/free-actions](https://github.com/ThewApp/free-actions)
 
-> **⚠️ Important:** This documentation is v0.7.1 based; To view other version's documentation, please visit the [versions list](https://github.com/hugoalh/disk-space-optimizer-ghaction/tags) and select the correct version.
+> **⚠️ Important:** This documentation is v0.8.0 based; To view other version's documentation, please visit the [versions list](https://github.com/hugoalh/disk-space-optimizer-ghaction/tags) and select the correct version.
 
 ## 🌟 Feature
 
@@ -44,8 +44,8 @@ This project is inspired from:
 
 ### GitHub Actions
 
-- **Target Version:** Runner >= v2.308.0, &:
-  - PowerShell >= v7.2.0
+- **Target Version:** Runner >= v2.311.0, &:
+  - NodeJS ^ v20.9.0
 - **Require Permission:** *N/A*
 
 ```yml
@@ -68,35 +68,35 @@ jobs:
 
 > **🧪 Experimental:** This is in testing, maybe available in the latest version and/or future version.
 
-`<Boolean = False>` Whether to operate in asynchronously to reduce the operation duration.
+`<boolean = false>` Whether to operate in asynchronously to reduce the operation duration.
 
 ### `operate_sudo`
 
-`<Boolean = False>` Whether to execute this action in sudo mode on non-Windows environment. This can set to `True` in order to able operate protected resources on non-Windows environment.
+`<boolean = false>` Whether to execute this action in sudo mode on non-Windows environment. This can set to `true` in order to able operate protected resources on non-Windows environment.
 
 ### `general_include`
 
-`<RegEx[]>` Remove general item, by regular expression and [general list][list], separate each value per line.
+`<RegExp[]>` Remove general item, by regular expression and [general list][list], separate each value per line.
 
 ### `general_exclude`
 
-`<RegEx[]>` Exclude remove general item, by regular expression and [general list][list], separate each value per line.
+`<RegExp[]>` Exclude remove general item, by regular expression and [general list][list], separate each value per line.
 
 ### `docker_include`
 
-`<RegEx[]>` Remove Docker image, by regular expression, separate each value per line.
+`<RegExp[]>` Remove Docker image, by regular expression, separate each value per line.
 
 ### `docker_exclude`
 
-`<RegEx[]>` Exclude remove Docker image, by regular expression, separate each value per line.
+`<RegExp[]>` Exclude remove Docker image, by regular expression, separate each value per line.
 
 ### `docker_prune`
 
-`<Boolean = False>` Whether to prune Docker all of the dangling images.
+`<boolean = false>` Whether to prune Docker all of the dangling images.
 
 ### `docker_clean`
 
-`<Boolean = False>` Whether to remove Docker cache, include all of the:
+`<boolean = false>` Whether to remove Docker cache, include all of the:
 
 - build caches
 - stopped/unused containers
@@ -105,37 +105,37 @@ jobs:
 
 ### `apt_enable`
 
-**🔀{E}** `<Boolean = False>` Whether to optimize via APT. Only affect general optimization.
+**🔀{E}** `<boolean = false>` Whether to optimize via APT. Only affect general optimization.
 
-If all of the inputs inside this switch group are `False`, this input will default to `True`.
+If all of the inputs inside this switch group are `false`, this input will default to `true`.
 
 ### `apt_prune`
 
-`<Boolean = False>` Whether to prune APT (Advanced Packaging Tools) all of the packages that were automatically installed to satisfy dependencies for other packages and are now no longer needed.
+`<boolean = false>` Whether to prune APT (Advanced Packaging Tools) all of the packages that were automatically installed to satisfy dependencies for other packages and are now no longer needed.
 
 ### `apt_clean`
 
-`<Boolean = False>` Whether to remove APT (Advanced Packaging Tools) cache, include the local repository of retrieved package files.
+`<boolean = false>` Whether to remove APT (Advanced Packaging Tools) cache, include the local repository of retrieved package files.
 
 ### `chocolatey_enable`
 
-**🔀{E}** `<Boolean = False>` Whether to optimize via Chocolatey. Only affect general optimization.
+**🔀{E}** `<boolean = false>` Whether to optimize via Chocolatey. Only affect general optimization.
 
-If all of the inputs inside this switch group are `False`, this input will default to `True`.
+If all of the inputs inside this switch group are `false`, this input will default to `true`.
 
 ### `homebrew_enable`
 
-**🔀{E}** `<Boolean = False>` Whether to optimize via Homebrew. Only affect general optimization.
+**🔀{E}** `<boolean = false>` Whether to optimize via Homebrew. Only affect general optimization.
 
-If all of the inputs inside this switch group are `False`, this input will default to `True`.
+If all of the inputs inside this switch group are `false`, this input will default to `true`.
 
 ### `homebrew_prune`
 
-`<Boolean = False>` Whether to prune Homebrew all of the packages that were only installed as a dependency of other packages and are now no longer needed.
+`<boolean = false>` Whether to prune Homebrew all of the packages that were only installed as a dependency of other packages and are now no longer needed.
 
 ### `homebrew_clean`
 
-`<Boolean = False>` Whether to remove Homebrew cache, include all of the:
+`<boolean = false>` Whether to remove Homebrew cache, include all of the:
 
 - outdated downloads
 - old versions of installed formulae
@@ -143,39 +143,39 @@ If all of the inputs inside this switch group are `False`, this input will defau
 
 ### `npm_enable`
 
-**🔀{E}** `<Boolean = False>` Whether to optimize via NPM. Only affect general optimization.
+**🔀{E}** `<boolean = false>` Whether to optimize via NPM. Only affect general optimization.
 
-If all of the inputs inside this switch group are `False`, this input will default to `True`.
+If all of the inputs inside this switch group are `false`, this input will default to `true`.
 
 ### `npm_prune`
 
-`<Boolean = False>` Whether to prune NPM (NodeJS Package Manager) all of the extraneous packages.
+`<boolean = false>` Whether to prune NPM (NodeJS Package Manager) all of the extraneous packages.
 
 ### `npm_clean`
 
-`<Boolean = False>` Whether to remove NPM (NodeJS Package Manager) cache.
+`<boolean = false>` Whether to remove NPM (NodeJS Package Manager) cache.
 
 ### `pipx_enable`
 
-**🔀{E}** `<Boolean = False>` Whether to optimize via Pipx. Only affect general optimization.
+**🔀{E}** `<boolean = false>` Whether to optimize via Pipx. Only affect general optimization.
 
-If all of the inputs inside this switch group are `False`, this input will default to `True`.
+If all of the inputs inside this switch group are `false`, this input will default to `true`.
 
 ### `wmic_enable`
 
-**🔀{E}** `<Boolean = False>` Whether to optimize via WMIC. Only affect general optimization.
+**🔀{E}** `<boolean = false>` Whether to optimize via WMIC. Only affect general optimization.
 
-If all of the inputs inside this switch group are `False`, this input will default to `True`.
+If all of the inputs inside this switch group are `false`, this input will default to `true`.
 
 ### `fs_enable`
 
-**🔀{E}** `<Boolean = False>` Whether to optimize via file system.
+**🔀{E}** `<boolean = false>` Whether to optimize via file system.
 
-If all of the inputs inside this switch group are `False`, this input will default to `True`.
+If all of the inputs inside this switch group are `false`, this input will default to `true`.
 
 ### `os_swap`
 
-`<Boolean = False>` Whether to remove system page/swap file.
+`<boolean = false>` Whether to remove system page/swap file.
 
 ## 🧩 Output
 
@@ -189,20 +189,20 @@ If all of the inputs inside this switch group are `False`, this input will defau
       runs-on: "ubuntu-latest"
       steps:
         - name: "Optimize Disk Space"
-          uses: "hugoalh/disk-space-optimizer-ghaction@v0.7.0"
+          uses: "hugoalh/disk-space-optimizer-ghaction@v0.8.0"
           with:
-            operate_sudo: "True"
+            operate_sudo: "true"
             general_include: ".+"
             docker_include: ".+"
-            docker_prune: "True"
-            docker_clean: "True"
-            apt_prune: "True"
-            apt_clean: "True"
-            homebrew_prune: "True"
-            homebrew_clean: "True"
-            npm_prune: "True"
-            npm_clean: "True"
-            os_swap: "True"
+            docker_prune: "true"
+            docker_clean: "true"
+            apt_prune: "true"
+            apt_clean: "true"
+            homebrew_prune: "true"
+            homebrew_clean: "true"
+            npm_prune: "true"
+            npm_clean: "true"
+            os_swap: "true"
   ```
 
 ## 📚 Guide

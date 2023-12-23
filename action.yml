@@ -1,16 +1,16 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-action.json
 name: "Disk Space Optimizer"
 author: "hugoalh"
-description: "Optimize disk space for GitHub hosted runner."
+description: "Optimize disk space for GitHub-hosted runner."
 inputs:
   operate_async:
-    description: "[EXPERIMENTAL] {Boolean} Whether to operate in asynchronously to reduce the operation duration."
+    description: "[EXPERIMENTAL] {boolean} Whether to operate in asynchronously to reduce the operation duration."
     required: false
-    default: "False"
+    default: "false"
   operate_sudo:
-    description: "{Boolean} Whether to execute this action in sudo mode on non-Windows environment."
+    description: "{boolean} Whether to execute this action in sudo mode on non-Windows environment."
     required: false
-    default: "False"
+    default: "false"
   general_include:
     description: "{RegEx[]} Remove general item."
     required: false
@@ -28,152 +28,73 @@ inputs:
     required: false
     default: ""
   docker_prune:
-    description: "{Boolean} Whether to prune Docker all of the dangling images."
+    description: "{boolean} Whether to prune Docker all of the dangling images."
     required: false
-    default: "False"
+    default: "false"
   docker_clean:
-    description: "{Boolean} Whether to remove Docker cache."
+    description: "{boolean} Whether to remove Docker cache."
     required: false
-    default: "False"
+    default: "false"
   apt_enable:
-    description: "{Boolean} Whether to optimize via APT."
+    description: "{boolean} Whether to optimize via APT."
     required: false
-    default: "False"
+    default: "false"
   apt_prune:
-    description: "{Boolean} Whether to prune APT package."
+    description: "{boolean} Whether to prune APT package."
     required: false
-    default: "False"
+    default: "false"
   apt_clean:
-    description: "{Boolean} Whether to remove APT cache."
+    description: "{boolean} Whether to remove APT cache."
     required: false
-    default: "False"
+    default: "false"
   chocolatey_enable:
-    description: "{Boolean} Whether to optimize via Chocolatey."
+    description: "{boolean} Whether to optimize via Chocolatey."
     required: false
-    default: "False"
+    default: "false"
   homebrew_enable:
-    description: "{Boolean} Whether to optimize via Homebrew."
+    description: "{boolean} Whether to optimize via Homebrew."
     required: false
-    default: "False"
+    default: "false"
   homebrew_prune:
-    description: "{Boolean} Whether to prune Homebrew package."
+    description: "{boolean} Whether to prune Homebrew package."
     required: false
-    default: "False"
+    default: "false"
   homebrew_clean:
-    description: "{Boolean} Whether to remove Homebrew cache."
+    description: "{boolean} Whether to remove Homebrew cache."
     required: false
-    default: "False"
+    default: "false"
   npm_enable:
-    description: "{Boolean} Whether to optimize via NPM."
+    description: "{boolean} Whether to optimize via NPM."
     required: false
-    default: "False"
+    default: "false"
   npm_prune:
-    description: "{Boolean} Whether to prune NPM package."
+    description: "{boolean} Whether to prune NPM package."
     required: false
-    default: "False"
+    default: "false"
   npm_clean:
-    description: "{Boolean} Whether to remove NPM cache."
+    description: "{boolean} Whether to remove NPM cache."
     required: false
-    default: "False"
+    default: "false"
   pipx_enable:
-    description: "{Boolean} Whether to optimize via Pipx."
+    description: "{boolean} Whether to optimize via Pipx."
     required: false
-    default: "False"
+    default: "false"
   wmic_enable:
-    description: "{Boolean} Whether to optimize via WMIC."
+    description: "{boolean} Whether to optimize via WMIC."
     required: false
-    default: "False"
+    default: "false"
   fs_enable:
-    description: "{Boolean} Whether to optimize via file system."
+    description: "{boolean} Whether to optimize via file system."
     required: false
-    default: "False"
+    default: "false"
   os_swap:
-    description: "{Boolean} Whether to remove system page/swap file."
+    description: "{boolean} Whether to remove system page/swap file."
     required: false
-    default: "False"
+    default: "false"
 runs:
-  using: "composite"
-  steps:
-    - name: "Setup PowerShell Toolkit (Sudo)"
-      if: "${{inputs.operate_sudo == 'True'}}"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.6.0"
-      with:
-        sudo: "${{inputs.operate_sudo}}"
-        version: "^1.7.2"
-        scope: "AllUsers"
-        keepsetting: "False"
-      continue-on-error: true
-    - name: "Setup PowerShell Toolkit"
-      if: "${{inputs.operate_sudo != 'True'}}"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.6.0"
-      with:
-        sudo: "${{inputs.operate_sudo}}"
-        version: "^1.7.2"
-        scope: "CurrentUser"
-        keepsetting: "False"
-      continue-on-error: true
-    - name: "Main"
-      run: |
-        #Requires -PSEdition Core -Version 7.2
-        $Script:ErrorActionPreference = 'Stop'
-        Get-Alias -Scope 'Local' -ErrorAction 'SilentlyContinue' |
-          Remove-Alias -Scope 'Local' -Force -ErrorAction 'SilentlyContinue'
-        Import-Module -Name 'hugoalh.GitHubActionsToolkit' -Scope 'Local'
-        Test-GitHubActionsEnvironment -Mandatory
-        [String]$MainScriptPath = Join-Path -Path $Env:GITHUB_ACTION_PATH -ChildPath 'main.ps1'
-        If (!(Test-Path -LiteralPath $MainScriptPath -PathType 'Leaf')) {
-          Write-GitHubActionsFail -Message 'Invalid script path!'
-        }
-        [Boolean]$InputOperateSudo = [Boolean]::Parse($Env:INPUT_OPERATE_SUDO)
-        If ($InputOperateSudo -and $Env:RUNNER_OS -iin @('Linux', 'MacOS')) {
-          sudo --non-interactive --preserve-env pwsh -NonInteractive $MainScriptPath
-        }
-        Else {
-          pwsh -NonInteractive $MainScriptPath
-        }
-      shell: "pwsh"
-      env:
-        INPUT_APT_CLEAN: "${{inputs.apt_clean}}"
-        INPUT_APT_ENABLE: "${{inputs.apt_enable}}"
-        INPUT_APT_PRUNE: "${{inputs.apt_prune}}"
-        INPUT_CHOCOLATEY_ENABLE: "${{inputs.chocolatey_enable}}"
-        INPUT_DOCKER_CLEAN: "${{inputs.docker_clean}}"
-        INPUT_DOCKER_EXCLUDE: "${{inputs.docker_exclude}}"
-        INPUT_DOCKER_INCLUDE: "${{inputs.docker_include}}"
-        INPUT_DOCKER_PRUNE: "${{inputs.docker_prune}}"
-        INPUT_FS_ENABLE: "${{inputs.fs_enable}}"
-        INPUT_GENERAL_EXCLUDE: "${{inputs.general_exclude}}"
-        INPUT_GENERAL_INCLUDE: "${{inputs.general_include}}"
-        INPUT_HOMEBREW_CLEAN: "${{inputs.homebrew_clean}}"
-        INPUT_HOMEBREW_ENABLE: "${{inputs.homebrew_enable}}"
-        INPUT_HOMEBREW_PRUNE: "${{inputs.homebrew_prune}}"
-        INPUT_NPM_CLEAN: "${{inputs.npm_clean}}"
-        INPUT_NPM_ENABLE: "${{inputs.npm_enable}}"
-        INPUT_NPM_PRUNE: "${{inputs.npm_prune}}"
-        INPUT_OPERATE_ASYNC: "${{inputs.operate_async}}"
-        INPUT_OPERATE_SUDO: "${{inputs.operate_sudo}}"
-        INPUT_OS_SWAP: "${{inputs.os_swap}}"
-        INPUT_PIPX_ENABLE: "${{inputs.pipx_enable}}"
-        INPUT_WMIC_ENABLE: "${{inputs.wmic_enable}}"
-      continue-on-error: true
-    - name: "Setup PowerShell Toolkit (Sudo)"
-      if: "${{inputs.operate_sudo == 'True'}}"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.6.0"
-      with:
-        sudo: "${{inputs.operate_sudo}}"
-        version: "False"
-        scope: "AllUsers"
-        keepsetting: "False"
-      continue-on-error: true
-    - name: "Setup PowerShell Toolkit"
-      if: "${{inputs.operate_sudo != 'True'}}"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.6.0"
-      with:
-        sudo: "${{inputs.operate_sudo}}"
-        version: "False"
-        scope: "CurrentUser"
-        keepsetting: "False"
-      continue-on-error: true
+  using: "node20"
+  pre: "dist/pre.js"
+  main: "dist/main.js"
 branding:
   icon: "hard-drive"
   color: "green"
