@@ -15,4 +15,3 @@ updates:
     open-pull-requests-limit: 100
     pull-request-branch-name:
       separator: "/"
-    rebase-strategy: "disabled"
