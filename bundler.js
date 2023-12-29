@@ -1,4 +1,4 @@
-import { mkdir as fsMkdir, readdir as fsReaddir, rm as fsRm, writeFile as fsWriteFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import { dirname as pathDirname, join as pathJoin } from "node:path";
 import { fileURLToPath } from "node:url";
 import ncc from "@vercel/ncc";
@@ -10,10 +10,7 @@ const scripts = new Set([
 ]);
 
 // Initialize output directory.
-await fsMkdir(directoryOutput, { recursive: true });
-for (const fileName of await fsReaddir(directoryOutput)) {
-	await fsRm(pathJoin(directoryOutput, fileName), { maxRetries: 4, recursive: true });
-}
+await mkdir(directoryOutput, { recursive: true });
 
 // Create bundle.
 for (const script of scripts.values()) {
@@ -30,5 +27,5 @@ for (const script of scripts.values()) {
 		v8cache: false,
 		watch: false
 	});
-	await fsWriteFile(pathJoin(directoryOutput, script), code, { encoding: "utf8" });
+	await writeFile(pathJoin(directoryOutput, script), code, { encoding: "utf8" });
 }
