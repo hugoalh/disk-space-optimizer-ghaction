@@ -20,7 +20,7 @@ This project is inspired from:
 - [ThewApp/free-actions](https://github.com/ThewApp/free-actions)
 
 > [!IMPORTANT]
-> This documentation is v0.7.1 based; To view other version's documentation, please visit the [versions list](https://github.com/hugoalh/disk-space-optimizer-ghaction/tags) and select the correct version.
+> This documentation is v0.8.0 based; To view other version's documentation, please visit the [versions list](https://github.com/hugoalh/disk-space-optimizer-ghaction/tags) and select the correct version.
 
 ## 🌟 Feature
 
@@ -45,7 +45,7 @@ This project is inspired from:
 
 ### GitHub Actions
 
-- **Target Version:** Runner >= v2.308.0, &:
+- **Target Version:** Runner >= v2.311.0, &:
   - PowerShell >= v7.2.0
 - **Require Permission:** *N/A*
 
@@ -193,7 +193,7 @@ If all of the inputs inside this switch group are `False`, this input will defau
       runs-on: "ubuntu-latest"
       steps:
         - name: "Optimize Disk Space"
-          uses: "hugoalh/disk-space-optimizer-ghaction@v0.7.0"
+          uses: "hugoalh/disk-space-optimizer-ghaction@v0.8.0"
           with:
             operate_sudo: "True"
             general_include: ".+"
