@@ -19,7 +19,8 @@ This project is inspired from:
 - [ShubhamTatvamasi/free-disk-space-action](https://github.com/ShubhamTatvamasi/free-disk-space-action)
 - [ThewApp/free-actions](https://github.com/ThewApp/free-actions)
 
-> **⚠️ Important:** This documentation is v0.7.1 based; To view other version's documentation, please visit the [versions list](https://github.com/hugoalh/disk-space-optimizer-ghaction/tags) and select the correct version.
+> [!IMPORTANT]
+> This documentation is v0.7.1 based; To view other version's documentation, please visit the [versions list](https://github.com/hugoalh/disk-space-optimizer-ghaction/tags) and select the correct version.
 
 ## 🌟 Feature
 
@@ -58,7 +59,8 @@ jobs:
 
 ## 🧩 Input
 
-> **ℹ️ Notice:** All of the inputs are optional; Use this action without any input will default to do nothing.
+> [!NOTE]
+> All of the inputs are optional; Use this action without any input will default to do nothing.
 
 | **Legend** | **Description** |
 |:-:|:--|
@@ -66,7 +68,9 @@ jobs:
 
 ### `operate_async`
 
-> **🧪 Experimental:** This is in testing, maybe available in the latest version and/or future version.
+> **🧪 Experimental**
+>
+> This is in testing, maybe available in the latest version and/or future version.
 
 `<Boolean = False>` Whether to operate in asynchronously to reduce the operation duration.
 
