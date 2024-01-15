@@ -99,7 +99,7 @@ runs:
       uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.6.0"
       with:
         sudo: "${{inputs.operate_sudo}}"
-        version: "^1.7.2"
+        version: "^2.1.0"
         scope: "AllUsers"
         keepsetting: "False"
       continue-on-error: true
@@ -108,7 +108,7 @@ runs:
       uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.6.0"
       with:
         sudo: "${{inputs.operate_sudo}}"
-        version: "^1.7.2"
+        version: "^2.1.0"
         scope: "CurrentUser"
         keepsetting: "False"
       continue-on-error: true

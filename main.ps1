@@ -116,16 +116,16 @@ Function Get-DiskSpace {
 	Format-List |
 	Out-String -Width 120 |
 	Write-GitHubActionsDebug
-[String]$InputGeneralInclude = ((Get-GitHubActionsInput -Name 'general_include' -EmptyStringAsNull) ?? '') -isplit '\r?\n' |
+[String]$InputGeneralInclude = ((Get-GitHubActionsInput -Name 'general_include') ?? '') -isplit '\r?\n' |
 	Where-Object -FilterScript { $_.Length -gt 0 } |
 	Join-String -Separator '|'
-[String]$InputGeneralExclude = ((Get-GitHubActionsInput -Name 'general_exclude' -EmptyStringAsNull) ?? '') -isplit '\r?\n' |
+[String]$InputGeneralExclude = ((Get-GitHubActionsInput -Name 'general_exclude') ?? '') -isplit '\r?\n' |
 	Where-Object -FilterScript { $_.Length -gt 0 } |
 	Join-String -Separator '|'
-[String]$InputDockerInclude = ((Get-GitHubActionsInput -Name 'docker_include' -EmptyStringAsNull) ?? '') -isplit '\r?\n' |
+[String]$InputDockerInclude = ((Get-GitHubActionsInput -Name 'docker_include') ?? '') -isplit '\r?\n' |
 	Where-Object -FilterScript { $_.Length -gt 0 } |
 	Join-String -Separator '|'
-[String]$InputDockerExclude = ((Get-GitHubActionsInput -Name 'docker_exclude' -EmptyStringAsNull) ?? '') -isplit '\r?\n' |
+[String]$InputDockerExclude = ((Get-GitHubActionsInput -Name 'docker_exclude') ?? '') -isplit '\r?\n' |
 	Where-Object -FilterScript { $_.Length -gt 0 } |
 	Join-String -Separator '|'
 [Boolean]$InputAptClean = [Boolean]::Parse($Env:INPUT_APT_CLEAN)
