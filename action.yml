@@ -99,7 +99,7 @@ runs:
       with:
         sudo: "${{inputs.operate_sudo}}"
         version: "^2.1.0"
-        scope: "${{inputs.operate_sudo == 'True' && 'AllUsers' || 'CurrentUser'}}"
+        scope: "${{(inputs.operate_sudo == 'True' && 'AllUsers') || 'CurrentUser'}}"
       continue-on-error: true
     - name: "Main"
       run: |
