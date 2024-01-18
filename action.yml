@@ -94,23 +94,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: "Setup PowerShell Toolkit (Sudo)"
-      if: "${{inputs.operate_sudo == 'True'}}"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.6.0"
-      with:
-        sudo: "${{inputs.operate_sudo}}"
-        version: "^2.1.0"
-        scope: "AllUsers"
-        keepsetting: "False"
-      continue-on-error: true
     - name: "Setup PowerShell Toolkit"
-      if: "${{inputs.operate_sudo != 'True'}}"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.6.0"
+      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v2.0.0"
       with:
         sudo: "${{inputs.operate_sudo}}"
         version: "^2.1.0"
-        scope: "CurrentUser"
-        keepsetting: "False"
+        scope: "${{inputs.operate_sudo == 'True' && 'AllUsers' || 'CurrentUser'}}"
       continue-on-error: true
     - name: "Main"
       run: |
@@ -156,23 +145,11 @@ runs:
         INPUT_PIPX_ENABLE: "${{inputs.pipx_enable}}"
         INPUT_WMIC_ENABLE: "${{inputs.wmic_enable}}"
       continue-on-error: true
-    - name: "Setup PowerShell Toolkit (Sudo)"
-      if: "${{inputs.operate_sudo == 'True'}}"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.6.0"
-      with:
-        sudo: "${{inputs.operate_sudo}}"
-        version: "False"
-        scope: "AllUsers"
-        keepsetting: "False"
-      continue-on-error: true
     - name: "Setup PowerShell Toolkit"
-      if: "${{inputs.operate_sudo != 'True'}}"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v1.6.0"
+      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v2.0.0"
       with:
         sudo: "${{inputs.operate_sudo}}"
         version: "False"
-        scope: "CurrentUser"
-        keepsetting: "False"
       continue-on-error: true
 branding:
   icon: "hard-drive"
