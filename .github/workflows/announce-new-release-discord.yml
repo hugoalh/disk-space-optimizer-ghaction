@@ -4,10 +4,10 @@ on:
   release:
     types:
       - "published"
-permissions: {}
 jobs:
   main:
     name: "Main"
+    permissions: {}
     runs-on: "ubuntu-latest"
     steps:
       - name: "Send Discord Webhook"

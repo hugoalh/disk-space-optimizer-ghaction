@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://citation-file-format.github.io/1.2.0/schema.json
+cff-version: "1.2.0"
+title: "Disk Space Optimizer (GitHub Action)"
+message: "If you use this software, please cite it using the metadata from this file."
+type: "software"
+authors:
+  - name: "hugoalh"
+repository-code: "https://github.com/hugoalh/disk-space-optimizer-ghaction"
+keywords:
+  - "disk"
+  - "gh-action"
+  - "ghaction"
+  - "github-action"
+  - "optimize"
+license: "MIT"

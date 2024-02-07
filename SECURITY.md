@@ -2,19 +2,18 @@
 
 ## Supported Versions
 
-> | **Support** | **Legend** | **Description** |
-> |:-:|:-:|:--|
-> | ✔️ | 🟤 | Pending / Pre Release / Unstable |
-> | ✔️ | 🔵 | Current Release |
-> | ✔️ | 🟢 | Long Term Support |
-> | ✔️ | 🟠 | Maintenance |
-> | ❌ | 🔴 | End of Life |
+> | **Legend** | **Description** |
+> |:-:|:--|
+> | 🟤 | Pending / Pre Release / Unstable |
+> | 🔵 | Current Release |
+> | 🟢 | Long Term Support |
+> | 🟠 | Maintenance |
+> | 🔴 | End Of Life / Not Supported |
 
 | **Versions** | **Status** | **🔵 Date** | **🟢 Date** | **🔴 Date** | **Target - GitHub Actions Runner** | **Target - PowerShell** |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | v0.8.X | 🔵 | 2024-01-15 | *N/A* | *Unknown* | >= v2.311.0 | >= v7.2.0 |
 | v0.7.X | 🟠 | 2023-09-16 | *N/A* | 2024-04-15 | >= v2.308.0 | >= v7.2.0 |
-| v0.6.X | 🔴 | 2023-08-26 | *N/A* | 2023-09-20 | >= v2.303.0 | >= v7.2.0 |
 
 > **ℹ️ Notice:**
 >

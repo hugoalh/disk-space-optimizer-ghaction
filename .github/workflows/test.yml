@@ -5,6 +5,7 @@ on:
 jobs:
   main:
     name: "${{matrix.os}} (Async: ${{matrix.operate_async}}; Sudo: ${{matrix.operate_sudo}})"
+    permissions: {}
     runs-on: "${{matrix.os}}"
     strategy:
       matrix:
