@@ -8,10 +8,11 @@ on:
 jobs:
   main:
     name: "Main"
-    permissions:
-      contents: "write"
-    uses: "hugoalh/hugoalh/.github/workflows/call-map-semver-soft-tag-1.yml@main"
+    permissions: {}
+    uses: "hugoalh/hugoalh/.github/workflows/call-map-semver-soft-tag-0.yml@main"
     with:
       tagspattern_latest: |-
         v{{Major}}
         v{{Major}}.{{Minor}}
+    secrets:
+      token: "${{secrets.PAT_MAP_SEMVER_SOFT_TAG}}"
