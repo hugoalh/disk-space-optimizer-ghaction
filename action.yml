@@ -95,10 +95,10 @@ runs:
   using: "composite"
   steps:
     - name: "Setup PowerShell Toolkit"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v2.0.0"
+      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v2.0"
       with:
         sudo: "${{inputs.operate_sudo}}"
-        version: "^2.1.0"
+        version: "~2.1.0"
         scope: "${{(inputs.operate_sudo == 'True' && 'AllUsers') || 'CurrentUser'}}"
       continue-on-error: true
     - name: "Main"
@@ -146,7 +146,7 @@ runs:
         INPUT_WMIC_ENABLE: "${{inputs.wmic_enable}}"
       continue-on-error: true
     - name: "Setup PowerShell Toolkit"
-      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v2.0.0"
+      uses: "hugoalh-studio/setup-powershell-toolkit-ghaction@v2.0"
       with:
         sudo: "${{inputs.operate_sudo}}"
         version: "False"

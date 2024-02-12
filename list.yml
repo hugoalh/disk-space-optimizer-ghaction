@@ -1,0 +1,1133 @@
+# yaml-language-server: $schema=./list.schema.json
+- Name: "AliYun"
+  Description: "AliYun (Alibaba Cloud)"
+  Postpone: 0
+  Homebrew:
+    - "aliyun-cli"
+  PathLinux:
+    - "/usr/local/bin/aliyun"
+  PathWindows:
+    - "C:\\aliyun-cli"
+- Name: "AndroidNDK"
+  Description: "Android NDK"
+  Postpone: 0
+  Homebrew:
+    - "android-ndk"
+  Env:
+    - "ANDROID_HOME"
+    - "ANDROID_NDK_ROOT"
+    - "ANDROID_ROOT"
+    - "ANDROID_SDK_ROOT"
+  PathLinux:
+    - "/usr/local/lib/android"
+  PathMacOS:
+    - "/Users/runner/.android"
+    - "/Users/runner/Library/Android"
+  PathWindows:
+    - "C:\\Android"
+    - "C:\\Program Files (x86)\\Android"
+- Name: "Ansible"
+  Description: "Ansible"
+  Postpone: 0
+  Homebrew:
+    - "ansible"
+  Pipx:
+    - "ansible-core"
+  PathLinux:
+    - "/opt/pipx_bin/ansible*"
+- Name: "ApacheAnt"
+  Description: "Apache Ant"
+  Postpone: 0
+  APT:
+    - "ant-optional"
+    - "ant"
+  Chocolatey:
+    - "ant"
+  Homebrew:
+    - "ant"
+  Env:
+    - "ANT_HOME"
+  PathLinux:
+    - "/usr/share/ant"
+- Name: "ApacheHTTPD"
+  Description: "Apache HTTPD"
+  Postpone: 0
+  APT:
+    - "^apache2-.*"
+    - "apache2"
+  Chocolatey:
+    - "apache-httpd"
+  Homebrew:
+    - "httpd"
+  PathLinux:
+    - "/usr/lib/apache2"
+    - "/usr/share/apache2"
+  PathMacOS:
+    - "/usr/local/etc/httpd"
+  PathWindows:
+    - "C:\\tools\\Apache*"
+- Name: "AWS"
+  Description: "AWS (Amazon Web Service)"
+  Postpone: 0
+  Chocolatey:
+    - "awscli"
+  Homebrew:
+    - "aws-sam-cli"
+    - "session-manager-plugin"
+  PowerShellGet:
+    - "AWSPowershell"
+  WMIC:
+    - "AWS SAM Command Line Interface"
+  PathLinux:
+    - "/usr/local/aws-cli"
+    - "/usr/local/aws-sam-cli"
+    - "/usr/local/bin/aws"
+- Name: "AzCopy"
+  Description: "AzCopy"
+  Postpone: 0
+  Chocolatey:
+    - "azcopy10"
+  Homebrew:
+    - "azcopy"
+  PathLinux:
+    - "/usr/local/bin/azcopy"
+    - "/usr/local/bin/azcopy10"
+  PathMacOS:
+    - "/Users/runner/.azcopy"
+    - "/usr/local/bin/azcopy"
+- Name: "Azure"
+  Description: "Azure"
+  Postpone: 1
+  APT:
+    - "azure-cli"
+  Homebrew:
+    - "azure-cli"
+  WMIC:
+    - "Azure Cosmos DB Emulator"
+    - "Microsoft Azure*"
+  Env:
+    - "AZURE_EXTENSION_DIR"
+  PathLinux:
+    - "/opt/az"
+    - "/usr/lib/linux-azure-tools-*"
+    - "/usr/lib/modules/*-azure"
+    - "/usr/share/az_*"
+  PathMacOS:
+    - "/Users/runner/.Azure"
+- Name: "Bazel"
+  Description: "Bazel"
+  Postpone: 0
+  Chocolatey:
+    - "bazel"
+  Homebrew:
+    - "bazel"
+    - "bazelisk"
+  NPM:
+    - "'@bazel/bazelisk'"
+  PathLinux:
+    - "/usr/local/bin/bazel"
+    - "/usr/local/lib/node_modules/@bazel"
+- Name: "Bicep"
+  Description: "Azure Bicep"
+  Postpone: 0
+  Chocolatey:
+    - "bicep"
+  Homebrew:
+    - "bicep"
+  PathLinux:
+    - "/usr/local/bin/bicep"
+  PathMacOS:
+    - "/Users/runner/.net/bicep"
+- Name: "Chromium"
+  Description: "Chromium"
+  Postpone: 0
+  Homebrew:
+    - "chromium"
+  Env:
+    - "CHROMIUM_DIR"
+  PathLinux:
+    - "/usr/bin/chromium-browser"
+    - "/usr/bin/chromium"
+    - "/usr/local/share/chromium"
+- Name: "Clang"
+  Description: "Clang"
+  Postpone: 0
+  APT:
+    - "^clang-.*"
+    - "^clang-format-.*"
+    - "^clang-tidy-.*"
+    - "^lld-.*"
+    - "^lldb-.*"
+  PathLinux:
+    - "/usr/bin/clang*"
+    - "/usr/bin/lld-*"
+    - "/usr/bin/lldb-*"
+    - "/usr/lib/clang"
+    - "/usr/share/clang"
+- Name: "CloudFoundry"
+  Description: "Cloud Foundry"
+  Postpone: 0
+  PathWindows:
+    - "C:\\cf-cli"
+- Name: "CodeQL"
+  Description: "CodeQL"
+  Postpone: 0
+  Homebrew:
+    - "codeql"
+  PathLinux:
+    - "$Env:AGENT_TOOLSDIRECTORY/CodeQL"
+    - "/opt/hostedtoolcache/CodeQL"
+  PathMacOS:
+    - "$Env:AGENT_TOOLSDIRECTORY/CodeQL"
+    - "/Users/runner/hostedtoolcache/CodeQL"
+  PathWindows:
+    - "$Env:AGENT_TOOLSDIRECTORY\\CodeQL"
+- Name: "DotNet"
+  Description: ".Net"
+  Postpone: 0
+  APT:
+    - "^aspnetcore-.*"
+    - "^dotnet-.*"
+  Homebrew:
+    - "dotnet"
+  WMIC:
+    - "Microsoft .NET*"
+    - "Microsoft ASP.NET*"
+  PathLinux:
+    - "/usr/bin/dotnet"
+    - "/usr/share/dotnet"
+  PathMacOS:
+    - "$Env:HOME/.dotnet"
+    - "/Users/runner/.dotnet"
+    - "/usr/local/bin/dotnet"
+  PathWindows:
+    - "C:\\Program Files\\dotnet"
+    - "C:\\Program Files (x86)\\dotnet"
+    - "C:\\Users\\Default\\.dotnet"
+- Name: "EpicGames"
+  Description: "Epic Games"
+  Postpone: 0
+  WMIC:
+    - "Epic Games Launcher"
+    - "Epic Online Services"
+  PathWindows:
+    - "C:\\Program Files (x86)\\Epic Games"
+- Name: "Erlang"
+  Description: "Erlang"
+  Postpone: 0
+  APT:
+    - "esl-erlang"
+  Homebrew:
+    - "erlang"
+    - "rebar3"
+  PathLinux:
+    - "/usr/local/bin/rebar3"
+- Name: "Firefox"
+  Description: "Mozilla Firefox Browser"
+  Postpone: 0
+  APT:
+    - "firefox"
+  Homebrew:
+    - "firefox"
+  WMIC:
+    - "Mozilla Firefox*"
+  PathLinux:
+    - "/usr/lib/firefox-addons"
+    - "/usr/lib/firefox"
+  PathMacOS:
+    - "/Applications/Firefox.app"
+- Name: "G++"
+  Description: "GNU C++ compiler"
+  Postpone: 0
+  APT:
+    - "^g\\+\\+.*"
+  PathLinux:
+    - "/usr/bin/g++*"
+    - "/usr/bin/x86_64-linux-gnu-g++*"
+- Name: "GCC"
+  Description: "GNU C compiler"
+  Postpone: 0
+  APT:
+    - "^gcc-.*"
+    - "gcc"
+  Homebrew:
+    - "gcc"
+  PathLinux:
+    - "/usr/bin/gcc*"
+    - "/usr/bin/x86_64-linux-gnu-gcc*"
+    - "/usr/lib/gcc"
+    - "/usr/share/gcc"
+- Name: "GeckoWebDriver"
+  Description: "Gecko Web Driver"
+  Postpone: 0
+  Homebrew:
+    - "geckodriver"
+  Env:
+    - "GECKOWEBDRIVER"
+  PathLinux:
+    - "/usr/local/share/gecko_driver"
+  PathMacOS:
+    - "/usr/local/opt/geckodriver"
+  PathWindows:
+    - "C:\\SeleniumWebDrivers\\GeckoDriver"
+- Name: "GFortran"
+  Description: "GNU Fortran"
+  Postpone: 0
+  APT:
+    - "^gfortran-.*"
+    - "gfortran"
+  PathLinux:
+    - "/usr/bin/gfortran*"
+    - "/usr/bin/x86_64-linux-gnu-gfortran*"
+- Name: "Go"
+  Description: "Go"
+  Postpone: 0
+  Homebrew:
+    - "go"
+  PathLinux:
+    - "$Env:AGENT_TOOLSDIRECTORY/go"
+    - "/opt/hostedtoolcache/go"
+  PathMacOS:
+    - "$Env:AGENT_TOOLSDIRECTORY/go"
+    - "/Users/runner/hostedtoolcache/go"
+  PathWindows:
+    - "$Env:AGENT_TOOLSDIRECTORY\\go"
+- Name: "GoogleChrome"
+  Description: "Google Chrome Browser"
+  Postpone: 0
+  APT:
+    - "google-chrome-stable"
+  Homebrew:
+    - "google-chrome"
+  WMIC:
+    - "Google Chrome"
+  Env:
+    - "CHROME_BIN"
+  PathLinux:
+    - "/opt/google/chrome"
+    - "/usr/bin/google-chrome-stable"
+    - "/usr/bin/google-chrome"
+  PathMacOS:
+    - "/Applications/Google Chrome.app"
+- Name: "GoogleChromeWebDriver"
+  Description: "Google Chrome Web Driver"
+  Postpone: 0
+  Homebrew:
+    - "chromedriver"
+  Env:
+    - "CHROMEWEBDRIVER"
+    - "CHROMEDRIVER_DIR"
+  PathLinux:
+    - "/usr/bin/chromedriver"
+    - "/usr/local/share/chromedriver-linux64"
+    - "/usr/local/share/chrome_driver"
+  PathMacOS:
+    - "/usr/local/Caskroom/chromedriver"
+  PathWindows:
+    - "C:\\SeleniumWebDrivers\\ChromeDriver"
+- Name: "GoogleCloudSDK"
+  Description: "Google Cloud SDK"
+  Postpone: 0
+  APT:
+    - "google-cloud-sdk"
+  Homebrew:
+    - "google-cloud-sdk"
+  PathLinux:
+    - "/usr/bin/gcloud*"
+    - "/usr/lib/google-cloud-sdk"
+    - "/usr/share/google-cloud-sdk"
+- Name: "Gradle"
+  Description: "Gradle"
+  Postpone: 0
+  Chocolatey:
+    - "gradle"
+  Homebrew:
+    - "gradle"
+  PathLinux:
+    - "/usr/bin/gradle"
+    - "/usr/share/gradle-*"
+- Name: "Grunt"
+  Description: "Grunt"
+  Postpone: 0
+  Homebrew:
+    - "grunt-cli"
+  NPM:
+    - "grunt-cli"
+    - "grunt"
+  PathLinux:
+    - "/usr/local/lib/node_modules/grunt-cli"
+    - "/usr/local/lib/node_modules/grunt"
+- Name: "Gulp"
+  Description: "Gulp"
+  Postpone: 0
+  Homebrew:
+    - "gulp-cli"
+  NPM:
+    - "gulp-cli"
+    - "gulp"
+  PathLinux:
+    - "/usr/local/lib/node_modules/gulp-cli"
+    - "/usr/local/lib/node_modules/gulp"
+- Name: "HaskellGHC"
+  Description: "Haskell GHC"
+  Postpone: 0
+  PathLinux:
+    - "/opt/ghc"
+    - "/usr/local/.ghcup/ghc"
+  PathMacOS:
+    - "/Users/runner/.ghcup"
+- Name: "Heroku"
+  Description: "Heroku"
+  Postpone: 0
+  PathLinux:
+    - "/usr/local/lib/heroku"
+  PathMacOS:
+    - "/usr/local/lib/heroku"
+- Name: "HHVM"
+  Description: "HipHop Virtual Machine"
+  Postpone: 0
+  APT:
+    - "hhvm"
+- Name: "IIS"
+  Description: "IIS"
+  Postpone: 0
+  PathWindows:
+    - "C:\\Program Files (x86)\\IIS Express"
+    - "C:\\Program Files (x86)\\IIS"
+- Name: "ImageMagick"
+  Description: "ImageMagick"
+  Postpone: 0
+  APT:
+    - "imagemagick"
+    - "^imagemagick-.*"
+- Name: "InnoSetup"
+  Description: "Inno Setup"
+  Postpone: 0
+  PathWindows:
+    - "C:\\Program Files (x86)\\Inno Setup*"
+- Name: "Java/8"
+  Description: "Java 8"
+  Postpone: 0
+  APT:
+    - "temurin-8-jdk"
+  Env:
+    - "JAVA_HOME_8_X64"
+  PathLinux:
+    - "$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*"
+    - "/opt/hostedtoolcache/Java_*_jdk/8.*"
+    - "/usr/lib/jvm/*-8-jdk-*"
+  PathMacOS:
+    - "$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/8.*"
+    - "/Users/runner/hostedtoolcache/Java_*_jdk/8.*"
+  PathWindows:
+    - "$Env:AGENT_TOOLSDIRECTORY\\Java_*_jdk\\8.*"
+- Name: "Java/11"
+  Description: "Java 11"
+  Postpone: 0
+  APT:
+    - "temurin-11-jdk"
+  WMIC:
+    - "Microsoft Build of OpenJDK with Hotspot 11*"
+  Env:
+    - "JAVA_HOME_11_X64"
+  PathLinux:
+    - "$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/11.*"
+    - "/opt/hostedtoolcache/Java_*_jdk/11.*"
+    - "/usr/lib/jvm/*-11-jdk-*"
+  PathMacOS:
+    - "$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/11.*"
+    - "/Users/runner/hostedtoolcache/Java_*_jdk/11.*"
+  PathWindows:
+    - "$Env:AGENT_TOOLSDIRECTORY\\Java_*_jdk\\11.*"
+- Name: "Java/13"
+  Description: "Java 13"
+  Postpone: 0
+  Env:
+    - "JAVA_HOME_13_X64"
+  PathLinux:
+    - "$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*"
+    - "/opt/hostedtoolcache/Java_*_jdk/13.*"
+    - "/usr/lib/jvm/*-13-jdk-*"
+  PathMacOS:
+    - "$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/13.*"
+    - "/Users/runner/hostedtoolcache/Java_*_jdk/13.*"
+  PathWindows:
+    - "$Env:AGENT_TOOLSDIRECTORY\\Java_*_jdk\\13.*"
+- Name: "Java/17"
+  Description: "Java 17"
+  Postpone: 0
+  APT:
+    - "temurin-17-jdk"
+  Env:
+    - "JAVA_HOME_17_X64"
+  PathLinux:
+    - "$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*"
+    - "/opt/hostedtoolcache/Java_*_jdk/17.*"
+    - "/usr/lib/jvm/*-17-jdk-*"
+  PathMacOS:
+    - "$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/17.*"
+    - "/Users/runner/hostedtoolcache/Java_*_jdk/17.*"
+  PathWindows:
+    - "$Env:AGENT_TOOLSDIRECTORY\\Java_*_jdk\\17.*"
+- Name: "Java/21"
+  Description: "Java 21"
+  Postpone: 0
+  APT:
+    - "temurin-21-jdk"
+  Env:
+    - "JAVA_HOME_21_X64"
+  PathLinux:
+    - "$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/21.*"
+    - "/opt/hostedtoolcache/Java_*_jdk/21.*"
+    - "/usr/lib/jvm/*-21-jdk-*"
+  PathMacOS:
+    - "$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk/21.*"
+    - "/Users/runner/hostedtoolcache/Java_*_jdk/21.*"
+  PathWindows:
+    - "$Env:AGENT_TOOLSDIRECTORY\\Java_*_jdk\\21.*"
+- Name: "Java/All"
+  Description: "Java (All)"
+  Postpone: 1
+  APT:
+    - "^java-.*"
+    - ".*-jdk$"
+  Env:
+    - "JAVA_HOME"
+  PathLinux:
+    - "$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk"
+    - "/opt/hostedtoolcache/Java_*_jdk"
+    - "/usr/lib/jvm"
+  PathMacOS:
+    - "$Env:AGENT_TOOLSDIRECTORY/Java_*_jdk"
+    - "/Users/runner/hostedtoolcache/Java_*_jdk"
+  PathWindows:
+    - "$Env:AGENT_TOOLSDIRECTORY\\Java_*_jdk"
+- Name: "Julia"
+  Description: "Julia"
+  Postpone: 0
+  Chocolatey:
+    - "julia"
+  Homebrew:
+    - "julia"
+  PathLinux:
+    - "/usr/local/julia*"
+    - "/usr/bin/julia"
+  PathMacOS:
+    - "/Applications/Julia*.app"
+  PathWindows:
+    - "C:\\Julia"
+- Name: "Kotlin"
+  Description: "Kotlin"
+  Postpone: 0
+  Homebrew:
+    - "kotlin"
+  PathLinux:
+    - "/usr/share/kotlinc"
+- Name: "Leiningen"
+  Description: "Leiningen"
+  Postpone: 0
+  Env:
+    - "LEIN_HOME"
+  PathLinux:
+    - "/usr/local/bin/lein"
+- Name: "Lerna"
+  Description: "Lerna"
+  Postpone: 0
+  Homebrew:
+    - "lerna"
+  NPM:
+    - "lerna"
+  PathLinux:
+    - "/usr/local/lib/node_modules/lerna"
+- Name: "Lintian"
+  Description: "Lintian"
+  Postpone: 8
+  PathLinux:
+    - "/usr/share/linda"
+    - "/usr/share/lintian"
+- Name: "LLVM"
+  Description: "LLVM"
+  Postpone: 0
+  APT:
+    - "^llvm-.*"
+  Chocolatey:
+    - "llvm"
+  Homebrew:
+    - "llvm"
+  PathLinux:
+    - "/usr/bin/llvm-*"
+    - "/usr/lib/llvm-*"
+- Name: "Maven"
+  Description: "Maven"
+  Postpone: 0
+  Chocolatey:
+    - "maven"
+  Homebrew:
+    - "maven"
+  PathLinux:
+    - "/usr/bin/mvn"
+    - "/usr/share/apache-maven-*"
+- Name: "MicrosoftEdge"
+  Description: "Microsoft Edge"
+  Postpone: 0
+  APT:
+    - "microsoft-edge-stable"
+  Homebrew:
+    - "microsoft-edge"
+  WMIC:
+    - "Microsoft Edge"
+  PathLinux:
+    - "/opt/microsoft/msedge"
+    - "/usr/bin/microsoft-edge-stable"
+    - "/usr/bin/microsoft-edge"
+  PathMacOS:
+    - "/Applications/Microsoft Edge.app"
+- Name: "MicrosoftEdgeWebDriver"
+  Description: "Microsoft Edge Web Driver"
+  Postpone: 0
+  WMIC:
+    - "Microsoft Edge WebView2 Runtime"
+  Env:
+    - "EDGEWEBDRIVER"
+  PathLinux:
+    - "/usr/bin/edgedriver"
+    - "/usr/bin/msedgedriver"
+    - "/usr/local/share/edge_driver"
+  PathMacOS:
+    - "/usr/local/bin/msedgedriver"
+    - "/usr/local/share/edge_driver"
+  PathWindows:
+    - "C:\\SeleniumWebDrivers\\EdgeDriver"
+- Name: "MicrosoftInternetExplorer"
+  Description: "Microsoft Internet Explorer"
+  Postpone: 0
+  PathWindows:
+    - "C:\\Program Files (x86)\\Internet Explorer"
+- Name: "MicrosoftInternetExplorerWebDriver"
+  Description: "Microsoft Internet Explorer Web Driver"
+  Postpone: 0
+  Env:
+    - "IEWEBDRIVER"
+  PathWindows:
+    - "C:\\SeleniumWebDrivers\\IEDriver"
+- Name: "Miniconda"
+  Description: "Mini Conda"
+  Postpone: 0
+  Homebrew:
+    - "miniconda"
+  WMIC:
+    - "Miniconda*"
+  Env:
+    - "CONDA"
+  PathLinux:
+    - "/usr/bin/conda"
+    - "/usr/share/miniconda"
+  PathMacOS:
+    - "/usr/local/bin/conda"
+    - "/usr/local/miniconda"
+    - "$Env:HOME/.conda"
+  PathWindows:
+    - "C:\\Miniconda"
+- Name: "MongoDB"
+  Description: "MongoDB"
+  Postpone: 0
+  APT:
+    - "^mongodb-.*"
+  Chocolatey:
+    - "mongodb.install"
+    - "mongodb"
+- Name: "Mono"
+  Description: "Mono"
+  Postpone: 0
+  APT:
+    - "^mono-.*"
+    - "^monodoc-.*"
+  Homebrew:
+    - "mono"
+  PathLinux:
+    - "/usr/bin/mono-*"
+    - "/usr/bin/mono"
+    - "/usr/lib/mono-source-libs"
+    - "/usr/lib/mono"
+    - "/usr/lib/monodoc"
+    - "/usr/share/mono-*"
+    - "/usr/share/mono"
+    - "/usr/share/monodoc"
+- Name: "MSSQL"
+  Description: "MS SQL"
+  Postpone: 0
+  APT:
+    - "mssql-tools"
+    - "unixodbc-dev"
+  PowerShellGet:
+    - "SqlServer"
+  PathLinux:
+    - "/opt/mssql-tools"
+  PathWindows:
+    - "$Env:PROGRAMFILES\\Microsoft SQL Server"
+    - "C:\\Program Files\\Microsoft SQL Server"
+- Name: "MySQL"
+  Description: "MySQL"
+  Postpone: 0
+  APT:
+    - "^mysql-.*"
+    - "libmysqlclient-dev"
+  Homebrew:
+    - "mysql-client"
+    - "mysql"
+  PathLinux:
+    - "/usr/bin/mysql*"
+    - "/usr/lib/mysql"
+    - "/usr/share/mysql-*"
+    - "/usr/share/mysql"
+- Name: "Netlify"
+  Description: "Netlify"
+  Postpone: 0
+  Homebrew:
+    - "netlify-cli"
+  NPM:
+    - "netlify-cli"
+    - "netlify"
+  PathLinux:
+    - "/usr/local/lib/node_modules/netlify"
+    - "/usr/local/lib/node_modules/netlify-cli"
+- Name: "Newman"
+  Description: "Newman"
+  Postpone: 0
+  NPM:
+    - "newman"
+  PathLinux:
+    - "/usr/local/lib/node_modules/newman"
+- Name: "Nginx"
+  Description: "Nginx"
+  Postpone: 0
+  APT:
+    - "nginx"
+  Homebrew:
+    - "nginx"
+  PathMacOS:
+    - "/usr/local/etc/nginx"
+  PathWindows:
+    - "C:\\tools\\nginx*"
+- Name: "NVMBuild"
+  Description: "NVM (NodeJS Version Manager) Build"
+  Postpone: 0
+  PathLinux:
+    - "/home/runner/.nvm/.dockerignore"
+    - "/home/runner/.nvm/.editorconfig"
+    - "/home/runner/.nvm/.git"
+    - "/home/runner/.nvm/.github"
+    - "/home/runner/.nvm/.gitignore"
+    - "/home/runner/.nvm/.mailmap"
+    - "/home/runner/.nvm/.npmrc"
+    - "/home/runner/.nvm/.travis.yml"
+    - "/home/runner/.nvm/CODE_OF_CONDUCT.md"
+    - "/home/runner/.nvm/CONTRIBUTING.md"
+    - "/home/runner/.nvm/Dockerfile"
+    - "/home/runner/.nvm/GOVERNANCE.md"
+    - "/home/runner/.nvm/ROADMAP.md"
+    - "/home/runner/.nvm/test"
+  PathMacOS:
+    - "/Users/runner/.nvm/.dockerignore"
+    - "/Users/runner/.nvm/.editorconfig"
+    - "/Users/runner/.nvm/.git"
+    - "/Users/runner/.nvm/.github"
+    - "/Users/runner/.nvm/.gitignore"
+    - "/Users/runner/.nvm/.mailmap"
+    - "/Users/runner/.nvm/.npmrc"
+    - "/Users/runner/.nvm/.travis.yml"
+    - "/Users/runner/.nvm/CODE_OF_CONDUCT.md"
+    - "/Users/runner/.nvm/CONTRIBUTING.md"
+    - "/Users/runner/.nvm/Dockerfile"
+    - "/Users/runner/.nvm/GOVERNANCE.md"
+    - "/Users/runner/.nvm/ROADMAP.md"
+    - "/Users/runner/.nvm/test"
+- Name: "OpenGLDRI"
+  Description: "OpenGL API DRI Modules"
+  Postpone: 0
+  APT:
+    - "libgl1-mesa-dri"
+- Name: "OpenShiftClient"
+  Description: "OpenShift Client"
+  Postpone: 0
+  PathLinux:
+    - "/usr/local/bin/oc"
+- Name: "Packer"
+  Description: "Packer"
+  Postpone: 0
+  PathLinux:
+    - "/usr/local/bin/packer"
+- Name: "Parcel"
+  Description: "Parcel"
+  Postpone: 0
+  NPM:
+    - "parcel"
+  PathLinux:
+    - "/usr/local/lib/node_modules/parcel"
+- Name: "Perl"
+  Description: "Perl"
+  Postpone: 0
+  APT:
+    - "^perl.*"
+  PathLinux:
+    - "/usr/bin/perl*"
+    - "/usr/share/perl*"
+- Name: "Pester"
+  Description: "Pester"
+  Postpone: 0
+  PowerShellGet:
+    - "Pester"
+- Name: "PhantomJS"
+  Description: "Phantom JS"
+  Postpone: 0
+  APT:
+    - "phantomjs"
+  PathLinux:
+    - "/usr/local/bin/phantomjs"
+    - "/usr/local/share/phantomjs*"
+- Name: "PHP"
+  Description: "PHP"
+  Postpone: 0
+  APT:
+    - "^php.*"
+    - "snmp"
+  Chocolatey:
+    - "php"
+  PathLinux:
+    - "/usr/bin/php*"
+    - "/usr/local/bin/phpunit"
+    - "/usr/lib/php"
+    - "/usr/share/php*"
+  PathWindows:
+    - "C:\\tools\\php"
+- Name: "Pipx"
+  Description: "Pipx"
+  Postpone: 9
+  Env:
+    - "PIPX_BIN_DIR"
+    - "PIPX_HOME"
+  PathLinux:
+    - "/opt/pipx_bin"
+    - "/opt/pipx"
+    - "/usr/local/bin/pipx"
+  PathMacOS:
+    - "/opt/pipx_bin"
+  PathWindows:
+    - "C:\\Program Files (x86)\\pipx_bin"
+    - "C:\\Program Files (x86)\\pipx"
+- Name: "PostgreSQL"
+  Description: "PostgreSQL"
+  Postpone: 0
+  APT:
+    - "^postgresql-.*"
+    - "libpq-dev"
+  WMIC:
+    - "PostgreSQL*"
+  Env:
+    - "PGBIN"
+    - "PGDATA"
+    - "PGROOT"
+  PathLinux:
+    - "/usr/lib/postgresql"
+    - "/usr/share/postgresql-*"
+    - "/usr/share/postgresql"
+  PathWindows:
+    - "C:\\Program Files\\PostgreSQL"
+- Name: "Pulumi"
+  Description: "Pulumi"
+  Postpone: 0
+  Chocolatey:
+    - "pulumi"
+  PathLinux:
+    - "/usr/local/bin/pulumi*"
+- Name: "PSScriptAnalyzer"
+  Description: "PowerShell Script Analyzer"
+  Postpone: 0
+  PowerShellGet:
+    - "PSScriptAnalyzer"
+- Name: "PSWindowsUpdate"
+  Description: "PowerShell Windows Update"
+  Postpone: 0
+  PowerShellGet:
+    - "PSWindowsUpdate"
+- Name: "R"
+  Description: "R"
+  Postpone: 0
+  APT:
+    - "r-base"
+    - "^r-base-.*"
+  PathLinux:
+    - "/usr/bin/R"
+    - "/usr/lib/R"
+    - "/usr/local/lib/R"
+    - "/usr/share/R"
+  PathWindows:
+    - "C:\\Program Files\\R"
+- Name: "Ruby"
+  Description: "Ruby"
+  Postpone: 0
+  APT:
+    - "ruby"
+    - "ruby3.0"
+    - "^ruby-.*"
+    - "^ruby3.0-.*"
+  PathLinux:
+    - "$Env:AGENT_TOOLSDIRECTORY/Ruby"
+    - "/opt/hostedtoolcache/Ruby"
+    - "/usr/bin/ruby*"
+    - "/usr/lib/ruby"
+  PathMacOS:
+    - "$Env:AGENT_TOOLSDIRECTORY/Ruby"
+    - "/Users/runner/hostedtoolcache/Ruby"
+  PathWindows:
+    - "$Env:AGENT_TOOLSDIRECTORY\\Ruby"
+- Name: "Rust"
+  Description: "Rust"
+  Postpone: 0
+  Homebrew:
+    - "rustup-init"
+  Env:
+    - "CARGO_HOME"
+    - "RUSTUP_HOME"
+- Name: "Selenium"
+  Description: "Selenium"
+  Postpone: 0
+  Env:
+    - "SELENIUM_JAR_PATH"
+  PathLinux:
+    - "/usr/share/java/selenium-server.jar"
+  PathWindows:
+    - "C:\\selenium\\selenium-server.jar"
+- Name: "Sphinx"
+  Description: "Sphinx"
+  Postpone: 0
+  APT:
+    - "sphinxsearch"
+- Name: "SQLPackage"
+  Description: "SQL Package"
+  Postpone: 0
+  PathLinux:
+    - "/usr/local/bin/sqlpackage"
+    - "/usr/local/sqlpackage"
+- Name: "Stack"
+  Description: "Stack"
+  Postpone: 0
+  PathLinux:
+    - "$Env:AGENT_TOOLSDIRECTORY/stack"
+    - "/opt/hostedtoolcache/stack"
+  PathMacOS:
+    - "$Env:AGENT_TOOLSDIRECTORY/stack"
+  PathWindows:
+    - "$Env:AGENT_TOOLSDIRECTORY\\stack"
+- Name: "Swift"
+  Description: "Swift"
+  Postpone: 0
+  Homebrew:
+    - "swiftformat"
+  Env:
+    - "SWIFT_PATH"
+  PathLinux:
+    - "/usr/local/bin/swift"
+    - "/usr/local/bin/swiftc"
+    - "/usr/share/swift"
+    - "/usr/share/swiftc"
+- Name: "Terraform"
+  Description: "Terraform"
+  Postpone: 0
+  PathLinux:
+    - "/usr/local/bin/terraform"
+- Name: "TypeScript"
+  Description: "TypeScript"
+  Postpone: 0
+  NPM:
+    - "typescript"
+  PathLinux:
+    - "/usr/local/lib/node_modules/typescript"
+- Name: "VCPkg"
+  Description: "VCPkg"
+  Postpone: 9
+  Env:
+    - "VCPKG_INSTALLATION_ROOT"
+  PathLinux:
+    - "/usr/local/share/vcpkg"
+    - "/root/.vcpkg"
+  PathMacOS:
+    - "/Users/runner/.vcpkg"
+    - "/usr/local/bin/vcpkg"
+    - "/usr/local/share/vcpkg"
+  PathWindows:
+    - "C:\\vcpkg"
+- Name: "Vercel"
+  Description: "Vercel"
+  Postpone: 0
+  NPM:
+    - "vercel"
+  PathLinux:
+    - "/usr/local/lib/node_modules/vercel"
+- Name: "VisualStudio/2019"
+  Description: "Visual Studio 2019"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Visual Studio 2019.app"
+  PathWindows:
+    - "C:\\Program Files\\Microsoft Visual Studio\\2019"
+- Name: "VisualStudio/2022"
+  Description: "Visual Studio 2022"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Visual Studio 2022.app"
+  PathWindows:
+    - "C:\\Program Files\\Microsoft Visual Studio\\2022"
+- Name: "VisualStudio/All"
+  Description: "Visual Studio"
+  Postpone: 1
+  PathMacOS:
+    - "/Applications/Visual Studio*.app"
+  PathWindows:
+    - "C:\\Program Files\\Microsoft Visual Studio"
+    - "C:\\ProgramData\\Microsoft\\VisualStudio"
+- Name: "Webpack"
+  Description: "Webpack"
+  Postpone: 0
+  NPM:
+    - "webpack-cli"
+    - "webpack"
+  PathLinux:
+    - "/usr/local/lib/node_modules/webpack-cli"
+    - "/usr/local/lib/node_modules/webpack"
+- Name: "Xcode/8"
+  Description: "Xcode 8"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_8.app"
+    - "/Applications/Xcode8.app"
+- Name: "Xcode/8.1"
+  Description: "Xcode 8.1"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_8.1.app"
+    - "/Applications/Xcode81.app"
+- Name: "Xcode/9"
+  Description: "Xcode 9"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_9.app"
+    - "/Applications/Xcode9.app"
+- Name: "Xcode/9.1"
+  Description: "Xcode 9.1"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_9.1.app"
+    - "/Applications/Xcode91.app"
+- Name: "Xcode/9.2"
+  Description: "Xcode 9.2"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_9.2.app"
+    - "/Applications/Xcode92.app"
+- Name: "Xcode/9.3"
+  Description: "Xcode 9.3"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_9.3_beta.app"
+    - "/Applications/Xcode_9.3.app"
+    - "/Applications/Xcode93.app"
+- Name: "Xcode/9.4"
+  Description: "Xcode 9.4"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_9.4_beta_2.app"
+    - "/Applications/Xcode_9.4_beta.app"
+    - "/Applications/Xcode_9.4-beta.app"
+    - "/Applications/Xcode_9.4.app"
+- Name: "Xcode/11.7"
+  Description: "Xcode 11.7"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_11.7.app"
+- Name: "Xcode/12.4"
+  Description: "Xcode 12.4"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_12.4.app"
+- Name: "Xcode/12.5.1"
+  Description: "Xcode 12.5.1"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_12.5.1.app"
+- Name: "Xcode/13.0"
+  Description: "Xcode 13.0"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_13.0.app"
+- Name: "Xcode/13.1"
+  Description: "Xcode 13.1"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_13.1.app"
+- Name: "Xcode/13.2.1"
+  Description: "Xcode 13.2.1"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_13.2.1.app"
+- Name: "Xcode/13.3.1"
+  Description: "Xcode 13.3.1"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_13.3.1.app"
+- Name: "Xcode/13.4.1"
+  Description: "Xcode 13.4.1"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_13.4.1.app"
+- Name: "Xcode/14.0.1"
+  Description: "Xcode 14.0.1"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_14.0.1.app"
+- Name: "Xcode/14.1"
+  Description: "Xcode 14.1"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_14.1.app"
+- Name: "Xcode/14.2"
+  Description: "Xcode 14.2"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_14.2.app"
+- Name: "Xcode/14.3"
+  Description: "Xcode 14.3"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_14.3.app"
+- Name: "Xcode/14.3.1"
+  Description: "Xcode 14.3.1"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_14.3.1.app"
+- Name: "Xcode/15.0"
+  Description: "Xcode 15.0"
+  Postpone: 0
+  PathMacOS:
+    - "/Applications/Xcode_15.0.app"
+- Name: "Xcode/All"
+  Description: "Xcode (All)"
+  Postpone: 1
+  PathMacOS:
+    - "/Applications/Xcode*.app"
+- Name: "YAMLLint"
+  Description: "YAML Lint"
+  Postpone: 0
+  Pipx:
+    - "yamllint"
+  PathLinux:
+    - "/opt/pipx_bin/yamllint"
+- Name: "Yarn"
+  Description: "Yarn"
+  Postpone: 0
+  NPM:
+    - "yarn"
+  PathLinux:
+    - "/usr/local/lib/node_modules/yarn"
+  PathMacOS:
+    - "/Users/runner/.yarn"

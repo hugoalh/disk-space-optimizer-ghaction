@@ -1,154 +1,146 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"title": "Disk Space Optimizer (GitHub Action) List Schema Version 2.1",
-	"type": "object",
-	"properties": {
-		"Collection": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"Name": {
-						"type": "string",
-						"description": "Name.",
-						"minLength": 1,
-						"pattern": "^[\\dA-Za-z/+._-]+$"
-					},
-					"Description": {
-						"type": "string",
-						"description": "Description.",
-						"minLength": 1
-					},
-					"Postpone": {
-						"type": "integer",
-						"description": "Level of defer.",
-						"maximum": 9,
-						"minimum": 0
-					},
-					"APT": {
-						"type": "array",
-						"description": "Names in the APT registry.",
-						"items": {
-							"type": "string",
-							"minLength": 1
-						},
-						"minItems": 1,
-						"uniqueItems": true
-					},
-					"Chocolatey": {
-						"type": "array",
-						"description": "Names in the Chocolatey registry.",
-						"items": {
-							"type": "string",
-							"minLength": 1
-						},
-						"minItems": 1,
-						"uniqueItems": true
-					},
-					"Homebrew": {
-						"type": "array",
-						"description": "Names in the Homebrew registry.",
-						"items": {
-							"type": "string",
-							"minLength": 1
-						},
-						"minItems": 1,
-						"uniqueItems": true
-					},
-					"NPM": {
-						"type": "array",
-						"description": "Names in the NPM registry.",
-						"items": {
-							"type": "string",
-							"minLength": 1
-						},
-						"minItems": 1,
-						"uniqueItems": true
-					},
-					"Pipx": {
-						"type": "array",
-						"description": "Names in the Pipx registry.",
-						"items": {
-							"type": "string",
-							"minLength": 1
-						},
-						"minItems": 1,
-						"uniqueItems": true
-					},
-					"PowerShellGet": {
-						"type": "array",
-						"description": "Names in the PowerShellGet registry.",
-						"items": {
-							"type": "string",
-							"minLength": 1
-						},
-						"minItems": 1,
-						"uniqueItems": true
-					},
-					"WMIC": {
-						"type": "array",
-						"description": "Names in the WMIC registry.",
-						"items": {
-							"type": "string",
-							"minLength": 1
-						},
-						"minItems": 1,
-						"uniqueItems": true
-					},
-					"Env": {
-						"type": "array",
-						"description": "Paths from environment variables.",
-						"items": {
-							"type": "string",
-							"minLength": 1,
-							"pattern": "^[\\dA-Z](?:[\\dA-Z_]*[\\dA-Z])?$"
-						},
-						"minItems": 1,
-						"uniqueItems": true
-					},
-					"PathLinux": {
-						"type": "array",
-						"description": "Paths for Linux.",
-						"items": {
-							"type": "string",
-							"minLength": 1,
-							"pattern": "^(?:\\/|\\$Env:)[^\\\\]+$"
-						},
-						"minItems": 1,
-						"uniqueItems": true
-					},
-					"PathMacOS": {
-						"type": "array",
-						"description": "Paths for MacOS.",
-						"items": {
-							"type": "string",
-							"minLength": 1,
-							"pattern": "^(?:\\/|\\$Env:)[^\\\\]+$"
-						},
-						"minItems": 1,
-						"uniqueItems": true
-					},
-					"PathWindows": {
-						"type": "array",
-						"description": "Paths for Windows.",
-						"items": {
-							"type": "string",
-							"minLength": 1,
-							"pattern": "^(?:[A-Z]:\\\\|\\$Env:)[^\\/]+$"
-						},
-						"minItems": 1,
-						"uniqueItems": true
-					}
+	"title": "Disk Space Optimizer (GitHub Action) List Schema Version 3.0",
+	"type": "array",
+	"items": {
+		"type": "object",
+		"properties": {
+			"Name": {
+				"type": "string",
+				"description": "Name.",
+				"minLength": 1,
+				"pattern": "^[\\dA-Za-z/+._-]+$"
+			},
+			"Description": {
+				"type": "string",
+				"description": "Description.",
+				"minLength": 1
+			},
+			"Postpone": {
+				"type": "integer",
+				"description": "Level of defer.",
+				"maximum": 9,
+				"minimum": 0
+			},
+			"APT": {
+				"type": "array",
+				"description": "Names in the APT registry.",
+				"items": {
+					"type": "string",
+					"minLength": 1
 				},
-				"required": [
-					"Name",
-					"Description",
-					"Postpone"
-				]
+				"minItems": 1,
+				"uniqueItems": true
+			},
+			"Chocolatey": {
+				"type": "array",
+				"description": "Names in the Chocolatey registry.",
+				"items": {
+					"type": "string",
+					"minLength": 1
+				},
+				"minItems": 1,
+				"uniqueItems": true
+			},
+			"Homebrew": {
+				"type": "array",
+				"description": "Names in the Homebrew registry.",
+				"items": {
+					"type": "string",
+					"minLength": 1
+				},
+				"minItems": 1,
+				"uniqueItems": true
+			},
+			"NPM": {
+				"type": "array",
+				"description": "Names in the NPM registry.",
+				"items": {
+					"type": "string",
+					"minLength": 1
+				},
+				"minItems": 1,
+				"uniqueItems": true
+			},
+			"Pipx": {
+				"type": "array",
+				"description": "Names in the Pipx registry.",
+				"items": {
+					"type": "string",
+					"minLength": 1
+				},
+				"minItems": 1,
+				"uniqueItems": true
+			},
+			"PowerShellGet": {
+				"type": "array",
+				"description": "Names in the PowerShellGet registry.",
+				"items": {
+					"type": "string",
+					"minLength": 1
+				},
+				"minItems": 1,
+				"uniqueItems": true
+			},
+			"WMIC": {
+				"type": "array",
+				"description": "Names in the WMIC registry.",
+				"items": {
+					"type": "string",
+					"minLength": 1
+				},
+				"minItems": 1,
+				"uniqueItems": true
+			},
+			"Env": {
+				"type": "array",
+				"description": "Paths from environment variables.",
+				"items": {
+					"type": "string",
+					"minLength": 1,
+					"pattern": "^[\\dA-Z](?:[\\dA-Z_]*[\\dA-Z])?$"
+				},
+				"minItems": 1,
+				"uniqueItems": true
+			},
+			"PathLinux": {
+				"type": "array",
+				"description": "Paths for Linux.",
+				"items": {
+					"type": "string",
+					"minLength": 1,
+					"pattern": "^(?:\\/|\\$Env:)[^\\\\]+$"
+				},
+				"minItems": 1,
+				"uniqueItems": true
+			},
+			"PathMacOS": {
+				"type": "array",
+				"description": "Paths for MacOS.",
+				"items": {
+					"type": "string",
+					"minLength": 1,
+					"pattern": "^(?:\\/|\\$Env:)[^\\\\]+$"
+				},
+				"minItems": 1,
+				"uniqueItems": true
+			},
+			"PathWindows": {
+				"type": "array",
+				"description": "Paths for Windows.",
+				"items": {
+					"type": "string",
+					"minLength": 1,
+					"pattern": "^(?:[A-Z]:\\\\|\\$Env:)[^\\/]+$"
+				},
+				"minItems": 1,
+				"uniqueItems": true
 			}
-		}
-	},
-	"required": [
-		"Collection"
-	]
+		},
+		"required": [
+			"Name",
+			"Description",
+			"Postpone"
+		]
+	}
 }

@@ -169,7 +169,6 @@ If ($RegistryDocker.IsExist -and $InputDockerInclude.Length -gt 0) {
 If ($InputGeneralInclude.Length -gt 0) {
 	$GeneralRemove += Get-Content -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath 'list.json') -Raw -Encoding 'UTF8NoBOM' -ErrorAction 'Continue' |
 		ConvertFrom-Json -Depth 100 |
-		Select-Object -ExpandProperty 'Collection' |
 		Where-Object -FilterScript { (($InputGeneralInclude.Length -gt 0) ? ($_.Name -imatch $InputGeneralInclude) : $False) -and (($InputGeneralExclude.Length -gt 0) ? ($_.Name -inotmatch $InputGeneralExclude) : $True) } |
 		Where-Object -FilterScript {
 			($InputAptEnable -and $RegistryApt.IsExist -and $Null -ine $_.APT) -or
