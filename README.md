@@ -2,11 +2,12 @@
 
 # Disk Space Optimizer (GitHub Action)
 
-[⚖️ MIT](./LICENSE.md)
+[**⚖️** MIT](./LICENSE.md)
 
-|  | **Release - Latest** | **Release - Pre** |
-|:-:|:-:|:-:|
-| [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=ffffff&style=flat-square "GitHub")](https://github.com/hugoalh/disk-space-optimizer-ghaction) | ![GitHub Latest Release Version](https://img.shields.io/github/release/hugoalh/disk-space-optimizer-ghaction?sort=semver&label=&style=flat-square "GitHub Latest Release Version") (![GitHub Latest Release Date](https://img.shields.io/github/release-date/hugoalh/disk-space-optimizer-ghaction?label=&style=flat-square "GitHub Latest Release Date")) | ![GitHub Latest Pre-Release Version](https://img.shields.io/github/release/hugoalh/disk-space-optimizer-ghaction?include_prereleases&sort=semver&label=&style=flat-square "GitHub Latest Pre-Release Version") (![GitHub Latest Pre-Release Date](https://img.shields.io/github/release-date-pre/hugoalh/disk-space-optimizer-ghaction?label=&style=flat-square "GitHub Latest Pre-Release Date")) |
+**🗂️**
+[![GitHub: hugoalh/disk-space-optimizer-ghaction](https://img.shields.io/badge/hugoalh/disk--space--optimizer--ghaction-181717?logo=github&logoColor=ffffff&style=flat "GitHub: hugoalh/disk-space-optimizer-ghaction")](https://github.com/hugoalh/disk-space-optimizer-ghaction)
+
+**🆙** ![Latest Release Version](https://img.shields.io/github/release/hugoalh/disk-space-optimizer-ghaction?sort=semver&color=2187C0&label=&style=flat "Latest Release Version") (![Latest Release Date](https://img.shields.io/github/release-date/hugoalh/disk-space-optimizer-ghaction?color=2187C0&label=&style=flat "Latest Release Date"))
 
 A GitHub Action to optimize disk space for GitHub hosted runner.
 
@@ -40,30 +41,58 @@ This project is inspired from:
   - [Pipx packages][list]
   - [Windows programs (WMIC)][list]
 
-## 🔰 Begin
+## 🎯 Target
 
-### GitHub Actions
+<table>
+<tbody align="left">
+<tr>
+<th align="left">GitHub Actions</th>
+<td>
 
-- **Target Version:** Runner >= v2.311.0, &:
-  - PowerShell >= v7.2.0
-- **Require Permission:** *N/A*
+Runner >= v2.311.0
 
-```yml
-jobs:
-  job_id:
-    runs-on: "________" # Any
-    steps:
-      - uses: "hugoalh/disk-space-optimizer-ghaction@<Tag>"
-```
+**🛡️ Require Permission:** *N/A*
+
+**💽 Require Software:**
+
+- PowerShell >= v7.2.0
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## 🔰 Usage
+
+### Composite Action
+
+1. Import at the metadata (`action.yml`):
+    ```yml
+    runs:
+      using: "composite"
+      steps:
+        - uses: "hugoalh/disk-space-optimizer-ghaction@<Tag>"
+    ```
+
+### Workflow
+
+1. Import at the workflow (`.github/workflows/<WorkflowName>.yml`):
+    ```yml
+    jobs:
+      job_id:
+        runs-on: "________" # Any
+        steps:
+          - uses: "hugoalh/disk-space-optimizer-ghaction@<Tag>"
+    ```
 
 ## 🧩 Input
 
 > [!NOTE]
 > All of the inputs are optional; Use this action without any input will default to do nothing.
 
-| **Legend** | **Description** |
-|:-:|:--|
-| 🔀 | Switch with groups (e.g.: `{E}`). |
+> | **Legend** | **Description** |
+> |:-:|:--|
+> | 🔀 | Switch with groups (e.g.: `{E}`). |
 
 ### `operate_async`
 

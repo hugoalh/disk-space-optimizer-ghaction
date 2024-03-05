@@ -9,9 +9,9 @@ jobs:
   main:
     name: "Main"
     permissions: {}
-    uses: "hugoalh/hugoalh/.github/workflows/call-map-semver-soft-tag-0.yml@main"
+    uses: "hugoalh/hugoalh/.github/workflows/call-map-semver-soft-tag-1.yml@main"
     with:
-      tagspattern_latest: |-
+      patterns_latest: |-
         v{{Major}}
         v{{Major}}.{{Minor}}
     secrets:
