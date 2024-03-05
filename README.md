@@ -43,24 +43,14 @@ This project is inspired from:
 
 ## 🎯 Target
 
-<table>
-<tbody align="left">
-<tr>
-<th align="left">GitHub Actions</th>
-<td>
+- **GitHub Actions:** Runner >= v2.311.0
+  > **🛡️ Require Permission**
+  >
+  > *N/A*
 
-Runner >= v2.311.0
-
-**🛡️ Require Permission:** *N/A*
-
-**💽 Require Software:**
-
-- PowerShell >= v7.2.0
-
-</td>
-</tr>
-</tbody>
-</table>
+  > **💽 Require Software**
+  >
+  > - PowerShell >= v7.2.0
 
 ## 🔰 Usage
 
