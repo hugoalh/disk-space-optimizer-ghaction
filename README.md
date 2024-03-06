@@ -43,7 +43,7 @@ This project is inspired from:
 
 ## 🎯 Target
 
-- **GitHub Actions:** Runner >= v2.311.0
+- GitHub Actions Runner >= v2.311.0
   > **🛡️ Require Permission**
   >
   > *N/A*

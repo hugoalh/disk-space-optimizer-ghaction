@@ -10,10 +10,10 @@
 > | 🟠 | Maintenance |
 > | 🔴 | End Of Life / Not Supported |
 
-| **Versions** | **Status** | **🔵 Date** | **🟢 Date** | **🔴 Date** | **Target - GitHub Actions Runner** | **Target - PowerShell** |
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| v0.8.X | 🔵 | 2024-01-15 | *N/A* | *Unknown* | >= v2.311.0 | >= v7.2.0 |
-| v0.7.X | 🟠 | 2023-09-16 | *N/A* | 2024-04-15 | >= v2.308.0 | >= v7.2.0 |
+| **Versions** | **Status** | **🔵 Date** | **🟢 Date** | **🔴 Date** |
+|:-:|:-:|:-:|:-:|:-:|
+| v0.8.X | 🔵 | 2024-01-15 | *N/A* | *Unknown* |
+| v0.7.X | 🟠 | 2023-09-16 | *N/A* | 2024-04-15 |
 
 > **ℹ️ Note**
 >
