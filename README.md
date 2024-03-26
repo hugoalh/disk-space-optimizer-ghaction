@@ -9,7 +9,7 @@
 
 **🆙** ![Latest Release Version](https://img.shields.io/github/release/hugoalh/disk-space-optimizer-ghaction?sort=semver&color=2187C0&label=&style=flat "Latest Release Version") (![Latest Release Date](https://img.shields.io/github/release-date/hugoalh/disk-space-optimizer-ghaction?color=2187C0&label=&style=flat "Latest Release Date"))
 
-A GitHub Action to optimize disk space for GitHub hosted runner.
+A GitHub Action to optimize disk space for GitHub hosted GitHub Actions runner.
 
 This project is inspired from:
 

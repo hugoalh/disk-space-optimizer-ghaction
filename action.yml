@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-action.json
 name: "Disk Space Optimizer"
 author: "hugoalh"
-description: "Optimize disk space for GitHub hosted runner."
+description: "Optimize disk space for GitHub hosted GitHub Actions runner."
 inputs:
   operate_async:
     description: "[EXPERIMENTAL] {Boolean} Whether to operate in asynchronously to reduce the operation duration."
