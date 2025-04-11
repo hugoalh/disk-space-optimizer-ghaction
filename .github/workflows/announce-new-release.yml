@@ -11,12 +11,12 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Send Discord Webhook"
-        uses: "hugoalh/send-discord-webhook-ghaction@v6.0.2"
+        uses: "hugoalh/send-discord-webhook-ghaction@v7"
         with:
           key: "${{secrets.DISCORD_HXHS_PROJECTNEWRELEASEANNOUNCER_WEBHOOK}}"
-          embeds: |
+          embeds: |-
             - title: "Disk Space Optimizer (GitHub Action)"
-              description: |
+              description: |-
                 > ${{github.event.repository.description}}
 
                 Version ${{github.event.release.name}} (`${{github.event.release.tag_name}}`) just released!
@@ -29,7 +29,5 @@ jobs:
               fields:
                 - name: "📋 Changelog"
                   value: "${{github.event.release.html_url}}"
-                  inline: false
                 - name: "GitHub"
                   value: "${{github.event.repository.html_url}}"
-                  inline: false
