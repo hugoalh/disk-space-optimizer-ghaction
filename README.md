@@ -214,4 +214,4 @@ If all of the inputs inside this switch group are `false`, this input will defau
 - GitHub Actions
   - [Enabling debug logging](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging)
 
-[list]: ./list.tsv
+[list]: ./list.json
