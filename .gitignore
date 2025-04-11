@@ -1,249 +1,371 @@
-__history/
-__Previews
-__pycache__/
-__recovery/
-_compareTemp
-_thumbs/
-_UpgradeReport_Files/
-._*
-.[Cc]ache
-.[Cc]ache/
-.~lock.*#
-.alcache/
-.apdisk
-.AppleDB
-.AppleDesktop
-.AppleDouble
-.byebug_history
-.cache-main
-.com.apple.timemachine.donotpresent
-.coverage.*
-.cpcache/
-.csdp.cache
-.data/
-.directory
-.DocumentRevisions-V100
-.docusaurus
-.dropbox
-.dropbox.attr
-.dropbox.cache
-.DS_Store
-.dynamodb/
-.ensime_cache/
-.env
-.env.development.local
-.env.local
-.env.production.local
-.env.test.local
-.eslintcache
-.fseventsd
-.fuse_hidden*
-.fusebox/
-.git/
-.gradle/
-.gradletasknamecache
-.grunt
-.history
-.history/
-.idea/caches/
-.idea/httpRequests
-.jekyll-cache/
-.lein-repl-history
-.lia.cache
-.lib/
-.libs/
-.lock-waf_*_build
-.lock-wscript
-.LSOverride
-.next
-.nfs*
-.nia.cache
-.nlia.cache
-.node_history
-.node_repl_history
-.npm
-.nra.cache
-.nuxt
-.nyc_output
-.parcel-cache
-.php_cs.cache
-.phpunit.result.cache
-.pl-history
-.pnp.*
-.pnpm-debug.log*
-.Rapp.history
-.RData
-.RDataTmp
-.repl_history
-.Rhistory
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-.sass-cache/
-.scala_dependencies
-.serverless/
-.snapshots/
-.Spotlight-V100
-.stversions
-.stylelintcache
-.svn/
-.temp
-.temp/
-.TemporaryItems
-.tern-port
-.Trash-*
-.Trashes
-.VolumeIcon.icns
-.vs/
-.vscode-test
-.vscode/
-.vshistory/
-.vuepress/dist
-.yarn-integrity
-.yarn/
-[Dd]esktop.ini
-[Tt]emp/
-[Tt]humbs.db
-[Tt]humbs.db:encryptable
-*_cache/
-*_qmlcache.qrc
-*.~*
-*.~vsd*
+#MARK: {Common}
 *.autosave
 *.bak
-*.cab
 *.cache
-*.cachefile
-*.errors
-*.hprof
-*.identcache
+*.diff
+*.dump
+*.eml
+*.gcov
+*.gho
+*.kcov
 *.lcov
-*.lnk
 *.log
+*.ori
+*.orig
+*.patch
+*.temp
+*.tmp
+.cache/
+.git/
+.svn/
+.temp/
+.tmp/
+*_cache/
+.env
+.env.dev.local
+.env.development.local
+.env.local
+.env.prod.local
+.env.production.local
+.env.test.local
+
+#MARK: {Archives & Packages}
+*.7z
+*.apfs
+*.apk
+*.app
+*.appx
+*.arj
+*.bin
+*.bz
+*.bz2
+*.bzip
+*.bzip2
+*.cab
+*.cpio
+*.crx
+*.deb
+*.dll
+*.dmg
+*.ear
+*.egg
+*.esd
+*.exe
+*.fat
+*.gem
+*.gz
+*.gzip
+*.hfs
+*.iso
+*.jar
+*.lha
+*.lzh
+*.lzma
 *.msi
 *.msix
 *.msm
 *.msp
-*.pid
-*.pid.lock
-*.seed
-*.slxc
-*.stackdump
-*.stTheme.cache
+*.nar
+*.ntfs
+*.ova
+*.pkg
+*.ppkg
+*.r[0-9][0-9]
+*.rar
+*.rpm
+*.scs
+*.squashfs
+*.swm
+*.tar
+*.tar.gz
+*.taz
+*.tbz
+*.tbz2
 *.tgz
-*.tmlanguage.cache
-*.tmp
-*.tmPreferences.cache
-*.tsbuildinfo
-*.userosscache
+*.tpz
+*.txz
+*.tzst
+*.vhd
+*.vhdx
 *.vsix
-*.xlk
+*.war
+*.wim
+*.xar
+*.xpi
+*.xz
+*.z
+*.z[0-9][0-9]
+*.zip
+*.zipx
+*.zst
+
+#MARK: {OS Linux}
+.fuse_hidden*
+.nfs*
+.Trash-*
 *~
-/_yardoc/
-/.qmake.cache
-/.yardoc/
-/administrator/cache/
-/app/bootstrap.php.cache
-/app/cache/
-/app/logs/
-/autoscan.log
-/cache/
-/config.cache
-/config.guess
-/custom/history/
-/fuel/app/cache/
-/fuel/app/logs/
-/github-cache
-/package-cache
-/play-cache
-/tmp/cache/models/
-/tmp/cache/persistent/
-/tmp/cache/views/
-/typo3conf/temp_CACHED*
-/var/bootstrap.php.cache
-/var/cache/
-/web/sites/*/cache
-/web/sites/*/tmp
-/web/sites/*/translations
-/website/var/backup/
-/website/var/cache/
-/website/var/config/cache.xml
+
+#MARK: {OS Mac}
+._*
+.apdisk
+.AppleDB
+.AppleDesktop
+.AppleDouble
+.com.apple.timemachine.donotpresent
+.DocumentRevisions-V100
+.DS_Store
+.fseventsd
+.LSOverride
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+Network Trash Folder
+Temporary Items
+
+#MARK: {OS Windows}
+*.lnk
+*.stackdump
+$RECYCLE.BIN/
+[Dd]esktop.ini
+ehthumbs_vista.db
+ehthumbs.db
+Thumbs.db
+Thumbs.db:encryptable
+
+#MARK: AL
+.alcache/
+.alpackages/
+
+#MARK: BowerIO
+bower_components/
+
+#MARK: CVS
+CVS/
+.cvsignore
+
+#MARK: Dart
+.dart_tool/
+
+#MARK: Delphi
+__history/
+__recovery/
+
+#MARK: Docusaurus
+.docusaurus
+
+#MARK: Dropbox
+.dropbox
+.dropbox.attr
+.dropbox.cache
+
+#MARK: DynamoDB
+.dynamodb/
+
+#MARK: Eagle
+*.b#?
+*.b$?
+*.l#?
+*.l$?
+*.s#?
+*.s$?
+
+#MARK: Elm
+elm-stuff
+repl-temp-*
+
+#MARK: ESLint
+.eslintcache
+
+#MARK: FuseBox
+.fusebox/
+
+#MARK: Go
+go.work
+go.work.sum
+
+#MARK: Godot
+.godot/
+
+#MARK: Google App Engine
+appengine-generated/
+
+#MARK: Gradle
+.gradle/
+.gradletasknamecache
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+#MARK: GruntJS
+.grunt/
+
+#MARK: GWT
+.apt_generated/
+.gwt-tmp/
+.gwt/
+gwt-unitCache/
+
+#MARK: Jekyll
+.jekyll-cache/
+.jekyll-metadata
+
+#MARK: KDE
+.directory
+
+#MARK: Leiningen
+.cpcache/
+.lein-plugins/
+.lein-deps-sum
+.lein-failures
+.lein-repl-history
+.nrepl-port
+
+#MARK: LibreOffice
+.~lock.*#
+
+#MARK: MicroBundleJS
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+#MARK: Microsoft Office
+*.~vsd*
+*.xlk
 ~$*.doc*
 ~$*.ppt*
 ~$*.xls*
-$RECYCLE.BIN/
-App_Data/cache/
-application/cache/
-application/logs/
-autom4te.cache
 Backup of *.doc*
-BenchmarkDotNet.Artifacts/
-bh_unicode_properties.cache
-Binaries/
-bower_components
-build/Release
-BundleArtifacts/
-cache
-cache-downloads
-cache/
-Cache/
-CMakeCache.txt
-CMS/App_Data/AzureCache
-CMS/App_Data/AzureTemp
-coverage
-crash.log
-csdp.cache
-cwallet.sso.lck
-data/cache/
-data/DoctrineORMModule/cache/
-data/logs/
-data/sessions/
-DerivedDataCache/
-ehthumbs_vista.db
-ehthumbs.db
-expressionengine/cache/
-files/cache/
-files/tmp/
-fp-info-cache
-Icon
-image/cache/
-install-log.txt
+
+#MARK: Mono
+.mono/
+mono_crash.*.json
+
+#MARK: NextJS
+.next
+
+#MARK: NodeJS
 jspm_packages/
-lerna-debug.log*
-lia.cache
-lib-cov
-logs
-Logs/
-manifest/cache/
-manifest/logs/
-manifest/tmp/
-Network Trash Folder
-nia.cache
-nimblecache/
-nimcache/
-nlia.cache
 node_modules/
-npm-debug.log*
-nra.cache
-Package Control.cache/
-packer_cache/
-pids
+.node_history
+.node_repl_history
+lerna-debug.log*
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
-resources/sass/.sass-cache/
-source_gen
-source_gen.caches
-system/cache/
-system/logs/
-Temporary Items
-test_gen
-test_gen.caches
-test-result
-thumbs/
-tmp/
-vqmod/checked.cache
-vqmod/mods.cache
-vqmod/vqcache/
+
+#MARK: NodeWaf
+.lock-wscript
+
+#MARK: NPM
+.npm
+npm-debug.log*
+
+#MARK: NuxtJS
+.nuxt
+
+#MARK: Packer
+packer_cache/
+
+#MARK: ParcelJS
+.cache
+.parcel-cache
+
+#MARK: PNPM
+.pnpm-debug.log*
+
+#MARK: Python
+*.pyc
+*.pyd
+*.pyo
+__pycache__/
+.pybuilder/
+.ipynb_checkpoints
+.Python
+*$py.class
+ipython_config.py
+pip-log.txt
+pip-delete-this-directory.txt
+
+#MARK: Qt
+.qmake.cache
+*_qmlcache.qrc
+
+#MARK: R
+.Rapp.history
+.RData
+.RDataTmp
+.Rhistory
+.Ruserdata
+*-Ex.R
+
+#MARK: Redis
+dump.rdb
+
+#MARK: ROS
+msg_gen/
+srv_gen/
+
+#MARK: Ruby (+ Rails)
+.byebug_history
+
+#MARK: Rust
+*.rs.bk
+
+#MARK: SASS
+.sass-cache/
+
+#MARK: Serverless
+.serverless/
+
+#MARK: Snowpack
 web_modules/
+
+#MARK: StyleLint
+.stylelintcache
+
+#MARK: Sublime Text
+*.stTheme.cache
+*.sublime-workspace
+*.tmlanguage.cache
+*.tmPreferences.cache
+bh_unicode_properties.cache
+
+#MARK: TernJS
+.tern-port
+
+#MARK: Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+
+#MARK: TypeScript
+*.tsbuildinfo
+
+#MARK: Vim
+Session.vim
+Sessionx.vim
+
+#MARK: Visual Studio
+.localhistory/
+.vs/
+.vshistory/
+
+#MARK: Visual Studio Code
+.history/
+.vscode/
+.vscode-test
+
+#MARK: VuePress
+.vuepress/
+
+#MARK: XCode
+xcuserdata/
+
+#MARK: Yarn
+.yarn/
+.pnp.*
+.yarn-integrity
 yarn-debug.log*
 yarn-error.log*
+
+#MARK: {Custom}

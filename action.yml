@@ -1,30 +1,30 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-action.json
 name: "Disk Space Optimizer"
 author: "hugoalh"
-description: "Optimize disk space for GitHub hosted GitHub Actions runner."
+description: "Optimize the disk space for the GitHub hosted GitHub Actions runner."
 inputs:
   operate_async:
-    description: "[EXPERIMENTAL] {Boolean} Whether to operate in asynchronously to reduce the operation duration."
+    description: "{Boolean} Whether to operate in asynchronously, possibly reduce the operation duration."
     required: false
     default: "False"
   operate_sudo:
-    description: "{Boolean} Whether to execute this action in sudo mode on non-Windows environment."
+    description: "{Boolean} Whether to execute this action in sudo mode in order to able operate protected resources on the non-Windows environment."
     required: false
     default: "False"
   general_include:
-    description: "{RegEx[]} Remove general item."
+    description: "{RegEx[]} Remove items which listed in the list."
     required: false
     default: ""
   general_exclude:
-    description: "{RegEx[]} Exclude remove general item."
+    description: "{RegEx[]} Exclude remove items which listed in the list."
     required: false
     default: ""
   docker_include:
-    description: "{RegEx[]} Remove Docker image."
+    description: "{RegEx[]} Remove Docker images."
     required: false
     default: ""
   docker_exclude:
-    description: "{RegEx[]} Exclude remove Docker image."
+    description: "{RegEx[]} Exclude remove Docker images."
     required: false
     default: ""
   docker_prune:

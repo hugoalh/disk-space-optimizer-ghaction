@@ -10,7 +10,6 @@ updates:
       timezone: "Etc/UTC"
     labels:
       - "Platform/GitHubActions"
-      - "Status/Pending 🔵"
       - "Type/Dependency 📦"
     open-pull-requests-limit: 100
     pull-request-branch-name:
