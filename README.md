@@ -45,7 +45,7 @@ This project is inspired from:
 | **[GitHub Actions](https://docs.github.com/en/actions)** | ✔️ |
 
 > [!NOTE]
-> - It is possible to use this action in other methods/ways which not listed in here, however it is not officially supported.
+> - It is possible to use this action in other methods/ways which not listed in here, however those methods/ways are not officially supported, and should beware maybe cause security issues.
 
 ### #️⃣ Registries Identifier
 
@@ -55,11 +55,11 @@ This project is inspired from:
   ```
 
 > [!NOTE]
-> - It is recommended to use this module with tag for immutability.
+> - It is recommended to use this action with tag for immutability.
 
-### 🛡️ Permissions
+### 🛡️ GitHub Token Permissions
 
-*This module does not require any permission.*
+*This action does not request any GitHub token permission.*
 
 ## 🧩 Inputs
 
