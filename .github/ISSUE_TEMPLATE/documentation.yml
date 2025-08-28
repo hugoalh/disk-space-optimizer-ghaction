@@ -2,17 +2,19 @@
 name: "Documentation Issue"
 description: "Report a documentation issue."
 labels:
-  - "Type/Documentation 📓"
+  - "documentation 📚"
 body:
   - type: "textarea"
     id: "document"
     attributes:
       label: "Document"
       description: |-
-        Which document occur this issue?
+        Which document path occur this issue?
 
-        > [!NOTE]
-        > - Accept multiple documents.
+        Accept glob syntax and multiple documents path.
+
+        **[🖌️ YAML]**
+      render: "yml"
       placeholder: |-
         README.md
     validations:
@@ -22,17 +24,16 @@ body:
     attributes:
       label: "Describe"
       description: |-
-        What the issue is? If needed, use images, videos, or other media type to help for explain this issue.
+        What the issue is?
 
-        > [!NOTE]
-        > - For external media, please ensure we are able to view those without any extra step.
+        If needed, use images, videos, or other types of media to help for explain this issue; Not accept any external resource.
     validations:
       required: true
   - type: "textarea"
-    id: "additional-information"
+    id: "additional"
     attributes:
-      label: "Additional Information"
+      label: "Additional"
       description: |-
-        If there have information which relevant to this issue but not suitable at other fields, please list those at here.
+        Information which relevant to this issue but not suitable at other fields.
     validations:
       required: false

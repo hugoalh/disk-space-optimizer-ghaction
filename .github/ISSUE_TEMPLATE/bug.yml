@@ -1,0 +1,98 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-issue-forms.json
+name: "Bug Report"
+description: "Report a bug."
+labels:
+  - "bug 🐛"
+body:
+  - type: "input"
+    id: "version"
+    attributes:
+      label: "Version"
+      description: |-
+        Which version occur this bug?
+
+        Version must be supported as of submit; Supported versions are listed in the Security Policy (file `SECURITY.md`).
+
+        For multiple versions, separate each version with comma-space (`, `), or use versions range syntax from [OSGi Semantic Versioning](https://docs.osgi.org/whitepaper/semantic-versioning/040-semantic-versions.html) or [Semantic Versioning 2.0.0](https://devhints.io/semver).
+      placeholder: "1.0.2"
+    validations:
+      required: true
+  - type: "textarea"
+    id: "describe"
+    attributes:
+      label: "Describe"
+      description: |-
+        What the bug is?
+
+        If needed, use images, videos, or other types of media to help for explain this bug; Not accept any external resource.
+      placeholder: |-
+        It unable to XXXXXXXX.
+    validations:
+      required: true
+  - type: "textarea"
+    id: "reproduce"
+    attributes:
+      label: "To Reproduce"
+      description: |-
+        Is this bug able to reproduce? If so, please show the steps to reproduce.
+
+        If needed, use images, videos, or other types of media to help for explain the steps to reproduce; Not accept any external resource.
+      placeholder: |-
+        1. Go to XXXXXXXX.
+        2. Click on XXXXXXXX.
+        3. Scroll to XXXXXXXX.
+        4. Encounter this bug.
+    validations:
+      required: false
+  - type: "dropdown"
+    id: "frequency"
+    attributes:
+      label: "Frequency"
+      description: |-
+        How often does this bug occur?
+      options:
+        - "Unknown / Untested"
+        - "Always (~100%)"
+        - "Frequently (~75%)"
+        - "Half (~50%)"
+        - "Sometimes (~25%)"
+        - "Rarely (~5%)"
+      multiple: false
+      default: 0
+    validations:
+      required: true
+  - type: "textarea"
+    id: "environment"
+    attributes:
+      label: "Environment / Set Up"
+      description: |-
+        How is the environment/set-up? Different environments/set-ups maybe have different outcomes, provide this information maybe help for reproduce this bug.
+
+        These are common categories:
+
+        - **`type`:** Device type (e.g.: `computer`, `phone`, `server`).
+        - **`cpu`:** Details of the central processing unit (e.g.: `Intel i7-6700`).
+        - **`ram`:** Details of the random access memory (e.g.: `8 GB`).
+        - **`storage`:** Details of the storage unit (e.g.: `500 GB SSD`).
+        - **`network`:** Details of the network (e.g.: `Wi-Fi`).
+        - **`gpu`:** Details of the graphics processing unit (e.g.: `NVIDIA GeForce RTX 4090`).
+        - **`os`:** Details of the operate system (e.g.: `Windows 11 Professional 23H2 X64`).
+        - **`programs`:** List of the installed programs (e.g.: `NodeJS 20.6.0 X64`, `Deno 1.36.0 X64`).
+        - **`env`:** List of the environment variables (e.g.: `NO_COLOR=1`).
+
+        **[🖌️ YAML]**
+      render: "yml"
+      placeholder: |-
+        type: [computer, server]
+        os: Windows 11 Professional 23H2 X64
+        programs: Deno 1.36.0 X64
+    validations:
+      required: false
+  - type: "textarea"
+    id: "additional"
+    attributes:
+      label: "Additional"
+      description: |-
+        Information which relevant to this bug but not suitable at other fields.
+    validations:
+      required: false

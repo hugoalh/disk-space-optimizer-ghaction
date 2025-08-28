@@ -43,7 +43,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout Repository"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v5"
         with:
           fetch-depth: "0"
       - name: "Scan Repository"
@@ -52,15 +52,3 @@ jobs:
           git_integrate: "${{inputs.git_integrate || 'False'}}"
           git_limit: "${{inputs.git_limit || '0'}}"
           git_reverse: "${{inputs.git_reverse || 'False'}}"
-          ignores_post: |-
-            Param($ElementPostMeta)
-            Return (
-              $ElementPostMeta.Path -imatch '^node_modules[\\/]'
-            )
-  skip:
-    if: "${{github.event_name == 'pull_request' && github.event.pull_request.head.repo.id == github.event.pull_request.base.repo.id}}"
-    permissions: {}
-    runs-on: "ubuntu-latest"
-    steps:
-      - run: |-
-          sleep 1

@@ -1,425 +1,481 @@
 # yaml-language-server: $schema=https://hugoalh.github.io/schema/json/github-labels.json
-- name: "Platform/AlpineLinux"
-  color: "#0D597F"
-  description: "Related to Alpine Linux."
-  aliases:
-    - "* Alpine"
-    - "* AlpineLinux"
-    - "Platform/LinuxAlpine"
-- name: "Platform/Android"
-  color: "#3DDC84"
-  description: "Related to Android."
-  aliases:
-    - "* Android"
-- name: "Platform/ArchLinux"
-  color: "#1793D1"
-  description: "Related to Arch Linux."
-  aliases:
-    - "* ArchLinux"
-- name: "Platform/Bluesky"
-  color: "#0285FF"
-  description: "Related to Bluesky."
-  aliases:
-    - "* Bluesky"
-- name: "Platform/Bun"
-  color: "#F9F1E1"
-  description: "Related to Bun."
-  aliases:
-    - "* Bun"
-- name: "Platform/CentOS"
-  color: "#262577"
-  description: "Related to CentOS."
-  aliases:
-    - "* CentOS"
-- name: "Platform/ClamAV"
-  color: "#B83033"
-  description: "Related to ClamAV."
-  aliases:
-    - "* ClamAV"
-- name: "Platform/CloudflareWorkers"
-  color: "#F38020"
-  description: "Related to Cloudflare Workers."
-  aliases:
-    - "* CloudflareWorkers"
-- name: "Platform/Codeberg"
-  color: "#2185D0"
-  description: "Related to Codeberg."
-  aliases:
-    - "* Codeberg"
-- name: "Platform/CodeQL"
-  color: "#FFFFFF"
-  description: "Related to CodeQL."
-  aliases:
-    - "* CodeQL"
-- name: "Platform/Crowdin"
-  color: "#2E3340"
-  description: "Related to Crowdin."
-  aliases:
-    - "* Crowdin"
-- name: "Platform/CurseForge"
-  color: "#F16436"
-  description: "Related to CurseForge."
-  aliases:
-    - "* CurseForge"
-- name: "Platform/Dart"
-  color: "#0175C2"
-  description: "Related to Dart."
-  aliases:
-    - "* Dart"
-- name: "Platform/Debian"
-  color: "#A81D33"
-  description: "Related to Debian."
-  aliases:
-    - "* Debian"
-    - "Platform/LinuxDebian"
-- name: "Platform/Deno"
-  color: "#000000"
-  description: "Related to Deno."
-  aliases:
-    - "* Deno"
-- name: "Platform/DenoNetwork"
-  color: "#000000"
-  description: "Related to Deno Deploy, Deno Land, or Deno Module Registry."
-  aliases:
-    - "* DenoNetwork"
-- name: "Platform/Dependabot"
-  color: "#025E8C"
-  description: "Related to Dependabot."
-  aliases:
-    - "* Dependabot"
-- name: "Platform/Discord"
-  color: "#5865F2"
-  description: "Related to Discord."
-  aliases:
-    - "* Discord"
-- name: "Platform/Docker"
-  color: "#2496ED"
-  description: "Related to Docker."
-  aliases:
-    - "* Docker"
-- name: "Platform/DotNet"
-  color: "#512BD4"
-  description: "Related to .NET."
-  aliases:
-    - "* DotNet"
-- name: "Platform/FDroid"
-  color: "#1976D2"
-  description: "Related to F-Droid."
-  aliases:
-    - "* FDroid"
-- name: "Platform/FedoraLinux"
-  color: "#51A2DA"
-  description: "Related to Fedora Linux."
-  aliases:
-    - "* FedoraLinux"
-- name: "Platform/Flutter"
-  color: "#02569B"
-  description: "Related to Flutter."
-  aliases:
-    - "* Flutter"
-- name: "Platform/Forgejo"
-  color: "#FB923C"
-  description: "Related to Forgejo."
-  aliases:
-    - "* Forgejo"
-- name: "Platform/Git"
-  color: "#F05032"
-  description: "Related to Git."
-  aliases:
-    - "* Git"
-- name: "Platform/GitHub"
-  color: "#181717"
-  description: "Related to GitHub."
-  aliases:
-    - "* GitHub"
-- name: "Platform/GitHubActions"
-  color: "#2088FF"
-  description: "Related to GitHub Actions."
-  aliases:
-    - "* GitHubActions"
-- name: "Platform/GitHubPackages"
-  color: "#181717"
-  description: "Related to GitHub Packages."
-  aliases:
-    - "* GitHubPackages"
-- name: "Platform/GitHubPages"
-  color: "#222222"
-  description: "Related to GitHub Pages."
-  aliases:
-    - "* GitHubPages"
-- name: "Platform/GitLFS"
-  color: "#F64935"
-  description: "Related to Git LFS."
-  aliases:
-    - "* GitLFS"
-- name: "Platform/Godot"
-  color: "#478CBF"
-  description: "Related to Godot."
-  aliases:
-    - "* Godot"
-- name: "Platform/Google"
-  color: "#4285F4"
-  description: "Related to Google."
-  aliases:
-    - "* Google"
-- name: "Platform/GoogleChrome"
-  color: "#4285F4"
-  description: "Related to Google Chrome."
-  aliases:
-    - "* GoogleChrome"
-- name: "Platform/GooglePlay"
-  color: "#414141"
-  description: "Related to Google Play."
-  aliases:
-    - "* GooglePlay"
-- name: "Platform/Guilded"
-  color: "#F5C400"
-  description: "Related to Guilded."
-  aliases:
-    - "* Guilded"
-- name: "Platform/JavaScript"
-  color: "#F7DF1E"
-  description: "Related to JavaScript."
-  aliases:
-    - "* JavaScript"
-- name: "Platform/JSR"
-  color: "#F7DF1E"
-  description: "Related to JSR (JavaScript Registry)."
-  aliases:
-    - "* JSR"
-- name: "Platform/Kubernetes"
-  color: "#326CE5"
-  description: "Related to Kubernetes."
-  aliases:
-    - "* Kubernetes"
-- name: "Platform/Linux"
-  color: "#FCC624"
-  description: "Related to Linux."
-  aliases:
-    - "* Linux"
-- name: "Platform/MacOS"
-  color: "#000000"
-  description: "Related to MacOS."
-  aliases:
-    - "* MacOS"
-    - "Platform/AppleOS"
-- name: "Platform/Mastodon"
-  color: "#6364FF"
-  description: "Related to Mastodon."
-  aliases:
-    - "* Mastodon"
-- name: "Platform/MicrosoftAzure"
-  color: "#0078D4"
-  description: "Related to Microsoft Azure."
-  aliases:
-    - "* MicrosoftAzure"
-- name: "Platform/MicrosoftEdge"
-  color: "#0078D7"
-  description: "Related to Microsoft Edge."
-  aliases:
-    - "* MicrosoftEdge"
-- name: "Platform/Minecraft"
-  color: "#62B47A"
-  description: "Related to Minecraft (Bedrock)."
-  aliases:
-    - "* Minecraft"
-- name: "Platform/MinecraftJava"
-  color: "#62B47A"
-  description: "Related to Minecraft Java."
-  aliases:
-    - "* MinecraftJava"
-- name: "Platform/NodeJS"
-  color: "#339933"
-  description: "Related to NodeJS."
-  aliases:
-    - "* NodeJS"
-- name: "Platform/NPM"
-  color: "#CB3837"
-  description: "Related to NPM."
-  aliases:
-    - "* NPM"
-- name: "Platform/Podman"
-  color: "#892CA0"
-  description: "Related to Podman."
-  aliases:
-    - "* Podman"
-- name: "Platform/PowerShell"
-  color: "#5391FE"
-  description: "Related to PowerShell."
-  aliases:
-    - "* PowerShell"
-- name: "Platform/PowerShellGallery"
-  color: "#5391FE"
-  description: "Related to PowerShell Gallery."
-  aliases:
-    - "* PowerShellGallery"
-- name: "Platform/Python"
-  color: "#3776AB"
-  description: "Related to Python."
-  aliases:
-    - "* Python"
-- name: "Platform/RevoltChat"
-  color: "#FF4655"
-  description: "Related to Revolt Chat."
-  aliases:
-    - "* RevoltChat"
-- name: "Platform/Roblox"
-  color: "#000000"
-  description: "Related to Roblox."
-  aliases:
-    - "* Roblox"
-- name: "Platform/RobloxStudio"
-  color: "#00A2FF"
-  description: "Related to Roblox Studio."
-  aliases:
-    - "* RobloxStudio"
-- name: "Platform/Rust"
-  color: "#000000"
-  description: "Related to Rust."
-  aliases:
-    - "* Rust"
-- name: "Platform/Steam"
-  color: "#000000"
-  description: "Related to Steam."
-  aliases:
-    - "* Steam"
-- name: "Platform/Telegram"
-  color: "#26A5E4"
-  description: "Related to Telegram."
-  aliases:
-    - "* Telegram"
-- name: "Platform/TypeScript"
-  color: "#3178C6"
-  description: "Related to TypeScript."
-  aliases:
-    - "* TypeScript"
-- name: "Platform/Ubuntu"
-  color: "#E95420"
-  description: "Related to Ubuntu."
-  aliases:
-    - "* Ubuntu"
-    - "Platform/LinuxUbuntu"
-- name: "Platform/VisualStudio"
-  color: "#5C2D91"
-  description: "Related to Visual Studio."
-  aliases:
-    - "* VisualStudio"
-- name: "Platform/VisualStudioCode"
-  color: "#007ACC"
-  description: "Related to Visual Studio Code."
-  aliases:
-    - "* VisualStudioCode"
-- name: "Platform/VisualStudioMarketplace"
-  color: "#CB2E6D"
-  description: "Related to Visual Studio Marketplace."
-  aliases:
-    - "* VisualStudioMarketplace"
-- name: "Platform/Weblate"
-  color: "#2ECCAA"
-  description: "Related to Weblate."
-  aliases:
-    - "* Weblate"
-- name: "Platform/Windows"
-  color: "#0078D4"
-  description: "Related to Windows."
-  aliases:
-    - "* Windows"
-- name: "Platform/YARA"
-  color: "#808080"
-  description: "Related to YARA."
-  aliases:
-    - "* YARA"
-- name: "Priority/High 🔴"
+
+#MARK: Priorities
+- name: "first-priority 🚨"
+  color: "#D50000"
+  description: "This is first priority."
+  aliases:
+    - "🚨 Urgent"
+    - "Priority/Critical 🚨"
+    - "Priority/Urgent 🚨"
+- name: "high-priority 🔴"
   color: "#F44336"
   description: "This is high priority."
   aliases:
     - "🔴 High"
-- name: "Priority/Low 🟢"
+    - "Priority/High 🔴"
+- name: "low-priority 🟢"
   color: "#4CAF50"
   description: "This is low priority."
   aliases:
     - "🟢 Low"
-- name: "Priority/Medium 🟡"
+    - "Priority/Low 🟢"
+- name: "medium-priority 🟡"
   color: "#FFEB3B"
   description: "This is medium priority."
   aliases:
     - "🟡 Medium"
-- name: "Priority/Urgent 🚨"
-  color: "#D50000"
-  description: "This is urgent."
-  aliases:
-    - "🚨 Urgent"
-    - "Priority/Critical 🚨"
-- name: "Status/Duplicated 🔁"
+    - "Priority/Medium 🟡"
+
+#MARK: Statuses
+- name: "duplicated 🔁"
   color: "#CFD3D7" # GitHub Default Label Color
   description: "This already exists."
   aliases:
     - "duplicate" # GitHub Default Label
     - "🔁 Duplicated"
-- name: "Status/HelpWanted ⛑️"
+    - "Status/Duplicated 🔁"
+- name: "help-wanted ⛑️"
   color: "#008672" # GitHub Default Label Color
   description: "This needs extra help."
   aliases:
     - "help wanted" # GitHub Default Label
     - "⛑️ HelpWanted"
-- name: "Status/Invalid ⚠️"
+    - "Status/HelpWanted ⛑️"
+- name: "invalid ⚠️"
   color: "#E4E669" # GitHub Default Label Color
   description: "This does not seem right."
   aliases:
     - "invalid" # GitHub Default Label
     - "⚠️ Invalid"
-- name: "Status/Investigating 🔍"
+    - "Status/Invalid ⚠️"
+- name: "investigating 🔍"
   color: "#03A9F4"
   description: "This is in investigating."
   aliases:
     - "🔍 Investigating"
-- name: "Status/NoSolution 🤷"
-  color: "#FFFFFF"
-  description: "This cannot be worked on due to no possible solution."
-  aliases:
-    - "🤷 NoSolution"
-- name: "Status/Question ❓"
+    - "Status/Investigating 🔍"
+- name: "need-information ⁉️"
   color: "#D876E3" # GitHub Default Label Color
   description: "This needs further information."
   aliases:
     - "question" # GitHub Default Label
     - "❓ Question"
-- name: "Status/Transfer ↗️"
-  color: "#607D8B"
-  description: "This is transferred to a more relevant place."
-  aliases:
-    - "↗️ Transfer"
-- name: "Status/WillNotFix 🙅"
+    - "Status/Question ❓"
+- name: "no-fix 🙅"
   color: "#FFFFFF" # GitHub Default Label Color
   description: "This will not be worked on."
   aliases:
     - "wontfix" # GitHub Default Label
     - "🙅 WillNotFix"
-- name: "Type/Bug 🐛"
+    - "Status/WillNotFix 🙅"
+- name: "no-solution 🤷"
+  color: "#FFFFFF"
+  description: "This cannot be worked on due to no possible solution."
+  aliases:
+    - "🤷 NoSolution"
+    - "Status/NoSolution 🤷"
+- name: "transfer ↗️"
+  color: "#607D8B"
+  description: "This is transferred to a more relevant place."
+  aliases:
+    - "↗️ Transfer"
+    - "Status/Transfer ↗️"
+
+#MARK: Types
+- name: "bug 🐛"
   color: "#D73A4A" # GitHub Default Label Color
   description: "Something is not working as expected or intended."
   aliases:
     - "bug" # GitHub Default Label
     - "🐛 Bug"
-- name: "Type/Chore ⚙️"
+    - "Type/Bug 🐛"
+- name: "chore ⚙️"
   color: "#C0C0C0"
   description: "Miscellaneous task."
   aliases:
     - "⚙️ Chore"
-- name: "Type/Dependency 📦"
+    - "Type/Chore ⚙️"
+- name: "dependency 📦"
   color: "#6D4C41"
-  description: "Related to dependency."
+  description: "Related to the dependency."
   aliases:
     - "📦 Dependency"
-- name: "Type/Documentation 📓"
+    - "Type/Dependency 📦"
+- name: "documentation 📚"
   color: "#0075CA" # GitHub Default Label Color
   description: "Additions or improvements to the documentation."
   aliases:
     - "documentation" # GitHub Default Label
     - "📓 Documentation"
-- name: "Type/Enhancement 💡"
+    - "Type/Documentation 📓"
+- name: "enhancement 💡"
   color: "#A2EEEF" # GitHub Default Label Color
   description: "New feature or request."
   aliases:
     - "enhancement" # GitHub Default Label
     - "💡 Enhancement"
+    - "Type/Enhancement 💡"
+
+#MARK: Platforms
+- name: "alpine-linux"
+  color: "#0D597F"
+  description: "Related to Alpine Linux."
+  aliases:
+    - "* Alpine"
+    - "* AlpineLinux"
+    - "Platform/AlpineLinux"
+    - "Platform/LinuxAlpine"
+- name: "android"
+  color: "#3DDC84"
+  description: "Related to Android."
+  aliases:
+    - "* Android"
+    - "Platform/Android"
+- name: "bluesky"
+  color: "#0285FF"
+  description: "Related to Bluesky."
+  aliases:
+    - "* Bluesky"
+    - "Platform/Bluesky"
+- name: "bun"
+  color: "#F9F1E1"
+  description: "Related to Bun."
+  aliases:
+    - "* Bun"
+    - "Platform/Bun"
+- name: "clamav"
+  color: "#B83033"
+  description: "Related to ClamAV."
+  aliases:
+    - "* ClamAV"
+    - "Platform/ClamAV"
+- name: "codeberg"
+  color: "#2185D0"
+  description: "Related to Codeberg."
+  aliases:
+    - "* Codeberg"
+    - "Platform/Codeberg"
+- name: "codeql"
+  color: "#FFFFFF"
+  description: "Related to CodeQL."
+  aliases:
+    - "* CodeQL"
+    - "Platform/CodeQL"
+- name: "crowdin"
+  color: "#2E3340"
+  description: "Related to Crowdin."
+  aliases:
+    - "* Crowdin"
+    - "Platform/Crowdin"
+- name: "curseforge"
+  color: "#F16436"
+  description: "Related to CurseForge."
+  aliases:
+    - "* CurseForge"
+    - "Platform/CurseForge"
+- name: "dart"
+  color: "#0175C2"
+  description: "Related to Dart."
+  aliases:
+    - "* Dart"
+    - "Platform/Dart"
+- name: "debian"
+  color: "#A81D33"
+  description: "Related to Debian."
+  aliases:
+    - "* Debian"
+    - "Platform/Debian"
+    - "Platform/LinuxDebian"
+- name: "deno"
+  color: "#000000"
+  description: "Related to Deno."
+  aliases:
+    - "* Deno"
+    - "Platform/Deno"
+- name: "deno-service"
+  color: "#000000"
+  description: "Related to Deno services (Deploy, Module Registry, Subhosting, ...)."
+  aliases:
+    - "* DenoNetwork"
+    - "Platform/DenoNetwork"
+- name: "dependabot"
+  color: "#025E8C"
+  description: "Related to Dependabot."
+  aliases:
+    - "* Dependabot"
+    - "Platform/Dependabot"
+- name: "discord"
+  color: "#5865F2"
+  description: "Related to Discord."
+  aliases:
+    - "* Discord"
+    - "Platform/Discord"
+- name: "docker"
+  color: "#2496ED"
+  description: "Related to Docker."
+  aliases:
+    - "* Docker"
+    - "Platform/Docker"
+- name: "dotnet"
+  color: "#512BD4"
+  description: "Related to .NET."
+  aliases:
+    - "* DotNet"
+    - "Platform/DotNet"
+- name: "f-droid"
+  color: "#1976D2"
+  description: "Related to F-Droid."
+  aliases:
+    - "* FDroid"
+    - "Platform/FDroid"
+- name: "flutter"
+  color: "#02569B"
+  description: "Related to Flutter."
+  aliases:
+    - "* Flutter"
+    - "Platform/Flutter"
+- name: "forgejo"
+  color: "#FB923C"
+  description: "Related to Forgejo."
+  aliases:
+    - "* Forgejo"
+    - "Platform/Forgejo"
+- name: "git"
+  color: "#F05032"
+  description: "Related to Git."
+  aliases:
+    - "* Git"
+    - "Platform/Git"
+- name: "git-lfs"
+  color: "#F64935"
+  description: "Related to Git LFS."
+  aliases:
+    - "* GitLFS"
+    - "Platform/GitLFS"
+- name: "github"
+  color: "#181717"
+  description: "Related to GitHub."
+  aliases:
+    - "* GitHub"
+    - "Platform/GitHub"
+- name: "github-actions"
+  color: "#2088FF"
+  description: "Related to GitHub Actions."
+  aliases:
+    - "* GitHubActions"
+    - "Platform/GitHubActions"
+- name: "github-packages"
+  color: "#181717"
+  description: "Related to GitHub Packages."
+  aliases:
+    - "* GitHubPackages"
+    - "Platform/GitHubPackages"
+- name: "github-pages"
+  color: "#222222"
+  description: "Related to GitHub Pages."
+  aliases:
+    - "* GitHubPages"
+    - "Platform/GitHubPages"
+- name: "godot"
+  color: "#478CBF"
+  description: "Related to Godot."
+  aliases:
+    - "* Godot"
+    - "Platform/Godot"
+- name: "google"
+  color: "#4285F4"
+  description: "Related to Google."
+  aliases:
+    - "* Google"
+    - "Platform/Google"
+- name: "google-chrome"
+  color: "#4285F4"
+  description: "Related to Google Chrome."
+  aliases:
+    - "* GoogleChrome"
+    - "Platform/GoogleChrome"
+- name: "google-play"
+  color: "#414141"
+  description: "Related to Google Play."
+  aliases:
+    - "* GooglePlay"
+    - "Platform/GooglePlay"
+- name: "guilded"
+  color: "#F5C400"
+  description: "Related to Guilded."
+  aliases:
+    - "* Guilded"
+    - "Platform/Guilded"
+- name: "javascript"
+  color: "#F7DF1E"
+  description: "Related to JavaScript."
+  aliases:
+    - "* JavaScript"
+    - "Platform/JavaScript"
+- name: "jsr"
+  color: "#F7DF1E"
+  description: "Related to JSR (JavaScript Registry)."
+  aliases:
+    - "* JSR"
+    - "Platform/JSR"
+- name: "kubernetes"
+  color: "#326CE5"
+  description: "Related to Kubernetes."
+  aliases:
+    - "* Kubernetes"
+    - "Platform/Kubernetes"
+- name: "linux"
+  color: "#FCC624"
+  description: "Related to Linux."
+  aliases:
+    - "* Linux"
+    - "Platform/Linux"
+- name: "macos"
+  color: "#000000"
+  description: "Related to MacOS."
+  aliases:
+    - "* MacOS"
+    - "Platform/AppleOS"
+    - "Platform/MacOS"
+- name: "mastodon"
+  color: "#6364FF"
+  description: "Related to Mastodon."
+  aliases:
+    - "* Mastodon"
+    - "Platform/Mastodon"
+- name: "microsoft-edge"
+  color: "#0078D7"
+  description: "Related to Microsoft Edge."
+  aliases:
+    - "* MicrosoftEdge"
+    - "Platform/MicrosoftEdge"
+- name: "minecraft"
+  color: "#62B47A"
+  description: "Related to Minecraft (Bedrock)."
+  aliases:
+    - "* Minecraft"
+    - "Platform/Minecraft"
+- name: "minecraft-java"
+  color: "#62B47A"
+  description: "Related to Minecraft Java."
+  aliases:
+    - "* MinecraftJava"
+    - "Platform/MinecraftJava"
+- name: "nodejs"
+  color: "#339933"
+  description: "Related to NodeJS."
+  aliases:
+    - "* NodeJS"
+    - "Platform/NodeJS"
+- name: "npm"
+  color: "#CB3837"
+  description: "Related to NPM."
+  aliases:
+    - "* NPM"
+    - "Platform/NPM"
+- name: "podman"
+  color: "#892CA0"
+  description: "Related to Podman."
+  aliases:
+    - "* Podman"
+    - "Platform/Podman"
+- name: "powershell"
+  color: "#5391FE"
+  description: "Related to PowerShell."
+  aliases:
+    - "* PowerShell"
+    - "Platform/PowerShell"
+- name: "powershell-gallery"
+  color: "#5391FE"
+  description: "Related to PowerShell Gallery."
+  aliases:
+    - "* PowerShellGallery"
+    - "Platform/PowerShellGallery"
+- name: "python"
+  color: "#3776AB"
+  description: "Related to Python."
+  aliases:
+    - "* Python"
+    - "Platform/Python"
+- name: "revolt-chat"
+  color: "#FF4655"
+  description: "Related to Revolt Chat."
+  aliases:
+    - "* RevoltChat"
+    - "Platform/RevoltChat"
+- name: "roblox"
+  color: "#000000"
+  description: "Related to Roblox."
+  aliases:
+    - "* Roblox"
+    - "* RobloxStudio"
+    - "Platform/Roblox"
+    - "Platform/RobloxStudio"
+- name: "rust"
+  color: "#000000"
+  description: "Related to Rust."
+  aliases:
+    - "* Rust"
+    - "Platform/Rust"
+- name: "steam"
+  color: "#000000"
+  description: "Related to Steam."
+  aliases:
+    - "* Steam"
+    - "Platform/Steam"
+- name: "telegram"
+  color: "#26A5E4"
+  description: "Related to Telegram."
+  aliases:
+    - "* Telegram"
+    - "Platform/Telegram"
+- name: "typescript"
+  color: "#3178C6"
+  description: "Related to TypeScript."
+  aliases:
+    - "* TypeScript"
+    - "Platform/TypeScript"
+- name: "ubuntu"
+  color: "#E95420"
+  description: "Related to Ubuntu."
+  aliases:
+    - "* Ubuntu"
+    - "Platform/LinuxUbuntu"
+    - "Platform/Ubuntu"
+- name: "visual-studio"
+  color: "#5C2D91"
+  description: "Related to Visual Studio."
+  aliases:
+    - "* VisualStudio"
+    - "Platform/VisualStudio"
+- name: "visual-studio-code"
+  color: "#007ACC"
+  description: "Related to Visual Studio Code."
+  aliases:
+    - "* VisualStudioCode"
+    - "Platform/VisualStudioCode"
+- name: "visual-studio-marketplace"
+  color: "#CB2E6D"
+  description: "Related to Visual Studio Marketplace."
+  aliases:
+    - "* VisualStudioMarketplace"
+    - "Platform/VisualStudioMarketplace"
+- name: "weblate"
+  color: "#2ECCAA"
+  description: "Related to Weblate."
+  aliases:
+    - "* Weblate"
+    - "Platform/Weblate"
+- name: "windows"
+  color: "#0078D4"
+  description: "Related to Windows."
+  aliases:
+    - "* Windows"
+    - "Platform/Windows"
+- name: "yara"
+  color: "#808080"
+  description: "Related to YARA."
+  aliases:
+    - "* YARA"
+    - "Platform/YARA"

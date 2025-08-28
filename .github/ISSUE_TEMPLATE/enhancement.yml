@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-issue-forms.json
+name: "Feature Request"
+description: "Suggest an idea."
+labels:
+  - "enhancement 💡"
+body:
+  - type: "textarea"
+    id: "describe"
+    attributes:
+      label: "Describe"
+      description: |-
+        What feature do you want? Is your feature request related to a problem?
+
+        If needed, use images, videos, or other types of media to help for explain this feature; Not accept any external resource.
+    validations:
+      required: true
+  - type: "textarea"
+    id: "additional"
+    attributes:
+      label: "Additional"
+      description: |-
+        Information which relevant to this feature but not suitable at other fields.
+    validations:
+      required: false
